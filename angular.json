@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngxs-data": {
+    "integration": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngxs-data",
+            "outputPath": "dist/integration",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,71 +50,44 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngxs-data:build"
+            "browserTarget": "integration:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngxs-data:build:production"
+              "browserTarget": "integration:build:production"
             }
           }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+        }
+      }
+    },
+    "ngxs-data": {
+      "projectType": "library",
+      "root": "ngxs/data",
+      "sourceRoot": "ngxs/data/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "browserTarget": "ngxs-data:build"
+            "tsConfig": "ngxs/data/tsconfig.lib.json",
+            "project": "ngxs/data/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "main": "ngxs/data/src/test.ts",
+            "tsConfig": "ngxs/data/tsconfig.spec.json",
+            "karmaConfig": "ngxs/data/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "ngxs/data/tsconfig.lib.json",
+              "ngxs/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "ngxs-data-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ngxs-data:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngxs-data:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
@@ -123,5 +96,5 @@
       }
     }
   },
-  "defaultProject": "ngxs-data"
+  "defaultProject": "integration"
 }
