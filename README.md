@@ -1,27 +1,131 @@
-# NgxsData
+## NGXS Persistence API (@ngxs-labs/data)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+NGXS Persistence API is an extension based the Repository Design Pattern that offers a gentle introduction to NGXS by simplifying management of entities or plain data while reducing the amount of explicitness.
 
-## Development server
+![](https://habrastorage.org/webt/jd/t4/wo/jdt4woihu-chhiwlqqd4eogpelu.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Key Concepts
 
-## Code scaffolding
+- the main purpose of this extension is to provide the necessary layer of abstraction for states.
+- automates the creation of actions, dispatchers, and selectors for each entity type.
+-
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Registering plugin
 
-## Build
+```ts
+...
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    NgxsModule.forRoot([ CountState ], {
+      developmentMode: !environment.production
+    }),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsDataPluginModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
-## Running unit tests
+### CountState
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+count.state.ts
 
-## Running end-to-end tests
+```ts
+import { State } from '@ngxs/store';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+export interface CountModel {
+  val: number;
+}
 
-## Further help
+@State({
+  name: 'count',
+  defaults: { val: 0 }
+})
+export class CountState {}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+count.repository.ts
+
+```ts
+import { action, Immutable, NgxsDataRepository, Repository } from '@ngxs-labs/data';
+import { CountState } from './count.state';
+import { CountModel } from './count.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Repository(CountState)
+export class CountRepository extends NgxsDataRepository<CountModel> {
+  public get value$(): Observable<number> {
+    return this.state$.pipe(map((val: CountModel) => val.val));
+  }
+
+  @action()
+  public increment(): Immutable<CountModel> {
+    return this.ctx.setState((state: Immutable<CountModel>) => ({
+      val: state.val + 1
+    }));
+  }
+
+  @action()
+  public decrement(): Immutable<CountModel> {
+    return this.ctx.setState((state: Immutable<CountModel>) => ({
+      val: state.val - 1
+    }));
+  }
+
+  @action()
+  public setValueFromInput(val: string): void {
+    this.ctx.setState({ val: parseFloat(val) });
+  }
+}
+```
+
+app.component.ts
+
+```ts
+...
+
+@Component({
+  selector: 'app',
+  template: `
+    state$ = {{ counter.value$ | async }}
+    <br />
+    <br />
+
+    <button (click)="counter.increment()">increment</button>
+    <button (click)="counter.decrement()">decrement</button>
+
+    <br />
+    <br />
+
+    <input type="text" #inputElement />
+    <button (click)="counter.setValueFromInput(inputElement.value)">setValueFromInput</button>
+
+    <br />
+    <br />
+
+    <button (click)="counter.reset()">reset</button>
+  `
+})
+export class AppComponent {
+  constructor(public counter: CountRepository) {}
+}
+```
+
+Benefits:
+
+- No breaking changes
+- Angular-way (service abstraction)
+- Improved debugging (payload by arguments)
+- Automatic action naming by service methods
+- Custom select data with `this.state$.pipe(..)`
+
+![](https://habrastorage.org/webt/hg/gz/92/hggz92co_9mvmk8rfqkxfud0bq8.png)
+
+![](https://habrastorage.org/webt/60/7v/ja/607vja_6rkbxsnlfidusmv3263u.png)

@@ -2,27 +2,18 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "target": "es2015",
+    "lib": ["es2017", "dom"],
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@ngxs/data": [
-        "dist/ngxs/data"
-      ],
-      "@ngxs/data/*": [
-        "dist/ngxs/data/*"
-      ]
+      "@ngxs-labs/data": ["ngxs/data/src/public-api.ts"]
     }
   }
 }
