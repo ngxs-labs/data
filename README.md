@@ -1,22 +1,21 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
-  
   NGXS is a state management pattern + library for Angular
-  <br /><br />
+  <br />
+</p>
+  
+<p align="center">
   
   <a href="https://travis-ci.org/ngxs-labs/data">
     <img src="https://api.travis-ci.org/ngxs-labs/ngxs-labs.svg?branch=master" />
   </a>
-
   <a href="https://badge.fury.io/js/%40ngxs-labs%2Fdata">
     <img src="https://badge.fury.io/js/%40ngxs-labs%2Fdata.svg" />
-  </a> 
-  
+  </a>
   <a href="https://npm-stat.com/charts.html?package=%40ngxs-labs%data&from=2017-01-12">
     <img src="https://img.shields.io/npm/dt/@ngxs-labs/data.svg" />
   </a>
-
 </p>
 
 ---
