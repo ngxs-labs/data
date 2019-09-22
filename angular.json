@@ -5,7 +5,7 @@
   "projects": {
     "integration": {
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "integration",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -14,25 +14,20 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/integration",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "index": "integration/index.html",
+            "main": "integration/main.ts",
+            "polyfills": "integration/polyfills.ts",
+            "tsConfig": "integration/tsconfig.app.json",
+            "assets": ["integration/favicon.ico", "integration/assets"],
+            "styles": ["integration/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "integration/environments/environment.ts",
+                  "with": "integration/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -42,7 +37,7 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true
             }
           }
@@ -62,35 +57,15 @@
     },
     "ngxs-data": {
       "projectType": "library",
-      "root": "ngxs/data",
-      "sourceRoot": "ngxs/data/src",
+      "root": "src",
+      "sourceRoot": "src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "ngxs/data/tsconfig.lib.json",
-            "project": "ngxs/data/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "ngxs/data/src/test.ts",
-            "tsConfig": "ngxs/data/tsconfig.spec.json",
-            "karmaConfig": "ngxs/data/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "ngxs/data/tsconfig.lib.json",
-              "ngxs/data/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": "src/tsconfig.lib.json",
+            "project": "src/ng-package.json"
           }
         }
       }

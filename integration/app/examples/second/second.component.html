@@ -1,0 +1,11 @@
+<h3>Todo Form</h3>
+<div class="add-todo">
+  <input placeholder="New Todo" #text />
+  <button (click)="todo.addTodo(text.value)">Add</button>
+  <button (click)="todo.reset()">Reset</button>
+</div>
+<ul>
+  <li class="todo" *ngFor="let todoItem of todo.state$ | async; let i = index">
+    {{ todoItem }} <button (click)="todo.removeTodo(i)">🗑</button>
+  </li>
+</ul>
