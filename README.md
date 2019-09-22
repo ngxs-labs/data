@@ -1,3 +1,26 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
+  <br />
+  
+  NGXS is a state management pattern + library for Angular
+  <br /><br />
+  
+  <a href="https://travis-ci.org/ngxs-labs/data">
+    <img src="https://api.travis-ci.org/ngxs-labs/ngxs-labs.svg?branch=master" />
+  </a>
+
+  <a href="https://badge.fury.io/js/%40ngxs-labs%2Fdata">
+    <img src="https://badge.fury.io/js/%40ngxs-labs%2Fdata.svg" />
+  </a> 
+  
+  <a href="https://npm-stat.com/charts.html?package=%40ngxs-labs%data&from=2017-01-12">
+    <img src="https://img.shields.io/npm/dt/@ngxs-labs/data.svg" />
+  </a>
+
+</p>
+
+---
+
 ## NGXS Persistence API (@ngxs-labs/data)
 
 NGXS Persistence API is an extension based the Repository Design Pattern that offers a gentle introduction to NGXS by simplifying management of entities or plain data while reducing the amount of explicitness.
@@ -47,20 +70,8 @@ export interface CountModel {
   name: 'count',
   defaults: { val: 0 }
 })
-export class CountState {}
-```
-
-count.repository.ts
-
-```ts
-import { action, Immutable, NgxsDataRepository, Repository } from '@ngxs-labs/data';
-import { CountState } from './count.state';
-import { CountModel } from './count.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-@Repository(CountState)
-export class CountRepository extends NgxsDataRepository<CountModel> {
+@StateRepository()
+export class CountState extends NgxsDataRepository<number> {
   public get value$(): Observable<number> {
     return this.state$.pipe(map((val: CountModel) => val.val));
   }
@@ -114,7 +125,7 @@ app.component.ts
   `
 })
 export class AppComponent {
-  constructor(public counter: CountRepository) {}
+  constructor(public counter: CountState) {}
 }
 ```
 
@@ -125,7 +136,23 @@ Benefits:
 - Improved debugging (payload by arguments)
 - Automatic action naming by service methods
 - Custom select data with `this.state$.pipe(..)`
+- Works with NGXS Lifecycle
 
+<details>
+<summary>Debug example</summary>
+<div><br>
+  
 ![](https://habrastorage.org/webt/hg/gz/92/hggz92co_9mvmk8rfqkxfud0bq8.png)
 
 ![](https://habrastorage.org/webt/60/7v/ja/607vja_6rkbxsnlfidusmv3263u.png)
+
+<br>
+</div>
+
+</details>
+
+### TODO
+
+- [x] NgxsDataRepository<T>
+- [ ] NgxsEntityRepository<T>
+- [ ] State persistence (Local, Cookie, IndexDB)
