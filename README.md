@@ -47,20 +47,8 @@ export interface CountModel {
   name: 'count',
   defaults: { val: 0 }
 })
-export class CountState {}
-```
-
-count.repository.ts
-
-```ts
-import { action, Immutable, NgxsDataRepository, Repository } from '@ngxs-labs/data';
-import { CountState } from './count.state';
-import { CountModel } from './count.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-@Repository(CountState)
-export class CountRepository extends NgxsDataRepository<CountModel> {
+@StateRepository()
+export class CountState extends NgxsDataRepository<number> {
   public get value$(): Observable<number> {
     return this.state$.pipe(map((val: CountModel) => val.val));
   }
@@ -114,7 +102,7 @@ app.component.ts
   `
 })
 export class AppComponent {
-  constructor(public counter: CountRepository) {}
+  constructor(public counter: CountState) {}
 }
 ```
 
@@ -125,7 +113,23 @@ Benefits:
 - Improved debugging (payload by arguments)
 - Automatic action naming by service methods
 - Custom select data with `this.state$.pipe(..)`
+- Works with NGXS Lifecycle
 
+<details>
+<summary>Debug example</summary>
+<div><br>
+  
 ![](https://habrastorage.org/webt/hg/gz/92/hggz92co_9mvmk8rfqkxfud0bq8.png)
 
 ![](https://habrastorage.org/webt/60/7v/ja/607vja_6rkbxsnlfidusmv3263u.png)
+
+<br>
+</div>
+
+</details>
+
+### TODO
+
+- [x] NgxsDataRepository<T>
+- [ ] NgxsEntityRepository<T>
+- [ ] State persistence (Local, Cookie, IndexDB)
