@@ -1,0 +1,12 @@
+state$ = {{ counter.value$ | async }}
+<br />
+<br />
+
+<button (click)="counter.increment()">increment</button>
+<button (click)="counter.decrement()">decrement</button>
+<button (click)="counter.reset()">reset</button>
+
+<br />
+
+<input type="text" #inputElement />
+<button (click)="counter.setValueFromInput(inputElement.value)">setValueFromInput</button>
