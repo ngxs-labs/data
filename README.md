@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
-  NGXS is a state management pattern + library for Angular
+  <b>NGXS Persistence API (@ngxs-labs/data)</b>
   <br />
 </p>
   
@@ -20,7 +20,7 @@
 
 ---
 
-## NGXS Persistence API (@ngxs-labs/data)
+## Introduction
 
 NGXS Persistence API is an extension based the Repository Design Pattern that offers a gentle introduction to NGXS by simplifying management of entities or plain data while reducing the amount of explicitness.
 
