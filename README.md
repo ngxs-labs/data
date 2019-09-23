@@ -60,6 +60,7 @@ count.state.ts
 
 ```ts
 import { State } from '@ngxs/store';
+import { StateRepository, NgxsDataRepository, action } from '@ngxs-labs/data';
 
 export interface CountModel {
   val: number;
