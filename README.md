@@ -30,7 +30,6 @@ NGXS Persistence API is an extension based the Repository Design Pattern that of
 
 - the main purpose of this extension is to provide the necessary layer of abstraction for states.
 - automates the creation of actions, dispatchers, and selectors for each entity type.
--
 
 ### Registering plugin
 
