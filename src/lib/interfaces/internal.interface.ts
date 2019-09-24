@@ -1,5 +1,6 @@
 import { Immutable } from './external.interface';
 import { ActionType } from '@ngxs/store';
+import { InjectionToken } from '@angular/core';
 
 export interface PlainObjectOf<T> {
   [key: string]: T;
@@ -19,3 +20,11 @@ export type DeepImmutableObject<T> = {
 };
 
 export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
+
+export const STATE_FACTORY: InjectionToken<string> = new InjectionToken<string>(
+  'STATE_FACTORY'
+);
+
+export const STATE_CONTEXT_FACTORY: InjectionToken<string> = new InjectionToken<string>(
+  'STATE_CONTEXT_FACTORY'
+);

@@ -1,4 +1,7 @@
 import { ModuleWithProviders, NgModule, Self } from '@angular/core';
+import { ɵn as StateFactory, ɵq as StateContextFactory } from '@ngxs/store';
+
+import { STATE_CONTEXT_FACTORY, STATE_FACTORY } from './interfaces/internal.interface';
 import { NgxsDataAccessor } from './services/data-access-injector.service';
 import { NgxsDataOptions } from './interfaces/external.interface';
 
@@ -7,12 +10,19 @@ export class NgxsDataPluginModule {
   constructor(@Self() public accessor: NgxsDataAccessor) {}
 
   public static forRoot(options: NgxsDataOptions = {}): ModuleWithProviders {
-    NgxsDataAccessor.factoryRef = options.factory || null;
-    NgxsDataAccessor.contextRef = options.context || null;
-
     return {
       ngModule: NgxsDataPluginModule,
-      providers: [NgxsDataAccessor]
+      providers: [
+        {
+          provide: STATE_FACTORY,
+          useValue: options.factory || StateFactory
+        },
+        {
+          provide: STATE_CONTEXT_FACTORY,
+          useValue: options.context || StateContextFactory
+        },
+        NgxsDataAccessor
+      ]
     };
   }
 }

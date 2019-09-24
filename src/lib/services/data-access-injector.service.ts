@@ -1,14 +1,14 @@
-import { Injectable, Injector } from '@angular/core';
-import {
-  StateContext,
-  Store,
-  ɵn as StateFactory,
-  ɵq as StateContextFactory
-} from '@ngxs/store';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { StateContext, Store } from '@ngxs/store';
 
 import { getRepository } from '../internals/ensure-repository';
-import { Any, PlainObjectOf } from '../interfaces/internal.interface';
+import {
+  Any,
+  PlainObjectOf,
+  STATE_CONTEXT_FACTORY,
+  STATE_FACTORY
+} from '../interfaces/internal.interface';
 import {
   NGXS_DATA_EXCEPTIONS,
   NgxsDataOperation,
@@ -18,21 +18,19 @@ import {
 @Injectable()
 export class NgxsDataAccessor {
   public static store: Store | null = null;
-  public static factoryRef: typeof StateFactory | null = null;
-  public static contextRef: typeof StateContextFactory | null = null;
-  public static context: StateContextFactory | null = null;
-  public static factory: StateFactory | null = null;
+  public static context: Any | null = null;
+  public static factory: Any | null = null;
   private static readonly statesCachedMeta: Map<string, MappedStore> = new Map();
 
-  constructor(injector: Injector) {
+  constructor(
+    injector: Injector,
+    @Inject(STATE_FACTORY) stateFactoryRef: Any,
+    @Inject(STATE_CONTEXT_FACTORY) stateContextFactoryRef
+  ) {
     NgxsDataAccessor.statesCachedMeta.clear();
     NgxsDataAccessor.store = injector.get<Store>(Store);
-    NgxsDataAccessor.factory = NgxsDataAccessor.factoryRef
-      ? injector.get<Any>(NgxsDataAccessor.factoryRef)
-      : injector.get<StateFactory>(StateFactory);
-    NgxsDataAccessor.context = NgxsDataAccessor.contextRef
-      ? injector.get<Any>(NgxsDataAccessor.contextRef)
-      : injector.get<StateContextFactory>(StateContextFactory);
+    NgxsDataAccessor.factory = injector.get<Any>(stateFactoryRef);
+    NgxsDataAccessor.context = injector.get<Any>(stateContextFactoryRef);
   }
 
   public static createStateContext<T>(metadata: MappedStore): StateContext<T> {
