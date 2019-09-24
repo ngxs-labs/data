@@ -35,6 +35,7 @@ NGXS Persistence API is an extension based the Repository Design Pattern that of
 
 ```ts
 ...
+import { NgxsModule, ɵn as StateFactory, ɵq as StateContextFactory } from '@ngxs/store';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 
 @NgModule({
@@ -45,7 +46,7 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
       developmentMode: !environment.production
     }),
     NgxsLoggerPluginModule.forRoot(),
-    NgxsDataPluginModule.forRoot()
+    NgxsDataPluginModule.forRoot({ factory: StateFactory, context: StateContextFactory })
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -53,13 +54,18 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 export class AppModule {}
 ```
 
+Unfortunately, in runtime we cannot access some internal ngxs functionality, 
+so for now you need to computed class exports `StateFactory`, `StateContextFactory`.
+
+Note: please note that the symbols `ɵn, ɵq` may different in your code.
+
 ### CountState
 
 count.state.ts
 
 ```ts
+import { StateRepository, NgxsDataRepository, action, Immutable } from '@ngxs-labs/data';
 import { State } from '@ngxs/store';
-import { StateRepository, NgxsDataRepository, action } from '@ngxs-labs/data';
 
 export interface CountModel {
   val: number;

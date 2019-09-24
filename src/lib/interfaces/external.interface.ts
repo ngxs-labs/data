@@ -63,3 +63,8 @@ export enum NGXS_DATA_EXCEPTIONS {
   NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @action',
   NGXS_DATA_ACTION = '@action can only decorate a method implementation'
 }
+
+export interface NgxsDataOptions {
+  factory?: Any;
+  context?: Any;
+}

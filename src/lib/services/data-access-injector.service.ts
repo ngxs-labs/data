@@ -18,15 +18,21 @@ import {
 @Injectable()
 export class NgxsDataAccessor {
   public static store: Store | null = null;
-  private static context: StateContextFactory | null = null;
-  private static factory: StateFactory | null = null;
+  public static factoryRef: typeof StateFactory | null = null;
+  public static contextRef: typeof StateContextFactory | null = null;
+  public static context: StateContextFactory | null = null;
+  public static factory: StateFactory | null = null;
   private static readonly statesCachedMeta: Map<string, MappedStore> = new Map();
 
   constructor(injector: Injector) {
     NgxsDataAccessor.statesCachedMeta.clear();
     NgxsDataAccessor.store = injector.get<Store>(Store);
-    NgxsDataAccessor.factory = injector.get<StateFactory>(StateFactory);
-    NgxsDataAccessor.context = injector.get<StateContextFactory>(StateContextFactory);
+    NgxsDataAccessor.factory = NgxsDataAccessor.factoryRef
+      ? injector.get<Any>(NgxsDataAccessor.factoryRef)
+      : injector.get<StateFactory>(StateFactory);
+    NgxsDataAccessor.context = NgxsDataAccessor.contextRef
+      ? injector.get<Any>(NgxsDataAccessor.contextRef)
+      : injector.get<StateContextFactory>(StateContextFactory);
   }
 
   public static createStateContext<T>(metadata: MappedStore): StateContext<T> {

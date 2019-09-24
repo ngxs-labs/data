@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { NgxsModule, ɵn as StateFactory, ɵq as StateContextFactory } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -35,7 +35,7 @@ import { RouterModule } from '@angular/router';
       developmentMode: !environment.production
     }),
     NgxsLoggerPluginModule.forRoot(),
-    NgxsDataPluginModule.forRoot()
+    NgxsDataPluginModule.forRoot({ factory: StateFactory, context: StateContextFactory })
   ],
   providers: [],
   bootstrap: [AppComponent]
