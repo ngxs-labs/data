@@ -71,11 +71,11 @@ export interface CountModel {
   val: number;
 }
 
-@State({
+@StateRepository()
+@State<CountModel>({
   name: 'count',
   defaults: { val: 0 }
 })
-@StateRepository()
 export class CountState extends NgxsDataRepository<number> {
   public get value$(): Observable<number> {
     return this.state$.pipe(map((val: CountModel) => val.val));
