@@ -66,7 +66,10 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
             const event: ActionEvent = { type: operation.type, payload };
 
             if (options.async) {
-                scheduleTask && scheduleTask.complete();
+                if (scheduleTask) {
+                    scheduleTask.complete();
+                }
+
                 const resultStream: Subject<Any> = (scheduleTask = new Subject<Any>());
                 const source: Observable<Any> = resultStream.asObservable().pipe(first());
 

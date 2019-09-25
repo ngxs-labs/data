@@ -1,7 +1,8 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
-  <b>NGXS Persistence API (@ngxs-labs/data)</b>
+  <b>NGXS Persistence API (@ngxs-labs/data)</b> <br />
+  <b>🚀 See it in action on <a href="https://stackblitz.com/edit/ngxs-labs-data">Stackblitz</a></b>
   <br />
 </p>
   
@@ -65,8 +66,9 @@ Note: please note that the symbols `ɵn, ɵq` may different in your code.
 count.state.ts
 
 ```ts
-import { StateRepository, NgxsDataRepository, action, Immutable } from '@ngxs-labs/data';
+import { action, Immutable, NgxsDataRepository, query, StateRepository } from '@ngxs-labs/data';
 import { State } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 export interface CountModel {
     val: number;

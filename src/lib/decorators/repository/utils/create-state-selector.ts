@@ -18,7 +18,7 @@ export function createStateSelector<T>(stateClass: Function): void {
         state$: {
             enumerable: true,
             configurable: true,
-            get(): Observable<any> {
+            get(): Observable<Any> {
                 return (
                     this[selectorId] ||
                     (this[selectorId] = NgxsDataAccessor.store.select(stateClass as Any).pipe(

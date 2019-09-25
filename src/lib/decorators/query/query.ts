@@ -3,9 +3,10 @@ import { finalize, map, shareReplay } from 'rxjs/operators';
 
 import { Immutable } from '../../interfaces/external.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
+import { Any } from '../../interfaces/internal.interface';
 
 export function query<T, R = T>(selector: (val: Immutable<T>) => Immutable<R>) {
-    return <U extends NgxsDataRepository<any> & Record<K, Observable<R>>, K extends string>(
+    return <U extends NgxsDataRepository<Any> & Record<K, Observable<R>>, K extends string>(
         target: U,
         key: K
     ): void => {
