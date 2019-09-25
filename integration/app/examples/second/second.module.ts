@@ -7,11 +7,11 @@ import { SecondComponent } from './second.component';
 import { TodoState } from './todo/todo.state';
 
 @NgModule({
-  declarations: [SecondComponent],
-  imports: [
-    CommonModule,
-    NgxsModule.forFeature([TodoState]),
-    RouterModule.forChild([{ path: '', component: SecondComponent }])
-  ]
+    declarations: [SecondComponent],
+    imports: [
+        CommonModule,
+        NgxsModule.forFeature([TodoState]),
+        RouterModule.forChild([{ path: '', component: SecondComponent }])
+    ]
 })
 export class SecondModule {}

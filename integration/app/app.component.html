@@ -1,8 +1,3 @@
-<div class="left-panel">
-  <h2>Store:</h2>
-  <pre>{{ snapshot | async | json }}</pre>
-</div>
-
 Examples:
 <a class="link" [routerLink]="['first']">CountState</a>
 <a class="link" [routerLink]="['second']">TodoState</a>
@@ -10,5 +5,12 @@ Examples:
 <br /><br />
 
 <div class="container">
-  <router-outlet></router-outlet>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div class="panel">
+        <h2>Store:</h2>
+        <pre>{{ snapshot | async | json }}</pre>
+    </div>
 </div>

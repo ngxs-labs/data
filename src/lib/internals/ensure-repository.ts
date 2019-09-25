@@ -6,18 +6,18 @@ import { NGXS_DATA_META, NgxsRepositoryMeta } from '../interfaces/external.inter
  * because you need support access from parent inheritance class
  */
 export function ensureRepository<T>(target: Function): NgxsRepositoryMeta<T> {
-  if (!target[NGXS_DATA_META]) {
-    Object.defineProperty(target, NGXS_DATA_META, {
-      value: {
-        stateMeta: null,
-        operations: {}
-      }
-    });
-  }
+    if (!target[NGXS_DATA_META]) {
+        Object.defineProperty(target, NGXS_DATA_META, {
+            value: {
+                stateMeta: null,
+                operations: {}
+            }
+        });
+    }
 
-  return getRepository(target);
+    return getRepository(target);
 }
 
 export function getRepository<T>(target: Function): NgxsRepositoryMeta<T> {
-  return target[NGXS_DATA_META];
+    return target[NGXS_DATA_META];
 }

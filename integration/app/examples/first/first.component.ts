@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CountState } from './count/count.state';
 
 @Component({
-  selector: 'first',
-  templateUrl: 'first.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'first',
+    templateUrl: 'first.component.html'
 })
 export class FirstComponent {
-  constructor(public counter: CountState) {}
+    constructor(public counter: CountState) {}
 }

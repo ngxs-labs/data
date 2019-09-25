@@ -1,14 +1,11 @@
-.left-panel {
-  position: absolute;
-  left: 0;
-  width: calc(300px - 40px);
-  background: #fff;
-  height: calc(100% - 40px);
-  top: 0;
-  padding: 20px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.12);
+.panel {
+    background: #fff;
+    overflow: auto;
+    padding: 20px;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 12px;
 }
 
 .link {
-  margin-right: 10px;
+    margin-right: 10px;
 }

@@ -7,22 +7,22 @@ import { NgxsDataOptions } from './interfaces/external.interface';
 
 @NgModule()
 export class NgxsDataPluginModule {
-  constructor(@Self() public accessor: NgxsDataAccessor) {}
+    constructor(@Self() public accessor: NgxsDataAccessor) {}
 
-  public static forRoot(options: NgxsDataOptions = {}): ModuleWithProviders {
-    return {
-      ngModule: NgxsDataPluginModule,
-      providers: [
-        {
-          provide: STATE_FACTORY,
-          useValue: options.factory || StateFactory
-        },
-        {
-          provide: STATE_CONTEXT_FACTORY,
-          useValue: options.context || StateContextFactory
-        },
-        NgxsDataAccessor
-      ]
-    };
-  }
+    public static forRoot(options: NgxsDataOptions = {}): ModuleWithProviders {
+        return {
+            ngModule: NgxsDataPluginModule,
+            providers: [
+                {
+                    provide: STATE_FACTORY,
+                    useValue: options.factory || StateFactory
+                },
+                {
+                    provide: STATE_CONTEXT_FACTORY,
+                    useValue: options.context || StateContextFactory
+                },
+                NgxsDataAccessor
+            ]
+        };
+    }
 }

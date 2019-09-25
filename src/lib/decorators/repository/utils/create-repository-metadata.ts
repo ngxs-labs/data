@@ -7,6 +7,6 @@ import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';
  * @description need mutate metadata for correct reference
  */
 export function createRepositoryMetadata<T>(target: Function, stateMeta: MetaDataModel): void {
-  const repositoryMeta: NgxsRepositoryMeta<T> = ensureRepository(target);
-  repositoryMeta.stateMeta = stateMeta;
+    const repositoryMeta: NgxsRepositoryMeta<T> = ensureRepository(target);
+    repositoryMeta.stateMeta = stateMeta;
 }

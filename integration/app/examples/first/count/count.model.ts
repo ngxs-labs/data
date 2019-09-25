@@ -1,3 +1,3 @@
 export interface CountModel {
-  val: number;
+    val: number;
 }
