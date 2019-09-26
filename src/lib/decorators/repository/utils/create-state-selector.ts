@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { finalize, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { getRepository } from '../../../internals/ensure-repository';
 import { NgxsDataAccessor } from '../../../services/data-access-injector.service';
@@ -21,12 +21,9 @@ export function createStateSelector<T>(stateClass: Function): void {
             get(): Observable<Any> {
                 return (
                     this[selectorId] ||
-                    (this[selectorId] = NgxsDataAccessor.store.select(stateClass as Any).pipe(
-                        shareReplay({ refCount: true, bufferSize: 1 }),
-                        finalize(() => {
-                            this[selectorId] = null;
-                        })
-                    ))
+                    (this[selectorId] = NgxsDataAccessor.store
+                        .select(stateClass as Any)
+                        .pipe(shareReplay({ refCount: true, bufferSize: 1 })))
                 );
             }
         }

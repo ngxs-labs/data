@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { finalize, map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { Immutable } from '../../interfaces/external.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
@@ -17,10 +17,7 @@ export function query<T, R = T>(selector: (val: Immutable<T>) => Immutable<R>) {
                 memoized ||
                 (memoized = target.state$.pipe(
                     map((state: Immutable<T>) => selector(state)),
-                    shareReplay({ refCount: true, bufferSize: 1 }),
-                    finalize(() => {
-                        memoized = null;
-                    })
+                    shareReplay({ refCount: true, bufferSize: 1 })
                 ))
             );
         };
