@@ -1,6 +1,6 @@
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, Subject } from 'rxjs';
-import { debounceTime, finalize, first, map } from 'rxjs/operators';
+import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { Type } from '@angular/core';
 
 import {
@@ -71,7 +71,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 }
 
                 const resultStream: Subject<Any> = (scheduleTask = new Subject<Any>());
-                const source: Observable<Any> = resultStream.asObservable().pipe(first());
+                const source: Observable<Any> = resultStream.asObservable().pipe(take(1));
 
                 const throttleTask: Promise<Any> = new Promise((resolve) => {
                     NgxsDataAccessor.ngZone.runOutsideAngular(() => {
@@ -85,7 +85,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
                     if (isObservable(result)) {
                         combine(dispatched, result)
-                            .pipe(first())
+                            .pipe(take(1))
                             .subscribe((val: Any) => {
                                 resultStream.next(val);
                                 resultStream.complete();
