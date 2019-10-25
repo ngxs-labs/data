@@ -32,7 +32,7 @@
     "@angular/cli": "~8.3.14",
     "@angular/compiler-cli": "^8.2.12",
     "@angular/language-service": "^8.2.12",
-    "@types/jest": "^24.0.19",
+    "@types/jest": "^24.0.20",
     "@types/node": "~12.7.1",
     "codelyzer": "~5.2.0",
     "colors": "^1.4.0",
