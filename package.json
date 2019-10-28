@@ -21,7 +21,7 @@
     "@angular/router": "^8.2.12",
     "@ngxs/store": "^3.5.0",
     "@ngxs/logger-plugin": "^3.5.1",
-    "core-js": "^3.3.4",
+    "core-js": "^3.3.5",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "^0.10.2"
