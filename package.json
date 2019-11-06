@@ -43,7 +43,7 @@
     "ng-packagr": "^5.7.1",
     "prettier": "^1.18.2",
     "ts-node": "~8.4.1",
-    "tsickle": "^0.37.0",
+    "tsickle": "^0.37.1",
     "tslint": "~5.20.1",
     "typescript": "~3.5.3"
   }
