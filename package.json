@@ -42,7 +42,7 @@
     "jest": "24.9.0",
     "ng-packagr": "^5.7.1",
     "prettier": "^1.19.1",
-    "ts-node": "~8.5.0",
+    "ts-node": "~8.5.2",
     "tsickle": "^0.37.1",
     "tslint": "~5.20.1",
     "typescript": "~3.5.3"
