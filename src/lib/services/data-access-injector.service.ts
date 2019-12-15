@@ -1,10 +1,11 @@
+import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Inject, Injectable, Injector, NgZone } from '@angular/core';
 import { StateContext, Store } from '@ngxs/store';
 
-import { getRepository } from '../internals/ensure-repository';
-import { Any, PlainObjectOf, STATE_CONTEXT_FACTORY, STATE_FACTORY } from '../interfaces/internal.interface';
 import { NGXS_DATA_EXCEPTIONS, NgxsDataOperation, NgxsRepositoryMeta } from '../interfaces/external.interface';
+import { Any, PlainObjectOf } from '../interfaces/internal.interface';
+import { getRepository } from '../internals/ensure-repository';
 
 @Injectable()
 export class NgxsDataAccessor {
@@ -16,14 +17,14 @@ export class NgxsDataAccessor {
 
     constructor(
         injector: Injector,
-        @Inject(STATE_FACTORY) stateFactoryRef: Any,
-        @Inject(STATE_CONTEXT_FACTORY) stateContextFactoryRef
+        @Inject(NGXS_STATE_FACTORY) stateFactory: Any,
+        @Inject(NGXS_STATE_CONTEXT_FACTORY) stateContextFactory
     ) {
         NgxsDataAccessor.statesCachedMeta.clear();
         NgxsDataAccessor.store = injector.get<Store>(Store);
-        NgxsDataAccessor.factory = injector.get<Any>(stateFactoryRef);
-        NgxsDataAccessor.context = injector.get<Any>(stateContextFactoryRef);
         NgxsDataAccessor.ngZone = injector.get<NgZone>(NgZone);
+        NgxsDataAccessor.factory = stateFactory;
+        NgxsDataAccessor.context = stateContextFactory;
     }
 
     public static createStateContext<T>(metadata: MappedStore): StateContext<T> {

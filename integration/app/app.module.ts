@@ -1,4 +1,4 @@
-import { NgxsModule, ɵn as StateFactory, ɵq as StateContextFactory } from '@ngxs/store';
+import { NgxsModule } from '@ngxs/store';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -36,7 +36,7 @@ import { FormsModule } from '@angular/forms';
             developmentMode: !environment.production
         }),
         NgxsLoggerPluginModule.forRoot(),
-        NgxsDataPluginModule.forRoot({ factory: StateFactory, context: StateContextFactory })
+        NgxsDataPluginModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]
