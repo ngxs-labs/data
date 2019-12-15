@@ -1,22 +1,25 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "noUnusedLocals": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
-    "lib": ["es2017", "dom"],
-    "module": "esnext",
-    "typeRoots": ["node_modules/@types"],
-    "paths": {
-      "@ngxs-labs/data": ["src/public-api.ts"]
+    "compileOnSave": false,
+    "angularCompilerOptions": {
+        "disableTypeScriptVersionCheck": true
+    },
+    "compilerOptions": {
+        "baseUrl": "./",
+        "downlevelIteration": true,
+        "noUnusedLocals": true,
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "target": "es2015",
+        "lib": ["es2017", "dom"],
+        "module": "esnext",
+        "typeRoots": ["node_modules/@types"],
+        "paths": {
+            "@ngxs-labs/data": ["src/public-api.ts"]
+        }
     }
-  }
 }

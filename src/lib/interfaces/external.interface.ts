@@ -46,12 +46,12 @@ export interface DataRepository<T> {
     state$: Observable<Immutable<T>>;
 }
 
-export interface ImmutableStateContext<T, R = T> {
+export interface ImmutableStateContext<T> {
     getState(): Immutable<T>;
 
-    setState(val: T | Immutable<T> | StateOperator<Immutable<T>>): Immutable<R>;
+    setState(val: T | Immutable<T> | StateOperator<Immutable<T>>): void;
 
-    patchState(val: Partial<T | Immutable<T>>): Immutable<R>;
+    patchState(val: Partial<T | Immutable<T>>): void;
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 }
@@ -68,11 +68,6 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_DATA_ACTION_RETURN_TYPE = 'RECOMMENDATION: If you use asynchronous actions' +
         ' `@action({ async: true })`, ' +
         'the return result type should only be Observable or void instead'
-}
-
-export interface NgxsDataOptions {
-    factory?: Any;
-    context?: Any;
 }
 
 export type StateValue<T> = T | Immutable<T> | StateOperator<Immutable<T>>;

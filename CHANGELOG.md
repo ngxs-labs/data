@@ -5,4 +5,5 @@
 ### BREAKING CHANGES
 
 - Support only NGXS 3.6+
+- Now `patchState, setState` return `void`
 - No longer support options in `NgxsDataPluginModule.forRoot()`
