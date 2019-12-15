@@ -4,7 +4,8 @@
     "lib": {
         "entryFile": "public-api.ts",
         "umdModuleIds": {
-            "@ngxs/store": "ngxs-store"
+            "@ngxs/store": "ngxs-store",
+            "@ngxs/store/internals": "ngxs-store-internals"
         }
     }
 }

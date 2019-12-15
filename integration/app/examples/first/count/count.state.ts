@@ -5,24 +5,24 @@ import { Observable } from 'rxjs';
 
 import { CountModel } from './count.model';
 
-@Injectable()
 @StateRepository()
 @State<CountModel>({
     name: 'count',
     defaults: { val: 0 }
 })
+@Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
     @query<CountModel, number>((state) => state.val)
     public values$: Observable<number>;
 
     @action()
-    public increment(): Immutable<CountModel> {
-        return this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
+    public increment(): void {
+        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
     }
 
     @action()
-    public decrement(): Immutable<CountModel> {
-        return this.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
+    public decrement(): void {
+        this.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
     }
 
     @action({ async: true, debounce: 300 })

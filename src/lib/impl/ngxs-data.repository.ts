@@ -1,4 +1,4 @@
-import { ActionType } from '@ngxs/store';
+import { ActionType, StateOperator } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import {
@@ -8,23 +8,31 @@ import {
     NGXS_DATA_EXCEPTIONS,
     StateValue
 } from '../interfaces/external.interface';
-import { Any, PlainObjectOf } from '../interfaces/internal.interface';
+import { Any } from '../interfaces/internal.interface';
 import { action } from '../decorators/action/action';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
     public readonly name: string;
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
-    private context: ImmutableStateContext<T, Any>;
+    private context: ImmutableStateContext<T>;
 
-    protected get ctx(): ImmutableStateContext<T, Any> {
-        const context: ImmutableStateContext<T, Any> = this.context || null;
+    protected get ctx(): ImmutableStateContext<T> {
+        const context: ImmutableStateContext<T> = this.context || null;
 
         if (!context) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
         }
 
-        return context;
+        return {
+            ...context,
+            setState(val: T | Immutable<T> | StateOperator<Immutable<T>>): void {
+                context.setState(val);
+            },
+            patchState(val: Partial<T | Immutable<T>>): void {
+                context.patchState(val);
+            }
+        };
     }
 
     public getState(): Immutable<T> {
@@ -36,24 +44,17 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
     }
 
     @action()
-    public patchState(val: Partial<T | Immutable<T>>): Immutable<T> {
-        const value: Any = this.ctx.patchState(val as Any);
-        return this.ensureStateValue(value);
+    public patchState(val: Partial<T | Immutable<T>>): void {
+        this.ctx.patchState(val as Any);
     }
 
     @action()
-    public setState(stateValue: StateValue<T>): Immutable<T> {
-        const value: Any = this.ctx.setState(stateValue as Any);
-        return this.ensureStateValue(value);
+    public setState(stateValue: StateValue<T>): void {
+        this.ctx.setState(stateValue as Any);
     }
 
     @action()
     public reset(): void {
         this.ctx.setState(this.initialState);
-    }
-
-    private ensureStateValue(val: Any): Immutable<T> {
-        const result: PlainObjectOf<Immutable<T>> = (val as PlainObjectOf<Immutable<T>>) || null;
-        return result ? result[this.name] : undefined;
     }
 }

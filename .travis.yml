@@ -10,9 +10,10 @@ cache:
     - node_modules
 
 install:
-  - npm install
+  - yarn install --frozen-lockfile --non-interactive
 
 script:
-  - npm run lint
-  - npm run test:ci
-  - npm run build
+  - yarn lint
+  - yarn test:ci
+  - yarn build:app
+  - yarn build:lib

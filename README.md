@@ -37,29 +37,20 @@ simplifying management of entities or plain data while reducing the amount of ex
 
 ```ts
 ...
-import { NgxsModule, ɵn as StateFactory, ɵq as StateContextFactory } from '@ngxs/store';
+import { NgxsModule } from '@ngxs/store';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgxsModule.forRoot([ CountState ], {
-      developmentMode: !environment.production
-    }),
-    NgxsLoggerPluginModule.forRoot(),
-    NgxsDataPluginModule.forRoot({ factory: StateFactory, context: StateContextFactory })
+    NgxsModule.forRoot([ .. ]),
+    NgxsDataPluginModule.forRoot()
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
 ```
-
-Unfortunately, in runtime we cannot access some internal ngxs functionality, so for now you need to computed class
-exports `StateFactory`, `StateContextFactory`.
-
-Note: please note that the symbols `ɵn, ɵq` may different in your code.
 
 ### CountState
 
@@ -74,11 +65,14 @@ export interface CountModel {
     val: number;
 }
 
+const COUNT_TOKEN = new StateToken<CountModel>('count');
+
 @StateRepository()
-@State<CountModel>({
-    name: 'count',
+@State({
+    name: COUNT_TOKEN,
     defaults: { val: 0 }
 })
+@Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
     @query<CountModel, number>((state) => state.val)
     public values$: Observable<number>;

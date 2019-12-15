@@ -32,12 +32,12 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
             this.ctx.setState((state) => ++state);
         }
 
-        public incorrectReturnedValue(val: number): number {
-            return this.ctx.setState(val);
+        public incorrectReturnedValue(val: number): void {
+            this.ctx.setState(val);
         }
 
-        public setValue(val: number): number {
-            return this.setState(val);
+        public setValue(val: number): void {
+            this.setState(val);
         }
 
         public asyncSetState() {
@@ -75,10 +75,12 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
     });
 
     it('should be identify non-obvious behavior', () => {
-        expect(count.setValue(5)).toEqual(5);
+        count.setValue(5);
+        expect(count.getState()).toEqual(5);
         expect(store.snapshot()).toEqual({ todos: [], count: 5 });
 
-        expect(count.incorrectReturnedValue(15)).toEqual({ todos: [], count: 15 });
+        count.incorrectReturnedValue(15);
+        expect(count.getState()).toEqual(15);
         expect(store.snapshot()).toEqual({ todos: [], count: 15 });
     });
 
