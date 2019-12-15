@@ -15,4 +15,5 @@ install:
 script:
   - npm run lint
   - npm run test:ci
-  - npm run build
+  - npm run build:app
+  - npm run build:lib
