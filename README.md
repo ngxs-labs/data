@@ -74,7 +74,7 @@ const COUNT_TOKEN = new StateToken<CountModel>('count');
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    @query<CountModel, number>((state) => state.val)
+    @Select((state) => state.val)
     public values$: Observable<number>;
 
     @action()
@@ -150,6 +150,5 @@ Benefits:
 ### TODO
 
 -   [x] NgxsDataRepository<T>
--   [x] Query decorator
 -   [ ] NgxsEntityRepository<T>
 -   [ ] State persistence (Local, Cookie, IndexDB)

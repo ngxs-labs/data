@@ -5,6 +5,10 @@ import { Immutable } from '../../interfaces/external.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
 import { Any } from '../../interfaces/internal.interface';
 
+/**
+ * deprecated since 2.0, use @Selector decorator from '@ngxs/store'
+ * @param selector
+ */
 export function query<T, R = T>(selector: (val: Immutable<T>) => Immutable<R>) {
     return <U extends NgxsDataRepository<Any> & Record<K, Observable<R>>, K extends string>(
         target: U,
