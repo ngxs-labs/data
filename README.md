@@ -74,17 +74,17 @@ const COUNT_TOKEN = new StateToken<CountModel>('count');
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    @Select((state) => state.val)
+    @Select(store => store.count.val)
     public values$: Observable<number>;
 
     @action()
     public increment(): void {
-       this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
+        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
     }
 
     @action()
     public decrement(): void {
-       this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
+        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
     }
 
     @action({ async: true, debounce: 300 })
@@ -148,7 +148,7 @@ Benefits:
 
 ### Persistence `decorator`
 
-```
+```ts
 @Persistence()
 @StateRepository()
 @State<string[]>({
@@ -156,8 +156,7 @@ Benefits:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
-}
+export class TodoState extends NgxsDataRepository<string[]> {}
 ```
 
 `@Persistence()` - If you add current decorator without options, then the `todo` state will synchronize with
@@ -178,7 +177,16 @@ export interface CountModel {
     val: number;
 }
 
-@Persistence([{ path: 'count.deepCount.val', existingEngine: sessionStorage }])
+const options: PersistenceProvider[] = [
+    {
+        path: 'count.deepCount.val',
+        existingEngine: sessionStorage,
+        prefixKey: '@mycompany.store.',
+        ttl: 60 * 60 * 24 * 1000 // 24 hour
+    }
+];
+
+@Persistence(options)
 @StateRepository()
 @State<CountModel>({
     name: 'deepCount',
@@ -248,10 +256,10 @@ interface UseClassEngineProvider extends CommonPersistenceProvider {
 }
 ```
 
-```
+```ts
 @Injectable({ providedIn: 'root' })
 class MyCustomStorage implements DataStorageEngine {
- // ...
+    // ...
 }
 
 @Persistence([{ path: 'todo', useClass: MyCustomStorage }])
@@ -261,8 +269,7 @@ class MyCustomStorage implements DataStorageEngine {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
-}
+export class TodoState extends NgxsDataRepository<string[]> {}
 ```
 
 ### TODO
