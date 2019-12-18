@@ -78,13 +78,13 @@ export class CountState extends NgxsDataRepository<CountModel> {
     public values$: Observable<number>;
 
     @action()
-    public increment(): Immutable<CountModel> {
-        return this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
+    public increment(): void {
+       this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
     }
 
     @action()
-    public decrement(): Immutable<CountModel> {
-        return this.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
+    public decrement(): void {
+       this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
     }
 
     @action({ async: true, debounce: 300 })
@@ -129,7 +129,7 @@ Benefits:
 -   Angular-way (service abstraction)
 -   Improved debugging (payload by arguments)
 -   Automatic action naming by service methods
--   Support debounce in action
+-   Support debounce for throttling dispatch
 -   Custom select data with `this.state$.pipe(..)`
 -   Works with NGXS Lifecycle
 
