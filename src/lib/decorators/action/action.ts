@@ -12,9 +12,9 @@ import {
 import { $args } from '../../internals/args-parser';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 import { actionNameCreator } from '../../internals/action-name-creator';
-import { NgxsDataAccessor } from '../../services/data-access-injector.service';
 import { ActionEvent, Any, PlainObjectOf } from '../../interfaces/internal.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
+import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     return (target: Any, name: string | symbol, descriptor: TypedPropertyDescriptor<Any>): void => {

@@ -2,18 +2,19 @@
 
 <br />
 
-counter.values$ = {{ counter.values$ | async }} <br />
+counter.values$ = {{ counter.values$ | async | json }} <br />
 counter.state$ = {{ counter.state$ | async | json }} <br />
 <br />
 
 <b>form</b>
 <br />ngModel
 
-<input type="text" [ngModel]="counter.values$ | async" (ngModelChange)="counter.setValueFromInput($event)" />
+<input type="text" [ngModel]="(counter.state$ | async).val" (ngModelChange)="counter.setValueFromInput($event)" />
 
 <br />actions
 
 <button (click)="counter.increment()">increment</button>
+<button (click)="counter.incrementDeep()">incrementDeep</button>
 <button (click)="counter.decrement()">decrement</button>
 <button (click)="counter.reset()">reset</button>
 

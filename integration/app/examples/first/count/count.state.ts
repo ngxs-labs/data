@@ -1,28 +1,40 @@
-import { action, Immutable, NgxsDataRepository, query, StateRepository } from '@ngxs-labs/data';
+import { action, Immutable, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
-import { State } from '@ngxs/store';
+import { Select, State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { CountModel } from './count.model';
+import { CountModel, ParentCountModel } from './count.model';
+import { DeepCountState } from './deep-count.state';
+
+const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 
 @StateRepository()
-@State<CountModel>({
-    name: 'count',
-    defaults: { val: 0 }
+@State<ParentCountModel>({
+    name: COUNT_TOKEN,
+    defaults: { val: 0 },
+    children: [DeepCountState]
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    @query<CountModel, number>((state) => state.val)
-    public values$: Observable<number>;
+    @Select((state: { count: ParentCountModel }) => state.count.deepCount)
+    public values$: Observable<ParentCountModel>;
 
     @action()
     public increment(): void {
-        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
+        this.ctx.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 }));
+    }
+
+    @action()
+    public incrementDeep(): void {
+        this.ctx.setState((state: Immutable<ParentCountModel>) => ({
+            ...state,
+            deepCount: { val: state.deepCount.val + 1 }
+        }));
     }
 
     @action()
     public decrement(): void {
-        this.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
+        this.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val - 1 }));
     }
 
     @action({ async: true, debounce: 300 })
