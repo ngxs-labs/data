@@ -2,8 +2,8 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { getRepository } from '../../../internals/ensure-repository';
-import { NgxsDataAccessor } from '../../../services/data-access-injector.service';
 import { Any } from '../../../interfaces/internal.interface';
+import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 
 export function createStateSelector<T>(stateClass: Function): void {
     const name: string = getRepository(stateClass).stateMeta.name;

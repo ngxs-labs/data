@@ -9,8 +9,7 @@ import {
 import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-
-import { NgxsDataAccessor } from '../lib/services/data-access-injector.service';
+import { NgxsDataAccessor } from '../lib/services/ngxs-data-accessor';
 
 describe('[TEST]: CountState', () => {
     let store: Store;

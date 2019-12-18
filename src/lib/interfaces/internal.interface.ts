@@ -1,5 +1,5 @@
-import { Immutable } from './external.interface';
 import { ActionType } from '@ngxs/store';
+import { Immutable } from './external.interface';
 
 export interface PlainObjectOf<T> {
     [key: string]: T;

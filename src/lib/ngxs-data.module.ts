@@ -1,5 +1,8 @@
 import { ModuleWithProviders, NgModule, Self } from '@angular/core';
-import { NgxsDataAccessor } from './services/data-access-injector.service';
+import { NGXS_PLUGINS } from '@ngxs/store';
+
+import { NgxsDataStorageEngine } from './services/ngxs-data-storage-engine';
+import { NgxsDataAccessor } from './services/ngxs-data-accessor';
 
 @NgModule()
 export class NgxsDataPluginModule {
@@ -8,7 +11,14 @@ export class NgxsDataPluginModule {
     public static forRoot(): ModuleWithProviders {
         return {
             ngModule: NgxsDataPluginModule,
-            providers: [NgxsDataAccessor]
+            providers: [
+                NgxsDataAccessor,
+                {
+                    provide: NGXS_PLUGINS,
+                    useClass: NgxsDataStorageEngine,
+                    multi: true
+                }
+            ]
         };
     }
 }
