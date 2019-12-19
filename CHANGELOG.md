@@ -1,3 +1,7 @@
+# 2.1.3 2019-19-11
+
+-   Fix: dispatch storage when first initial states
+
 # 2.1.0 2019-19-11
 
 -   Feature: storage plugin `out of the box`
