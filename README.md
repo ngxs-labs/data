@@ -271,9 +271,3 @@ class MyCustomStorage implements DataStorageEngine {
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {}
 ```
-
-### TODO
-
--   [x] State persistence (Local, Session)
--   [x] NgxsDataRepository<T>
--   [ ] NgxsEntityRepository<T>
