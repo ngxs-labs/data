@@ -256,24 +256,43 @@ interface UseClassEngineProvider extends CommonPersistenceProvider {
 }
 ```
 
-```ts
-@Injectable({ providedIn: 'root' })
-class MyCustomStorage implements DataStorageEngine {
-    // ...
-}
+### Custom Storage
 
-@Persistence([{ path: 'todo', useClass: MyCustomStorage }])
+```ts
+@Persistance([
+ { path: 'secureState', useClass: SecureStorageService }
+])
 @StateRepository()
-@State<string[]>({
-    name: 'todo',
-    defaults: []
+@State<SecureModel>({
+  name: 'secureState',
+  defaults: { 
+   login: null,
+   credential: null,
+   password: null
+  }
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {}
+export class SecureState extends NgxsDataRepository<SecureModel> {}
 ```
 
-### TODO
-
--   [x] State persistence (Local, Session)
--   [x] NgxsDataRepository<T>
--   [ ] NgxsEntityRepository<T>
+```ts
+@Injectable({ provideIn: 'root' })
+export class SecureStorageService implements DataStorageEngine {
+  constructor(@Inject(SECURE_SALT) public salt: string, private secureMd5: SecureMd5Service) {}
+  
+  public getItem(key: string): string | null {
+   const value: string = sessionStorage.getItem(key) || null;
+   if (value) {
+      return this.secureMd5.decode(this.salt, value);
+   }
+   return null;
+  }
+  
+  public setItem(key: string, value: string): void {
+   const secureData: string = this.secureMd5.encode(this.salt, value);
+   sessionStorage.setItem(key, secureData);
+  }
+  
+  // ...
+}
+```
