@@ -50,8 +50,9 @@ describe('[TEST]: CountState persistence', () => {
             @Injectable()
             class B extends NgxsDataRepository<number> {
                 @action()
-                public increment(): void {
+                public increment(): B {
                     this.ctx.setState((val) => ++val);
+                    return this;
                 }
             }
 
@@ -70,9 +71,9 @@ describe('[TEST]: CountState persistence', () => {
                 data: 50
             });
 
-            b.increment();
-            b.increment();
-            b.increment();
+            b.increment()
+                .increment()
+                .increment();
 
             expect(b.getState()).toEqual(53);
             expect(store.snapshot()).toEqual({ b: 53 });
