@@ -39,6 +39,6 @@ export class CountState extends NgxsDataRepository<CountModel> {
 
     @action({ async: true, debounce: 300 })
     public setValueFromInput(val: string | number): void {
-        this.ctx.setState({ val: parseFloat(val as string) || 0 });
+        this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
     }
 }

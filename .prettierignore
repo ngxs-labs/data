@@ -1,0 +1,8 @@
+*.lint.ts
+**/node_modules/**
+.github/**
+.idea/**
+.cache/**
+.vscode/**
+coverage/**
+**/dist/**

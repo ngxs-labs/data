@@ -8,7 +8,7 @@
         "build:lib": "ng build ngxs-data && ts-node --project tsconfig.tools.json ./tools/copy-readme",
         "test": "jest --config ./jest.app.config.js",
         "test:ci": "jest --config ./jest.app.config.js --coverage",
-        "format": "prettier --write \"{src,integration}/**/*.{ts,json,html}\"",
+        "format": "prettier --write \"**/*.{js,ts,html,css,scss,md,json,yml}\"",
         "lint": "tslint '{src,integration}/**/*.ts' --project tsconfig.json"
     },
     "private": true,
@@ -21,8 +21,8 @@
         "@angular/platform-browser": "8.2.14",
         "@angular/platform-browser-dynamic": "8.2.14",
         "@angular/router": "8.2.14",
-        "@ngxs/store": "3.6.0",
         "@ngxs/logger-plugin": "3.6.0",
+        "@ngxs/store": "3.6.0",
         "core-js": "3.6.0",
         "rxjs": "6.5.3",
         "tslib": "1.10.0",
@@ -39,14 +39,15 @@
         "codelyzer": "5.2.1",
         "colors": "1.4.0",
         "jasmine-core": "3.5.0",
-        "jest-preset-angular": "7.1.1",
         "jasmine-spec-reporter": "4.2.1",
         "jest": "24.9.0",
+        "jest-preset-angular": "7.1.1",
         "ng-packagr": "5.7.1",
         "prettier": "1.19.1",
         "ts-node": "8.5.4",
         "tsickle": "0.37.1",
         "tslint": "5.20.1",
-        "typescript": "3.5.1"
+        "typescript": "3.5.1",
+        "angular-cli-ghpages": "^0.6.0"
     }
 }

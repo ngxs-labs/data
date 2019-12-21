@@ -47,14 +47,16 @@ export interface DataRepository<T> {
     state$: Observable<Immutable<T>>;
 }
 
-export type StateValue<T> = Immutable<T> | StateOperator<T> | ((existing: Immutable<T>) => T);
+export type ImmutableStateOperator<T> = (existing: Immutable<T>) => T;
+export type DataPatchValue<T> = Partial<T | Immutable<T>>;
+export type StateValue<T> = Immutable<T> | ImmutableStateOperator<T> | StateOperator<T>;
 
 export interface ImmutableStateContext<T> {
     getState(): Immutable<T>;
 
     setState(val: StateValue<T>): void;
 
-    patchState(val: Partial<T | Immutable<T>>): void;
+    patchState(val: DataPatchValue<T>): void;
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 }

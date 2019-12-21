@@ -74,7 +74,7 @@ const COUNT_TOKEN = new StateToken<CountModel>('count');
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    @Select(store => store.count.val)
+    @Select((store) => store.count.val)
     public values$: Observable<number>;
 
     @action()
@@ -259,17 +259,15 @@ interface UseClassEngineProvider extends CommonPersistenceProvider {
 ### Custom Storage
 
 ```ts
-@Persistance([
- { path: 'secureState', useClass: SecureStorageService }
-])
+@Persistance([{ path: 'secureState', useClass: SecureStorageService }])
 @StateRepository()
 @State<SecureModel>({
-  name: 'secureState',
-  defaults: { 
-   login: null,
-   credential: null,
-   password: null
-  }
+    name: 'secureState',
+    defaults: {
+        login: null,
+        credential: null,
+        password: null
+    }
 })
 @Injectable()
 export class SecureState extends NgxsDataRepository<SecureModel> {}
@@ -278,21 +276,21 @@ export class SecureState extends NgxsDataRepository<SecureModel> {}
 ```ts
 @Injectable({ provideIn: 'root' })
 export class SecureStorageService implements DataStorageEngine {
-  constructor(@Inject(SECURE_SALT) public salt: string, private secureMd5: SecureMd5Service) {}
-  
-  public getItem(key: string): string | null {
-   const value: string = sessionStorage.getItem(key) || null;
-   if (value) {
-      return this.secureMd5.decode(this.salt, value);
-   }
-   return null;
-  }
-  
-  public setItem(key: string, value: string): void {
-   const secureData: string = this.secureMd5.encode(this.salt, value);
-   sessionStorage.setItem(key, secureData);
-  }
-  
-  // ...
+    constructor(@Inject(SECURE_SALT) public salt: string, private secureMd5: SecureMd5Service) {}
+
+    public getItem(key: string): string | null {
+        const value: string = sessionStorage.getItem(key) || null;
+        if (value) {
+            return this.secureMd5.decode(this.salt, value);
+        }
+        return null;
+    }
+
+    public setItem(key: string, value: string): void {
+        const secureData: string = this.secureMd5.encode(this.salt, value);
+        sessionStorage.setItem(key, secureData);
+    }
+
+    // ...
 }
 ```
