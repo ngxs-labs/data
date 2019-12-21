@@ -21,7 +21,7 @@ describe('Complex lifecycle', () => {
             defaults: 0
         })
         class CountState extends NgxsDataRepository<number> {
-            public value: number = null;
+            public value: number | null = null;
             constructor(public myService: MyApiService) {
                 super();
                 this.value = 1;

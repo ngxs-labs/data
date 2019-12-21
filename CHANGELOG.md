@@ -1,5 +1,6 @@
-# 2.1.4 2019-12-21
+# 2.2.0 2019-12-21
 
+-   Feature: enable strict typings
 -   Fix: downgrade typescript for compatibility angular build
 
 # 2.1.0 2019-12-19

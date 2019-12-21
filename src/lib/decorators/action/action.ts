@@ -1,7 +1,6 @@
-import { MappedStore } from '@ngxs/store/src/internal/internals';
+import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
-import { Type } from '@angular/core';
 
 import {
     NGXS_DATA_EXCEPTIONS,
@@ -15,6 +14,9 @@ import { actionNameCreator } from '../../internals/action-name-creator';
 import { ActionEvent, Any, PlainObjectOf } from '../../interfaces/internal.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
+import { StateClass } from '@ngxs/store/internals';
+import { NgZone } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     return (target: Any, name: string | symbol, descriptor: TypedPropertyDescriptor<Any>): void => {
@@ -30,40 +32,56 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
         const originalMethod: Any = descriptor.value;
         const key: string = name.toString();
-        let scheduleId: number = null;
-        let scheduleTask: Subject<Any> = null;
+        let scheduleId: number | null = null;
+        let scheduleTask: Subject<Any> | null = null;
 
         descriptor.value = function() {
-            const instance: NgxsDataRepository<Any> = this;
+            const instance: NgxsDataRepository<Any> = (this as Any) as NgxsDataRepository<Any>;
 
-            let result: Any = undefined;
+            let result: Any | Observable<Any> = undefined;
             const args: IArguments = arguments;
             const repository: NgxsRepositoryMeta = NgxsDataAccessor.getRepositoryByInstance(instance);
-            let operation: NgxsDataOperation = repository.operations[key] || null;
+            const operations: PlainObjectOf<NgxsDataOperation> | null = (repository && repository.operations) || null;
+            let operation: NgxsDataOperation | null = (operations ? operations[key] : null) || null;
+            const stateMeta: MetaDataModel | null = repository.stateMeta || null;
+
+            if (!stateMeta || !operations) {
+                throw new Error('Not found meta information into state repository');
+            }
 
             if (!operation) {
+                // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
-                operation = repository.operations[key] = {
+                const stateName: string | null = stateMeta.name || null;
+                const type: string = options.type || actionNameCreator(stateName, key, argumentsNames);
+
+                operation = operations[key] = {
+                    type,
                     argumentsNames,
-                    type: options.type || actionNameCreator(repository.stateMeta.name, key, argumentsNames),
                     options: { cancelUncompleted: options.cancelUncompleted }
                 };
 
-                repository.stateMeta.actions[operation.type] = [
+                stateMeta.actions[operation.type] = [
                     { type: operation.type, options: operation.options, fn: operation.type }
                 ];
             }
 
-            const mapped: MappedStore = NgxsDataAccessor.ensureMappedState(repository.stateMeta);
-            const stateInstance: Type<unknown> = mapped.instance;
+            const mapped: MappedStore | null | undefined = NgxsDataAccessor.ensureMappedState(stateMeta);
 
-            stateInstance[operation.type] = (): Any => {
+            if (!mapped) {
+                throw new Error('Cannot ensure mapped state from state repository');
+            }
+
+            const stateInstance: StateClass = mapped.instance;
+
+            (stateInstance as Any)[operation.type] = (): Any => {
                 result = originalMethod.apply(instance, args);
                 return result;
             };
 
             const payload: PlainObjectOf<Any> = NgxsDataAccessor.createPayload(arguments, operation);
             const event: ActionEvent = { type: operation.type, payload };
+            const store: Store | null = NgxsDataAccessor.store;
 
             if (options.async) {
                 if (scheduleTask) {
@@ -72,46 +90,55 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
                 const resultStream: Subject<Any> = (scheduleTask = new Subject<Any>());
                 const source: Observable<Any> = resultStream.asObservable().pipe(take(1));
+                const debounce: number = options.debounce || 0;
 
                 const throttleTask: Promise<Any> = new Promise((resolve) => {
-                    NgxsDataAccessor.ngZone.runOutsideAngular(() => {
-                        window.clearTimeout(scheduleId);
-                        scheduleId = window.setTimeout(() => resolve(), options.debounce);
-                    });
+                    const ngZone: NgZone | null = NgxsDataAccessor.ngZone;
+                    if (ngZone) {
+                        ngZone.runOutsideAngular(() => {
+                            if (scheduleId) {
+                                clearTimeout(scheduleId as Any);
+                            }
+
+                            scheduleId = (setTimeout(() => resolve(), debounce) as Any) as number;
+                        });
+                    }
                 });
 
                 throttleTask.then(() => {
-                    const dispatched: Observable<Any> = NgxsDataAccessor.store.dispatch(event);
+                    if (store) {
+                        const dispatched: Observable<Any> = store.dispatch(event);
 
-                    if (isObservable(result)) {
-                        combine(dispatched, result)
-                            .pipe(take(1))
-                            .subscribe((val: Any) => {
-                                resultStream.next(val);
-                                resultStream.complete();
-                            });
-                    } else {
-                        if (typeof result !== 'undefined') {
-                            console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION_RETURN_TYPE, typeof result);
+                        if (isObservable(result)) {
+                            combine(dispatched, result)
+                                .pipe(take(1))
+                                .subscribe((val: Any) => {
+                                    resultStream.next(val);
+                                    resultStream.complete();
+                                });
+                        } else {
+                            if (typeof result !== 'undefined') {
+                                console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION_RETURN_TYPE, typeof result);
+                            }
+
+                            resultStream.next(result);
+                            resultStream.complete();
                         }
-
-                        resultStream.next(result);
-                        resultStream.complete();
                     }
                 });
 
                 return source.pipe(
-                    debounceTime(options.debounce),
+                    debounceTime(debounce),
                     finalize(() => scheduleTask && scheduleTask.complete())
                 );
             } else {
-                const dispatched: Observable<Any> = NgxsDataAccessor.store.dispatch(event);
-                return isObservable(result) ? combine(dispatched, result) : result;
+                const dispatched: Observable<Any> | null = (store && store.dispatch(event)) || null;
+                return dispatched && isObservable(result) ? combine(dispatched, result) : result;
             }
         };
     };
 }
 
-function combine(dispatched: Observable<Any>, result: Any): Observable<Any> {
+function combine(dispatched: Observable<Any>, result: Observable<Any>): Observable<Any> {
     return forkJoin([dispatched, result]).pipe(map((combines: [Any, Any]) => combines.pop()));
 }

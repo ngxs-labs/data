@@ -1,5 +1,5 @@
-import { action, NgxsDataPluginModule, NgxsDataRepository, query, StateRepository } from '@ngxs-labs/data';
-import { NgxsModule, State, Store } from '@ngxs/store';
+import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsModule, Select, State, Store } from '@ngxs/store';
 import { Any } from '../lib/interfaces/internal.interface';
 import { Observable } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -34,10 +34,11 @@ describe('Check correct deep instance', () => {
         defaults: new RegistrationStateModel()
     })
     class RegistrationState extends NgxsDataRepository<IRegistrationStateModel> {
-        @query<IRegistrationStateModel, IFormState>((state) => state.address)
+        @Select((state: Any) => state.registration)
         public address$: Observable<IFormState>;
 
-        @action() public addAddress(address: IFormState) {
+        @action()
+        public addAddress(address: IFormState) {
             return this.ctx.setState(() => ({ address }));
         }
     }
@@ -48,7 +49,7 @@ describe('Check correct deep instance', () => {
     })
     class AppComponent implements OnInit {
         public name = 'Angular + NGXS';
-        public result;
+        public result: Any = null;
 
         constructor(private registration: RegistrationState) {}
 

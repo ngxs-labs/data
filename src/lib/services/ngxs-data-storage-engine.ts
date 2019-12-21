@@ -76,7 +76,7 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
                 const value: string | undefined = engine.getItem(key);
                 if (isNotNil(value)) {
                     try {
-                        const data: Any = this.deserialize(value);
+                        const data: string | undefined | null = this.deserialize(value);
                         if (isNotNil(data) || provider.nullable) {
                             states = setValue(states, provider.path, data);
                         } else {
@@ -110,9 +110,9 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
     }
 
     private exposeEngine(provider: PersistenceProvider): DataStorageEngine {
-        const engine: DataStorageEngine =
+        const engine: DataStorageEngine | null | undefined =
             (provider as ExistingEngineProvider).existingEngine ||
-            this.injector.get<DataStorageEngine>((provider as UseClassEngineProvider).useClass as Any, null);
+            this.injector.get<DataStorageEngine>(((provider as UseClassEngineProvider).useClass as Any)!, null!);
 
         if (!engine) {
             throw new Error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_ENGINE}:::${provider.path}`);
@@ -122,11 +122,15 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
     }
 
     private serialize(data: Any, provider: PersistenceProvider): string {
-        return JSON.stringify({ lastChanged: new Date().toISOString(), version: provider.version, data: data || null });
+        return JSON.stringify({
+            lastChanged: new Date().toISOString(),
+            version: provider.version,
+            data: isNotNil(data) ? data : null
+        });
     }
 
-    private deserialize(value: string): Any {
-        const meta: StorageMeta = JSON.parse(value);
+    private deserialize(value: string | undefined): string | undefined {
+        const meta: StorageMeta = JSON.parse(value!);
         if (meta.lastChanged) {
             return meta.data;
         } else {

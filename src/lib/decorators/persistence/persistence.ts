@@ -1,4 +1,5 @@
-import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { StateClass } from '@ngxs/store/internals';
 import { ensureStoreMetadata } from '@ngxs/store';
 
 import { Any } from '../../interfaces/internal.interface';
@@ -9,8 +10,8 @@ import { isNotNil } from '../../internals/utils';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
-        const stateMeta: MetaDataModel = ensureStoreMetadata((stateClass as Any) as StateClassInternal);
-        const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
+        const stateMeta: MetaDataModel = ensureStoreMetadata((stateClass as Any) as StateClass);
+        const repositoryMeta: NgxsRepositoryMeta = getRepository((stateClass as Any) as StateClass);
         const isUndecoratedClass: boolean = !stateMeta.name || !repositoryMeta;
         const defaultPrefix: string = '@ngxs.store.';
         const defaultDecode: 'none' = 'none';
@@ -22,8 +23,8 @@ export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
         if (!options) {
             options = [
                 {
-                    get path(): string {
-                        return repositoryMeta.stateMeta.path;
+                    get path(): string | null | undefined {
+                        return repositoryMeta.stateMeta && repositoryMeta.stateMeta.path;
                     },
                     existingEngine: localStorage,
                     ttl: -1,
@@ -32,7 +33,7 @@ export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
                     prefixKey: defaultPrefix,
                     nullable: false
                 }
-            ];
+            ] as PersistenceProvider[];
         } else {
             options = options.map((option: PersistenceProvider) => ({
                 ...option,

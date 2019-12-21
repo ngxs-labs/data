@@ -85,7 +85,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
     });
 
     it('should be correct async', fakeAsync(() => {
-        let result: number = null;
+        let result: number | null = null;
         count.asyncSetState().subscribe((response: number) => (result = response));
 
         tick(2000);
