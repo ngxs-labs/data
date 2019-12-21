@@ -15,7 +15,6 @@ import { PlainObject } from '@ngxs/store/internals';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
-import { isNotNil } from '../internals/is-defined';
 import { Any } from '../interfaces/internal.interface';
 import {
     NGXS_DATA_EXCEPTIONS,
@@ -25,6 +24,7 @@ import {
     UseClassEngineProvider,
     ExistingEngineProvider
 } from '../interfaces/external.interface';
+import { isNotNil } from '../internals/utils';
 
 const NEED_SYNC_TYPE_ACTION: string = 'NEED_SYNC_WITH_STORAGE';
 
@@ -35,9 +35,9 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
     constructor(@Inject(PLATFORM_ID) private _platformId: string, private injector: Injector) {
         if (!isPlatformServer(this._platformId)) {
             fromEvent(window, 'storage').subscribe(() => {
-                if (this.providers.size > 0) {
+                if (this.providers.size > 0 && this.store) {
                     const store: Store | null = this.store;
-                    store?.dispatch?.({ type: NEED_SYNC_TYPE_ACTION });
+                    store.dispatch({ type: NEED_SYNC_TYPE_ACTION });
                 }
             });
         }
@@ -76,7 +76,7 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
                 const value: string | undefined = engine.getItem(key);
                 if (isNotNil(value)) {
                     try {
-                        const data: Any = this.deserialize(value);
+                        const data: string | undefined | null = this.deserialize(value);
                         if (isNotNil(data) || provider.nullable) {
                             states = setValue(states, provider.path, data);
                         } else {
@@ -110,9 +110,9 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
     }
 
     private exposeEngine(provider: PersistenceProvider): DataStorageEngine {
-        const engine: DataStorageEngine =
-            (provider as ExistingEngineProvider).existingEngine ??
-            this.injector.get<DataStorageEngine>((provider as UseClassEngineProvider).useClass as Any, null);
+        const engine: DataStorageEngine | null | undefined =
+            (provider as ExistingEngineProvider).existingEngine ||
+            this.injector.get<DataStorageEngine>(((provider as UseClassEngineProvider).useClass as Any)!, null!);
 
         if (!engine) {
             throw new Error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_ENGINE}:::${provider.path}`);
@@ -122,11 +122,15 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
     }
 
     private serialize(data: Any, provider: PersistenceProvider): string {
-        return JSON.stringify({ lastChanged: new Date().toISOString(), version: provider.version, data: data ?? null });
+        return JSON.stringify({
+            lastChanged: new Date().toISOString(),
+            version: provider.version,
+            data: isNotNil(data) ? data : null
+        });
     }
 
-    private deserialize(value: string): Any {
-        const meta: StorageMeta = JSON.parse(value);
+    private deserialize(value: string | undefined): string | undefined {
+        const meta: StorageMeta = JSON.parse(value!);
         if (meta.lastChanged) {
             return meta.data;
         } else {

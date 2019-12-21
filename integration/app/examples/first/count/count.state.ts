@@ -28,7 +28,7 @@ export class CountState extends NgxsDataRepository<CountModel> {
     public incrementDeep(): void {
         this.ctx.setState((state: Immutable<ParentCountModel>) => ({
             ...state,
-            deepCount: { val: state.deepCount.val + 1 }
+            deepCount: { val: state.deepCount!.val + 1 }
         }));
     }
 

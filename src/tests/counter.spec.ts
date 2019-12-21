@@ -255,8 +255,8 @@ describe('[TEST]: CountState', () => {
         it('should be correct instance repository', () => {
             const repository: NgxsRepositoryMeta = NgxsDataAccessor.getRepositoryByInstance(count);
 
-            expect(repository.stateMeta.name).toEqual('count');
-            expect(repository.stateMeta.actions).toEqual({
+            expect(repository.stateMeta!.name).toEqual('count');
+            expect(repository.stateMeta!.actions).toEqual({
                 '@count.setState(stateValue)': [
                     {
                         type: '@count.setState(stateValue)',

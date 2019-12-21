@@ -1,10 +1,9 @@
 {
     "compileOnSave": false,
-    "angularCompilerOptions": {
-        "disableTypeScriptVersionCheck": true
-    },
     "compilerOptions": {
         "baseUrl": "./",
+        "strict": true,
+        "strictPropertyInitialization": false,
         "downlevelIteration": true,
         "noUnusedLocals": true,
         "outDir": "./dist/out-tsc",

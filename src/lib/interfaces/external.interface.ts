@@ -15,7 +15,7 @@ import { Type } from '@angular/core';
 export const NGXS_DATA_META: string = 'NGXS_DATA_META';
 
 export interface RepositoryActionOptions extends ActionOptions {
-    type?: string;
+    type?: string | null;
     async?: boolean;
     debounce?: number;
 }
@@ -47,10 +47,12 @@ export interface DataRepository<T> {
     state$: Observable<Immutable<T>>;
 }
 
+export type StateValue<T> = Immutable<T> | StateOperator<T> | ((existing: Immutable<T>) => T);
+
 export interface ImmutableStateContext<T> {
     getState(): Immutable<T>;
 
-    setState(val: T | Immutable<T> | StateOperator<Immutable<T>>): void;
+    setState(val: StateValue<T>): void;
 
     patchState(val: Partial<T | Immutable<T>>): void;
 
@@ -74,8 +76,6 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_PERSISTENCE_SERIALIZE = 'Error occurred while serializing the store value, value not updated.',
     NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing the store value, falling back to empty object.'
 }
-
-export type StateValue<T> = T | Immutable<T> | StateOperator<Immutable<T>>;
 
 export interface DataStorageEngine {
     readonly length: number;
@@ -141,8 +141,8 @@ export interface UseClassEngineProvider extends CommonPersistenceProvider {
 
 export type PersistenceProvider = ExistingEngineProvider | UseClassEngineProvider;
 
-export interface StorageMeta {
+export interface StorageMeta<T = string> {
     lastChanged: string;
-    data: string;
+    data: T;
     version: number;
 }

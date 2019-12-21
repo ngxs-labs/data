@@ -1,4 +1,4 @@
-import { ActionType, StateOperator } from '@ngxs/store';
+import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import {
@@ -26,7 +26,7 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
 
         return {
             ...context,
-            setState(val: T | Immutable<T> | StateOperator<Immutable<T>>): void {
+            setState(val: StateValue<T>): void {
                 context.setState(val);
             },
             patchState(val: Partial<T | Immutable<T>>): void {

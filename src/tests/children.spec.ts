@@ -22,7 +22,7 @@ describe('Check correct deep instance', () => {
     class MyChildBa {
         @Action({ type: 'MyChildBa_ACTION' })
         public myMutate(ctx: StateContext<Any>): void {
-            ctx.setState((state) => ({ ...state, value: 'NEW_B_A_1' }));
+            ctx.setState((state: Any) => ({ ...state, value: 'NEW_B_A_1' }));
         }
     }
 

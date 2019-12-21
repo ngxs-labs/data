@@ -1,4 +1,4 @@
-import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY } from '@ngxs/store/internals';
+import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY, StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Inject, Injectable, Injector, NgZone } from '@angular/core';
 import { StateContext, Store } from '@ngxs/store';
@@ -18,7 +18,7 @@ export class NgxsDataAccessor {
     constructor(
         injector: Injector,
         @Inject(NGXS_STATE_FACTORY) stateFactory: Any,
-        @Inject(NGXS_STATE_CONTEXT_FACTORY) stateContextFactory
+        @Inject(NGXS_STATE_CONTEXT_FACTORY) stateContextFactory: Any
     ) {
         NgxsDataAccessor.statesCachedMeta.clear();
         NgxsDataAccessor.store = injector.get<Store>(Store);
@@ -31,17 +31,22 @@ export class NgxsDataAccessor {
         return NgxsDataAccessor.context.createStateContext(metadata);
     }
 
-    public static ensureMappedState(stateMeta: MetaDataModel): MappedStore {
-        if (!NgxsDataAccessor.factory) {
+    public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedStore | null | undefined {
+        if (!NgxsDataAccessor.factory || !stateMeta) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
 
-        const cachedMeta: MappedStore = NgxsDataAccessor.statesCachedMeta.get(stateMeta.name) || null;
+        const cachedMeta: MappedStore | null =
+            (stateMeta.name ? NgxsDataAccessor.statesCachedMeta.get(stateMeta.name) : null) || null;
 
         if (!cachedMeta) {
-            const meta: MappedStore = NgxsDataAccessor.factory.states.find((state) => state.name === stateMeta.name);
+            const meta: MappedStore | null | undefined = stateMeta.name
+                ? NgxsDataAccessor.factory.states.find((state: MappedStore) => state.name === stateMeta.name)
+                : null;
 
-            NgxsDataAccessor.statesCachedMeta.set(stateMeta.name, meta);
+            if (meta && stateMeta.name) {
+                NgxsDataAccessor.statesCachedMeta.set(stateMeta.name, meta);
+            }
 
             return meta;
         }
@@ -49,8 +54,8 @@ export class NgxsDataAccessor {
         return cachedMeta;
     }
 
-    public static getRepositoryByInstance(target: Any): NgxsRepositoryMeta {
-        const repository: NgxsRepositoryMeta = getRepository((target || {})['constructor']);
+    public static getRepositoryByInstance(target: StateClass | Any): NgxsRepositoryMeta {
+        const repository: NgxsRepositoryMeta | null = getRepository((target || {})['constructor']) || null;
 
         if (!repository) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);

@@ -25,7 +25,7 @@ describe('[TEST]: CountState persistence', () => {
 
             expect(a.getState()).toEqual(0);
             expect(store.snapshot()).toEqual({ a: 0 });
-            expect(JSON.parse(localStorage.getItem('@ngxs.store.a'))).toEqual({
+            expect(JSON.parse(localStorage.getItem('@ngxs.store.a')!)).toEqual({
                 lastChanged: expect.any(String),
                 version: 1,
                 data: 0
@@ -65,7 +65,7 @@ describe('[TEST]: CountState persistence', () => {
 
             expect(b.getState()).toEqual(50);
             expect(store.snapshot()).toEqual({ b: 50 });
-            expect(JSON.parse(localStorage.getItem('@ngxs.store.b'))).toEqual({
+            expect(JSON.parse(localStorage.getItem('@ngxs.store.b')!)).toEqual({
                 lastChanged: expect.any(String),
                 version: 1,
                 data: 50
@@ -77,7 +77,7 @@ describe('[TEST]: CountState persistence', () => {
 
             expect(b.getState()).toEqual(53);
             expect(store.snapshot()).toEqual({ b: 53 });
-            expect(JSON.parse(localStorage.getItem('@ngxs.store.b'))).toEqual({
+            expect(JSON.parse(localStorage.getItem('@ngxs.store.b')!)).toEqual({
                 lastChanged: expect.any(String),
                 version: 1,
                 data: 53
@@ -87,7 +87,7 @@ describe('[TEST]: CountState persistence', () => {
 
             expect(b.getState()).toEqual(100);
             expect(store.snapshot()).toEqual({ b: 100 });
-            expect(JSON.parse(localStorage.getItem('@ngxs.store.b'))).toEqual({
+            expect(JSON.parse(localStorage.getItem('@ngxs.store.b')!)).toEqual({
                 lastChanged: expect.any(String),
                 version: 1,
                 data: 100
