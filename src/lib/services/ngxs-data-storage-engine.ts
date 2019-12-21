@@ -94,7 +94,7 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
                 for (const [provider] of this.entries) {
                     const prevData: Any = getValue(states, provider.path);
                     const newData: Any = getValue(nextState, provider.path);
-                    if (prevData !== newData) {
+                    if (prevData !== newData || isInitAction) {
                         const engine: DataStorageEngine = this.exposeEngine(provider);
 
                         try {
