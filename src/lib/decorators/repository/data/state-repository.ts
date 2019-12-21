@@ -6,7 +6,7 @@ import { NGXS_DATA_EXCEPTIONS } from '../../../interfaces/external.interface';
 import { createStateSelector } from '../utils/create-state-selector';
 import { Any } from '../../../interfaces/internal.interface';
 import { createContext } from '../utils/create-context';
-import { clone } from '../../../internals/clone';
+import { clone } from '../../../internals/utils';
 
 export function StateRepository(): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
