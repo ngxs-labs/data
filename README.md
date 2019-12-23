@@ -16,9 +16,11 @@
   </a>
   <a href="https://npm-stat.com/charts.html?package=%40ngxs-labs%2Fdata&from=2019-09-01">
     <img src="https://img.shields.io/npm/dt/@ngxs-labs/data.svg" />
+  </a>  
+  <a href="https://coveralls.io/github/ngxs-labs/data?branch=master">
+    <img src="https://coveralls.io/repos/github/ngxs-labs/data/badge.svg?branch=master" />
   </a>
 </p>
-
 ---
 
 ## Introduction
