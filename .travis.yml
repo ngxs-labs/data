@@ -26,8 +26,11 @@ deploy:
     local_dir: ./dist/integration
     provider: pages
     skip_cleanup: true
+    api_key: $GITHUB_TOKEN
     github_token: $GITHUB_TOKEN
     keep_history: true
+    secure: $GITHUB_TOKEN
     email: omaxphp@yandex.ru
     on:
+        ∏tags: true
         branch: master
