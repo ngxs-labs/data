@@ -21,6 +21,7 @@
     <img src="https://coveralls.io/repos/github/ngxs-labs/data/badge.svg?branch=master" />
   </a>
 </p>
+
 ---
 
 ## Introduction

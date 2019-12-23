@@ -26,12 +26,10 @@ deploy:
     local_dir: ./dist/integration
     provider: pages
     skip_cleanup: true
-    token: # ← WRONG KEY
-        secure: $GITHUB_TOKEN
-    github_token: $GITHUB_TOKEN
     api_key: $GITHUB_TOKEN
-    overwrite: true
+    edge: true
     keep_history: true
     email: omaxphp@yandex.ru
     on:
         branch: master
+        tags: true
