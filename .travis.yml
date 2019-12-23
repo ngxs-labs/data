@@ -18,6 +18,9 @@ script:
     - yarn build:app
     - yarn build:lib
 
+after_success:
+    - test $TRAVIS_BRANCH = "master" && yarn coverage
+
 deploy:
     name: Deploy
     local_dir: ./dist/integration
