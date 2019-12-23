@@ -2,6 +2,7 @@ import { NgxsModule, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { action, NgxsDataPluginModule, NgxsDataRepository, Persistence, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataStorageEngine } from '../lib/services/ngxs-data-storage-engine';
 
 describe('[TEST]: CountState persistence', () => {
     let store: Store;
@@ -30,6 +31,8 @@ describe('[TEST]: CountState persistence', () => {
                 version: 1,
                 data: 0
             });
+
+            expect(NgxsDataStorageEngine.getProvidedKeys()).toEqual(['@ngxs.store.a']);
         });
 
         it('B stateClass', () => {
@@ -92,9 +95,14 @@ describe('[TEST]: CountState persistence', () => {
                 version: 1,
                 data: 100
             });
+
+            expect(NgxsDataStorageEngine.getProvidedKeys()).toEqual(['@ngxs.store.b']);
         });
 
-        afterEach(() => sessionStorage.clear());
-        afterEach(() => localStorage.clear());
+        afterEach(() => {
+            localStorage.clear();
+            sessionStorage.clear();
+            NgxsDataStorageEngine.clear();
+        });
     });
 });

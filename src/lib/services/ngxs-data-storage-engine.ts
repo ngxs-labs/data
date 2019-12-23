@@ -15,48 +15,59 @@ import { PlainObject } from '@ngxs/store/internals';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
-import { Any } from '../interfaces/internal.interface';
+import { Any, RootInternalStorageEngine } from '../interfaces/internal.interface';
 import {
+    DataStorageEngine,
+    ExistingEngineProvider,
+    NEED_SYNC_TYPE_ACTION,
     NGXS_DATA_EXCEPTIONS,
     PersistenceProvider,
-    DataStorageEngine,
     StorageMeta,
-    UseClassEngineProvider,
-    ExistingEngineProvider
+    UseClassEngineProvider
 } from '../interfaces/external.interface';
 import { isNotNil } from '../internals/utils';
 
-const NEED_SYNC_TYPE_ACTION: string = 'NEED_SYNC_WITH_STORAGE';
-
+/**
+ * @privateApi
+ */
 @Injectable()
-export class NgxsDataStorageEngine implements NgxsPlugin {
+export class NgxsDataStorageEngine implements NgxsPlugin, RootInternalStorageEngine {
     public static providers: Set<PersistenceProvider> = new Set();
+    private static keys: Map<string, void> = new Map();
 
     constructor(@Inject(PLATFORM_ID) private _platformId: string, private injector: Injector) {
         if (!isPlatformServer(this._platformId)) {
-            fromEvent(window, 'storage').subscribe(() => {
-                if (this.providers.size > 0 && this.store) {
-                    const store: Store | null = this.store;
-                    store.dispatch({ type: NEED_SYNC_TYPE_ACTION });
+            fromEvent(window, 'storage').subscribe((event: Any) => {
+                if (NgxsDataStorageEngine.keys.has((event as StorageEvent).key!)) {
+                    this.store!.dispatch({ type: NEED_SYNC_TYPE_ACTION });
                 }
             });
         }
     }
 
-    private get store(): Store | null {
+    public get store(): Store | null {
         return this.injector.get(Store, null);
     }
 
-    private get size(): number {
+    public get size(): number {
         return this.providers.size;
     }
 
-    private get providers(): Set<PersistenceProvider> {
+    public get providers(): Set<PersistenceProvider> {
         return NgxsDataStorageEngine.providers;
     }
 
-    private get entries(): IterableIterator<[PersistenceProvider, PersistenceProvider]> {
+    public get entries(): IterableIterator<[PersistenceProvider, PersistenceProvider]> {
         return this.providers.entries();
+    }
+
+    public static getProvidedKeys(): string[] {
+        return Array.from(NgxsDataStorageEngine.keys.keys());
+    }
+
+    public static clear(): void {
+        NgxsDataStorageEngine.keys.clear();
+        NgxsDataStorageEngine.providers.clear();
     }
 
     public handle(states: PlainObject, action: ActionType, next: NgxsNextPluginFn): NgxsNextPluginFn {
@@ -72,15 +83,17 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
         if (canBeSyncStoreWithStorage) {
             for (const [provider] of this.entries) {
                 const engine: DataStorageEngine = this.exposeEngine(provider);
-                const key: string = `${provider.prefixKey}${provider.path}`;
+                const key: string = this.ensureKey(provider);
                 const value: string | undefined = engine.getItem(key);
                 if (isNotNil(value)) {
                     try {
                         const data: string | undefined | null = this.deserialize(value);
                         if (isNotNil(data) || provider.nullable) {
+                            NgxsDataStorageEngine.keys.set(key);
                             states = setValue(states, provider.path, data);
                         } else {
                             engine.removeItem(key);
+                            NgxsDataStorageEngine.keys.delete(key);
                         }
                     } catch {
                         console.error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_DESERIALIZE}:::${provider.path}`);
@@ -99,7 +112,9 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
 
                         try {
                             const data: Any = this.serialize(newData, provider);
-                            engine.setItem(`${provider.prefixKey}${provider.path}`, data);
+                            const key: string = this.ensureKey(provider);
+                            engine.setItem(key, data);
+                            NgxsDataStorageEngine.keys.set(key);
                         } catch (e) {
                             console.error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_SERIALIZE}:::${provider.path}`);
                         }
@@ -107,6 +122,27 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
                 }
             })
         );
+    }
+
+    public serialize(data: Any, provider: PersistenceProvider): string {
+        return JSON.stringify({
+            lastChanged: new Date().toISOString(),
+            version: provider.version,
+            data: isNotNil(data) ? data : null
+        });
+    }
+
+    public deserialize(value: string | undefined): string | undefined {
+        const meta: StorageMeta = JSON.parse(value!);
+        if (meta.lastChanged) {
+            return meta.data;
+        } else {
+            throw new Error('Not found lastChanged in meta');
+        }
+    }
+
+    public ensureKey(provider: PersistenceProvider): string {
+        return `${provider.prefixKey}${provider.path}`;
     }
 
     private exposeEngine(provider: PersistenceProvider): DataStorageEngine {
@@ -119,22 +155,5 @@ export class NgxsDataStorageEngine implements NgxsPlugin {
         }
 
         return engine;
-    }
-
-    private serialize(data: Any, provider: PersistenceProvider): string {
-        return JSON.stringify({
-            lastChanged: new Date().toISOString(),
-            version: provider.version,
-            data: isNotNil(data) ? data : null
-        });
-    }
-
-    private deserialize(value: string | undefined): string | undefined {
-        const meta: StorageMeta = JSON.parse(value!);
-        if (meta.lastChanged) {
-            return meta.data;
-        } else {
-            throw new Error('Not found lastChanged in meta');
-        }
     }
 }

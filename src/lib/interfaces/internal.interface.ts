@@ -1,5 +1,5 @@
-import { ActionType } from '@ngxs/store';
-import { Immutable } from './external.interface';
+import { ActionType, Store } from '@ngxs/store';
+import { Immutable, PersistenceProvider } from './external.interface';
 
 export interface PlainObjectOf<T> {
     [key: string]: T;
@@ -19,3 +19,16 @@ export type DeepImmutableObject<T> = {
 };
 
 export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
+
+export interface RootInternalStorageEngine {
+    readonly size: number;
+    readonly store: Store | null;
+    readonly providers: Set<PersistenceProvider>;
+    readonly entries: IterableIterator<[PersistenceProvider, PersistenceProvider]>;
+
+    serialize(data: Any, provider: PersistenceProvider): string;
+
+    deserialize(value: string | undefined): string | undefined;
+
+    ensureKey(provider: PersistenceProvider): string;
+}

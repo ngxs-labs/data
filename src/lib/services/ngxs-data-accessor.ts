@@ -7,6 +7,9 @@ import { NGXS_DATA_EXCEPTIONS, NgxsDataOperation, NgxsRepositoryMeta } from '../
 import { Any, PlainObjectOf } from '../interfaces/internal.interface';
 import { getRepository } from '../internals/ensure-repository';
 
+/**
+ * @privateApi
+ */
 @Injectable()
 export class NgxsDataAccessor {
     public static store: Store | null = null;

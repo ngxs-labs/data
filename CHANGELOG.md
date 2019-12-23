@@ -1,3 +1,8 @@
+# 2.2.3 2019-12-24
+
+-   Fix: remove duplicate field in DataStorageEngine
+-   Fix: remove infinite loop when triggered onstorage event
+
 # 2.2.0 2019-12-21
 
 -   Feature: enable strict typings
