@@ -84,7 +84,6 @@ export interface DataStorageEngine {
     key(index: number): string | null;
     getItem<T>(key: string): T;
     getItem(key: string): string | null;
-    key(index: number): string | null;
     setItem<T>(key: string, val: T): void;
     setItem(key: string, value: string): void;
     removeItem(key: string): void;
