@@ -9,6 +9,7 @@
         "test": "jest --config ./jest.app.config.js",
         "test:ci": "jest --config ./jest.app.config.js --coverage",
         "lint": "eslint '*.ts'",
+        "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "format": "prettier --write \"**/*.{js,ts,html,css,scss,md,json,yml}\""
     },
     "private": true,
@@ -52,6 +53,7 @@
         "ts-node": "8.5.4",
         "tsickle": "0.37.1",
         "tslint": "5.20.1",
+        "coveralls": "3.0.9",
         "typescript": "3.5.1"
     }
 }
