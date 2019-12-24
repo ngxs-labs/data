@@ -26,7 +26,6 @@ deploy:
     local_dir: ./dist/integration
     provider: pages
     skip_cleanup: true
-    api_key: $GITHUB_TOKEN
     github_token: $GITHUB_TOKEN
     edge: true
     keep_history: true
