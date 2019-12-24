@@ -1,9 +1,7 @@
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
-import { forkJoin, isObservable, Observable, Subject } from 'rxjs';
+import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { StateClass } from '@ngxs/store/internals';
-import { NgZone } from '@angular/core';
-import { Store } from '@ngxs/store';
 
 import {
     NGXS_DATA_EXCEPTIONS,
@@ -32,7 +30,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
         const originalMethod: Any = descriptor.value;
         const key: string = name.toString();
-        let scheduleId: number | null = null;
+        let scheduleId: number | null | Any = null;
         let scheduleTask: Subject<Any> | null = null;
 
         descriptor.value = function() {
@@ -74,14 +72,16 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
             const stateInstance: StateClass = mapped.instance;
 
+            // Note: invoke only after store.dispatch(...)
             (stateInstance as Any)[operation.type] = (): Any => {
                 result = originalMethod.apply(instance, args);
-                return result;
+                // Note: store.dispatch automatically subscribes, but we don’t need it
+                // We want to subscribe ourselves manually
+                return isObservable(result) ? of(null).pipe(map(() => result)) : result;
             };
 
             const payload: PlainObjectOf<Any> = NgxsDataAccessor.createPayload(arguments, operation);
             const event: ActionEvent = { type: operation.type, payload };
-            const store: Store | null = NgxsDataAccessor.store;
 
             if (options.async) {
                 if (scheduleTask) {
@@ -93,37 +93,29 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 const debounce: number = options.debounce || 0;
 
                 const throttleTask: Promise<Any> = new Promise((resolve) => {
-                    const ngZone: NgZone | null = NgxsDataAccessor.ngZone;
-                    if (ngZone) {
-                        ngZone.runOutsideAngular(() => {
-                            if (scheduleId) {
-                                clearTimeout(scheduleId as Any);
-                            }
-
-                            scheduleId = (setTimeout(() => resolve(), debounce) as Any) as number;
-                        });
-                    }
+                    NgxsDataAccessor.ngZone!.runOutsideAngular(() => {
+                        clearTimeout(scheduleId!);
+                        scheduleId = setTimeout(() => resolve(), options.debounce);
+                    });
                 });
 
                 throttleTask.then(() => {
-                    if (store) {
-                        const dispatched: Observable<Any> = store.dispatch(event);
+                    const dispatched: Observable<Any> = NgxsDataAccessor.store!.dispatch(event);
 
-                        if (isObservable(result)) {
-                            combine(dispatched, result)
-                                .pipe(take(1))
-                                .subscribe((val: Any) => {
-                                    resultStream.next(val);
-                                    resultStream.complete();
-                                });
-                        } else {
-                            if (typeof result !== 'undefined') {
-                                console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION_RETURN_TYPE, typeof result);
-                            }
-
-                            resultStream.next(result);
-                            resultStream.complete();
+                    if (isObservable(result)) {
+                        combine(dispatched, result)
+                            .pipe(take(1))
+                            .subscribe((val: Any) => {
+                                resultStream.next(val);
+                                resultStream.complete();
+                            });
+                    } else {
+                        if (typeof result !== 'undefined') {
+                            console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION_RETURN_TYPE, typeof result);
                         }
+
+                        resultStream.next(result);
+                        resultStream.complete();
                     }
                 });
 
@@ -132,8 +124,13 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                     finalize(() => scheduleTask && scheduleTask.complete())
                 );
             } else {
-                const dispatched: Observable<Any> | null = (store && store.dispatch(event)) || null;
-                return dispatched && isObservable(result) ? combine(dispatched, result) : result;
+                const dispatcher: Observable<Any> = NgxsDataAccessor.store!.dispatch(event);
+
+                if (isObservable(result)) {
+                    return combine(dispatcher, result);
+                } else {
+                    return result;
+                }
             }
         };
     };

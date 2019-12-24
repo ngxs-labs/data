@@ -1,3 +1,7 @@
+# 2.2.3 2019-12-25
+
+- Fix: disable automatic subscription of observables inside the action method
+
 # 2.2.3 2019-12-24
 
 -   Fix: remove duplicate field in DataStorageEngine
