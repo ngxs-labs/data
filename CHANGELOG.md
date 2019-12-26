@@ -1,6 +1,10 @@
-# 2.2.3 2019-12-25
+# 2.2.5 2019-12-26
 
-- Fix: disable automatic subscription of observables inside the action method
+-   Fix: corrected automatic type inference in ctx.setState
+
+# 2.2.4 2019-12-25
+
+-   Fix: disable automatic subscription of observables inside the action method
 
 # 2.2.3 2019-12-24
 

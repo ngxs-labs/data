@@ -20,5 +20,6 @@
         "paths": {
             "@ngxs-labs/data": ["src/public-api.ts"]
         }
-    }
+    },
+    "exclude": ["src/types"]
 }
