@@ -3,11 +3,12 @@
     "version": "0.0.0",
     "scripts": {
         "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
-        "start": "ng serve --open",
+        "start": "ng serve --open --port 4400",
         "build:app": "ng build --prod",
         "build:lib": "ng build ngxs-data && ts-node --project tsconfig.tools.json ./tools/copy-readme",
         "test": "jest --config ./jest.app.config.js",
         "test:ci": "jest --config ./jest.app.config.js --coverage",
+        "test:types": "dtslint src/types",
         "lint": "eslint '*.ts'",
         "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "format": "prettier --write \"**/*.{js,ts,html,css,scss,md,json,yml}\""
@@ -54,6 +55,7 @@
         "tsickle": "0.37.1",
         "tslint": "5.20.1",
         "coveralls": "3.0.9",
-        "typescript": "3.5.1"
+        "typescript": "3.5.1",
+        "dtslint": "0.9.8"
     }
 }

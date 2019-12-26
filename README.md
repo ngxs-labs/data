@@ -77,8 +77,8 @@ const COUNT_TOKEN = new StateToken<CountModel>('count');
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    @Select((store) => store.count.val)
-    public values$: Observable<number>;
+    // automatic type inference
+    public readonly values$ = this.state$.pipe(map((state) => state.deepCount!));
 
     @action()
     public increment(): void {

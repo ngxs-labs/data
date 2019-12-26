@@ -1,4 +1,4 @@
-import { ActionOptions, ActionType, StateOperator } from '@ngxs/store';
+import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Observable } from 'rxjs';
 
@@ -47,9 +47,9 @@ export interface DataRepository<T> {
     state$: Observable<Immutable<T>>;
 }
 
-export type ImmutableStateOperator<T> = (existing: Immutable<T>) => T;
 export type DataPatchValue<T> = Partial<T | Immutable<T>>;
-export type StateValue<T> = Immutable<T> | ImmutableStateOperator<T> | StateOperator<T>;
+
+export type StateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
 
 export interface ImmutableStateContext<T> {
     getState(): Immutable<T>;
@@ -81,12 +81,19 @@ export enum NGXS_DATA_EXCEPTIONS {
 
 export interface DataStorageEngine {
     readonly length: number;
+
     key(index: number): string | null;
+
     getItem<T>(key: string): T;
+
     getItem(key: string): string | null;
+
     setItem<T>(key: string, val: T): void;
+
     setItem(key: string, value: string): void;
+
     removeItem(key: string): void;
+
     clear(): void;
 }
 

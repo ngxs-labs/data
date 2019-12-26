@@ -1,10 +1,11 @@
 import { action, Immutable, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
-import { Select, State, StateToken } from '@ngxs/store';
+import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { CountModel, ParentCountModel } from './count.model';
+import { ParentCountModel } from './count.model';
 import { DeepCountState } from './deep-count.state';
+import { map } from 'rxjs/operators';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 
@@ -15,9 +16,8 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
     children: [DeepCountState]
 })
 @Injectable()
-export class CountState extends NgxsDataRepository<CountModel> {
-    @Select((state: { count: ParentCountModel }) => state.count.deepCount)
-    public values$: Observable<ParentCountModel>;
+export class CountState extends NgxsDataRepository<ParentCountModel> {
+    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(map((state) => state.deepCount!));
 
     @action()
     public increment(): void {
@@ -26,7 +26,7 @@ export class CountState extends NgxsDataRepository<CountModel> {
 
     @action()
     public incrementDeep(): void {
-        this.ctx.setState((state: Immutable<ParentCountModel>) => ({
+        this.ctx.setState((state) => ({
             ...state,
             deepCount: { val: state.deepCount!.val + 1 }
         }));

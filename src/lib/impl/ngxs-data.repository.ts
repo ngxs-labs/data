@@ -8,7 +8,6 @@ import {
     NGXS_DATA_EXCEPTIONS,
     StateValue
 } from '../interfaces/external.interface';
-import { Any } from '../interfaces/internal.interface';
 import { action } from '../decorators/action/action';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
@@ -45,12 +44,12 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
 
     @action()
     public patchState(val: Partial<T | Immutable<T>>): void {
-        this.ctx.patchState(val as Any);
+        this.ctx.patchState(val);
     }
 
     @action()
     public setState(stateValue: StateValue<T>): void {
-        this.ctx.setState(stateValue as Any);
+        this.ctx.setState(stateValue);
     }
 
     @action()
