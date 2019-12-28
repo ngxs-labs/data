@@ -4,6 +4,7 @@
         "baseUrl": "./",
         "strict": true,
         "strictPropertyInitialization": false,
+        "strictFunctionTypes": true,
         "downlevelIteration": true,
         "noUnusedLocals": true,
         "outDir": "./dist/out-tsc",

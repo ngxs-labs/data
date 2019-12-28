@@ -10,8 +10,10 @@ import {
 } from '../interfaces/external.interface';
 import { action } from '../decorators/action/action';
 
-export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
-    public readonly name: string;
+// RequireGeneric<T, U> = T extends void ? 'You must provide a type parameter' : U;
+
+export abstract class NgxsDataRepository<T = void> implements ImmutableStateContext<T>, DataRepository<T> {
+    public readonly name: T extends void ? 'You must provide a type parameter' : string;
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
     private context: ImmutableStateContext<T>;

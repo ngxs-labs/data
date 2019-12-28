@@ -48,16 +48,24 @@ describe('TEST', () => {
             @action()
             public incrementDeep(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: DeepImmutableObject<ParentCountModel>) => { deepCount: { val: number; }; val: number; }
+                    // $ExpectType (state: DeepImmutableObject<ParentCountModel>) => { countSub: { val: number; }; val: number; }
                     (state) => {
                         // noinspection UnnecessaryLocalVariableJS
                         const prevState = state; // $ExpectType DeepImmutableObject<ParentCountModel>
 
                         return {
                             ...prevState,
-                            deepCount: { val: state.countSub!.val + 1 }
+                            countSub: { val: state.countSub!.val + 1 }
                         };
                     }
+                );
+            }
+
+            @action()
+            public incrementInvalidDeep(): void {
+                this.ctx.setState(
+                    // $ExpectType (state: DeepImmutableObject<ParentCountModel>) => { a: number; val: number; countSub?: DeepImmutableObject<CountModel> | undefined; }
+                    (state) => ({ ...state, a: 1 })
                 );
             }
 
