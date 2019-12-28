@@ -42,6 +42,7 @@ button {
 }
 
 .container {
+    position: relative;
     display: flex;
     background: #fff;
     font-size: 20px;
@@ -49,12 +50,11 @@ button {
     min-height: 40vh;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    min-width: 500px;
 }
 
 .content {
-    position: relative;
     padding: 0.5em 1em;
-    min-width: 500px;
 }
 
 .my-code {
@@ -116,10 +116,9 @@ button {
     border-top: solid 1px #ddd;
 }
 
-.menu a {
-    margin-right: 5px;
-}
-
 .menu {
-    margin-bottom: 15px;
+    min-width: 500px;
+    a {
+        margin-right: 5px;
+    }
 }
