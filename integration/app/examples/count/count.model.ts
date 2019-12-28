@@ -4,5 +4,5 @@ export interface CountModel {
 
 export interface ParentCountModel {
     val: number;
-    deepCount?: CountModel;
+    countSub?: CountModel;
 }

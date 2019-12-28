@@ -12,7 +12,9 @@ import { State } from '@ngxs/store';
 export class TodoState extends NgxsDataRepository<string[]> {
     @action()
     public addTodo(todo: string): void {
-        this.ctx.setState((state: Immutable<string[]>) => state.concat(todo));
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>) => state.concat(todo));
+        }
     }
 
     @action()

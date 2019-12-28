@@ -1,17 +1,19 @@
+<div class="panel">
+    <img class="logo" src="./assets/img/logo.png" />
+
+    <div class="panel-content">
+        <h2>Store:</h2>
+        <pre>{{ snapshot | async | json }}</pre>
+    </div>
+</div>
+
 Examples:
 <span>🚀 <a class="link" href="https://stackblitz.io/github/ngxs-labs/data" target="_blank">Stackblitz</a></span>
-<span>🏀 <a class="link" [routerLink]="['first']">CountState</a></span>
-<span>🧭 <a class="link" [routerLink]="['second']">TodoState</a></span>
+<span>🏀 <a class="link" [routerLink]="['count']">CountState</a></span>
+<span>🧭 <a class="link" [routerLink]="['todo']">TodoState</a></span>
 
 <br /><br />
 
 <div class="container">
-    <div class="content">
-        <router-outlet></router-outlet>
-    </div>
-
-    <div class="panel">
-        <h2>Store:</h2>
-        <pre>{{ snapshot | async | json }}</pre>
-    </div>
+    <div class="content"><router-outlet></router-outlet></div>
 </div>

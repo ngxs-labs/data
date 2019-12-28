@@ -1,0 +1,36 @@
+<a href="#" target="_blank"><img class="stackblitz" src="./assets/img/stackblitz.png" alt="stackblitz"/></a>
+
+<h3>CountState</h3>
+
+PS: CountSubState will be persistence in sessionStorage <br />
+
+<br /><b class="title">Selection:</b>
+<br />
+
+counter.state$ = {{ counter.state$ | async | json }}
+<br />
+
+<span> counter.values$ = {{ counter.values$ | async | json }} </span>
+
+<br /><br />
+
+<br /><b class="title">Actions:</b>
+
+<button (click)="counter.increment()">
+    increment
+</button>
+
+<button (click)="counter.countSubIncrement()">
+    countSubIncrement
+</button>
+<button (click)="counter.decrement()">decrement</button>
+<button (click)="counter.reset()">reset</button>
+
+<br />
+<br />
+
+<b class="title">ngModel:</b>
+
+<input type="text" [ngModel]="(counter.state$ | async).val" (ngModelChange)="counter.setValueFromInput($event)" />
+
+(delay 300ms)

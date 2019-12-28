@@ -18,16 +18,16 @@ import { FormsModule } from '@angular/forms';
             [
                 {
                     path: '',
-                    redirectTo: 'first',
+                    redirectTo: 'count',
                     pathMatch: 'full'
                 },
                 {
-                    path: 'first',
-                    loadChildren: () => import('./examples/first/first.module').then((m) => m.FirstModule)
+                    path: 'count',
+                    loadChildren: () => import('./examples/count/count.module').then((m) => m.CountModule)
                 },
                 {
-                    path: 'second',
-                    loadChildren: () => import('./examples/second/second.module').then((m) => m.SecondModule)
+                    path: 'todo',
+                    loadChildren: () => import('./examples/todo/todo.module').then((m) => m.TodoModule)
                 }
             ],
             { useHash: true }

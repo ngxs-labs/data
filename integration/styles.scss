@@ -9,13 +9,13 @@ html {
     max-width: 795px;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
     font-weight: 300;
 }
 
 body {
-    width: 100%;
+    width: calc(100% - 250px);
     margin: auto;
+    padding-left: 250px;
 }
 
 ul,
@@ -46,13 +46,65 @@ button {
     background: #fff;
     font-size: 20px;
     margin: auto;
-    min-height: 80vh;
+    min-height: 40vh;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 }
 
 .content {
+    position: relative;
     padding: 0.5em 1em;
     min-width: 500px;
+}
+
+.my-code {
+    cursor: help;
+}
+
+.title {
+    margin-right: 10px;
+}
+
+.stackblitz {
+    opacity: 0.5;
+    position: absolute;
+    right: 5px;
+    width: 35px;
+    top: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.panel {
+    overflow: auto;
+    padding: 20px;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: calc(100% - 40px);
+    min-width: 210px;
+    background-color: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+
+    .logo {
+        margin-top: 20px;
+        width: 180px;
+    }
+
+    .panel-content {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+.link {
+    margin-right: 10px;
 }
 
 .todo {

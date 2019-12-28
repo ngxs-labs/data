@@ -4,7 +4,7 @@ import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { ParentCountModel } from './count.model';
-import { DeepCountState } from './deep-count.state';
+import { CountSubState } from './count-sub.state';
 import { map } from 'rxjs/operators';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
@@ -13,32 +13,28 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
 @State<ParentCountModel>({
     name: COUNT_TOKEN,
     defaults: { val: 0 },
-    children: [DeepCountState]
+    children: [CountSubState]
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<ParentCountModel> {
-    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(map((state) => state.deepCount!));
+    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(map((state) => state.countSub!));
 
-    @action()
-    public increment(): void {
+    @action() public increment(): void {
         this.ctx.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 }));
     }
 
-    @action()
-    public incrementDeep(): void {
+    @action() public countSubIncrement(): void {
         this.ctx.setState((state) => ({
             ...state,
-            deepCount: { val: state.deepCount!.val + 1 }
+            countSub: { val: state.countSub!.val + 1 }
         }));
     }
 
-    @action()
-    public decrement(): void {
-        this.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val - 1 }));
+    @action() public decrement(): void {
+        this.setState((state) => ({ ...state, val: state.val - 1 }));
     }
 
-    @action({ async: true, debounce: 300 })
-    public setValueFromInput(val: string | number): void {
+    @action({ async: true, debounce: 300 }) public setValueFromInput(val: string | number): void {
         this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
     }
 }

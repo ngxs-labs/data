@@ -4,11 +4,13 @@ import { Injectable } from '@angular/core';
 
 import { CountModel } from './count.model';
 
-@Persistence([{ path: 'count.deepCount.val', existingEngine: sessionStorage }])
+const options = [{ path: 'count.countSub.val', existingEngine: sessionStorage }];
+
+@Persistence(options)
 @StateRepository()
 @State<CountModel>({
-    name: 'deepCount',
+    name: 'countSub',
     defaults: { val: 100 }
 })
 @Injectable()
-export class DeepCountState {}
+export class CountSubState {}

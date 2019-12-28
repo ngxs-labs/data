@@ -5,8 +5,8 @@ import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
-import { ParentCountModel } from '../../../integration/app/examples/first/count/count.model';
-import { DeepCountState } from '../../../integration/app/examples/first/count/deep-count.state';
+import { ParentCountModel } from '../../../integration/app/examples/count/count.model';
+import { CountSubState } from '../../../integration/app/examples/count/count-sub.state';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -14,7 +14,7 @@ describe('TEST', () => {
         @State<ParentCountModel>({
             name: 'count',
             defaults: { val: 0 },
-            children: [DeepCountState]
+            children: [CountSubState]
         })
         @Injectable()
         class CountState extends NgxsDataRepository<ParentCountModel> {
@@ -24,7 +24,7 @@ describe('TEST', () => {
                     (state) => {
                         // noinspection UnnecessaryLocalVariableJS
                         const currentState = state; // $ExpectType DeepImmutableObject<ParentCountModel>
-                        return currentState.deepCount!.val;
+                        return currentState.countSub!.val;
                     }
                 )
             );
@@ -35,7 +35,7 @@ describe('TEST', () => {
                     (state) => {
                         // noinspection UnnecessaryLocalVariableJS
                         const currentState = state; // $ExpectType DeepImmutableObject<ParentCountModel>
-                        return currentState.deepCount!;
+                        return currentState.countSub!;
                     }
                 )
             );
@@ -55,7 +55,7 @@ describe('TEST', () => {
 
                         return {
                             ...prevState,
-                            deepCount: { val: state.deepCount!.val + 1 }
+                            deepCount: { val: state.countSub!.val + 1 }
                         };
                     }
                 );
@@ -90,8 +90,8 @@ describe('TEST', () => {
         }
 
         const a: A = { val: 0, b: 2, c: 3 };
-        const nonImmutable: ParentCountModel = { val: 0, deepCount: { val: 0 } };
-        const immutable: Immutable<ParentCountModel> = { val: 0, deepCount: { val: 0 } };
+        const nonImmutable: ParentCountModel = { val: 0, countSub: { val: 0 } };
+        const immutable: Immutable<ParentCountModel> = { val: 0, countSub: { val: 0 } };
 
         counter.setState(a); // $ExpectType void
         counter.setState({ val: 0 }); // $ExpectType void
@@ -102,7 +102,7 @@ describe('TEST', () => {
         counter.initialState; // $ExpectType DeepImmutableObject<ParentCountModel>
 
         counter.patchState({ val: 10 }); // $ExpectType void
-        counter.patchState({ val: 10, deepCount: { val: 5 } }); // $ExpectType void
+        counter.patchState({ val: 10, countSub: { val: 5 } }); // $ExpectType void
         counter.patchState(nonImmutable); // $ExpectType void
         counter.patchState(a); // $ExpectType void
 
@@ -110,14 +110,14 @@ describe('TEST', () => {
             // $ExpectType (state: DeepImmutableObject<ParentCountModel>) => DeepImmutableObject<ParentCountModel>
             (state) => {
                 state.val++; // $ExpectError
-                state.deepCount!.val++; // $ExpectError
+                state.countSub!.val++; // $ExpectError
                 return state;
             }
         );
 
         counter.setState({ val: 0, b: 2, c: 3 }); // $ExpectError
         counter.patchState({ a: 5 }); // $ExpectError
-        counter.patchState({ val: 10, deepCount: { val: 5, b: 10 } }); // $ExpectError
+        counter.patchState({ val: 10, countSub: { val: 5, b: 10 } }); // $ExpectError
         counter.initialState.val++; // $ExpectError
         counter.getState().val++; // $ExpectError
     });

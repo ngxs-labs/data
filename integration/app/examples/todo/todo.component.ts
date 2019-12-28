@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TodoState } from './todo/todo.state';
+import { TodoState } from './todo.state';
 
 @Component({
-    selector: 'first',
-    templateUrl: './second.component.html',
+    selector: 'todo',
+    templateUrl: './todo.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SecondComponent {
+export class TodoComponent {
     constructor(public todo: TodoState) {}
 }
