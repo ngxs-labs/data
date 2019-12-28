@@ -16,20 +16,9 @@ script:
     - yarn lint
     - yarn test:ci
     - yarn test:types
-    - yarn build:app
     - yarn build:lib
+    - yarn build:app
 
 after_success:
     - test $TRAVIS_BRANCH = "master" && yarn coverage
-
-deploy:
-    name: Deploy
-    local_dir: ./dist/integration
-    provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    edge: true
-    keep_history: true
-    email: omaxphp@yandex.ru
-    on:
-        branch: master
+    - test $TRAVIS_BRANCH = "master" && yarn deploy

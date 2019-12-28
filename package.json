@@ -10,6 +10,7 @@
         "test:ci": "jest --config ./jest.app.config.js --coverage",
         "test:types": "dtslint src/types",
         "lint": "eslint '*.ts'",
+        "deploy": "ng deploy --no-silent --no-build --repo=https://github.com/ngxs-labs/data.git",
         "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "format": "prettier --write \"**/*.{js,ts,html,css,scss,md,json,yml}\""
     },
