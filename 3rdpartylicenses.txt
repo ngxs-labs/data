@@ -39,6 +39,7 @@ MIT
 MIT
 
 @ngxs-labs/data
+MIT
 
 @ngxs/logger-plugin
 MIT
