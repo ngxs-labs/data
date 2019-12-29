@@ -12,25 +12,35 @@ import {
 } from './internal.interface';
 import { Type } from '@angular/core';
 
-export const NGXS_DATA_META: string = 'NGXS_DATA_META';
-
+/**
+ * @publicApi
+ */
 export interface RepositoryActionOptions extends ActionOptions {
     type?: string | null;
     async?: boolean;
     debounce?: number;
 }
 
+/**
+ * @publicApi
+ */
 export interface NgxsDataOperation {
     type: string;
     argumentsNames: string[];
     options: ActionOptions;
 }
 
+/**
+ * @publicApi
+ */
 export interface NgxsRepositoryMeta<T = Any> {
     stateMeta?: MetaDataModel;
     operations?: PlainObjectOf<NgxsDataOperation>;
 }
 
+/**
+ * @publicApi
+ */
 export type Immutable<T> = T extends Primitive
     ? T
     : T extends Array<infer U>
@@ -41,16 +51,28 @@ export type Immutable<T> = T extends Primitive
     ? DeepImmutableObject<T>
     : unknown;
 
+/**
+ * @publicApi
+ */
 export interface DataRepository<T> {
     name: string;
     initialState: Immutable<T>;
     state$: Observable<Immutable<T>>;
 }
 
+/**
+ * @publicApi
+ */
 export type DataPatchValue<T> = Partial<T | Immutable<T>>;
 
+/**
+ * @publicApi
+ */
 export type StateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
 
+/**
+ * @publicApi
+ */
 export interface ImmutableStateContext<T> {
     getState(): Immutable<T>;
 
@@ -61,24 +83,9 @@ export interface ImmutableStateContext<T> {
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 }
 
-export enum NGXS_DATA_EXCEPTIONS {
-    NGXS_PERSISTENCE_STATE = '@Persistence should be add before decorator @State and @StateRepository',
-    NGXS_DATA_STATE = '@StateRepository should be add before decorator @State',
-    NGXS_DATA_MODULE_EXCEPTION = 'Metadata not created \n Maybe you forgot to import the NgxsDataPluginModule' +
-        '\n Also, you cannot use this.ctx.* until the application is fully rendered ' +
-        '\n (use by default ngxsOnInit(ctx: StateContext), or ngxsAfterBootstrap(ctx: StateContext) !!!',
-    NGXS_DATA_STATE_DECORATOR = 'You forgot add decorator @StateRepository or initialize state!' +
-        '\n Example: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
-    NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @action',
-    NGXS_DATA_ACTION = '@action can only decorate a method implementation',
-    NGXS_DATA_ACTION_RETURN_TYPE = 'RECOMMENDATION: If you use asynchronous actions' +
-        ' `@action({ async: true })`, ' +
-        'the return result type should only be Observable or void instead',
-    NGXS_PERSISTENCE_ENGINE = 'Not declare storage engine in `existingEngine` or not found after injecting by `useClass`',
-    NGXS_PERSISTENCE_SERIALIZE = 'Error occurred while serializing the store value, value not updated.',
-    NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing the store value, falling back to empty object.'
-}
-
+/**
+ * @publicApi
+ */
 export interface DataStorageEngine {
     readonly length: number;
 
@@ -97,6 +104,9 @@ export interface DataStorageEngine {
     clear(): void;
 }
 
+/**
+ * @publicApi
+ */
 interface CommonPersistenceProvider {
     /**
      * Path for slice
@@ -132,6 +142,9 @@ interface CommonPersistenceProvider {
     nullable?: boolean;
 }
 
+/**
+ * @publicApi
+ */
 export interface ExistingEngineProvider extends CommonPersistenceProvider {
     /**
      * Storage container
@@ -140,6 +153,9 @@ export interface ExistingEngineProvider extends CommonPersistenceProvider {
     existingEngine: DataStorageEngine;
 }
 
+/**
+ * @publicApi
+ */
 export interface UseClassEngineProvider extends CommonPersistenceProvider {
     /**
      * Storage class from DI
@@ -147,12 +163,21 @@ export interface UseClassEngineProvider extends CommonPersistenceProvider {
     useClass: Type<unknown>;
 }
 
+/**
+ * @publicApi
+ */
 export type PersistenceProvider = ExistingEngineProvider | UseClassEngineProvider;
 
+/**
+ * @publicApi
+ */
 export interface StorageMeta<T = string> {
     lastChanged: string;
     data: T;
     version: number;
 }
 
+/**
+ * @publicApi
+ */
 export const NEED_SYNC_TYPE_ACTION: string = 'NEED_SYNC_WITH_STORAGE';

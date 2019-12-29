@@ -1,3 +1,7 @@
+# 2.2.6 2019-12-29
+
+-   Fix: corrected reset with children states
+
 # 2.2.5 2019-12-26
 
 -   Fix: corrected automatic type inference in ctx.setState

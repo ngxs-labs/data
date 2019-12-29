@@ -3,8 +3,8 @@ import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Inject, Injectable, Injector, NgZone } from '@angular/core';
 import { StateContext, Store } from '@ngxs/store';
 
-import { NGXS_DATA_EXCEPTIONS, NgxsDataOperation, NgxsRepositoryMeta } from '../interfaces/external.interface';
-import { Any, PlainObjectOf } from '../interfaces/internal.interface';
+import { NgxsDataOperation, NgxsRepositoryMeta } from '../interfaces/external.interface';
+import { Any, NGXS_DATA_EXCEPTIONS, PlainObjectOf } from '../interfaces/internal.interface';
 import { getRepository } from '../internals/ensure-repository';
 
 /**

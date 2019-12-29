@@ -15,12 +15,11 @@ import { PlainObject } from '@ngxs/store/internals';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
-import { Any, RootInternalStorageEngine } from '../interfaces/internal.interface';
+import { Any, NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
 import {
     DataStorageEngine,
     ExistingEngineProvider,
     NEED_SYNC_TYPE_ACTION,
-    NGXS_DATA_EXCEPTIONS,
     PersistenceProvider,
     StorageMeta,
     UseClassEngineProvider

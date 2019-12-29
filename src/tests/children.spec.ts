@@ -140,7 +140,10 @@ describe('Check correct deep instance', () => {
 
         app.reset();
 
-        expect(app.getState()).toEqual({});
+        expect(app.getState()).toEqual({
+            childA: { value: 'A_1' },
+            childB: { value: 'B_A', childB_A: { value: 'B_A_1', childB_A_A: ['B_A_A_1', 'B_A_A_1'] } }
+        });
 
         fixture.destroy();
 

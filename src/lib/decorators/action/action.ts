@@ -4,7 +4,6 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { StateClass } from '@ngxs/store/internals';
 
 import {
-    NGXS_DATA_EXCEPTIONS,
     NgxsDataOperation,
     NgxsRepositoryMeta,
     RepositoryActionOptions
@@ -12,7 +11,7 @@ import {
 import { $args } from '../../internals/args-parser';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 import { actionNameCreator } from '../../internals/action-name-creator';
-import { ActionEvent, Any, PlainObjectOf } from '../../interfaces/internal.interface';
+import { ActionEvent, Any, NGXS_DATA_EXCEPTIONS, PlainObjectOf } from '../../interfaces/internal.interface';
 import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
 
