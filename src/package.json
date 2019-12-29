@@ -1,6 +1,26 @@
 {
     "name": "@ngxs-labs/data",
     "version": "2.2.6",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ngxs/store.git"
+    },
+    "keywords": [
+        "ngxs",
+        "state",
+        "rxjs",
+        "angular",
+        "cqrs",
+        "store",
+        "state-management",
+        "event-stream",
+        "data-plugin"
+    ],
+    "bugs": {
+        "url": "https://github.com/ngxs-labs/data/issues"
+    },
+    "homepage": "https://github.com/ngxs-labs/data#readme",
     "peerDependencies": {
         "@ngxs/store": ">=3.6.0 <4.0.0",
         "typescript": ">=3.5.1"
