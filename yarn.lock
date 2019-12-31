@@ -1262,12 +1262,12 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin-tslint@2.13.0":
-  version "2.13.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.13.0.tgz#7d12be9044c21b0ada34cabdfc25177cbce908e6"
-  integrity sha512-mT4pAg+WXYjIHxtrKds30uYrSCpykLjccmVOVCrjRd388UiI4ofEC/CjJTTuD/UBxdQVwYzREMi50+QChkQnsg==
+"@typescript-eslint/eslint-plugin-tslint@2.14.0":
+  version "2.14.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.14.0.tgz#b5f284c8e11cb56945be0fb424a348297511b046"
+  integrity sha512-NqIy8cjpynK0hhKjKeq+i2IK9hh3Q22eLVmnhUM3xwHAyHo8nQkM5ePx+RZr9Ae2jg0F5CP8QVb1Yz6lzpE5sw==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.13.0"
+    "@typescript-eslint/experimental-utils" "2.14.0"
     lodash.memoize "^4.1.2"
 
 "@typescript-eslint/eslint-plugin@2.14.0":
