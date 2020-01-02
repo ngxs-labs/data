@@ -33,71 +33,86 @@ simplifying management of entities or plain data while reducing the amount of ex
 
 ### Key Concepts
 
--   the main purpose of this extension is to provide the necessary layer of abstraction for states.
--   automates the creation of actions, dispatchers, and selectors for each entity type.
+The main purpose of this extension is to provide the necessary layer of abstraction for states. Automates the creation
+of actions, dispatchers, and selectors for each entity type.
 
-### Registering plugin
+Benefits:
+
+-   No breaking changes (support NGXS 3.6+)
+-   Angular-way (service abstraction)
+-   Immutable state context out-of-the-box
+-   Persistence state out-of-the-box
+-   Automatic action naming by service methods
+-   Improved debugging (`@payload` by arguments)
+-   Automatic type inference for selection
+-   Support debounce for throttling dispatch
+-   Easy testable states
+
+## Table of contents:
+
+1. [📖 Changelog](https://github.com/ngxs-labs/data/blob/master/CHANGELOG.md)
+2. [🚀 Quick Start](#quick-start)
+3. [📦 Advanced](#advanced)
+    - [State repository](#state-repository)
+    - [Persistence state](#persistence-state)
+
+## Quick Start
+
+`app.module.ts`
 
 ```ts
-...
 import { NgxsModule } from '@ngxs/store';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    NgxsModule.forRoot([ .. ]),
-    NgxsDataPluginModule.forRoot()
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        // ..
+        NgxsModule.forRoot([AppState]),
+        NgxsDataPluginModule.forRoot()
+    ]
+    // ..
 })
 export class AppModule {}
 ```
 
-### StateRepository `decorator`
-
-count.state.ts
+`count.state.ts`
 
 ```ts
-import { action, Immutable, NgxsDataRepository, query, StateRepository } from '@ngxs-labs/data';
+import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { State } from '@ngxs/store';
-import { Observable } from 'rxjs';
+// ..
 
 export interface CountModel {
     val: number;
 }
 
-const COUNT_TOKEN = new StateToken<CountModel>('count');
-
 @StateRepository()
 @State({
-    name: COUNT_TOKEN,
+    name: 'count',
     defaults: { val: 0 }
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<CountModel> {
-    // automatic type inference
-    public readonly values$ = this.state$.pipe(map((state) => state.deepCount!));
+    public readonly values$ = this.state$.pipe(map((state) => state.val));
 
     @action()
     public increment(): void {
-        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val + 1 }));
+        this.ctx.setState((state) => ({ val: state.val + 1 }));
     }
 
     @action()
     public decrement(): void {
-        this.ctx.setState((state: Immutable<CountModel>) => ({ val: state.val - 1 }));
+        this.ctx.setState((state) => ({ val: state.val - 1 }));
     }
 
     @action({ async: true, debounce: 300 })
     public setValueFromInput(val: string | number): void {
-        this.ctx.setState({ val: parseFloat(val as string) || 0 });
+        this.ctx.setState({ val: parseFloat(val) || 0 });
     }
 }
 ```
 
-app.component.ts
+`app.component.ts`
 
 ```ts
 ...
@@ -105,20 +120,22 @@ app.component.ts
 @Component({
   selector: 'app',
   template: `
-    counter.values$ = {{ counter.values$ | async }} <br />
+    <b class="title">Selection:</b>
     counter.state$ = {{ counter.state$ | async | json }} <br />
-    <br />
+    counter.values$ = {{ counter.values$ | async }} <br />
 
-    <b>form</b>
-    <br />ngModel
-
-    <input type="text" [ngModel]="counter.values$ | async" (ngModelChange)="counter.setValueFromInput($event)" />
-
-    <br />actions
-
+    <b class="title">Actions:</b>
     <button (click)="counter.increment()">increment</button>
     <button (click)="counter.decrement()">decrement</button>
     <button (click)="counter.reset()">reset</button>
+
+    <b class="title">ngModel:</b>
+    <input
+        [ngModel]="counter.values$ | async"
+        (ngModelChange)="counter.setValueFromInput($event)"
+    />
+
+    (delay: 300ms)
   `
 })
 export class AppComponent {
@@ -126,30 +143,74 @@ export class AppComponent {
 }
 ```
 
-Benefits:
+#### Demo
 
--   No breaking changes
--   Angular-way (service abstraction)
--   Improved debugging (payload by arguments)
--   Automatic action naming by service methods
--   Support debounce for throttling dispatch
--   Custom select data with `this.state$.pipe(..)`
--   Works with NGXS Lifecycle
+![](https://habrastorage.org/webt/8p/nt/hb/8pnthbvoorw2cf6lvmr-psi0kvc.png)
 
-<details>
-<summary>Debug example</summary>
-<div><br>
-  
+#### Debugging
+
+`Need provide logger-plugin`
+
+```ts
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
+@NgModule({
+    imports: [
+        // ..
+        NgxsLoggerPluginModule.forRoot()
+    ]
+    // ..
+})
+export class AppModule {}
+```
+
 ![](https://habrastorage.org/webt/hg/gz/92/hggz92co_9mvmk8rfqkxfud0bq8.png)
 
 ![](https://habrastorage.org/webt/60/7v/ja/607vja_6rkbxsnlfidusmv3263u.png)
 
-<br>
-</div>
+## Advanced
 
-</details>
+Here the main description of the functionality of this plugin will be collected.
 
-### Persistence `decorator`
+### State repository
+
+`@StateRepository` - This is a decorator that provides an extension of the functionality of NGXS states, thanks to which
+you get access to the internal mechanism of the NGXS.
+
+```ts
+@StateRepository()
+@State({
+    name: 'app',
+    defaults: {}
+})
+@Injectable()
+export class AppState extends NgxsDataRepository<AppModel> {}
+```
+
+For correct behavior you always need to inherited from an abstract NgxsDataRepository class. The basic NGXS methods are
+defined in the `DataRepository<T>` interface:
+
+```ts
+export type StateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
+
+export interface DataRepository<T> {
+    name: string;
+    initialState: Immutable<T>;
+    state$: Observable<Immutable<T>>;
+
+    getState(): Immutable<T>;
+
+    dispatch(actions: ActionType | ActionType[]): Observable<void>;
+
+    patchState(val: Partial<T | Immutable<T>>): void;
+
+    setState(stateValue: StateValue<T>): void;
+
+    reset(): void;
+}
+```
+
+### Persistence state
 
 ```ts
 @Persistence()
@@ -182,10 +243,10 @@ export interface CountModel {
 
 const options: PersistenceProvider[] = [
     {
-        path: 'count.deepCount.val',
-        existingEngine: sessionStorage,
-        prefixKey: '@mycompany.store.',
-        ttl: 60 * 60 * 24 * 1000 // 24 hour
+        path: 'count.deepCount.val', // path to slice
+        existingEngine: sessionStorage, // storage instance
+        prefixKey: '@mycompany.store.', // custom prefix
+        ttl: 60 * 60 * 24 * 1000 // 24 hour for time to live
     }
 ];
 
@@ -259,7 +320,7 @@ interface UseClassEngineProvider extends CommonPersistenceProvider {
 }
 ```
 
-### Custom Storage
+#### Custom Storage
 
 ```ts
 @Persistance([{ path: 'secureState', useClass: SecureStorageService }])

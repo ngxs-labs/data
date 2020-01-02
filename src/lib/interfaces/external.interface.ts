@@ -58,6 +58,16 @@ export interface DataRepository<T> {
     name: string;
     initialState: Immutable<T>;
     state$: Observable<Immutable<T>>;
+
+    getState(): Immutable<T>;
+
+    dispatch(actions: ActionType | ActionType[]): Observable<void>;
+
+    patchState(val: Partial<T | Immutable<T>>): void;
+
+    setState(stateValue: StateValue<T>): void;
+
+    reset(): void;
 }
 
 /**

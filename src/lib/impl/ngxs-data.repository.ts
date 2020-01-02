@@ -1,19 +1,12 @@
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import {
-    DataRepository,
-    Immutable,
-    ImmutableStateContext,
-    StateValue
-} from '../interfaces/external.interface';
+import { DataRepository, Immutable, ImmutableStateContext, StateValue } from '../interfaces/external.interface';
 import { action } from '../decorators/action/action';
 import { NGXS_DATA_EXCEPTIONS } from '../interfaces/internal.interface';
 
-// RequireGeneric<T, U> = T extends void ? 'You must provide a type parameter' : U;
-
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
-    public readonly name: T extends void ? 'You must provide a type parameter' : string;
+    public readonly name: string;
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
     private context: ImmutableStateContext<T>;
