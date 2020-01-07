@@ -54,9 +54,9 @@ Benefits:
 2. [🚀 Quick Start](#quick-start)
 3. [📦 Advanced](#advanced)
 
-    - [State repository](#state-repository)
+    - [Repository](#state-repository)
     - [Action](#action)
-    - [Persistence state](#persistence-state)
+    - [Persistence](#persistence-state)
 
 ## Quick Start
 
