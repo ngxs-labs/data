@@ -1,9 +1,11 @@
 import { ActionType } from '@ngxs/store';
+import { isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DataRepository, Immutable, ImmutableStateContext, StateValue } from '../interfaces/external.interface';
 import { action } from '../decorators/action/action';
+import { ngxsDeepFreeze } from '../utils/internals/freeze';
 import { NGXS_DATA_EXCEPTIONS } from '../interfaces/internal.interface';
+import { DataRepository, Immutable, ImmutableStateContext, StateValue } from '../interfaces/external.interface';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
     public readonly name: string;
@@ -20,6 +22,9 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
 
         return {
             ...context,
+            getState(): Immutable<T> {
+                return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
+            },
             setState(val: StateValue<T>): void {
                 context.setState(val);
             },

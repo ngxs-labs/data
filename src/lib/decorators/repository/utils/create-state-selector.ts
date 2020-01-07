@@ -33,13 +33,7 @@ export function createStateSelector<T>(stateClass: StateClass): void {
                     return (
                         this[selectorId] ||
                         (this[selectorId] = NgxsDataAccessor.store.select(stateClass as Any).pipe(
-                            map((state) => {
-                                if (isDevMode()) {
-                                    return Object.isFrozen(state) ? state : ngxsDeepFreeze(state);
-                                }
-
-                                return state;
-                            }),
+                            map((state) => (isDevMode() ? ngxsDeepFreeze(state) : state)),
                             shareReplay({ refCount: true, bufferSize: 1 })
                         ))
                     );
