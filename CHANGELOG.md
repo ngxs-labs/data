@@ -1,5 +1,9 @@
 # 2.3.0 2020-01-07
 
+-   Feat: add freeze state when run angular dev mode for selection stream
+
+# 2.3.0 2020-01-07
+
 -   Feat: expose `mutable` pipe for casting immutable stream to mutable stream
 
 # 2.2.6 2019-12-29
