@@ -1,3 +1,11 @@
+# 2.4.1 2020-01-07
+
+-   Fix: preserve mutate `getState()` when run angular dev mode
+
+# 2.4.0 2020-01-07
+
+-   Feat: add freeze state when run angular dev mode for selection stream
+
 # 2.3.0 2020-01-07
 
 -   Feat: expose `mutable` pipe for casting immutable stream to mutable stream
