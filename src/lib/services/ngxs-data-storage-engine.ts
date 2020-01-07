@@ -24,7 +24,7 @@ import {
     StorageMeta,
     UseClassEngineProvider
 } from '../interfaces/external.interface';
-import { isNotNil } from '../internals/utils';
+import { isNotNil } from '../utils/internals/utils';
 
 /**
  * @privateApi

@@ -2,7 +2,7 @@ import { StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 import { PlainObject, StateClass } from '@ngxs/store/internals';
 
-import { Any, NGXS_DATA_EXCEPTIONS } from '../interfaces/internal.interface';
+import { Any, NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { getStoreOptions } from './get-store-options';
 
 /**

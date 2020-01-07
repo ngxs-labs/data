@@ -3,8 +3,12 @@ import { NGXS_PLUGINS } from '@ngxs/store';
 
 import { NgxsDataStorageEngine } from './services/ngxs-data-storage-engine';
 import { NgxsDataAccessor } from './services/ngxs-data-accessor';
+import { NgxsDataMutablePipe } from './pipes/ngxs-data-mutable.pipe';
 
-@NgModule()
+@NgModule({
+    declarations: [NgxsDataMutablePipe],
+    exports: [NgxsDataMutablePipe]
+})
 export class NgxsDataPluginModule {
     constructor(@Self() public accessor: NgxsDataAccessor) {}
 

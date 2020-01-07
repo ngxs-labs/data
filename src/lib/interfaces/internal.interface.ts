@@ -1,5 +1,5 @@
-import { ActionType, Store } from '@ngxs/store';
-import { Immutable, PersistenceProvider } from './external.interface';
+import { Store } from '@ngxs/store';
+import { PersistenceProvider } from './external.interface';
 
 /**
  * @privateApi
@@ -13,33 +13,6 @@ export interface PlainObjectOf<T> {
  */
 // tslint:disable-next-line:no-any
 export type Any = any;
-
-/**
- * @privateApi
- */
-export type Primitive = undefined | null | boolean | string | number | Function;
-
-/**
- * @privateApi
- */
-export interface DeepImmutableArray<T> extends ReadonlyArray<Immutable<T>> {}
-
-/**
- * @privateApi
- */
-export interface DeepImmutableMap<K, V> extends ReadonlyMap<Immutable<K>, Immutable<V>> {}
-
-/**
- * @privateApi
- */
-export type DeepImmutableObject<T> = {
-    readonly [K in keyof T]: Immutable<T[K]>;
-};
-
-/**
- * @privateApi
- */
-export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
 
 /**
  * @privateApi

@@ -1,3 +1,7 @@
+# 2.3.0 2020-01-07
+
+-   Feat: expose `mutable` pipe for casting immutable stream to mutable stream
+
 # 2.2.6 2019-12-29
 
 -   Fix: corrected reset with children states

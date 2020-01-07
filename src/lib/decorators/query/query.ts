@@ -2,11 +2,11 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { Immutable } from '../../interfaces/external.interface';
-import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
+import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { Any } from '../../interfaces/internal.interface';
 
 /**
- * deprecated since 2.0, use @Selector decorator from '@ngxs/store'
+ * @deprecated since 2.0, use @Selector decorator from '@ngxs/store'
  * @param selector
  */
 export function query<T, R = T>(selector: (val: Immutable<T>) => Immutable<R>) {
