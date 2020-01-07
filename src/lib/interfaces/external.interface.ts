@@ -2,14 +2,7 @@ import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Observable } from 'rxjs';
 
-import {
-    Any,
-    DeepImmutableArray,
-    DeepImmutableMap,
-    DeepImmutableObject,
-    PlainObjectOf,
-    Primitive
-} from './internal.interface';
+import { Any, PlainObjectOf } from './internal.interface';
 import { Type } from '@angular/core';
 
 /**
@@ -41,6 +34,33 @@ export interface NgxsRepositoryMeta<T = Any> {
 /**
  * @publicApi
  */
+export type Primitive = undefined | null | boolean | string | number | Function;
+
+/**
+ * @publicApi
+ */
+export interface DeepImmutableArray<T> extends ReadonlyArray<Immutable<T>> {}
+
+/**
+ * @publicApi
+ */
+export interface DeepImmutableMap<K, V> extends ReadonlyMap<Immutable<K>, Immutable<V>> {}
+
+/**
+ * @publicApi
+ */
+export type DeepImmutableObject<T> = {
+    readonly [K in keyof T]: Immutable<T[K]>;
+};
+
+/**
+ * @publicApi
+ */
+export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
+
+/**
+ * @publicApi
+ */
 export type Immutable<T> = T extends Primitive
     ? T
     : T extends Array<infer U>
@@ -50,6 +70,22 @@ export type Immutable<T> = T extends Primitive
     : T extends object
     ? DeepImmutableObject<T>
     : unknown;
+
+/**
+ * @publicApi
+ */
+export type Mutable<T> = T extends Array<infer U> | ReadonlyArray<infer U>
+    ? DeepMutableArray<U>
+    : T extends object
+    ? { -readonly [P in keyof T]: Mutable<T[P]> }
+    : T;
+
+/**
+ * @publicApi
+ */
+export type DeepMutableArray<T> = T extends ReadonlyArray<infer U>
+    ? Array<{ [P in keyof T]: Mutable<T> }[keyof T]>
+    : Array<{ -readonly [P in keyof T]: Mutable<T[P]> }>;
 
 /**
  * @publicApi

@@ -4,9 +4,9 @@ import { ensureStoreMetadata } from '@ngxs/store';
 
 import { Any, NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsRepositoryMeta, PersistenceProvider } from '../../interfaces/external.interface';
-import { getRepository } from '../../internals/ensure-repository';
+import { getRepository } from '../../utils/internals/ensure-repository';
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
-import { isNotNil } from '../../internals/utils';
+import { isNotNil } from '../../utils/internals/utils';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {

@@ -6,7 +6,7 @@ import { createRepositoryMetadata } from '../utils/create-repository-metadata';
 import { createStateSelector } from '../utils/create-state-selector';
 import { Any, NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
 import { createContext } from '../utils/create-context';
-import { buildDefaultsGraph } from '../../../internals/utils';
+import { buildDefaultsGraph } from '../../../utils/internals/utils';
 
 export function StateRepository(): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {

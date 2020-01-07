@@ -5,7 +5,7 @@ import { StateContext, Store } from '@ngxs/store';
 
 import { NgxsDataOperation, NgxsRepositoryMeta } from '../interfaces/external.interface';
 import { Any, NGXS_DATA_EXCEPTIONS, PlainObjectOf } from '../interfaces/internal.interface';
-import { getRepository } from '../internals/ensure-repository';
+import { getRepository } from '../utils/internals/ensure-repository';
 
 /**
  * @privateApi

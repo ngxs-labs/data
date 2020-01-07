@@ -4,15 +4,16 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { StateClass } from '@ngxs/store/internals';
 
 import {
-    NgxsDataOperation,
-    NgxsRepositoryMeta,
-    RepositoryActionOptions
+  ActionEvent,
+  NgxsDataOperation,
+  NgxsRepositoryMeta,
+  RepositoryActionOptions
 } from '../../interfaces/external.interface';
-import { $args } from '../../internals/args-parser';
+import { $args } from '../../utils/internals/args-parser';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
-import { actionNameCreator } from '../../internals/action-name-creator';
-import { ActionEvent, Any, NGXS_DATA_EXCEPTIONS, PlainObjectOf } from '../../interfaces/internal.interface';
-import { NgxsDataRepository } from '../../impl/ngxs-data.repository';
+import { actionNameCreator } from '../../utils/internals/action-name-creator';
+import { Any, NGXS_DATA_EXCEPTIONS, PlainObjectOf } from '../../interfaces/internal.interface';
+import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {

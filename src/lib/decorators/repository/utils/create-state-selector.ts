@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Any } from '../../../interfaces/internal.interface';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
-import { getRepository } from '../../../internals/ensure-repository';
+import { getRepository } from '../../../utils/internals/ensure-repository';
 import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';
 
 export function createStateSelector<T>(stateClass: StateClass): void {
