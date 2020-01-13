@@ -52,7 +52,7 @@
         "jest-preset-angular": "7.1.1",
         "ng-packagr": "5.7.1",
         "prettier": "1.19.1",
-        "ts-node": "8.6.1",
+        "ts-node": "8.6.2",
         "tsickle": "0.38.0",
         "tslint": "5.20.1",
         "coveralls": "3.0.9",
