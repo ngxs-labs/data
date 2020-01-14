@@ -1262,13 +1262,13 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin-tslint@2.15.0":
-  version "2.15.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.15.0.tgz#60f0f470e23a2f49adb723cde1f6f0a42651dfe1"
-  integrity sha512-TdYRPemAXd+JmB8Jt3CbwvafJH/7hpkhY4MfY0X10VQ0gRij9jv7ID/9ORKsygfgwDDMKMZpvdFSm96Mju/yMw==
+"@typescript-eslint/eslint-plugin-tslint@2.16.0":
+  version "2.16.0"
+  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.16.0.tgz#8e8573cc2560ddae5a8a30fc2eb6af10f1ff9658"
+  integrity sha512-F+In2z6VCWiI0J4P4OzUQY9UzT5y/0Xg6bHM6twoK5XmPdbR7zT9JzIZKLcXyr80XT5LbgHjnW6oPGp1O3W36g==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.15.0"
-    lodash.memoize "^4.1.2"
+    "@typescript-eslint/experimental-utils" "2.16.0"
+    lodash "^4.17.15"
 
 "@typescript-eslint/eslint-plugin@2.16.0":
   version "2.16.0"
@@ -5909,7 +5909,7 @@ lodash.clonedeep@^4.5.0:
   resolved "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
-lodash.memoize@4.x, lodash.memoize@^4.1.2:
+lodash.memoize@4.x:
   version "4.1.2"
   resolved "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
