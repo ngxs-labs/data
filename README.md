@@ -449,7 +449,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
     );
 ```
 
-or `Into template` without create `mutableState$`:
+or `Into template` without creating `mutableState$`:
 
 ```ts
 import { Immutable } from '@ngxs-labs/data';
