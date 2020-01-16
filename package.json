@@ -56,7 +56,7 @@
         "tsickle": "0.38.0",
         "tslint": "5.20.1",
         "coveralls": "3.0.9",
-        "typescript": "3.5.1",
+        "typescript": "3.7.5",
         "dtslint": "0.9.8"
     }
 }
