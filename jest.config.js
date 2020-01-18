@@ -8,6 +8,7 @@ module.exports = {
     verbose: true,
     watch: false,
     cache: false,
+    maxWorkers: 5,
     preset: 'jest-preset-angular',
     rootDir: path.resolve('.'),
     testMatch: ['<rootDir>/src/tests/**/*.spec.ts'],

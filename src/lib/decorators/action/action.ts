@@ -4,10 +4,10 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { StateClass } from '@ngxs/store/internals';
 
 import {
-  ActionEvent,
-  NgxsDataOperation,
-  NgxsRepositoryMeta,
-  RepositoryActionOptions
+    ActionEvent,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
+    RepositoryActionOptions
 } from '../../interfaces/external.interface';
 import { $args } from '../../utils/internals/args-parser';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';

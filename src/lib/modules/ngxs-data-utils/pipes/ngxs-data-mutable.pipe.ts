@@ -5,7 +5,7 @@ import {
     DeepImmutableObject,
     Immutable,
     Mutable
-} from '../interfaces/external.interface';
+} from '../../../interfaces/external.interface';
 
 @Pipe({ name: 'mutable', pure: true })
 export class NgxsDataMutablePipe implements PipeTransform {
