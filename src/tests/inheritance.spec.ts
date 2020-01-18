@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-    action,
-    NGXS_DATA_EXCEPTIONS,
-    NgxsDataPluginModule,
-    NgxsDataRepository,
-    StateRepository
-} from '@ngxs-labs/data';
+import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
+
+import { NGXS_DATA_EXCEPTIONS } from 'src/lib/interfaces/internal.interface';
 
 describe('Inheritance', () => {
     it('should be throw', () => {
