@@ -6,7 +6,6 @@
  * @Modules
  */
 export * from './lib/ngxs-data.module';
-export * from './lib/modules/ngxs-data-utils/ngxs-data-utils.module';
 
 /**
  * @Repositories

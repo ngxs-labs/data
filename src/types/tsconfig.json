@@ -22,7 +22,8 @@
         "paths": {
             "@angular/*": ["../../node_modules/@angular/*"],
             "@ngxs/*": ["../../node_modules/@ngxs/*"],
-            "@ngxs-labs/data": ["../public-api.ts"]
+            "@ngxs-labs/data": ["../public-api.ts"],
+            "@ngxs-labs/data/utils": ["../lib/utils/public-api.ts"]
         }
     }
 }

@@ -2,7 +2,7 @@
 
 ### BREAKING CHANGES
 
--   In order to use `MutablePipe` you need to import the `MutablePipeModule` into your `AppModule` or `LazyModule`
+-   In order to use `mutable` pipe you need to import the `NgxsDataUtilsModule` into your `AppModule` or `LazyModule`
 
 -   Removed public API:
     -   `query` decorator
