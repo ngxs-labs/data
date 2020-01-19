@@ -1,11 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {
-    DeepImmutableArray,
-    DeepImmutableMap,
-    DeepImmutableObject,
-    Immutable,
-    Mutable
-} from '../../../interfaces/external.interface';
+import { DeepImmutableArray, DeepImmutableMap, DeepImmutableObject, Immutable, Mutable } from '@ngxs-labs/data';
 
 @Pipe({ name: 'mutable', pure: true })
 export class NgxsDataMutablePipe implements PipeTransform {

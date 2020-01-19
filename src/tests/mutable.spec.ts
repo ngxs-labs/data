@@ -1,12 +1,8 @@
+import { Immutable, NgxsDataPluginModule, StateRepository, NgxsDataRepository } from '@ngxs-labs/data';
+import { NgxsDataMutablePipe, NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Immutable } from '@ngxs-labs/data';
 import { NgxsModule, State } from '@ngxs/store';
-import { StateRepository } from 'src/lib/decorators/repository/data/state-repository';
-import { NgxsDataMutablePipe } from 'src/lib/modules/ngxs-data-utils/pipes/ngxs-data-mutable.pipe';
-import { NgxsDataPluginModule } from 'src/lib/ngxs-data.module';
-import { NgxsDataRepository } from 'src/lib/repositories/ngxs-data.repository';
-import { NgxsDataUtilsModule } from 'src/lib/modules/ngxs-data-utils/ngxs-data-utils.module';
 
 describe('Mutable', () => {
     interface A {

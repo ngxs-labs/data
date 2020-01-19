@@ -1,10 +1,11 @@
 {
+    "$schema": "../node_modules/ng-packagr/package.schema.json",
     "name": "@ngxs-labs/data",
-    "version": "2.4.1",
+    "version": "3.0.0",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ngxs/store.git"
+        "url": "git+https://github.com/ngxs-labs/data.git"
     },
     "keywords": [
         "ngxs",
@@ -24,5 +25,16 @@
     "peerDependencies": {
         "@ngxs/store": ">=3.6.0 <4.0.0",
         "typescript": ">=3.5.1"
+    },
+    "ngPackage": {
+        "lib": {
+            "entryFile": "public-api.ts",
+            "umdModuleIds": {
+                "@ngxs/store": "ngxs-store",
+                "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
+                "@ngxs/store/internals": "ngxs-store-internals"
+            }
+        },
+        "dest": "../dist/ngxs-data"
     }
 }

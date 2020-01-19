@@ -452,7 +452,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
 or `Into template` without creating `mutableState$`:
 
 ```ts
-import { NgxsDataUtilsModule } from '@ngxs-labs/data';
+import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 
 @NgModule({
     imports: [
