@@ -1305,12 +1305,12 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin-tslint@2.19.1":
-  version "2.19.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.19.1.tgz#38ac6c6d4a53e08d4292230b903e02faf832988b"
-  integrity sha512-4hgbt2/HS5UFl+sB1dm6oyAiS+S9skkMVv0hh95h7rrUHvoHuonFs231qNbG6mXC3xXR2+l91MpWlUuSDpC4Cg==
+"@typescript-eslint/eslint-plugin-tslint@2.19.2":
+  version "2.19.2"
+  resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-2.19.2.tgz#78b1def7370077ef48aa008070eb17dd37318372"
+  integrity sha512-S6F+Iaq3WIZN1aj6ar9Obda6kF3UaRWzT1Phi/CGp0mrSuaO1g8G+VJ0QG2HJ7S7CIKXMy7zXmF2alZ38EIVzw==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.19.1"
+    "@typescript-eslint/experimental-utils" "2.19.2"
     lodash "^4.17.15"
 
 "@typescript-eslint/eslint-plugin@2.19.2":
@@ -1331,15 +1331,6 @@
   dependencies:
     "@types/json-schema" "^7.0.3"
     "@typescript-eslint/typescript-estree" "2.19.0"
-    eslint-scope "^5.0.0"
-
-"@typescript-eslint/experimental-utils@2.19.1":
-  version "2.19.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/experimental-utils/-/experimental-utils-2.19.1.tgz#170d356d9d5240467c93e35351b07d09f19e8be2"
-  integrity sha512-w0BCh/5WIsMqr2YZ7dOlu76dErgSKkh6wa0zJC1s8HzOYQEjdMFMlvoC6IKpeeLSWvPDg1VIBSgiV/aEh6uIoQ==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.19.1"
     eslint-scope "^5.0.0"
 
 "@typescript-eslint/experimental-utils@2.19.2":
@@ -1365,19 +1356,6 @@
   version "2.19.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-2.19.0.tgz#6bd7310b9827e04756fe712909f26956aac4b196"
   integrity sha512-n6/Xa37k0jQdwpUszffi19AlNbVCR0sdvCs3DmSKMD7wBttKY31lhD2fug5kMD91B2qW4mQldaTEc1PEzvGu8w==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^6.3.0"
-    tsutils "^3.17.1"
-
-"@typescript-eslint/typescript-estree@2.19.1":
-  version "2.19.1"
-  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-2.19.1.tgz#bb6d501174756df17856e5434dfd342845e84fbe"
-  integrity sha512-rMCadf2iUJiw/J06U+JvdruaC+/rzxBamFlxfLCiuwJHy6aKw3gj4si89kxxY7DneVqmy4DZNDZvEV4SE2t7Lw==
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"
