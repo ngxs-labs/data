@@ -1,22 +1,30 @@
 import { Any } from '../../interfaces/internal.interface';
 
-export const ngxsDeepFreeze = (o: Any) => {
-    Object.freeze(o);
+export const ngxsDeepFreeze = (value: Any) => {
+    const isObject: boolean = typeof value === 'object' && value !== null;
+    const isDate: boolean = value instanceof Date;
+    const skipFreeze: boolean = !isObject || isDate;
 
-    const oIsFunction = typeof o === 'function';
+    if (skipFreeze) {
+        return value;
+    }
+
+    Object.freeze(value);
+
+    const oIsFunction = typeof value === 'function';
     const hasOwnProp = Object.prototype.hasOwnProperty;
 
-    Object.getOwnPropertyNames(o).forEach(function(prop) {
+    Object.getOwnPropertyNames(value).forEach(function(prop) {
         if (
-            hasOwnProp.call(o, prop) &&
+            hasOwnProp.call(value, prop) &&
             (oIsFunction ? prop !== 'caller' && prop !== 'callee' && prop !== 'arguments' : true) &&
-            o[prop] !== null &&
-            (typeof o[prop] === 'object' || typeof o[prop] === 'function') &&
-            !Object.isFrozen(o[prop])
+            value[prop] !== null &&
+            (typeof value[prop] === 'object' || typeof value[prop] === 'function') &&
+            !Object.isFrozen(value[prop])
         ) {
-            ngxsDeepFreeze(o[prop]);
+            ngxsDeepFreeze(value[prop]);
         }
     });
 
-    return o;
+    return value;
 };
