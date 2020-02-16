@@ -1,14 +1,11 @@
 # 3.0.0 2020-01-19
 
+- Fix: correct value freeze from `getState()`
+
 ### BREAKING CHANGES
 
--   In order to use `mutable` pipe you need to import the `NgxsDataUtilsModule` into your `AppModule` or `LazyModule`
-
 -   Removed public API:
-    -   `query` decorator
-    -   `NgxsDataMutablePipe` pipe
-    -   `NGXS_DATA_META` interface
-    -   `NGXS_DATA_EXCEPTIONS` enum
+    -   `@query` decorator (prefer use `@Select`)
 
 # 2.4.1 2020-01-07
 
