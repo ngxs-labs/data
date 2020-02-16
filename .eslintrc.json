@@ -13,12 +13,7 @@
     "rules": {
         "@typescript-eslint/class-name-casing": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/explicit-member-accessibility": [
-            "error",
-            {
-                "accessibility": "explicit"
-            }
-        ],
+        "@typescript-eslint/explicit-member-accessibility": "off",
         "@typescript-eslint/indent": "error",
         "@typescript-eslint/member-delimiter-style": [
             "error",

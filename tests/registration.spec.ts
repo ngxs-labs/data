@@ -1,6 +1,6 @@
 import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, Select, State, Store } from '@ngxs/store';
-import { Any } from '../lib/interfaces/internal.interface';
+import { Any } from '../src/lib/interfaces/internal.interface';
 import { Observable } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';

@@ -8,7 +8,7 @@
         "build:lib": "ng build ngxs-data && ts-node --project tsconfig.tools.json ./tools/copy-readme",
         "test": "jest --config ./jest.config.js",
         "test:ci": "jest --config ./jest.config.js --coverage",
-        "test:types": "dtslint src/types",
+        "test:types": "dtslint ./types --localTs node_modules/typescript/lib",
         "lint": "eslint '*.ts'",
         "deploy": "ng deploy --no-build --repo=https://github.com/ngxs-labs/data.git",
         "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",

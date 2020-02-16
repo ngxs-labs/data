@@ -7,8 +7,8 @@ import { Injectable, Component, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
-import { ParentCountModel } from '../../../integration/app/examples/count/count.model';
-import { CountSubState } from '../../../integration/app/examples/count/count-sub.state';
+import { ParentCountModel } from '../integration/app/examples/count/count.model';
+import { CountSubState } from '../integration/app/examples/count/count-sub.state';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {

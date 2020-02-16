@@ -2,7 +2,7 @@ import { action, NgxsDataPluginModule, NgxsDataRepository, NgxsRepositoryMeta, S
 import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-import { NgxsDataAccessor } from '../lib/services/ngxs-data-accessor';
+import { NgxsDataAccessor } from '../src/lib/services/ngxs-data-accessor';
 
 import { NGXS_DATA_EXCEPTIONS } from 'src/lib/interfaces/internal.interface';
 

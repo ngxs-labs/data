@@ -18,12 +18,13 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "typeRoots": ["node_modules/@types"],
-        "baseUrl": ".",
+        "baseUrl": "./",
         "paths": {
-            "@angular/*": ["../../node_modules/@angular/*"],
-            "@ngxs/*": ["../../node_modules/@ngxs/*"],
-            "@ngxs-labs/data": ["../public-api.ts"],
-            "@ngxs-labs/data/utils": ["../lib/utils/public-api.ts"]
+            "@angular/*": ["./../node_modules/@angular/*"],
+            "@ngxs/*": ["./../node_modules/@ngxs/*"],
+            "@ngxs-labs/data": ["./../dist/ngxs-data/public-api.ts"],
+            "@ngxs-labs/data/utils": ["./../dist/ngxs-data/lib/utils/public-api.ts"]
         }
-    }
+    },
+    "exclude": ["./../integration", "./../src"]
 }

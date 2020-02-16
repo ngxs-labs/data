@@ -23,5 +23,7 @@
             "@ngxs-labs/data/utils": ["src/lib/utils/public-api.ts"]
         }
     },
-    "exclude": ["src/types"]
+    "exclude": [
+      "types"
+    ]
 }
