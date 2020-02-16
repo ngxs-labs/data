@@ -20,10 +20,8 @@
         "typeRoots": ["node_modules/@types"],
         "paths": {
             "@ngxs-labs/data": ["src/public-api.ts"],
-            "@ngxs-labs/data/utils": ["src/lib/utils/public-api.ts"]
+            "@ngxs-labs/data/utils": ["src/utils/public-api.ts"]
         }
     },
-    "exclude": [
-      "dtslint"
-    ]
+    "exclude": ["dtslint"]
 }

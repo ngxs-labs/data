@@ -5,21 +5,21 @@
 /**
  * @Modules
  */
-export * from './lib/ngxs-data.module';
+export * from './ngxs-data.module';
 
 /**
  * @Repositories
  */
-export { NgxsDataRepository } from './lib/repositories/ngxs-data.repository';
+export { NgxsDataRepository } from './repositories/ngxs-data.repository';
 
 /**
  * @Decorators
  */
-export * from './lib/decorators/persistence/persistence';
-export * from './lib/decorators/repository/data/state-repository';
-export * from './lib/decorators/action/action';
+export * from './decorators/persistence/persistence';
+export * from './decorators/repository/data/state-repository';
+export * from './decorators/action/action';
 
 /**
  * @Interfaces
  */
-export * from './lib/interfaces/external.interface';
+export * from './interfaces/external.interface';

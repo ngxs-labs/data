@@ -9,7 +9,7 @@ import {
 } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 
-import { NGXS_DATA_EXCEPTIONS } from 'src/lib/interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
 
 describe('Complex lifecycle', () => {
     @Injectable()

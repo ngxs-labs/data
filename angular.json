@@ -58,21 +58,6 @@
                     "options": {}
                 }
             }
-        },
-        "ngxs-data": {
-            "projectType": "library",
-            "root": "src",
-            "sourceRoot": "src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-ng-packagr:build",
-                    "options": {
-                        "tsConfig": "src/tsconfig.lib.json",
-                        "project": "src/package.json"
-                    }
-                }
-            }
         }
     },
     "defaultProject": "integration"

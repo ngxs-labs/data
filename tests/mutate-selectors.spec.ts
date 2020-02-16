@@ -5,7 +5,7 @@ import { DeepImmutableArray, NgxsDataPluginModule, NgxsDataRepository, StateRepo
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { NGXS_DATA_EXCEPTIONS } from 'src/lib/interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
 
 describe('Mutate', () => {
     let store: Store;
