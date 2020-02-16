@@ -1107,10 +1107,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngxs/store@3.6.0":
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/@ngxs/store/-/store-3.6.0.tgz#4536f90445e0d5231eb418c84408d39a58a34e6f"
-  integrity sha512-SE/2XK83snCDUj1c3iLRKp7YgCfBb9I+b+N82i1k5odn14oWvnalzB6oComu8zDwxzpD92Gt3CoZWr0V8Xct+A==
+"@ngxs/store@3.6.2":
+  version "3.6.2"
+  resolved "https://registry.npmjs.org/@ngxs/store/-/store-3.6.2.tgz#cfba63dc1e5bd422e89e54b3332cd69818510624"
+  integrity sha512-al7GU618SAuz2Ul4rFYVDgS1DM0gHReGOGvbnE7LBt4Etz3gsJERNYXPp2bSA7lZGaRPRaFfIHJN+Lm/GikFJw==
   dependencies:
     tslib "^1.9.0"
 
