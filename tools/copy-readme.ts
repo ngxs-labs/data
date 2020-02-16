@@ -8,7 +8,7 @@ function copyReadmeAfterSuccessfulBuild(): void {
     const noReadme = !existsSync(path);
 
     if (noReadme) {
-        return console.log(`README.md doesn't exist on the root level!`);
+        return console.log('README.md doesn\'t exist on the root level!');
     }
 
     createReadStream(path)

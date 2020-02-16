@@ -13,13 +13,8 @@
     "rules": {
         "@typescript-eslint/class-name-casing": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/explicit-member-accessibility": [
-            "error",
-            {
-                "accessibility": "explicit"
-            }
-        ],
-        "@typescript-eslint/indent": "error",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/indent": "off",
         "@typescript-eslint/member-delimiter-style": [
             "error",
             {
@@ -35,19 +30,18 @@
         ],
         "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-empty-interface": "error",
+        "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-misused-new": "error",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/prefer-function-type": "error",
-        "@typescript-eslint/quotes": ["error", "single"],
         "@typescript-eslint/semi": ["error", "always"],
         "@typescript-eslint/type-annotation-spacing": "error",
-        "@typescript-eslint/unified-signatures": "error",
+        "@typescript-eslint/unified-signatures": "off",
         "arrow-body-style": "error",
         "camelcase": "off",
-        "capitalized-comments": "error",
+        "capitalized-comments": "off",
         "constructor-super": "error",
         "curly": "error",
         "dot-notation": "off",
@@ -113,6 +107,7 @@
         "radix": "error",
         "spaced-comment": "error",
         "quotes": "off",
+        "@typescript-eslint/quotes": ["error", "single"],
         "@typescript-eslint/tslint/config": [
             "error",
             {

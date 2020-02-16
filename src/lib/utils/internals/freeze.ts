@@ -1,4 +1,6 @@
-export const ngxsDeepFreeze = (o: any) => {
+import { Any } from '../../interfaces/internal.interface';
+
+export const ngxsDeepFreeze = (o: Any) => {
     Object.freeze(o);
 
     const oIsFunction = typeof o === 'function';

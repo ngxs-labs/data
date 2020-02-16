@@ -1,2 +1,5 @@
 **/*.spec.ts
 **/*.lint.ts
+**/*.d.ts
+**/dist/**
+**/node_modules/**
