@@ -1,16 +1,16 @@
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { StateClass } from '@ngxs/store/internals';
-import { ensureStoreMetadata } from '@ngxs/store';
 
 import { Any, NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsRepositoryMeta, PersistenceProvider } from '../../interfaces/external.interface';
 import { getRepository } from '../../utils/internals/ensure-repository';
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
 import { isNotNil } from '../../utils/internals/utils';
+import { ensureStateMetadata } from '../../utils/internals/ensure-state-metadata';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
-        const stateMeta: MetaDataModel = ensureStoreMetadata((stateClass as Any) as StateClass);
+        const stateMeta: MetaDataModel = ensureStateMetadata((stateClass as Any) as StateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository((stateClass as Any) as StateClass);
         const isUndecoratedClass: boolean = !stateMeta.name || !repositoryMeta;
         const defaultPrefix: string = '@ngxs.store.';
