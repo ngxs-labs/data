@@ -1,11 +1,12 @@
-# 3.0.0 2020-01-19
+# To become 3.0.0
 
+- Fix: compatibility with `@ngxs/store@3.6.2`
 - Fix: correct value freeze from `getState()`
 
 ### BREAKING CHANGES
 
 -   Removed public API:
-    -   `@query` decorator (prefer use `@Select`)
+    -   `@query` decorator
 
 # 2.4.1 2020-01-07
 
