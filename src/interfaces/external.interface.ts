@@ -1,9 +1,9 @@
+import { Type } from '@angular/core';
+import { Immutable } from '@ngxs-labs/data/common';
+import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
 import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
-import { Immutable } from '@ngxs-labs/data/common';
 import { Observable } from 'rxjs';
-import { Type } from '@angular/core';
 
 /**
  * @publicApi

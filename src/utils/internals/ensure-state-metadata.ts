@@ -1,6 +1,7 @@
 import { MetaDataModel, RuntimeSelectorContext, StateClassInternal } from '@ngxs/store/src/internal/internals';
-import { META_KEY } from './meta-key';
+
 import { getStateMetadata } from './get-state-metadata';
+import { META_KEY } from './meta-key';
 
 export function ensureStateMetadata(target: StateClassInternal): MetaDataModel {
     if (!target.hasOwnProperty(META_KEY)) {

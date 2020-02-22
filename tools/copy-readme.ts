@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { createReadStream, createWriteStream, existsSync } from 'fs';
+import { join } from 'path';
 
 import { name } from '../package.json';
 

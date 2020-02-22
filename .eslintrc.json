@@ -9,8 +9,9 @@
         "project": "tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "@typescript-eslint/tslint"],
+    "plugins": ["simple-import-sort", "@typescript-eslint", "@typescript-eslint/tslint"],
     "rules": {
+        "simple-import-sort/sort": "error",
         "@typescript-eslint/class-name-casing": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/explicit-member-accessibility": "off",
