@@ -1,9 +1,10 @@
 import { StateClass } from '@ngxs/store/internals';
 import { map, shareReplay } from 'rxjs/operators';
+import { Any } from '@ngxs-labs/data/internals';
 import { isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Any, NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 import { getRepository } from '../../../utils/internals/ensure-repository';
 import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';

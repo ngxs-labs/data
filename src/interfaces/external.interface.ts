@@ -1,10 +1,9 @@
 import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+import { Immutable } from '@ngxs-labs/data/common';
 import { Observable } from 'rxjs';
-
-import { Any, PlainObjectOf } from './internal.interface';
 import { Type } from '@angular/core';
-import { Immutable } from '../common/interfaces/immutability';
 
 /**
  * @publicApi
@@ -31,11 +30,6 @@ export interface NgxsRepositoryMeta<T = Any> {
     stateMeta?: MetaDataModel;
     operations?: PlainObjectOf<NgxsDataOperation>;
 }
-
-/**
- * @publicApi
- */
-export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
 
 /**
  * @publicApi

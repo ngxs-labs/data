@@ -15,7 +15,7 @@ import { PlainObject } from '@ngxs/store/internals';
 import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
-import { Any, NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
 import {
     DataStorageEngine,
     ExistingEngineProvider,
@@ -25,6 +25,7 @@ import {
     UseClassEngineProvider
 } from '../interfaces/external.interface';
 import { isNotNil } from '../utils/internals/utils';
+import { Any } from '../internals/types/symbols';
 
 /**
  * @privateApi

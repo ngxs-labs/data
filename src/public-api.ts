@@ -23,3 +23,4 @@ export * from './decorators/action/action';
  * @Interfaces
  */
 export * from './interfaces/external.interface';
+export { ActionEvent } from './common/types/action-event';

@@ -3,9 +3,9 @@ import { StateClass } from '@ngxs/store/internals';
 import { StateContext } from '@ngxs/store';
 
 import { getRepository } from '../../../utils/internals/ensure-repository';
-import { Any } from '../../../interfaces/internal.interface';
 import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
+import { Any } from '../../../internals/types/symbols';
 
 export function createContext<T>(stateClass: StateClass): PropertyDescriptor {
     return {

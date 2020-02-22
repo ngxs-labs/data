@@ -24,6 +24,7 @@
         "paths": {
             "@ngxs-labs/data": ["src/public-api.ts"],
             "@ngxs-labs/data/utils": ["src/utils/public-api.ts"],
+            "@ngxs-labs/data/internals": ["src/internals/public-api.ts"],
             "@ngxs-labs/data/common": ["src/common/public-api.ts"]
         }
     },
