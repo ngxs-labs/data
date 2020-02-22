@@ -1,7 +1,7 @@
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, State, Store } from '@ngxs/store';
-import { Injectable } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { Component, Injectable } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('[TEST]: Freeze states', () => {
     it('should be return null from state', () => {
@@ -108,5 +108,53 @@ describe('[TEST]: Freeze states', () => {
         });
 
         expect(state.getState().date.getFullYear()).toEqual(1994);
+    });
+
+    it('should be correct work with immutable array', () => {
+        interface ListModel {
+            a: number;
+            b: number;
+        }
+
+        @StateRepository()
+        @State<ListModel[]>({
+            name: 'stateList',
+            defaults: [
+                { a: 1, b: 2 },
+                { a: 3, b: 4 }
+            ]
+        })
+        @Injectable()
+        class StateListState extends NgxsDataRepository<ListModel[]> {}
+
+        @Component({ selector: 'app', template: '{{ app.state$ | async | json }}' })
+        class AppComponent {
+            constructor(public app: StateListState) {}
+        }
+
+        TestBed.configureTestingModule({
+            declarations: [AppComponent],
+            imports: [NgxsModule.forRoot([StateListState]), NgxsDataPluginModule.forRoot()]
+        }).compileComponents();
+
+        const fixture: ComponentFixture<AppComponent> = TestBed.createComponent(AppComponent);
+        fixture.autoDetectChanges();
+
+        expect(JSON.parse(fixture.nativeElement.innerHTML)).toEqual([
+            { a: 1, b: 2 },
+            { a: 3, b: 4 }
+        ]);
+
+        const state: StateListState = fixture.componentInstance.app;
+
+        let message: string | null = null;
+
+        try {
+            (state.getState() as ListModel[]).reverse();
+        } catch (e) {
+            message = e.message;
+        }
+
+        expect(message).toEqual("Cannot assign to read only property '0' of object '[object Array]'");
     });
 });

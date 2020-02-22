@@ -31,6 +31,7 @@
         "no-eval": false,
         "interface-name": false,
         "prefer-switch": false,
+        "max-line-length": false,
         "no-misused-new": false,
         "prefer-const": false,
         "one-variable-per-declaration": false,

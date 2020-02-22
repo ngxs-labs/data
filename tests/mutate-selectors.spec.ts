@@ -1,7 +1,7 @@
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-import { DeepImmutableArray, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { Immutable, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -39,7 +39,7 @@ describe('Mutate', () => {
         @State({ name: 'todos', defaults: [1, 2, 3] })
         @Injectable()
         class TodosState extends NgxsDataRepository<string[]> {
-            public mutable$(): Observable<DeepImmutableArray<string>> {
+            public mutable$(): Observable<Immutable<string[]>> {
                 return this.state$.pipe(map((state) => (state as string[]).reverse()));
             }
         }
