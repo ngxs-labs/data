@@ -1,12 +1,13 @@
 # To become 3.0.0
 
-- Fix: compatibility with `@ngxs/store@3.6.2`
-- Fix: correct value freeze from `getState()`
+-   Fix: compatibility with `@ngxs/store@3.6.2`
+-   Fix: correct value freeze from `getState()`
 
 ### BREAKING CHANGES
 
--   Removed public API:
-    -   `@query` decorator
+-   Changed public API:
+    -   Now require minimal TypeScript `v3.7.2`
+    -   Removed `@query` decorator
 
 # 2.4.1 2020-01-07
 
