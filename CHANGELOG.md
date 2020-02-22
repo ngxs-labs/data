@@ -5,10 +5,43 @@
 
 ### BREAKING CHANGES
 
--   Changed public API:
-    -   Now require minimal `@ngxs/store v3.6.2`
-    -   Now require minimal `TypeScript v3.7.2`
-    -   Removed `@query` decorator
+-   Now require minimal `@ngxs/store v3.6.2`
+-   Now require minimal `TypeScript v3.7.2`
+-   Removed `@query` decorator
+-   Moved public interfaces to `@ngxs-labs/data/common`:
+
+```ts
+import { Immutable, Mutable } from '@ngxs-labs/data/common';
+```
+
+-   For a cast state to mutable type it is necessary to use package `@ngxs-labs/data/utils`:
+
+```ts
+import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
+
+@NgModule({
+    imports: [
+        // ..
+        NgxsDataUtilsModule
+    ]
+})
+export class AppModule {}
+
+@Component({
+    //..
+})
+class TodoComponent {
+    @Input() public data: string[];
+}
+
+@Component({
+    selector: 'app',
+    template: '<todo [data]="todos.state$ | async | mutable"></todo>'
+})
+class AppComponent {
+    constructor(public todos: TodosState) {}
+}
+```
 
 # 2.4.1 2020-01-07
 

@@ -1,9 +1,10 @@
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { StateClass } from '@ngxs/store/internals';
+import { Any } from '@ngxs-labs/data/internals';
 
 import { createRepositoryMetadata } from '../utils/create-repository-metadata';
 import { createStateSelector } from '../utils/create-state-selector';
-import { Any, NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
 import { createContext } from '../utils/create-context';
 import { buildDefaultsGraph } from '../../../utils/internals/utils';
 import { ensureStateMetadata } from '../../../utils/internals/ensure-state-metadata';

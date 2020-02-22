@@ -1,7 +1,8 @@
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { StateClass } from '@ngxs/store/internals';
+import { Any } from '@ngxs-labs/data/internals';
 
-import { Any, NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
+import { NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsRepositoryMeta, PersistenceProvider } from '../../interfaces/external.interface';
 import { getRepository } from '../../utils/internals/ensure-repository';
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';

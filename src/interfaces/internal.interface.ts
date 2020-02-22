@@ -1,19 +1,6 @@
 import { Store } from '@ngxs/store';
 import { PersistenceProvider } from './external.interface';
-
-/**
- * @privateApi
- */
-export interface PlainObjectOf<T> {
-    [key: string]: T;
-}
-
-/**
- * @privateApi
- */
-// tslint:disable-next-line:no-any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Any = any;
+import { Any } from '../internals/types/symbols';
 
 /**
  * @privateApi

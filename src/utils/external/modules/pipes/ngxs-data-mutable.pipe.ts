@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Immutable, Mutable } from '../../../../interfaces/external.interface';
+import { Immutable, Mutable } from '@ngxs-labs/data/common';
 
-@Pipe({ name: 'mutable', pure: true })
+@Pipe({ name: 'mutable' })
 export class NgxsDataMutablePipe implements PipeTransform {
     transform<T>(value: Immutable<T> | null): Mutable<T>;
     transform<T>(value: T | null): T;
