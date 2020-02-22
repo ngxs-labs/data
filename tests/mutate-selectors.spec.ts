@@ -1,11 +1,12 @@
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-import { Immutable, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
+import { Immutable } from '@ngxs-labs/data/common';
 
 describe('Mutate', () => {
     let store: Store;

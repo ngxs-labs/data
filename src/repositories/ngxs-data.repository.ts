@@ -8,10 +8,10 @@ import { NGXS_DATA_EXCEPTIONS } from '../interfaces/internal.interface';
 import {
     DataPatchValue,
     DataRepository,
-    Immutable,
     ImmutableStateContext,
     StateValue
 } from '../interfaces/external.interface';
+import { Immutable } from '../common/interfaces/immutability';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
     public readonly name: string;

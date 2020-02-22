@@ -1,4 +1,4 @@
-import { action, Immutable, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
 import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ParentCountModel } from './count.model';
 import { CountSubState } from './count-sub.state';
 import { map } from 'rxjs/operators';
+import { Immutable } from '@ngxs-labs/data/common';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 

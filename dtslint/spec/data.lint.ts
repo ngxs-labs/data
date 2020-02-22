@@ -1,5 +1,5 @@
 /// <reference types="@types/jest" />
-import { action, Immutable, NgxsDataRepository, StateRepository, Mutable } from '@ngxs-labs/data';
+import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { NgxsDataMutablePipe } from '@ngxs-labs/data/utils';
 import { NgxsModule, State } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
@@ -8,6 +8,7 @@ import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { ParentCountModel } from '../../integration/app/examples/count/count.model';
 import { CountSubState } from '../../integration/app/examples/count/count-sub.state';
+import { Immutable, Mutable } from '@ngxs-labs/data/common';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
