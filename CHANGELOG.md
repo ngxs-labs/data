@@ -6,7 +6,8 @@
 ### BREAKING CHANGES
 
 -   Changed public API:
-    -   Now require minimal TypeScript `v3.7.2`
+    -   Now require minimal `@ngxs/store v3.6.2`
+    -   Now require minimal `TypeScript v3.7.2`
     -   Removed `@query` decorator
 
 # 2.4.1 2020-01-07
@@ -15,11 +16,11 @@
 
 # 2.4.0 2020-01-07
 
--   Feat: add freeze state when run angular dev mode for selection stream
+-   Feature: add freeze state when run angular dev mode for selection stream
 
 # 2.3.0 2020-01-07
 
--   Feat: expose `mutable` pipe for casting immutable stream to mutable stream
+-   Feature: expose `mutable` pipe for casting immutable stream to mutable stream
 
 # 2.2.6 2019-12-29
 
