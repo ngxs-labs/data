@@ -1,7 +1,7 @@
+import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, State, Store } from '@ngxs/store';
-import { TestBed } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
 
 describe('[TEST]: Reset', () => {
     let store: Store;

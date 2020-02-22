@@ -1,24 +1,3 @@
-import { Store } from '@ngxs/store';
-
-import { Any } from '../internals/types/symbols';
-import { PersistenceProvider } from './external.interface';
-
-/**
- * @privateApi
- */
-export interface RootInternalStorageEngine {
-    readonly size: number;
-    readonly store: Store | null;
-    readonly providers: Set<PersistenceProvider>;
-    readonly entries: IterableIterator<[PersistenceProvider, PersistenceProvider]>;
-
-    serialize(data: Any, provider: PersistenceProvider): string;
-
-    deserialize(value: string | undefined): string | undefined;
-
-    ensureKey(provider: PersistenceProvider): string;
-}
-
 /**
  * @privateApi
  */
@@ -41,8 +20,3 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing the store value, falling back to empty object.',
     NGXS_DATA_CHILDREN_CONVERT = 'Child states can only be added to an object'
 }
-
-/**
- * @privateApi
- */
-export const NGXS_DATA_META: string = 'NGXS_DATA_META';

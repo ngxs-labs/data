@@ -1,8 +1,6 @@
+import { NGXS_DATA_META, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
 import { Any } from '@ngxs-labs/data/internals';
 import { StateClassInternal } from '@ngxs/store/src/internal/internals';
-
-import { NgxsRepositoryMeta } from '../../interfaces/external.interface';
-import { NGXS_DATA_META } from '../../interfaces/internal.interface';
 
 /**
  * @description

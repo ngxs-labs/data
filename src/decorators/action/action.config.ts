@@ -1,4 +1,4 @@
-import { RepositoryActionOptions } from '../../interfaces/external.interface';
+import { RepositoryActionOptions } from '@ngxs-labs/data/common';
 
 export const REPOSITORY_ACTION_OPTIONS: RepositoryActionOptions = {
     type: null,

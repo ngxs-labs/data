@@ -1,7 +1,8 @@
-import { NgxsModule, State, Store } from '@ngxs/store';
-import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { action, NgxsDataPluginModule, NgxsDataRepository, Persistence, StateRepository } from '@ngxs-labs/data';
+import { NgxsModule, State, Store } from '@ngxs/store';
+
 import { NgxsDataStorageEngine } from '../src/services/ngxs-data-storage-engine';
 
 describe('[TEST]: CountState persistence', () => {
@@ -9,8 +10,6 @@ describe('[TEST]: CountState persistence', () => {
 
     describe('Native (LocalStorage, SessionStorage)', () => {
         it('A stateClass', () => {
-            let a: A;
-
             @Persistence()
             @StateRepository()
             @State({ name: 'a', defaults: 0 })
@@ -22,7 +21,7 @@ describe('[TEST]: CountState persistence', () => {
             });
 
             store = TestBed.get<Store>(Store);
-            a = TestBed.get<A>(A);
+            const a: A = TestBed.get<A>(A);
 
             expect(a.getState()).toEqual(0);
             expect(store.snapshot()).toEqual({ a: 0 });
@@ -36,8 +35,6 @@ describe('[TEST]: CountState persistence', () => {
         });
 
         it('B stateClass', () => {
-            let b: B;
-
             localStorage.setItem(
                 '@ngxs.store.b',
                 JSON.stringify({
@@ -64,7 +61,7 @@ describe('[TEST]: CountState persistence', () => {
             });
 
             store = TestBed.get<Store>(Store);
-            b = TestBed.get<B>(B);
+            const b: B = TestBed.get<B>(B);
 
             expect(b.getState()).toEqual(50);
             expect(store.snapshot()).toEqual({ b: 50 });

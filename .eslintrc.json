@@ -9,8 +9,12 @@
         "project": "tsconfig.json",
         "sourceType": "module"
     },
-    "plugins": ["simple-import-sort", "@typescript-eslint", "@typescript-eslint/tslint"],
+    "plugins": ["simple-import-sort", "prettier", "import", "@typescript-eslint", "@typescript-eslint/tslint"],
     "rules": {
+        "sort-imports": "off",
+        "prettier/prettier": "error",
+        "import/first": "error",
+        "import/no-duplicates": "error",
         "simple-import-sort/sort": "error",
         "@typescript-eslint/class-name-casing": "error",
         "@typescript-eslint/consistent-type-definitions": "error",

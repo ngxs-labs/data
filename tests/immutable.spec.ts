@@ -1,7 +1,8 @@
-import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { NgxsModule, State, Store } from '@ngxs/store';
+/* eslint-disable */
 import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsModule, State, Store } from '@ngxs/store';
 
 describe('[TEST]: Freeze states', () => {
     it('should be return null from state', () => {
@@ -57,7 +58,7 @@ describe('[TEST]: Freeze states', () => {
             message = e.message;
         }
 
-        expect(`Cannot assign to read only property 'a' of object '[object Object]'`).toEqual(message);
+        expect(`Cannot assign to read only property \'a\' of object \'[object Object]\'`).toEqual(message);
 
         try {
             snapshot[0].b = 3;
@@ -65,7 +66,7 @@ describe('[TEST]: Freeze states', () => {
             message = e.message;
         }
 
-        expect(`Cannot add property b, object is not extensible`).toEqual(message);
+        expect('Cannot add property b, object is not extensible').toEqual(message);
 
         try {
             snapshot[1].b!++;
@@ -73,7 +74,7 @@ describe('[TEST]: Freeze states', () => {
             message = e.message;
         }
 
-        expect(`Cannot assign to read only property 'b' of object '[object Object]'`).toEqual(message);
+        expect("Cannot assign to read only property 'b' of object '[object Object]'").toEqual(message);
     });
 
     it('should be return date from state', () => {
