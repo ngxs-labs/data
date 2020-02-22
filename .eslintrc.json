@@ -107,24 +107,6 @@
         "radix": "error",
         "spaced-comment": "error",
         "quotes": "off",
-        "@typescript-eslint/quotes": ["error", "single"],
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "import-blacklist": [true, "rxjs/Rx"],
-                    "import-spacing": true,
-                    "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
-                    "whitespace": [
-                        true,
-                        "check-branch",
-                        "check-decl",
-                        "check-operator",
-                        "check-separator",
-                        "check-type"
-                    ]
-                }
-            }
-        ]
+        "@typescript-eslint/quotes": ["error", "single"]
     }
 }
