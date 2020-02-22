@@ -31,27 +31,7 @@ export interface NgxsRepositoryMeta<T = Any> {
     operations?: PlainObjectOf<NgxsDataOperation>;
 }
 
-/**
- * @publicApi
- */
-export type Primitive = undefined | null | boolean | string | number | Function;
-
-/**
- * @publicApi
- */
-export interface DeepImmutableArray<T> extends ReadonlyArray<Immutable<T>> {}
-
-/**
- * @publicApi
- */
-export interface DeepImmutableMap<K, V> extends ReadonlyMap<Immutable<K>, Immutable<V>> {}
-
-/**
- * @publicApi
- */
-export type DeepImmutableObject<T> = {
-    readonly [K in keyof T]: Immutable<T[K]>;
-};
+type PrimitiveType = undefined | null | boolean | string | number | Function;
 
 /**
  * @publicApi
@@ -61,31 +41,12 @@ export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
 /**
  * @publicApi
  */
-export type Immutable<T> = T extends Primitive
-    ? T
-    : T extends Array<infer U>
-    ? DeepImmutableArray<U>
-    : T extends Map<infer K, infer V>
-    ? DeepImmutableMap<K, V>
-    : T extends object
-    ? DeepImmutableObject<T>
-    : unknown;
+export type Immutable<T> = { readonly [K in keyof T]: T[K] extends PrimitiveType ? T[K] : Immutable<T[K]> };
 
 /**
  * @publicApi
  */
-export type Mutable<T> = T extends Array<infer U> | ReadonlyArray<infer U>
-    ? DeepMutableArray<U>
-    : T extends object
-    ? { -readonly [P in keyof T]: Mutable<T[P]> }
-    : T;
-
-/**
- * @publicApi
- */
-export type DeepMutableArray<T> = T extends ReadonlyArray<infer U>
-    ? Array<{ [P in keyof T]: Mutable<T> }[keyof T]>
-    : Array<{ -readonly [P in keyof T]: Mutable<T[P]> }>;
+export type Mutable<T> = { -readonly [K in keyof T]: Mutable<T[K]> };
 
 /**
  * @publicApi

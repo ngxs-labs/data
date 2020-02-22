@@ -1,4 +1,3 @@
-*.lint.ts
 **/node_modules/**
 .github/**
 .idea/**

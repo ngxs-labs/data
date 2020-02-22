@@ -5,7 +5,13 @@ import { Observable } from 'rxjs';
 import { action } from '../decorators/action/action';
 import { ngxsDeepFreeze } from '../utils/internals/freeze';
 import { NGXS_DATA_EXCEPTIONS } from '../interfaces/internal.interface';
-import { DataRepository, Immutable, ImmutableStateContext, StateValue } from '../interfaces/external.interface';
+import {
+    DataPatchValue,
+    DataRepository,
+    Immutable,
+    ImmutableStateContext,
+    StateValue
+} from '../interfaces/external.interface';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
     public readonly name: string;
@@ -28,7 +34,7 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
             setState(val: StateValue<T>): void {
                 context.setState(val);
             },
-            patchState(val: Partial<T | Immutable<T>>): void {
+            patchState(val: DataPatchValue<T>): void {
                 context.patchState(val);
             }
         };
@@ -43,7 +49,7 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
     }
 
     @action()
-    public patchState(val: Partial<T | Immutable<T>>): void {
+    public patchState(val: DataPatchValue<T>): void {
         this.ctx.patchState(val);
     }
 

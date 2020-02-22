@@ -19,7 +19,7 @@ describe('Mutable', () => {
     });
 
     it('Immutable<A>[] to A[]', () => {
-        const arr: Array<Immutable<A>> = [
+        const arr: Immutable<A[]> = [
             { a: 1, b: 2 },
             { a: 2, b: 3 }
         ];
@@ -32,6 +32,11 @@ describe('Mutable', () => {
         expect(mutableArr).toEqual([
             { a: 2, b: 2 },
             { a: 2, b: 4 }
+        ]);
+
+        expect(mutableArr.reverse()).toEqual([
+            { a: 2, b: 4 },
+            { a: 2, b: 2 }
         ]);
     });
 

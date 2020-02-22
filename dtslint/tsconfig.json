@@ -22,8 +22,8 @@
         "paths": {
             "@angular/*": ["./../node_modules/@angular/*"],
             "@ngxs/*": ["./../node_modules/@ngxs/*"],
-            "@ngxs-labs/data": ["./../dist/ngxs-data/public-api.d.ts"],
-            "@ngxs-labs/data/utils": ["./../dist/ngxs-data/utils/ngxs-labs-data-utils.d.ts"]
+            "@ngxs-labs/data": ["./../src/public-api.ts"],
+            "@ngxs-labs/data/utils": ["./../src/utils/public-api.ts"]
         }
     },
     "exclude": ["./../integration", "./../src"]
