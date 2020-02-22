@@ -1,11 +1,17 @@
 import { isDevMode } from '@angular/core';
-import { DataPatchValue, DataRepository, Immutable, ImmutableStateContext, StateValue } from '@ngxs-labs/data/common';
+import {
+    DataPatchValue,
+    DataRepository,
+    Immutable,
+    ImmutableStateContext,
+    NGXS_DATA_EXCEPTIONS,
+    StateValue
+} from '@ngxs-labs/data/common';
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { action } from '../decorators/action/action';
 import { ngxsDeepFreeze } from '../utils/internals/freeze';
-import { NGXS_DATA_EXCEPTIONS } from '../common/enums/ngxs-data-exceptions.enum';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
     public readonly name: string;

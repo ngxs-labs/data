@@ -1,11 +1,4 @@
-/*
- * Public API Surface of data
- */
-
-/**
- * @Modules
- */
-export * from './ngxs-data.module';
+export { NgxsDataPluginModule } from './ngxs-data.module';
 
 /**
  * @Repositories
