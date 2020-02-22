@@ -1,9 +1,9 @@
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
-import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { Immutable } from '@ngxs-labs/data/common';
+import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
 
 describe('Check correct deep instance', () => {
     let app: AppState;

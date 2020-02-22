@@ -1,12 +1,16 @@
-import { ActionEvent } from '@ngxs-labs/data/common';
+import {
+    ActionEvent,
+    NGXS_DATA_EXCEPTIONS,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
+    RepositoryActionOptions
+} from '@ngxs-labs/data/common';
 import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
 
-import { NgxsDataOperation, NgxsRepositoryMeta, RepositoryActionOptions } from '../../interfaces/external.interface';
-import { NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
 import { actionNameCreator } from '../../utils/internals/action-name-creator';

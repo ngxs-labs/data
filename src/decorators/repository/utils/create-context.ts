@@ -2,7 +2,7 @@ import { StateContext } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 
-import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';
+import { NgxsRepositoryMeta } from '../../../common/types/repository.types';
 import { Any } from '../../../internals/types/symbols';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 import { getRepository } from '../../../utils/internals/ensure-repository';

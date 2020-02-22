@@ -1,7 +1,7 @@
-import { NgxsModule, State, Store } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsModule, State, Store } from '@ngxs/store';
 import { forkJoin, isObservable, Observable, of } from 'rxjs';
 import { delay, finalize, map, tap } from 'rxjs/operators';
 
@@ -170,7 +170,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
     }));
 
     it('should be correct async method without subscribe', fakeAsync(() => {
-        let result: number | null = null;
+        const result: number | null = null;
         let finalized: boolean | null = null;
         count.asyncSetState().pipe(
             finalize(() => {

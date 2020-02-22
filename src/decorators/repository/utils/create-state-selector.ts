@@ -1,11 +1,10 @@
 import { isDevMode } from '@angular/core';
+import { NGXS_DATA_EXCEPTIONS, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
 import { Any } from '@ngxs-labs/data/internals';
 import { StateClass } from '@ngxs/store/internals';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { NgxsRepositoryMeta } from '../../../interfaces/external.interface';
-import { NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 import { getRepository } from '../../../utils/internals/ensure-repository';
 import { ngxsDeepFreeze } from '../../../utils/internals/freeze';

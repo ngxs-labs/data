@@ -1,15 +1,14 @@
+import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ApplicationRef, Component, Injectable, NgModule, OnInit } from '@angular/core';
-import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { NgxsAfterBootstrap, NgxsModule, NgxsOnInit, State, Store } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import {
     BrowserModule,
     ɵBrowserDomAdapter as BrowserDomAdapter,
     ɵDomAdapter as DomAdapter
 } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
-
-import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
+import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NgxsAfterBootstrap, NgxsModule, NgxsOnInit, State, Store } from '@ngxs/store';
 
 describe('Complex lifecycle', () => {
     @Injectable()

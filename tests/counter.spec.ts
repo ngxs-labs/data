@@ -1,10 +1,10 @@
-import { action, NgxsDataPluginModule, NgxsDataRepository, NgxsRepositoryMeta, StateRepository } from '@ngxs-labs/data';
-import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
-import { TestBed } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
-import { NgxsDataAccessor } from '../src/services/ngxs-data-accessor';
+import { TestBed } from '@angular/core/testing';
+import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NGXS_DATA_EXCEPTIONS, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
+import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
 
-import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
+import { NgxsDataAccessor } from '../src/services/ngxs-data-accessor';
 
 describe('[TEST]: CountState', () => {
     let store: Store;

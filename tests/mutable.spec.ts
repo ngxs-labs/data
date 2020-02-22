@@ -1,9 +1,9 @@
-import { NgxsDataPluginModule, StateRepository, NgxsDataRepository } from '@ngxs-labs/data';
-import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgxsModule, State } from '@ngxs/store';
+import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
 import { Immutable } from '@ngxs-labs/data/common';
+import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
+import { NgxsModule, State } from '@ngxs/store';
 
 import { NgxsDataMutablePipe } from '../src/utils/external/modules/pipes/ngxs-data-mutable.pipe';
 
@@ -49,9 +49,9 @@ describe('Mutable', () => {
         @Injectable()
         class AppState extends NgxsDataRepository<number> {}
 
-        @Component({ selector: 'app', template: '{{ app.state$ | async | mutable }}' })
+        @Component({ selector: 'app', template: '{{ appState.state$ | async | mutable }}' })
         class AppComponent {
-            constructor(public app: AppState) {}
+            constructor(public appState: AppState) {}
         }
 
         TestBed.configureTestingModule({

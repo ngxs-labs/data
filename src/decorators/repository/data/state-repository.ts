@@ -1,8 +1,8 @@
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
 import { Any } from '@ngxs-labs/data/internals';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
-import { NGXS_DATA_EXCEPTIONS } from '../../../interfaces/internal.interface';
 import { ensureStateMetadata } from '../../../utils/internals/ensure-state-metadata';
 import { buildDefaultsGraph } from '../../../utils/internals/utils';
 import { createContext } from '../utils/create-context';

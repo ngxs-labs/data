@@ -1,6 +1,17 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, Injector, PLATFORM_ID } from '@angular/core';
 import {
+    DataStorageEngine,
+    ExistingEngineProvider,
+    NEED_SYNC_TYPE_ACTION,
+    NGXS_DATA_EXCEPTIONS,
+    PersistenceProvider,
+    RootInternalStorageEngine,
+    StorageMeta,
+    UseClassEngineProvider
+} from '@ngxs-labs/data/common';
+import { Any } from '@ngxs-labs/data/internals';
+import {
     actionMatcher,
     ActionType,
     getValue,
@@ -15,16 +26,6 @@ import { PlainObject } from '@ngxs/store/internals';
 import { fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import {
-    DataStorageEngine,
-    ExistingEngineProvider,
-    NEED_SYNC_TYPE_ACTION,
-    PersistenceProvider,
-    StorageMeta,
-    UseClassEngineProvider
-} from '../interfaces/external.interface';
-import { NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
-import { Any } from '../internals/types/symbols';
 import { isNotNil } from '../utils/internals/utils';
 
 /**

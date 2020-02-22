@@ -1,12 +1,11 @@
-import { NgxsModule, State, Store } from '@ngxs/store';
-import { TestBed } from '@angular/core/testing';
+/* eslint-disable @typescript-eslint/quotes */
 import { Injectable } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { map } from 'rxjs/operators';
+import { Immutable, NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NgxsModule, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-
-import { NGXS_DATA_EXCEPTIONS } from 'src/interfaces/internal.interface';
-import { Immutable } from '@ngxs-labs/data/common';
+import { map } from 'rxjs/operators';
 
 describe('Mutate', () => {
     let store: Store;
@@ -116,6 +115,6 @@ describe('Mutate', () => {
             error = e.message;
         }
 
-        expect(error).toEqual(`Cannot assign to read only property 'a' of object '[object Object]'`);
+        expect(error).toEqual("Cannot assign to read only property 'a' of object '[object Object]'");
     });
 });
