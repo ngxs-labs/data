@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule, Self } from '@angular/core';
 import { NGXS_PLUGINS } from '@ngxs/store';
 
-import { NgxsDataStorageEngine } from './services/ngxs-data-storage-engine';
 import { NgxsDataAccessor } from './services/ngxs-data-accessor';
+import { NgxsDataStorageEngine } from './services/ngxs-data-storage-engine';
 
 @NgModule()
 export class NgxsDataPluginModule {

@@ -1,3 +1,5 @@
+import { isPlatformServer } from '@angular/common';
+import { Inject, Injectable, Injector, PLATFORM_ID } from '@angular/core';
 import {
     actionMatcher,
     ActionType,
@@ -9,13 +11,10 @@ import {
     Store,
     UpdateState
 } from '@ngxs/store';
-import { Inject, Injectable, Injector, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
 import { PlainObject } from '@ngxs/store/internals';
-import { tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
 import {
     DataStorageEngine,
     ExistingEngineProvider,
@@ -24,8 +23,9 @@ import {
     StorageMeta,
     UseClassEngineProvider
 } from '../interfaces/external.interface';
-import { isNotNil } from '../utils/internals/utils';
+import { NGXS_DATA_EXCEPTIONS, RootInternalStorageEngine } from '../interfaces/internal.interface';
 import { Any } from '../internals/types/symbols';
+import { isNotNil } from '../utils/internals/utils';
 
 /**
  * @privateApi

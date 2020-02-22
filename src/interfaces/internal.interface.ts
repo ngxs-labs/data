@@ -1,6 +1,7 @@
 import { Store } from '@ngxs/store';
-import { PersistenceProvider } from './external.interface';
+
 import { Any } from '../internals/types/symbols';
+import { PersistenceProvider } from './external.interface';
 
 /**
  * @privateApi

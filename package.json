@@ -41,6 +41,7 @@
         "coveralls": "3.0.9",
         "dtslint": "0.9.9",
         "eslint": "6.8.0",
+        "eslint-plugin-simple-import-sort": "5.0.1",
         "jest": "25.1.0",
         "jest-preset-angular": "8.0.0",
         "ng-packagr": "9.0.1",

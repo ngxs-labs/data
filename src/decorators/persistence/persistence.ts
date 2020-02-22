@@ -1,13 +1,13 @@
-import { MetaDataModel } from '@ngxs/store/src/internal/internals';
-import { StateClass } from '@ngxs/store/internals';
 import { Any } from '@ngxs-labs/data/internals';
+import { StateClass } from '@ngxs/store/internals';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsRepositoryMeta, PersistenceProvider } from '../../interfaces/external.interface';
-import { getRepository } from '../../utils/internals/ensure-repository';
+import { NGXS_DATA_EXCEPTIONS } from '../../interfaces/internal.interface';
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
-import { isNotNil } from '../../utils/internals/utils';
+import { getRepository } from '../../utils/internals/ensure-repository';
 import { ensureStateMetadata } from '../../utils/internals/ensure-state-metadata';
+import { isNotNil } from '../../utils/internals/utils';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
