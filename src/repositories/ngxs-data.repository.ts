@@ -10,7 +10,7 @@ import {
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { action } from '../decorators/action/action';
+import { action } from '../decorators-legacy/action/action';
 import { ngxsDeepFreeze } from '../utils/internals/freeze';
 
 export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
