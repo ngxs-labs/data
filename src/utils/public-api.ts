@@ -1,1 +1,1 @@
-export { NgxsDataUtilsModule } from './external/modules/ngxs-data-utils.module';
+export { NgxsDataUtilsModule } from './ngxs-data-utils.module';
