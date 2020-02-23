@@ -8,6 +8,6 @@ export { NgxsDataRepository } from './repositories/ngxs-data.repository';
 /**
  * @Decorators
  */
-export * from './decorators/persistence/persistence';
-export * from './decorators/repository/data/state-repository';
-export * from './decorators/action/action';
+export * from './decorators-legacy/persistence/persistence';
+export * from './decorators-legacy/repository/data/state-repository';
+export * from './decorators-legacy/action/action';

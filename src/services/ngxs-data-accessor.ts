@@ -5,7 +5,7 @@ import { StateContext, Store } from '@ngxs/store';
 import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY, StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { getRepository } from '../utils/internals/ensure-repository';
+import { getRepository } from '../internals/utils/ensure-repository';
 
 /**
  * @privateApi
