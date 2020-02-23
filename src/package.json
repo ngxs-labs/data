@@ -23,8 +23,8 @@
     },
     "homepage": "https://github.com/ngxs-labs/data#readme",
     "peerDependencies": {
-        "@ngxs/store": ">=3.6.0 <4.0.0",
-        "typescript": ">=3.8.2"
+        "@ngxs/store": ">=3.6.2 <4.0.0",
+        "typescript": ">=3.7.2"
     },
     "ngPackage": {
         "lib": {
@@ -32,6 +32,8 @@
             "umdModuleIds": {
                 "@ngxs/store": "ngxs-store",
                 "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
+                "@ngxs-labs/data/common": "ngxs-labs-data-common",
+                "@ngxs-labs/data/internals": "ngxs-labs-data-internals",
                 "@ngxs/store/internals": "ngxs-store-internals"
             }
         },

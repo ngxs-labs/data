@@ -3,8 +3,8 @@ import { Any } from '@ngxs-labs/data/internals';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
+import { buildDefaultsGraph } from '../../../internals/utils/build-defaults-graph';
 import { ensureStateMetadata } from '../../../utils/internals/ensure-state-metadata';
-import { buildDefaultsGraph } from '../../../utils/internals/utils';
 import { createContext } from '../utils/create-context';
 import { createRepositoryMetadata } from '../utils/create-repository-metadata';
 import { createStateSelector } from '../utils/create-state-selector';

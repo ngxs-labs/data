@@ -10,7 +10,7 @@ import {
     StorageMeta,
     UseClassEngineProvider
 } from '@ngxs-labs/data/common';
-import { Any } from '@ngxs-labs/data/internals';
+import { Any, isNotNil } from '@ngxs-labs/data/internals';
 import {
     actionMatcher,
     ActionType,
@@ -25,8 +25,6 @@ import {
 import { PlainObject } from '@ngxs/store/internals';
 import { fromEvent } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-import { isNotNil } from '../utils/internals/utils';
 
 /**
  * @privateApi
