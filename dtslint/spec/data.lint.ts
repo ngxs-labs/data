@@ -7,7 +7,7 @@ import { Immutable, Mutable } from '@ngxs-labs/data/common';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
-import { NgxsDataMutablePipe } from '../../src/utils/external/modules/pipes/ngxs-data-mutable.pipe';
+import { NgxsDataMutablePipe } from '../../src/utils/pipes/mutable/ngxs-data-mutable.pipe';
 import { ParentCountModel } from '../../integration/app/examples/count/count.model';
 import { CountSubState } from '../../integration/app/examples/count/count-sub.state';
 
