@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
-import { getRepository } from '../../../utils/internals/ensure-repository';
-import { ngxsDeepFreeze } from '../../../utils/internals/freeze';
+import { getRepository } from '../../../internals/utils/ensure-repository';
+import { ngxsDeepFreeze } from '../../../internals/utils/freeze';
 
 export function createStateSelector<T>(stateClass: StateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);

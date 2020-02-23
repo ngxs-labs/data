@@ -13,8 +13,8 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 
 import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
-import { actionNameCreator } from '../../utils/internals/action-name-creator';
-import { $args } from '../../utils/internals/args-parser';
+import { actionNameCreator } from '../../internals/utils/action-name-creator';
+import { $args } from '../../internals/utils/args-parser';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {

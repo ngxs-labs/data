@@ -4,8 +4,8 @@ import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
-import { getRepository } from '../../utils/internals/ensure-repository';
-import { ensureStateMetadata } from '../../utils/internals/ensure-state-metadata';
+import { getRepository } from '../../internals/utils/ensure-repository';
+import { ensureStateMetadata } from '../../internals/utils/ensure-state-metadata';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
