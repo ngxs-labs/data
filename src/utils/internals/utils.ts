@@ -4,8 +4,6 @@ import { PlainObject, StateClass } from '@ngxs/store/internals';
 import { StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
-import { getStoreOptions } from './get-store-options';
-
 /**
  * Default clone NGXS
  *  private static cloneDefaults(defaults: any): any {
@@ -30,23 +28,19 @@ export function deepCloneDefaults(value: Any): Any {
     return JSON.parse(JSON.stringify(prepared));
 }
 
-export function isNotNil(val: Any): boolean {
-    return val !== 'undefined' && typeof val !== 'undefined' && val !== null;
-}
-
 function isPlainObject(item: Any): boolean {
     return typeof item === 'object' && !Array.isArray(item) && item !== null;
 }
 
 export function buildDefaultsGraph(stateClasses: StateClassInternal): Any {
-    const options: StoreOptions<Any> = getStoreOptions(stateClasses);
+    const options: StoreOptions<Any> = stateClasses['NGXS_OPTIONS_META']! || {};
     const children: StateClass[] = options.children || [];
     const currentDefaults: Any = deepCloneDefaults(options.defaults);
 
     if (children.length) {
         if (isPlainObject(currentDefaults)) {
-            return children.reduce((defaults: PlainObject, item: StateClass) => {
-                const childrenOptions: StoreOptions<Any> = getStoreOptions(item);
+            return children.reduce((defaults: PlainObject, item: StateClassInternal) => {
+                const childrenOptions: StoreOptions<Any> = item['NGXS_OPTIONS_META']! || {};
                 if (!childrenOptions.name) {
                     throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_NAME_NOT_FOUND);
                 }
