@@ -11,8 +11,8 @@ import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
 
-import { actionNameCreator } from '../../internals/utils/action-name-creator';
-import { $args } from '../../internals/utils/args-parser';
+import { actionNameCreator } from '../../../internals/src/utils/action-name-creator';
+import { $args } from '../../../internals/src/utils/args-parser';
 import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';

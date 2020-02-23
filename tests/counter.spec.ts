@@ -4,7 +4,7 @@ import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } fro
 import { NGXS_DATA_EXCEPTIONS, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
 import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
 
-import { NgxsDataAccessor } from '../src/services/ngxs-data-accessor';
+import { NgxsDataAccessor } from '../lib/src/services/ngxs-data-accessor';
 
 describe('[TEST]: CountState', () => {
     let store: Store;
