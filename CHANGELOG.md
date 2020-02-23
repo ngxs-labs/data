@@ -5,9 +5,22 @@
 
 ### BREAKING CHANGES
 
+-   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
 -   Now require minimal `TypeScript v3.7.2`
--   Removed `@query` decorator
+
+If you are using Angular 8, you can write in the `tsconfig.json`:
+
+```json
+{
+    "angularCompilerOptions": {
+        "disableTypeScriptVersionCheck": true
+    },
+    "compilerOptions": {}
+}
+```
+
+
 -   Moved public interfaces to `@ngxs-labs/data/common`:
 
 ```ts

@@ -5,8 +5,8 @@
     "automerge": true,
     "schedule": ["after 10pm every weekday", "before 4am every weekday", "every weekend"],
     "baseBranches": ["master"],
-    "ignoreDeps": ["@types/node"],
-    "packageFiles": ["package.json", "src/package.json"],
+    "ignoreDeps": ["typescript"],
+    "packageFiles": ["package.json"],
     "major": {
         "devDependencies": {
             "enabled": false
@@ -14,26 +14,12 @@
     },
     "packageRules": [
         {
-            "depTypeList": ["dependencies"],
             "packagePatterns": ["^@angular/.*"],
             "groupName": "@angular"
         },
         {
-            "depTypeList": ["devDependencies"],
-            "packagePatterns": ["^@angular.*"],
-            "groupName": "@angular-dev"
-        },
-        {
-            "packageNames": ["typescript"],
-            "updateTypes": "patch"
-        },
-        {
             "packageNames": ["^@ngxs.*"],
             "groupName": "@ngxs"
-        },
-        {
-            "packageNames": ["^rollup.*"],
-            "groupName": "rollup"
         },
         {
             "packageNames": ["^@types/.*"],
