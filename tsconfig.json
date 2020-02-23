@@ -22,11 +22,10 @@
         "module": "esnext",
         "typeRoots": ["node_modules/@types"],
         "paths": {
-            "@ngxs-labs/data": ["src/public-api.ts"],
-            "@ngxs-labs/data/utils": ["src/utils/public-api.ts"],
-            "@ngxs-labs/data/internals": ["src/internals/public-api.ts"],
-            "@ngxs-labs/data/decorators": ["src/decorators/public-api.ts"],
-            "@ngxs-labs/data/common": ["src/common/public-api.ts"]
+            "@ngxs-labs/data": ["./lib/public_api.ts"],
+            "@ngxs-labs/data/utils": ["./lib/utils/src/public_api.ts"],
+            "@ngxs-labs/data/internals": ["./lib/internals/src/public_api.ts"],
+            "@ngxs-labs/data/common": ["./lib/common/src/public_api.ts"]
         }
     },
     "exclude": ["dtslint"]

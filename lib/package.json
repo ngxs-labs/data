@@ -1,5 +1,4 @@
 {
-    "$schema": "../node_modules/ng-packagr/package.schema.json",
     "name": "@ngxs-labs/data",
     "version": "3.0.0",
     "license": "MIT",
@@ -25,18 +24,5 @@
     "peerDependencies": {
         "@ngxs/store": ">=3.6.2 <4.0.0",
         "typescript": ">=3.7.2"
-    },
-    "ngPackage": {
-        "lib": {
-            "entryFile": "public-api.ts",
-            "umdModuleIds": {
-                "@ngxs/store": "ngxs-store",
-                "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
-                "@ngxs-labs/data/common": "ngxs-labs-data-common",
-                "@ngxs-labs/data/internals": "ngxs-labs-data-internals",
-                "@ngxs/store/internals": "ngxs-store-internals"
-            }
-        },
-        "dest": "../dist/ngxs-data"
     }
 }

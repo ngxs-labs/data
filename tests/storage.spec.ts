@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { action, NgxsDataPluginModule, NgxsDataRepository, Persistence, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, State, Store } from '@ngxs/store';
 
-import { NgxsDataStorageEngine } from '../src/services/ngxs-data-storage-engine';
+import { NgxsDataStorageEngine } from '../lib/src/services/ngxs-data-storage-engine';
 
 describe('[TEST]: CountState persistence', () => {
     let store: Store;

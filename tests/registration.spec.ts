@@ -4,7 +4,7 @@ import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } fro
 import { NgxsModule, Select, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { Any } from '../src/internals/types/symbols';
+import { Any } from '../lib/internals/src/types/symbols';
 
 describe('Check correct deep instance', () => {
     let component: AppComponent;

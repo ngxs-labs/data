@@ -4,11 +4,11 @@ import { join } from 'path';
 async function buildPackage(): Promise<void> {
     try {
         await ngPackagr()
-            .forProject(join(__dirname, '../src/package.json'))
-            .withTsConfig(join(__dirname, '../src/tsconfig.lib.json'))
+            .forProject(join(__dirname, '../lib/ng-package.json'))
+            .withTsConfig(join(__dirname, './tsconfig.lib.json'))
             .build();
-    } catch (e) {
-        console.log(e);
+    } catch {
+        process.exit(1);
     }
 }
 

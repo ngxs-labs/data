@@ -1,7 +1,7 @@
 import { NgxsRepositoryMeta } from '@ngxs-labs/data/common';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
-import { ensureRepository } from '../../../internals/utils/ensure-repository';
+import { ensureRepository } from '../../../../internals/src/utils/ensure-repository';
 
 /**
  * @description need mutate metadata for correct reference

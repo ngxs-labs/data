@@ -2,9 +2,9 @@ import { StateContext } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 
-import { NgxsRepositoryMeta } from '../../../common/types/repository.types';
-import { Any } from '../../../internals/types/symbols';
-import { getRepository } from '../../../internals/utils/ensure-repository';
+import { NgxsRepositoryMeta } from '../../../../common/src/types/repository.types';
+import { Any } from '../../../../internals/src/types/symbols';
+import { getRepository } from '../../../../internals/src/utils/ensure-repository';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 
 export function createContext<T>(stateClass: StateClass): PropertyDescriptor {

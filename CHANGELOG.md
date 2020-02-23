@@ -20,7 +20,6 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 }
 ```
 
-
 -   Moved public interfaces to `@ngxs-labs/data/common`:
 
 ```ts
