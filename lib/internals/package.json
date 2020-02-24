@@ -1,6 +1,8 @@
 {
+    "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "ngPackage": {
-        "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-        "flatModuleFile": "ngxs-labs-data-internal"
+        "lib": {
+            "flatModuleFile": "ngxs-labs-data-internal"
+        }
     }
 }
