@@ -1,12 +1,11 @@
 import { isDevMode } from '@angular/core';
-import { NGXS_DATA_EXCEPTIONS, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
-import { Any } from '@ngxs-labs/data/internals';
+import { getRepository, ngxsDeepFreeze } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { getRepository } from '../../../../internals/src/utils/ensure-repository';
-import { ngxsDeepFreeze } from '../../../../internals/src/utils/freeze';
 import { NgxsDataAccessor } from '../../../services/ngxs-data-accessor';
 
 export function createStateSelector<T>(stateClass: StateClass): void {

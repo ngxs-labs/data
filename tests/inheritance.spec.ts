@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsModule, State, Store } from '@ngxs/store';
 
 describe('Inheritance', () => {

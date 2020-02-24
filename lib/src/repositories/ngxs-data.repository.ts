@@ -1,12 +1,6 @@
 import { isDevMode } from '@angular/core';
-import {
-    DataPatchValue,
-    DataRepository,
-    Immutable,
-    ImmutableStateContext,
-    NGXS_DATA_EXCEPTIONS,
-    StateValue
-} from '@ngxs-labs/data/common';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { DataPatchValue, DataRepository, Immutable, ImmutableStateContext, StateValue } from '@ngxs-labs/data/typings';
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 

@@ -1,4 +1,4 @@
-import { Any } from '@ngxs-labs/data/internals';
+import { Any } from '@ngxs-labs/data/typings';
 
 export const ngxsDeepFreeze = (value: Any) => {
     const isObject: boolean = typeof value === 'object' && value !== null;

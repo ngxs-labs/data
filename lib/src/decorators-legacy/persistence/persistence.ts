@@ -1,10 +1,9 @@
-import { NGXS_DATA_EXCEPTIONS, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/common';
-import { Any, isNotNil } from '@ngxs-labs/data/internals';
+import { ensureStateMetadata, getRepository, isNotNil } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { getRepository } from '../../../internals/src/utils/ensure-repository';
-import { ensureStateMetadata } from '../../../internals/src/utils/ensure-state-metadata';
 import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
 
 export function Persistence(options?: PersistenceProvider[]): ClassDecorator {

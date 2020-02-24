@@ -1,16 +1,16 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, Injector, PLATFORM_ID } from '@angular/core';
+import { isNotNil } from '@ngxs-labs/data/internals';
+import { NEED_SYNC_TYPE_ACTION, NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
+    Any,
     DataStorageEngine,
     ExistingEngineProvider,
-    NEED_SYNC_TYPE_ACTION,
-    NGXS_DATA_EXCEPTIONS,
     PersistenceProvider,
     RootInternalStorageEngine,
     StorageMeta,
     UseClassEngineProvider
-} from '@ngxs-labs/data/common';
-import { Any, isNotNil } from '@ngxs-labs/data/internals';
+} from '@ngxs-labs/data/typings';
 import {
     actionMatcher,
     ActionType,

@@ -2,7 +2,7 @@
     "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "ngPackage": {
         "lib": {
-            "flatModuleFile": "ngxs-labs-data-internal"
+            "flatModuleFile": "ngxs-labs-data-tokens"
         }
     }
 }

@@ -6,12 +6,17 @@
 |   └── *.ts
 ├── public_api.ts
 ├── package.json
-└── common - shared packages for NGXS Data
-    ├── src
-    |   └── *.ts
-    ├── public_api.ts
-    └── package.json
-└── internals - for internal use only (free API and subject to critical changes)
+└── typings - Common interfaces for primary and secondary packages
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
+└── tokens - Common constants and tokens
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
+└── internals - Internal API (not use for public API)
     ├── src
     |   └── *.ts
     ├── public_api.ts

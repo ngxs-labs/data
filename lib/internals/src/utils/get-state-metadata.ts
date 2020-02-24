@@ -1,8 +1,7 @@
+import { NGXS_META_KEY } from '@ngxs-labs/data/tokens';
+import { Any } from '@ngxs-labs/data/typings';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
-import { Any } from '../types/symbols';
-import { META_KEY } from './meta-key';
-
 export function getStateMetadata(target: StateClassInternal): MetaDataModel {
-    return (target as Any)[META_KEY]!;
+    return (target as Any)[NGXS_META_KEY]!;
 }

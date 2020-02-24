@@ -1,5 +1,5 @@
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
-import { Any } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 

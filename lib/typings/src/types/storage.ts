@@ -1,6 +1,7 @@
 import { Type } from '@angular/core';
-import { Any } from '@ngxs-labs/data/internals';
 import { Store } from '@ngxs/store';
+
+import { Any } from './any';
 
 /**
  * @publicApi

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { Immutable } from '@ngxs-labs/data/common';
+import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

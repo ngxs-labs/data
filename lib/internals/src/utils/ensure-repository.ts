@@ -1,6 +1,8 @@
-import { NGXS_DATA_META, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
-import { Any } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_META } from '@ngxs-labs/data/tokens';
+import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateClassInternal } from '@ngxs/store/src/internal/internals';
+
+import { getRepository } from './get-repository';
 
 /**
  * @description
@@ -15,8 +17,4 @@ export function ensureRepository<T>(target: StateClassInternal): NgxsRepositoryM
     }
 
     return getRepository(target);
-}
-
-export function getRepository<T>(target: StateClassInternal): NgxsRepositoryMeta<T> {
-    return (target as Any)[NGXS_DATA_META];
 }

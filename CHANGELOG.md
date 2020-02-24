@@ -20,10 +20,10 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 }
 ```
 
--   Moved public interfaces to `@ngxs-labs/data/common`:
+-   Moved common interfaces to `@ngxs-labs/data/typings`:
 
 ```ts
-import { Immutable, Mutable } from '@ngxs-labs/data/common';
+import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 ```
 
 -   For a cast state to mutable type it is necessary to use package `@ngxs-labs/data/utils`:

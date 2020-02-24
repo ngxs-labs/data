@@ -7,7 +7,7 @@ import {
     ɵDomAdapter as DomAdapter
 } from '@angular/platform-browser';
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsAfterBootstrap, NgxsModule, NgxsOnInit, State, Store } from '@ngxs/store';
 
 describe('Complex lifecycle', () => {

@@ -1,11 +1,10 @@
 import { Inject, Injectable, Injector, NgZone } from '@angular/core';
-import { NGXS_DATA_EXCEPTIONS, NgxsDataOperation, NgxsRepositoryMeta } from '@ngxs-labs/data/common';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+import { getRepository } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf } from '@ngxs-labs/data/typings';
 import { StateContext, Store } from '@ngxs/store';
 import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY, StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
-
-import { getRepository } from '../../internals/src/utils/ensure-repository';
 
 /**
  * @privateApi
@@ -58,7 +57,8 @@ export class NgxsDataAccessor {
     }
 
     public static getRepositoryByInstance(target: StateClass | Any): NgxsRepositoryMeta {
-        const repository: NgxsRepositoryMeta | null = getRepository((target || {})['constructor']) || null;
+        const stateClass: StateClass = (target || {})['constructor'];
+        const repository: NgxsRepositoryMeta | null = getRepository(stateClass) || null;
 
         if (!repository) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);

@@ -1,7 +1,11 @@
-export * from './types/symbols';
-export * from './utils/is-not-nil';
-export * from './utils/deep-close-defaults';
-export * from './utils/is-plain-object';
-export * from './utils/get-store-options';
-// todo: need reuse
-// export * from './utils/build-defaults-graph';
+export { isNotNil } from './utils/is-not-nil';
+export { deepCloneDefaults } from './utils/deep-close-defaults';
+export { isPlainObject } from './utils/is-plain-object';
+export { getStoreOptions } from './utils/get-store-options';
+export { buildDefaultsGraph } from './utils/build-defaults-graph';
+export { actionNameCreator } from './utils/action-name-creator';
+export { $args } from './utils/args-parser';
+export { ensureStateMetadata } from './utils/ensure-state-metadata';
+export { ensureRepository } from './utils/ensure-repository';
+export { ngxsDeepFreeze } from './utils/freeze';
+export { getRepository } from './utils/get-repository';

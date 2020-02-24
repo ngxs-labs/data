@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Immutable, Mutable } from '@ngxs-labs/data/common';
+import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 
 @Pipe({ name: 'mutable' })
 export class NgxsDataMutablePipe implements PipeTransform {

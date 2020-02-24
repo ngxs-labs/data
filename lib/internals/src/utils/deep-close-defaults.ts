@@ -1,4 +1,4 @@
-import { Any } from '../types/symbols';
+import { Any } from '@ngxs-labs/data/typings';
 
 /**
  * Default clone NGXS
