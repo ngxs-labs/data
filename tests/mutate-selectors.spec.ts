@@ -2,7 +2,8 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { Immutable, NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

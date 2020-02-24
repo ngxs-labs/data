@@ -1,9 +1,9 @@
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
-import { Immutable } from '@ngxs-labs/data/common';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+import { Any, Immutable } from '@ngxs-labs/data/typings';
 import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
+import { PlainObjectOf } from '@ngxs/store/internals';
 
 describe('Check correct deep instance', () => {
     let app: AppState;
@@ -49,6 +49,7 @@ describe('Check correct deep instance', () => {
     })
     class AppState extends NgxsDataRepository<Any> {
         public initial: Immutable<PlainObjectOf<Any>> = {};
+
         public setup(): void {
             this.initial = JSON.parse(JSON.stringify(this.getState()));
         }

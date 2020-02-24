@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { action, NgxsDataRepository, Persistence, StateRepository } from '@ngxs-labs/data';
-import { Immutable } from '@ngxs-labs/data/common';
+import { Immutable } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
 
 @Persistence()

@@ -1,11 +1,12 @@
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
-    NGXS_DATA_EXCEPTIONS,
+    Any,
     NgxsDataOperation,
     NgxsRepositoryMeta,
+    PlainObjectOf,
     RepositoryActionOptions
-} from '@ngxs-labs/data/common';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
+} from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';

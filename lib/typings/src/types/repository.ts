@@ -1,9 +1,10 @@
-import { Any, PlainObjectOf } from '@ngxs-labs/data/internals';
 import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { Observable } from 'rxjs';
 
-import { Immutable } from './immutability.types';
+import { Any } from './any';
+import { Immutable } from './immutability';
+import { PlainObjectOf } from './plaing-object-of';
 
 /**
  * @publicApi

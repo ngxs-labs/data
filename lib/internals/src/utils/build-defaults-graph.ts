@@ -1,9 +1,9 @@
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/common';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any } from '@ngxs-labs/data/typings';
 import { PlainObject, StateClass } from '@ngxs/store/internals';
 import { StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
-import { Any } from '../types/symbols';
 import { deepCloneDefaults } from './deep-close-defaults';
 import { getStoreOptions } from './get-store-options';
 import { isPlainObject } from './is-plain-object';
