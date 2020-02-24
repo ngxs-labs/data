@@ -1,10 +1,10 @@
+import { NGXS_META_KEY } from '@ngxs-labs/data/tokens';
 import { MetaDataModel, RuntimeSelectorContext, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
 import { getStateMetadata } from './get-state-metadata';
-import { META_KEY } from './meta-key';
 
 export function ensureStateMetadata(target: StateClassInternal): MetaDataModel {
-    if (!target.hasOwnProperty(META_KEY)) {
+    if (!target.hasOwnProperty(NGXS_META_KEY)) {
         const defaultMetadata: MetaDataModel = {
             name: null,
             actions: {},
@@ -16,7 +16,7 @@ export function ensureStateMetadata(target: StateClassInternal): MetaDataModel {
             children: []
         };
 
-        Object.defineProperty(target, META_KEY, { value: defaultMetadata });
+        Object.defineProperty(target, NGXS_META_KEY, { value: defaultMetadata });
     }
     return getStateMetadata(target);
 }
