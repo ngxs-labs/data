@@ -1,12 +1,10 @@
 import { isDevMode } from '@angular/core';
-import { getRepository, ngxsDeepFreeze } from '@ngxs-labs/data/internals';
+import { getRepository, NgxsDataInjector, ngxsDeepFreeze } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-
-import { NgxsDataFactory } from '../../../services/ngxs-data-factory.service';
 
 export function createStateSelector<T>(stateClass: StateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);
@@ -25,13 +23,13 @@ export function createStateSelector<T>(stateClass: StateClass): void {
                 enumerable: true,
                 configurable: true,
                 get(): Observable<Any> {
-                    if (!NgxsDataFactory.store) {
+                    if (!NgxsDataInjector.store) {
                         throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
                     }
 
                     return (
                         this[selectorId] ||
-                        (this[selectorId] = NgxsDataFactory.store.select(stateClass as Any).pipe(
+                        (this[selectorId] = NgxsDataInjector.store.select(stateClass as Any).pipe(
                             map((state) => (isDevMode() ? ngxsDeepFreeze(state) : state)),
                             shareReplay({ refCount: true, bufferSize: 1 })
                         ))
