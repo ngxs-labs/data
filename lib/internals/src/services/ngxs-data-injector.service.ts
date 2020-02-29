@@ -1,19 +1,23 @@
-import { Injectable, Injector } from '@angular/core';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Inject, Injectable, Injector, NgZone } from '@angular/core';
+import { Any } from '@ngxs-labs/data/typings';
+import { Store } from '@ngxs/store';
+import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY } from '@ngxs/store/internals';
 
 @Injectable()
 export class NgxsDataInjector {
-    private static injector: Injector | null = null;
+    public static store: Store | null = null;
+    public static context: Any | null = null;
+    public static factory: Any | null = null;
+    public static ngZone: NgZone | null = null;
 
-    constructor(injector: Injector) {
-        NgxsDataInjector.injector = injector;
-    }
-
-    public static getInjector(): never | Injector {
-        if (!NgxsDataInjector.injector) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
-        }
-
-        return NgxsDataInjector.injector;
+    constructor(
+        injector: Injector,
+        @Inject(NGXS_STATE_FACTORY) stateFactory: Any,
+        @Inject(NGXS_STATE_CONTEXT_FACTORY) stateContextFactory: Any
+    ) {
+        NgxsDataInjector.store = injector.get<Store>(Store);
+        NgxsDataInjector.ngZone = injector.get<NgZone>(NgZone);
+        NgxsDataInjector.factory = stateFactory;
+        NgxsDataInjector.context = stateContextFactory;
     }
 }

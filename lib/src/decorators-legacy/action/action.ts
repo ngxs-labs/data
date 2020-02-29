@@ -1,3 +1,4 @@
+import { NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
@@ -15,7 +16,6 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { actionNameCreator } from '../../../internals/src/utils/action-name-creator';
 import { $args } from '../../../internals/src/utils/args-parser';
 import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
-import { NgxsDataFactory } from '../../services/ngxs-data-factory.service';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
@@ -95,14 +95,14 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 const debounce: number = options.debounce || 0;
 
                 const throttleTask: Promise<Any> = new Promise((resolve) => {
-                    NgxsDataFactory.ngZone!.runOutsideAngular(() => {
+                    NgxsDataInjector.ngZone!.runOutsideAngular(() => {
                         clearTimeout(scheduleId!);
                         scheduleId = setTimeout(() => resolve(), options.debounce);
                     });
                 });
 
                 throttleTask.then(() => {
-                    const dispatched: Observable<Any> = NgxsDataFactory.store!.dispatch(event);
+                    const dispatched: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
 
                     if (isObservable(result)) {
                         combine(dispatched, result)
@@ -126,7 +126,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                     finalize(() => scheduleTask && scheduleTask.complete())
                 );
             } else {
-                const dispatcher: Observable<Any> = NgxsDataFactory.store!.dispatch(event);
+                const dispatcher: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
 
                 if (isObservable(result)) {
                     return combine(dispatcher, result);

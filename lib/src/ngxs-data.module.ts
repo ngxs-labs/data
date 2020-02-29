@@ -1,7 +1,5 @@
 import { ModuleWithProviders, NgModule, Provider, Self } from '@angular/core';
-import { NgxsDataInjector } from '@ngxs-labs/data/internals';
-
-import { NgxsDataFactory } from './services/ngxs-data-factory.service';
+import { NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
 
 @NgModule()
 export class NgxsDataPluginModule {

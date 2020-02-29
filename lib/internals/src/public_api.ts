@@ -10,3 +10,4 @@ export { ensureRepository } from './utils/ensure-repository';
 export { ngxsDeepFreeze } from './utils/freeze';
 export { getRepository } from './utils/get-repository';
 export { NgxsDataInjector } from './services/ngxs-data-injector.service';
+export { NgxsDataFactory } from './services/ngxs-data-factory.service';
