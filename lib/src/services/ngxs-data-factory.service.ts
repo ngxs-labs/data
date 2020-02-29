@@ -6,11 +6,8 @@ import { StateContext, Store } from '@ngxs/store';
 import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY, StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-/**
- * @privateApi
- */
 @Injectable()
-export class NgxsDataAccessor {
+export class NgxsDataFactory {
     public static store: Store | null = null;
     public static context: Any | null = null;
     public static factory: Any | null = null;
@@ -22,32 +19,32 @@ export class NgxsDataAccessor {
         @Inject(NGXS_STATE_FACTORY) stateFactory: Any,
         @Inject(NGXS_STATE_CONTEXT_FACTORY) stateContextFactory: Any
     ) {
-        NgxsDataAccessor.statesCachedMeta.clear();
-        NgxsDataAccessor.store = injector.get<Store>(Store);
-        NgxsDataAccessor.ngZone = injector.get<NgZone>(NgZone);
-        NgxsDataAccessor.factory = stateFactory;
-        NgxsDataAccessor.context = stateContextFactory;
+        NgxsDataFactory.statesCachedMeta.clear();
+        NgxsDataFactory.store = injector.get<Store>(Store);
+        NgxsDataFactory.ngZone = injector.get<NgZone>(NgZone);
+        NgxsDataFactory.factory = stateFactory;
+        NgxsDataFactory.context = stateContextFactory;
     }
 
     public static createStateContext<T>(metadata: MappedStore): StateContext<T> {
-        return NgxsDataAccessor.context.createStateContext(metadata);
+        return NgxsDataFactory.context.createStateContext(metadata);
     }
 
     public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedStore | null | undefined {
-        if (!NgxsDataAccessor.factory || !stateMeta) {
+        if (!NgxsDataFactory.factory || !stateMeta) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
 
         const cachedMeta: MappedStore | null =
-            (stateMeta.name ? NgxsDataAccessor.statesCachedMeta.get(stateMeta.name) : null) || null;
+            (stateMeta.name ? NgxsDataFactory.statesCachedMeta.get(stateMeta.name) : null) || null;
 
         if (!cachedMeta) {
             const meta: MappedStore | null | undefined = stateMeta.name
-                ? NgxsDataAccessor.factory.states.find((state: MappedStore) => state.name === stateMeta.name)
+                ? NgxsDataFactory.factory.states.find((state: MappedStore) => state.name === stateMeta.name)
                 : null;
 
             if (meta && stateMeta.name) {
-                NgxsDataAccessor.statesCachedMeta.set(stateMeta.name, meta);
+                NgxsDataFactory.statesCachedMeta.set(stateMeta.name, meta);
             }
 
             return meta;

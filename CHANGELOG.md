@@ -1,5 +1,6 @@
 # To become 3.0.0
 
+-   Feature: expose storage extension as plugin
 -   Fix: compatibility with `@ngxs/store@3.6.2`
 -   Fix: correct value freeze from `getState()`
 
@@ -53,6 +54,22 @@ class TodoComponent {
 class AppComponent {
     constructor(public todos: TodosState) {}
 }
+```
+
+-   For start work with storage plugin you need provide `storage extension`
+
+```ts
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { NGXS_DATA_STORAGE_CONTAINER, NGXS_DATA_STORAGE_EXTENSION } from '@ngxs-labs/data/storage';
+
+@NgModule({
+    // ..
+    imports: [
+        NgxsModule.forRoot([AppState], { developmentMode: !environment.production }),
+        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_EXTENSION, NGXS_DATA_STORAGE_CONTAINER])
+    ]
+})
+export class AppModule {}
 ```
 
 # 2.4.1 2020-01-07
