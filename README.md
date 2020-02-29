@@ -38,7 +38,6 @@ of actions, dispatchers, and selectors for each entity type.
 
 Benefits:
 
--   No breaking changes (support NGXS 3.6+)
 -   Angular-way (service abstraction)
 -   Immutable state context out-of-the-box
 -   Persistence state out-of-the-box
@@ -48,6 +47,22 @@ Benefits:
 -   Support debounce for throttling dispatch
 -   Easy testable states
 
+Minimal peer dependencies:
+
+-   Require minimal `@ngxs/store v3.6.2`
+-   Require minimal `TypeScript v3.7.2`
+
+If you are using Angular 8, you can write in the `tsconfig.json`:
+
+```json
+{
+    "angularCompilerOptions": {
+        "disableTypeScriptVersionCheck": true
+    },
+    "compilerOptions": {}
+}
+```
+
 ## Table of contents:
 
 1. [📖 Changelog](https://github.com/ngxs-labs/data/blob/master/CHANGELOG.md)
@@ -56,8 +71,8 @@ Benefits:
 
     - [Repository](#state-repository)
     - [Action](#action)
-    - [immutability](#immutability)
-    - [Persistence](#persistence-state)
+    - [Immutability](#immutability)
+    - [Persistence in local/session/etc storage](#persistence-state)
 
 ## Quick Start
 
@@ -479,6 +494,20 @@ class AppComponent {
 ```
 
 ### Persistence state
+
+```ts
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { NGXS_DATA_STORAGE_CONTAINER, NGXS_DATA_STORAGE_EXTENSION } from '@ngxs-labs/data/storage';
+
+@NgModule({
+    // ..
+    imports: [
+        NgxsModule.forRoot([TodoState]),
+        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_EXTENSION, NGXS_DATA_STORAGE_CONTAINER])
+    ]
+})
+export class AppModule {}
+```
 
 ```ts
 @Persistence()

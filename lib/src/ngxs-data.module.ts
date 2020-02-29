@@ -1,24 +1,16 @@
-import { ModuleWithProviders, NgModule, Self } from '@angular/core';
-import { NGXS_PLUGINS } from '@ngxs/store';
+import { ModuleWithProviders, NgModule, Provider, Self } from '@angular/core';
+import { NgxsDataInjector } from '@ngxs-labs/data/internals';
 
-import { NgxsDataAccessor } from './services/ngxs-data-accessor';
-import { NgxsDataStorageEngine } from './services/ngxs-data-storage-engine';
+import { NgxsDataFactory } from './services/ngxs-data-factory.service';
 
 @NgModule()
 export class NgxsDataPluginModule {
-    constructor(@Self() public accessor: NgxsDataAccessor) {}
+    constructor(@Self() public accessor: NgxsDataFactory, @Self() public injector: NgxsDataInjector) {}
 
-    public static forRoot(): ModuleWithProviders {
+    public static forRoot(extensions: Provider[] = []): ModuleWithProviders<NgxsDataPluginModule> {
         return {
             ngModule: NgxsDataPluginModule,
-            providers: [
-                NgxsDataAccessor,
-                {
-                    provide: NGXS_PLUGINS,
-                    useClass: NgxsDataStorageEngine,
-                    multi: true
-                }
-            ]
+            providers: [NgxsDataFactory, NgxsDataInjector, ...extensions]
         };
     }
 }

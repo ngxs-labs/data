@@ -15,7 +15,7 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 import { actionNameCreator } from '../../../internals/src/utils/action-name-creator';
 import { $args } from '../../../internals/src/utils/args-parser';
 import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
-import { NgxsDataAccessor } from '../../services/ngxs-data-accessor';
+import { NgxsDataFactory } from '../../services/ngxs-data-factory.service';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
@@ -40,7 +40,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
             let result: Any | Observable<Any> = undefined;
             const args: IArguments = arguments;
-            const repository: NgxsRepositoryMeta = NgxsDataAccessor.getRepositoryByInstance(instance);
+            const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);
             const operations: PlainObjectOf<NgxsDataOperation> | null = (repository && repository.operations) || null;
             let operation: NgxsDataOperation | null = (operations ? operations[key] : null) || null;
             const stateMeta: MetaDataModel | null = repository.stateMeta || null;
@@ -66,7 +66,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 ];
             }
 
-            const mapped: MappedStore | null | undefined = NgxsDataAccessor.ensureMappedState(stateMeta);
+            const mapped: MappedStore | null | undefined = NgxsDataFactory.ensureMappedState(stateMeta);
 
             if (!mapped) {
                 throw new Error('Cannot ensure mapped state from state repository');
@@ -82,7 +82,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 return isObservable(result) ? of(null).pipe(map(() => result)) : result;
             };
 
-            const payload: PlainObjectOf<Any> = NgxsDataAccessor.createPayload(arguments, operation);
+            const payload: PlainObjectOf<Any> = NgxsDataFactory.createPayload(arguments, operation);
             const event: ActionEvent = { type: operation.type, payload };
 
             if (options.async) {
@@ -95,14 +95,14 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 const debounce: number = options.debounce || 0;
 
                 const throttleTask: Promise<Any> = new Promise((resolve) => {
-                    NgxsDataAccessor.ngZone!.runOutsideAngular(() => {
+                    NgxsDataFactory.ngZone!.runOutsideAngular(() => {
                         clearTimeout(scheduleId!);
                         scheduleId = setTimeout(() => resolve(), options.debounce);
                     });
                 });
 
                 throttleTask.then(() => {
-                    const dispatched: Observable<Any> = NgxsDataAccessor.store!.dispatch(event);
+                    const dispatched: Observable<Any> = NgxsDataFactory.store!.dispatch(event);
 
                     if (isObservable(result)) {
                         combine(dispatched, result)
@@ -126,7 +126,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                     finalize(() => scheduleTask && scheduleTask.complete())
                 );
             } else {
-                const dispatcher: Observable<Any> = NgxsDataAccessor.store!.dispatch(event);
+                const dispatcher: Observable<Any> = NgxsDataFactory.store!.dispatch(event);
 
                 if (isObservable(result)) {
                     return combine(dispatcher, result);

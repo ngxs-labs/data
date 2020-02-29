@@ -14,7 +14,8 @@ export {
     ExistingEngineProvider,
     PersistenceProvider,
     UseClassEngineProvider,
-    RootInternalStorageEngine
+    RootInternalStorageEngine,
+    StorageContainer
 } from './types/storage';
 export { RepositoryActionOptions } from './types/action-options';
 export { Any } from './types/any';

@@ -98,6 +98,15 @@ export interface StorageMeta<T = string> {
 }
 
 /**
+ * @publicApi
+ */
+export interface StorageContainer<T = Set<PersistenceProvider>, K = string> {
+    providers: T;
+    keys: Map<K, void>;
+    getProvidedKeys(): string[];
+}
+
+/**
  * @privateApi
  */
 export interface RootInternalStorageEngine {

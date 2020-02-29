@@ -5,7 +5,7 @@ import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
 
-import { NgxsDataAccessor } from '../lib/src/services/ngxs-data-accessor';
+import { NgxsDataFactory } from '../lib/src/services/ngxs-data-factory.service';
 
 describe('[TEST]: CountState', () => {
     let store: Store;
@@ -112,7 +112,7 @@ describe('[TEST]: CountState', () => {
 
         it('should be throw when invalid instance', () => {
             try {
-                NgxsDataAccessor.getRepositoryByInstance(null);
+                NgxsDataFactory.getRepositoryByInstance(null);
             } catch (e) {
                 expect(e.message).toEqual(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
             }
@@ -249,7 +249,7 @@ describe('[TEST]: CountState', () => {
         });
 
         it('should be correct instance repository', () => {
-            const repository: NgxsRepositoryMeta = NgxsDataAccessor.getRepositoryByInstance(count);
+            const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(count);
 
             expect(repository.stateMeta!.name).toEqual('count');
             expect(repository.stateMeta!.actions).toEqual({

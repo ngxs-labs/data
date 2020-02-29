@@ -15,6 +15,16 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_DATA_ACTION_RETURN_TYPE = 'RECOMMENDATION: If you use asynchronous actions' +
         ' `@action({ async: true })`, ' +
         'the return result type should only be Observable or void instead',
+    NGXS_PERSISTENCE_CONTAINER = 'You forgot provide NGXS_DATA_STORAGE_CONTAINER!!! Example: \n' +
+        '\n@NgModule({' +
+        '\n imports: [ ' +
+        '\n   NgxsDataPluginModule.forRoot([\n' +
+        '      NGXS_DATA_STORAGE_EXTENSION,\n ' +
+        '     NGXS_DATA_STORAGE_CONTAINER\n' +
+        '   ]) ' +
+        '\n ]\n' +
+        '})' +
+        '\nexport class AppModule {} \n\n',
     NGXS_PERSISTENCE_ENGINE = 'Not declare storage engine in `existingEngine` or not found after injecting by `useClass`',
     NGXS_PERSISTENCE_SERIALIZE = 'Error occurred while serializing the store value, value not updated.',
     NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing the store value, falling back to empty object.',

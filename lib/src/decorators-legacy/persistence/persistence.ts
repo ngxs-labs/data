@@ -1,15 +1,15 @@
 import { ensureStateMetadata, getRepository, isNotNil } from '@ngxs-labs/data/internals';
+import { setStorageOptions } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Any, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { NgxsDataStorageEngine } from '../../services/ngxs-data-storage-engine';
-
-export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
-    return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {
-        const stateMeta: MetaDataModel = ensureStateMetadata((stateClass as Any) as StateClass);
-        const repositoryMeta: NgxsRepositoryMeta = getRepository((stateClass as Any) as StateClass);
+export function Persistence(options?: PersistenceProvider[]) {
+    return <T extends new (...args: Any[]) => {}>(target: T) => {
+        const stateClass: StateClass = target as Any;
+        const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
+        const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
         const isUndecoratedClass: boolean = !stateMeta.name || !repositoryMeta;
         const defaultPrefix: string = '@ngxs.store.';
         const defaultDecode: 'none' = 'none';
@@ -43,6 +43,13 @@ export function Persistence(options?: PersistenceProvider[]): ClassDecorator {
             }));
         }
 
-        options.forEach((option: PersistenceProvider) => NgxsDataStorageEngine.providers.add(option));
+        return class extends target {
+            constructor(...args: Any[]) {
+                super(...args);
+                if (options) {
+                    setStorageOptions(options);
+                }
+            }
+        };
     };
 }
