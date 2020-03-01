@@ -5,7 +5,21 @@
 ├── src
 |   └── *.ts
 ├── public_api.ts
-├── package.json
+└── storage - Storage Plugin API
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
+└── decorators - Decorators API
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
+└── repositories - Repositories API (Data, Entity)
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
 └── typings - Common interfaces for primary and secondary packages
 |   ├── src
 |   |   └── *.ts

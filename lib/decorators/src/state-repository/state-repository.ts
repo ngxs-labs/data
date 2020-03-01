@@ -1,13 +1,14 @@
+import {
+    buildDefaultsGraph,
+    createContext,
+    createRepositoryMetadata,
+    createStateSelector,
+    ensureStateMetadata
+} from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Any } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
-
-import { buildDefaultsGraph } from '../../../../internals/src/utils/build-defaults-graph';
-import { ensureStateMetadata } from '../../../../internals/src/utils/ensure-state-metadata';
-import { createContext } from '../utils/create-context';
-import { createRepositoryMetadata } from '../utils/create-repository-metadata';
-import { createStateSelector } from '../utils/create-state-selector';
 
 export function StateRepository(): ClassDecorator {
     return <TFunction extends Function>(stateClass: TFunction): TFunction | void => {

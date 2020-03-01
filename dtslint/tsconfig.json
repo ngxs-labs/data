@@ -26,6 +26,7 @@
             "@ngxs-labs/data/utils": ["../lib/utils/src/public_api.ts"],
             "@ngxs-labs/data/storage": ["../lib/storage/src/public_api.ts"],
             "@ngxs-labs/data/typings": ["../lib/typings/src/public_api.ts"],
+            "@ngxs-labs/data/decorators": ["../lib/decorators/src/public_api.ts"],
             "@ngxs-labs/data/repositories": ["../lib/repositories/src/public_api.ts"],
             "@ngxs-labs/data/internals": ["../lib/internals/src/public_api.ts"],
             "@ngxs-labs/data/tokens": ["../lib/tokens/src/public_api.ts"]

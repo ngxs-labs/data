@@ -1,5 +1,5 @@
 import { isDevMode } from '@angular/core';
-import { action } from '@ngxs-labs/data';
+import { action } from '@ngxs-labs/data/decorators';
 import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataPatchValue, DataRepository, Immutable, ImmutableStateContext, StateValue } from '@ngxs-labs/data/typings';

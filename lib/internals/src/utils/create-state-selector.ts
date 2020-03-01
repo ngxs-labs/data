@@ -1,10 +1,13 @@
 import { isDevMode } from '@angular/core';
-import { getRepository, NgxsDataInjector, ngxsDeepFreeze } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+
+import { NgxsDataInjector } from '../services/ngxs-data-injector.service';
+import { ngxsDeepFreeze } from './freeze';
+import { getRepository } from './get-repository';
 
 export function createStateSelector<T>(stateClass: StateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);

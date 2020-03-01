@@ -69,3 +69,121 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 -   🚀 See it in action on [Stackblitz](https://stackblitz.io/github/ngxs-labs/data)
 -   😎 Checkout the [sample application](./integration)
 -   📝 Learn about updates from the [changelog](CHANGELOG.md)
+
+### Simple example
+
+**Before**
+
+`counter.state.ts`
+
+```ts
+import { State, Action, StateContext } from '@ngxs/store';
+
+export class Increment {
+    static readonly type = '[Counter] Increment';
+}
+
+export class Decrement {
+    static readonly type = '[Counter] Decrement';
+}
+
+@State<number>({
+    name: 'counter',
+    defaults: 0
+})
+export class CounterState {
+    @Action(Increment)
+    increment(ctx: StateContext<number>) {
+        ctx.setState(ctx.getState() + 1);
+    }
+
+    @Action(Decrement)
+    decrement(ctx: StateContext<number>) {
+        ctx.setState(ctx.getState() - 1);
+    }
+}
+```
+
+`app.component.ts`
+
+```ts
+import { Component } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+
+import { CounterState, Increment, Decrement } from './counter.state';
+
+@Component({
+    selector: 'app-root',
+    template: `
+        <ng-container *ngIf="counter$ | async as counter">
+            <h1>{{ counter }}</h1>
+        </ng-container>
+
+        <button (click)="increment()">Increment</button>
+        <button (click)="decrement()">Decrement</button>
+    `
+})
+export class AppComponent {
+    @Select(CounterState) counter$: Observable<number>;
+    constructor(private store: Store) {}
+
+    increment() {
+        this.store.dispatch(new Increment());
+    }
+
+    decrement() {
+        this.store.dispatch(new Decrement());
+    }
+}
+```
+
+**After**
+
+`counter.state.ts`
+
+```ts
+import { State } from '@ngxs/store';
+import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+
+@StateRepository()
+@State<number>({
+    name: 'counter',
+    defaults: 0
+})
+@Injectable()
+export class CounterState extends NgxsDataRepository<number> {
+    @action()
+    increment() {
+        this.ctx.setState((state) => ++state);
+    }
+
+    @action()
+    decrement() {
+        this.ctx.setState((state) => --state);
+    }
+}
+```
+
+`app.component.ts`
+
+```ts
+import { Component } from '@angular/core';
+
+import { CounterState } from './counter.state';
+
+@Component({
+    selector: 'app-root',
+    template: `
+        <ng-container *ngIf="counter.state$ | async as counter">
+            <h1>{{ counter }}</h1>
+        </ng-container>
+
+        <button (click)="counter.increment()">Increment</button>
+        <button (click)="counter.decrement()">Decrement</button>
+    `
+})
+export class AppComponent {
+    constructor(counter: CounterState) {}
+}
+```

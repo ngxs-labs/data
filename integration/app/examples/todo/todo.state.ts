@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { action, Persistence, StateRepository } from '@ngxs-labs/data';
+import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
