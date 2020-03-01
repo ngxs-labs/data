@@ -1,5 +1,5 @@
 import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { NGXS_DATA_EXCEPTIONS, REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
     Any,
@@ -13,8 +13,6 @@ import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
-
-import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     return (target: Any, name: string | symbol, descriptor: TypedPropertyDescriptor<Any>): void => {

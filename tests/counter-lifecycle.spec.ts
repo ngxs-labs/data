@@ -6,7 +6,8 @@ import {
     ɵBrowserDomAdapter as BrowserDomAdapter,
     ɵDomAdapter as DomAdapter
 } from '@angular/platform-browser';
-import { NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsAfterBootstrap, NgxsModule, NgxsOnInit, State, Store } from '@ngxs/store';

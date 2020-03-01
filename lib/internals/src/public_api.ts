@@ -11,3 +11,6 @@ export { ngxsDeepFreeze } from './utils/freeze';
 export { getRepository } from './utils/get-repository';
 export { NgxsDataInjector } from './services/ngxs-data-injector.service';
 export { NgxsDataFactory } from './services/ngxs-data-factory.service';
+export { createContext } from './utils/create-context';
+export { createRepositoryMetadata } from './utils/create-repository-metadata';
+export { createStateSelector } from './utils/create-state-selector';

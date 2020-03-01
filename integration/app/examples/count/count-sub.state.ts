@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Persistence, StateRepository } from '@ngxs-labs/data';
+import { Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { State } from '@ngxs/store';
 
 import { CountModel } from './count.model';

@@ -1,6 +1,7 @@
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Any, Immutable } from '@ngxs-labs/data/typings';
 import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';

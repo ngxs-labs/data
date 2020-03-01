@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule } from '@ngxs-labs/data';
+import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
