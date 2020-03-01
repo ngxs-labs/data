@@ -20,7 +20,8 @@ export class AppModule {}
 `count.state.ts`
 
 ```ts
-import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { action, StateRepository } from '@ngxs-labs/data/decorators';
 import { State } from '@ngxs/store';
 // ..
 

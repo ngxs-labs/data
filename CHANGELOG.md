@@ -56,7 +56,7 @@ class AppComponent {
 }
 ```
 
--   For start work with storage plugin you need provide `storage extension`
+-   For start work with storage plugin you need provide `storage extension`:
 
 ```ts
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -70,6 +70,18 @@ import { NGXS_DATA_STORAGE_CONTAINER, NGXS_DATA_STORAGE_EXTENSION } from '@ngxs-
     ]
 })
 export class AppModule {}
+```
+
+-   All decorators are now exported from a subpackage:
+
+```ts
+import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+```
+
+-   All repositories are now exported from a subpackage:
+
+```ts
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 ```
 
 # 2.4.1 2020-01-07
