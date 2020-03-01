@@ -25,6 +25,7 @@ export interface NgxsRepositoryMeta<T = Any> {
 
 /**
  * @publicApi
+ * Base interface for all repositories classes
  */
 export interface DataRepository<T> {
     name: string;

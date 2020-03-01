@@ -4,6 +4,9 @@
 you get access to the internal mechanism of the NGXS.
 
 ```ts
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { StateRepository } from '@ngxs-labs/data/decorators';
+
 @StateRepository()
 @State({
     name: 'app',
@@ -17,9 +20,9 @@ For correct behavior you always need to inherited from an abstract NgxsDataRepos
 defined in the `DataRepository<T>` interface:
 
 ```ts
-export type StateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
+import { StateValue, DataPatchValue, Immutable } from '@ngxs-labs/data/typings';
 
-export interface DataRepository<T> {
+export interface MyCustomRepository<T> {
     name: string;
     initialState: Immutable<T>;
     state$: Observable<Immutable<T>>;
@@ -28,7 +31,7 @@ export interface DataRepository<T> {
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 
-    patchState(val: Partial<T | Immutable<T>>): void;
+    patchState(val: DataPatchValue<T>): void;
 
     setState(stateValue: StateValue<T>): void;
 
@@ -39,7 +42,7 @@ export interface DataRepository<T> {
 #### Create your custom repository class
 
 ```ts
-export class MyEntityRepository<T> implements DataRepository<T> {
+export class MyEntityRepository<T> implements MyCustomRepository<T> {
     // ..
     public set(..): void { ... }
     public add(..): void { ... }

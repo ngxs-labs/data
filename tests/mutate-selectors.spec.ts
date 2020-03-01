@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsModule, State, Store } from '@ngxs/store';

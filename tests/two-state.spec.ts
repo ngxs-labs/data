@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { action, NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { forkJoin, isObservable, Observable, of } from 'rxjs';
 import { delay, finalize, map, tap } from 'rxjs/operators';

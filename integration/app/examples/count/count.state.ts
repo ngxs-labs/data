@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { action, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { action, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -20,22 +21,26 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
 export class CountState extends NgxsDataRepository<ParentCountModel> {
     public readonly values$: Observable<ParentCountModel> = this.state$.pipe(map((state) => state.countSub!));
 
-    @action() public increment(): void {
+    @action()
+    public increment(): void {
         this.ctx.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 }));
     }
 
-    @action() public countSubIncrement(): void {
+    @action()
+    public countSubIncrement(): void {
         this.ctx.setState((state) => ({
             ...state,
             countSub: { val: state.countSub!.val + 1 }
         }));
     }
 
-    @action() public decrement(): void {
+    @action()
+    public decrement(): void {
         this.setState((state) => ({ ...state, val: state.val - 1 }));
     }
 
-    @action({ async: true, debounce: 300 }) public setValueFromInput(val: string | number): void {
+    @action({ async: true, debounce: 300 })
+    public setValueFromInput(val: string | number): void {
         this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
     }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { action, NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
 import { NgxsDataFactory } from '@ngxs-labs/data/internals';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Actions, NgxsModule, ofActionDispatched, State, Store } from '@ngxs/store';
