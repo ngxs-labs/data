@@ -1,8 +1,9 @@
-import { NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
+import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
     Any,
+    DataRepository,
     NgxsDataOperation,
     NgxsRepositoryMeta,
     PlainObjectOf,
@@ -13,9 +14,6 @@ import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
 import { debounceTime, finalize, map, take } from 'rxjs/operators';
 
-import { actionNameCreator } from '../../../internals/src/utils/action-name-creator';
-import { $args } from '../../../internals/src/utils/args-parser';
-import { NgxsDataRepository } from '../../repositories/ngxs-data.repository';
 import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
@@ -36,7 +34,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
         let scheduleTask: Subject<Any> | null = null;
 
         descriptor.value = function() {
-            const instance: NgxsDataRepository<Any> = (this as Any) as NgxsDataRepository<Any>;
+            const instance: DataRepository<Any> = (this as Any) as DataRepository<Any>;
 
             let result: Any | Observable<Any> = undefined;
             const args: IArguments = arguments;

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { action, NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { action, NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { Any } from '@ngxs-labs/data/typings';
 import { NgxsModule, Select, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-
-import { Any } from '../lib/typings/src/types/any';
 
 describe('Check correct deep instance', () => {
     let component: AppComponent;

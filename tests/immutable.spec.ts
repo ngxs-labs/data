@@ -1,8 +1,9 @@
 /* eslint-disable */
 import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxsDataPluginModule, NgxsDataRepository, StateRepository } from '@ngxs-labs/data';
+import { NgxsDataPluginModule, StateRepository } from '@ngxs-labs/data';
 import { NgxsModule, State, Store } from '@ngxs/store';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 
 describe('[TEST]: Freeze states', () => {
     it('should be return null from state', () => {
