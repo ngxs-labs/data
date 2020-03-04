@@ -1,12 +1,12 @@
 import { ensureStateMetadata, getRepository, isNotNil } from '@ngxs-labs/data/internals';
 import { setStorageOptions } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { Any, ClassType, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 export function Persistence(options?: PersistenceProvider[]) {
-    return <T extends new (...args: Any[]) => {}>(target: T) => {
+    return <T extends ClassType>(target: T) => {
         const stateClass: StateClass = target as Any;
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
