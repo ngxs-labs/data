@@ -20,3 +20,4 @@ export {
 export { RepositoryActionOptions } from './types/action-options';
 export { Any } from './types/any';
 export { PlainObjectOf } from './types/plaing-object-of';
+export { ClassType } from './types/class';
