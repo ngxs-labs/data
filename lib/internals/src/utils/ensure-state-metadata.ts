@@ -1,4 +1,5 @@
 import { NGXS_META_KEY } from '@ngxs-labs/data/tokens';
+import { Any } from '@ngxs-labs/data/typings';
 import { MetaDataModel, RuntimeSelectorContext, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
 import { getStateMetadata } from './get-state-metadata';
@@ -10,7 +11,7 @@ export function ensureStateMetadata(target: StateClassInternal): MetaDataModel {
             actions: {},
             defaults: {},
             path: null,
-            makeRootSelector(context: RuntimeSelectorContext) {
+            makeRootSelector(context: RuntimeSelectorContext): Any {
                 return context.getStateGetter(defaultMetadata.name);
             },
             children: []

@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { CountModule } from './examples/count/count.module';
+import { TodoModule } from './examples/todo/todo.module';
+
 @NgModule({
     imports: [
         RouterModule.forRoot(
@@ -12,11 +15,17 @@ import { RouterModule } from '@angular/router';
                 },
                 {
                     path: 'count',
-                    loadChildren: () => import('./examples/count/count.module').then((m) => m.CountModule)
+                    loadChildren: (): Promise<CountModule> =>
+                        import('./examples/count/count.module').then(
+                            (m: { CountModule: CountModule }): CountModule => m.CountModule
+                        )
                 },
                 {
                     path: 'todo',
-                    loadChildren: () => import('./examples/todo/todo.module').then((m) => m.TodoModule)
+                    loadChildren: (): Promise<TodoModule> =>
+                        import('./examples/todo/todo.module').then(
+                            (m: { TodoModule: TodoModule }): TodoModule => m.TodoModule
+                        )
                 }
             ],
             { useHash: true }

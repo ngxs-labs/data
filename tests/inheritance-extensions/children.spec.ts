@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -63,7 +64,7 @@ describe('Check correct deep instance', () => {
 
     @Injectable()
     class Facade implements OnDestroy {
-        constructor(private appState: AppState) {}
+        constructor(private readonly appState: AppState) {}
 
         public save(): void {
             this.appState.setup();
@@ -80,7 +81,7 @@ describe('Check correct deep instance', () => {
         providers: [Facade]
     })
     class AppComponent implements OnInit {
-        constructor(private facade: Facade) {}
+        constructor(private readonly facade: Facade) {}
 
         public ngOnInit(): void {
             this.facade.save();

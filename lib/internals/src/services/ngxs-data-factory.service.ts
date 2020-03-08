@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf } from '@ngxs-labs/data/typings';
+import { Any, MappedState, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
@@ -20,7 +20,7 @@ export class NgxsDataFactory {
         return NgxsDataInjector.context.createStateContext(metadata);
     }
 
-    public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedStore | null | undefined {
+    public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedState {
         if (!NgxsDataInjector.factory || !stateMeta) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
@@ -29,15 +29,7 @@ export class NgxsDataFactory {
             (stateMeta.name ? NgxsDataFactory.statesCachedMeta.get(stateMeta.name) : null) || null;
 
         if (!cachedMeta) {
-            const meta: MappedStore | null | undefined = stateMeta.name
-                ? NgxsDataInjector.factory.states.find((state: MappedStore) => state.name === stateMeta.name)
-                : null;
-
-            if (meta && stateMeta.name) {
-                NgxsDataFactory.statesCachedMeta.set(stateMeta.name, meta);
-            }
-
-            return meta;
+            return NgxsDataFactory.ensureMeta(stateMeta);
         }
 
         return cachedMeta;
@@ -56,11 +48,23 @@ export class NgxsDataFactory {
 
     public static createPayload(args: IArguments, operation: NgxsDataOperation): PlainObjectOf<Any> {
         const payload: PlainObjectOf<Any> = {};
-        const arrayArgs: Array<Any> = Array.from(args);
-        operation.argumentsNames.forEach((arg: string, index: number) => {
+        const arrayArgs: Any[] = Array.from(args);
+        operation.argumentsNames.forEach((arg: string, index: number): void => {
             payload[arg] = arrayArgs[index];
         });
 
         return payload;
+    }
+
+    private static ensureMeta(stateMeta: MetaDataModel): MappedStore | null | undefined {
+        const meta: MappedState = stateMeta.name
+            ? NgxsDataInjector.factory.states.find((state: MappedStore): boolean => state.name === stateMeta.name)
+            : null;
+
+        if (meta && stateMeta.name) {
+            NgxsDataFactory.statesCachedMeta.set(stateMeta.name, meta);
+        }
+
+        return meta;
     }
 }

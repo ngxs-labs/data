@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -26,7 +27,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
         defaults: 0
     })
     class CountState extends NgxsDataRepository<number> {
-        constructor(private api: ApiService) {
+        constructor(private readonly api: ApiService) {
             super();
         }
 
@@ -87,7 +88,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
         defaults: []
     })
     class TodoState extends NgxsDataRepository<string[]> {
-        constructor(private counter: CountState) {
+        constructor(private readonly counter: CountState) {
             super();
         }
 

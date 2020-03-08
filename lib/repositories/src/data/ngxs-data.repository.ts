@@ -10,7 +10,7 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
     public readonly name: string;
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
-    private context: ImmutableStateContext<T>;
+    private readonly context: ImmutableStateContext<T>;
 
     protected get ctx(): ImmutableStateContext<T> {
         const context: ImmutableStateContext<T> = this.context || null;

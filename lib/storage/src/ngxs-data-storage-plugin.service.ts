@@ -1,39 +1,35 @@
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
 import { isNotNil } from '@ngxs-labs/data/internals';
-import { NEED_SYNC_TYPE_ACTION, NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     Any,
-    DataStorageEngine,
-    ExistingEngineProvider,
+    ExistingStorageEngine,
     PersistenceProvider,
     RootInternalStorageEngine,
     StorageContainer,
-    StorageMeta,
-    UseClassEngineProvider
+    StorageMeta
 } from '@ngxs-labs/data/typings';
-import {
-    actionMatcher,
-    ActionType,
-    getValue,
-    InitState,
-    NgxsNextPluginFn,
-    NgxsPlugin,
-    setValue,
-    Store,
-    UpdateState
-} from '@ngxs/store';
+import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, setValue, Store } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/ngxs-data-storage-container';
+import { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/storage-container-token';
+import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
+import { ensureKey } from './utils/ensure-key';
+import { exposeEngine } from './utils/expose-engine';
+import { isInitAction } from './utils/is-init-action';
+import { parseStorageMeta } from './utils/parse-storage-meta';
+import { silentDeserializeWarning } from './utils/silent-deserialize-warning';
+import { silentSerializeWarning } from './utils/silent-serialize-warning';
 
 @Injectable()
 export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEngine {
     public static injector: Injector | null = null;
+    private static eventsSubscriptions: Subscription | null = null;
 
-    constructor(@Inject(PLATFORM_ID) private _platformId: string, @Self() injector: Injector) {
+    constructor(@Inject(PLATFORM_ID) private readonly _platformId: string, @Self() injector: Injector) {
         NgxsDataStoragePlugin.injector = injector;
         this.listenWindowEvents();
     }
@@ -46,22 +42,27 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return this.providers.size;
     }
 
-    public get container(): StorageContainer | never {
-        let container: StorageContainer;
-
-        try {
-            container = NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_CONTAINER_TOKEN)!;
-        } catch (e) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_CONTAINER);
-        }
-
-        return container!;
+    /**
+     * @description:
+     * The storage container that contains meta information about
+     */
+    public get container(): StorageContainer {
+        return NgxsDataStoragePlugin.injector!.get(NGXS_DATA_STORAGE_CONTAINER_TOKEN);
     }
 
+    /**
+     * @description:
+     * Meta information about all the added keys and their options
+     */
     public get providers(): Set<PersistenceProvider> {
         return this.container.providers;
     }
 
+    /**
+     * @description:
+     * Keys needed for dynamic synchronization with StorageEvents from
+     * localStorage or sessionStorage
+     */
     public get keys(): Map<string, void> {
         return this.container.keys;
     }
@@ -70,72 +71,20 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return this.providers.entries();
     }
 
-    private static exposeEngine(provider: PersistenceProvider): DataStorageEngine {
-        const engine: DataStorageEngine | null | undefined =
-            (provider as ExistingEngineProvider).existingEngine ||
-            NgxsDataStoragePlugin.injector!.get<DataStorageEngine>(
-                ((provider as UseClassEngineProvider).useClass as Any)!,
-                null!
-            );
-
-        if (!engine) {
-            throw new Error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_ENGINE}:::${provider.path}`);
-        }
-
-        return engine;
+    private get skipStorageInterceptions(): boolean {
+        return this.size === 0 || isPlatformServer(this._platformId);
     }
 
     public handle(states: PlainObject, action: ActionType, next: NgxsNextPluginFn): NgxsNextPluginFn {
-        if (this.size === 0 || isPlatformServer(this._platformId)) {
+        if (this.skipStorageInterceptions) {
             return next(states, action);
         }
 
-        const matches: (action: ActionType) => boolean = actionMatcher(action);
-        const isInitAction: boolean = matches(InitState) || matches(UpdateState);
-        const canBeSyncStoreWithStorage: boolean =
-            this.size > 0 && (isInitAction || action.type === NEED_SYNC_TYPE_ACTION);
-
-        if (canBeSyncStoreWithStorage) {
-            for (const [provider] of this.entries) {
-                const engine: DataStorageEngine = NgxsDataStoragePlugin.exposeEngine(provider);
-                const key: string = this.ensureKey(provider);
-                const value: string | undefined = engine.getItem(key);
-                if (isNotNil(value)) {
-                    try {
-                        const data: string | undefined | null = this.deserialize(value);
-                        if (isNotNil(data) || provider.nullable) {
-                            this.keys.set(key);
-                            states = setValue(states, provider.path, data);
-                        } else {
-                            engine.removeItem(key);
-                            this.keys.delete(key);
-                        }
-                    } catch {
-                        console.error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_DESERIALIZE}:::${provider.path}`);
-                    }
-                }
-            }
-        }
+        const init: boolean = isInitAction(action);
+        states = this.firstSynchronizationWithStorage(states, action, init);
 
         return next(states, action).pipe(
-            tap((nextState) => {
-                for (const [provider] of this.entries) {
-                    const prevData: Any = getValue(states, provider.path);
-                    const newData: Any = getValue(nextState, provider.path);
-                    if (prevData !== newData || isInitAction) {
-                        const engine: DataStorageEngine = NgxsDataStoragePlugin.exposeEngine(provider);
-
-                        try {
-                            const data: Any = this.serialize(newData, provider);
-                            const key: string = this.ensureKey(provider);
-                            engine.setItem(key, data);
-                            this.keys.set(key);
-                        } catch (e) {
-                            console.error(`${NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_SERIALIZE}:::${provider.path}`);
-                        }
-                    }
-                }
-            })
+            tap((nextState: PlainObject): void => this.nextSynchronizationWithStorage(states, nextState, init))
         );
     }
 
@@ -147,26 +96,82 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         });
     }
 
-    public deserialize(value: string | undefined): string | undefined {
-        const meta: StorageMeta = JSON.parse(value!);
-        if (meta.lastChanged) {
-            return meta.data;
-        } else {
-            throw new Error('Not found lastChanged in meta');
+    public deserialize(value: string | null): string | null | never {
+        const meta: StorageMeta = parseStorageMeta(value);
+        return deserializeByStorageMeta(meta, value);
+    }
+
+    private nextSynchronizationWithStorage(states: PlainObject, nextState: PlainObject, init: boolean): void {
+        for (const [provider] of this.entries) {
+            const prevData: Any = getValue(states, provider.path!);
+            const newData: Any = getValue(nextState, provider.path!);
+            if (prevData !== newData || init) {
+                const engine: ExistingStorageEngine = exposeEngine(provider);
+                const key: string = ensureKey(provider);
+
+                try {
+                    const data: Any = this.serialize(newData, provider);
+                    engine.setItem(key, data);
+                    this.keys.set(key);
+                } catch (error) {
+                    silentSerializeWarning(key, error.message);
+                }
+            }
         }
     }
 
-    public ensureKey(provider: PersistenceProvider): string {
-        return `${provider.prefixKey}${provider.path}`;
+    private firstSynchronizationWithStorage(states: PlainObject, action: ActionType, init: boolean): PlainObject {
+        if (this.canBeSyncStoreWithStorage(action, init)) {
+            for (const [provider] of this.entries) {
+                states = this.whenValueExistDeserializeIt(states, provider);
+            }
+        }
+
+        return states;
+    }
+
+    private canBeSyncStoreWithStorage(action: ActionType, init: boolean): boolean {
+        return this.size > 0 && (init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE);
+    }
+
+    private whenValueExistDeserializeIt(states: PlainObject, provider: PersistenceProvider): PlainObject {
+        const key: string = ensureKey(provider);
+        const engine: ExistingStorageEngine = exposeEngine(provider);
+        const value: string | null = engine.getItem(key);
+
+        if (isNotNil(value)) {
+            try {
+                const data: string | undefined | null = this.deserialize(value);
+                if (isNotNil(data) || provider.nullable) {
+                    this.keys.set(key);
+                    states = setValue(states, provider.path!, data);
+                } else {
+                    engine.removeItem(key);
+                    this.keys.delete(key);
+                }
+            } catch (error) {
+                silentDeserializeWarning(key, value, error.message);
+            }
+        }
+
+        return states;
     }
 
     private listenWindowEvents(): void {
-        if (!isPlatformServer(this._platformId)) {
-            fromEvent(window, 'storage').subscribe((event: Any) => {
-                if (this.keys.has((event as StorageEvent).key!)) {
-                    this.store!.dispatch({ type: NEED_SYNC_TYPE_ACTION });
-                }
-            });
+        if (isPlatformServer(this._platformId)) {
+            return;
         }
+
+        // preserve memory leak when usage static injector
+        NgxsDataStoragePlugin.eventsSubscriptions?.unsubscribe();
+
+        NgxsDataStoragePlugin.eventsSubscriptions = fromEvent<StorageEvent>(window, 'storage').subscribe(
+            (event: StorageEvent): void => {
+                const keyUsageInStore: boolean = !!event.key && this.keys.has(event.key);
+                if (keyUsageInStore) {
+                    this.store!.dispatch({ type: NGXS_DATA_STORAGE_EVENT_TYPE });
+                }
+            }
+        );
     }
 }

@@ -20,7 +20,7 @@
         "target": "es2015",
         "lib": ["es2017", "dom"],
         "module": "esnext",
-        "typeRoots": ["node_modules/@types"],
+        "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@ngxs-labs/data": ["./lib/public_api.ts"],
             "@ngxs-labs/data/utils": ["./lib/utils/src/public_api.ts"],

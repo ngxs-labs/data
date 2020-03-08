@@ -5,7 +5,7 @@ import { NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
 export class NgxsDataPluginModule {
     constructor(@Self() public accessor: NgxsDataFactory, @Self() public injector: NgxsDataInjector) {}
 
-    public static forRoot(extensions: Provider[] = []): ModuleWithProviders<NgxsDataPluginModule> {
+    public static forRoot(extensions: (Provider | Provider[])[] = []): ModuleWithProviders<NgxsDataPluginModule> {
         return {
             ngModule: NgxsDataPluginModule,
             providers: [NgxsDataFactory, NgxsDataInjector, ...extensions]

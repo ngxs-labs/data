@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -7,7 +8,7 @@ import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { NgxsModule, State } from '@ngxs/store';
 
-import { NgxsDataMutablePipe } from '../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
+import { NgxsDataMutablePipe } from '../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
 
 describe('Mutable', () => {
     interface A {

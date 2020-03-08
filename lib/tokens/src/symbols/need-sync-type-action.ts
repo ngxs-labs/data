@@ -1,4 +1,4 @@
 /**
  * @publicApi
  */
-export const NEED_SYNC_TYPE_ACTION: string = 'NEED_SYNC_WITH_STORAGE';
+export const NGXS_DATA_STORAGE_EVENT_TYPE: string = 'NGXS_DATA_STORAGE_EVENT_TYPE';

@@ -1,9 +1,7 @@
-sudo: required
-dist: trusty
-
 language: node_js
+sudo: false
 node_js:
-    - '12'
+  - '12.0.0'
 
 cache:
     directories:
@@ -20,5 +18,5 @@ script:
     - yarn test:types
 
 after_success:
-    - test $TRAVIS_BRANCH = "master" && yarn coverage
-    - test $TRAVIS_BRANCH = "master" && yarn deploy
+    - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && yarn coverage
+    - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && yarn deploy
