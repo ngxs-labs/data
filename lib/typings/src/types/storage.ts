@@ -6,23 +6,23 @@ import { Any } from './any';
 /**
  * @publicApi
  */
-export interface DataStorageEngine {
+export interface DataStorage<T = string, U = string> {
     readonly length: number;
 
     key(index: number): string | null;
 
-    getItem<T>(key: string): T;
+    getItem(key: string): T;
 
     getItem(key: string): string | null;
 
-    setItem<T>(key: string, val: T): void;
-
-    setItem(key: string, value: string): void;
+    setItem(key: string, val: U): void;
 
     removeItem(key: string): void;
 
     clear(): void;
 }
+
+export type DecodingType = 'base64' | 'none';
 
 /**
  * @publicApi
@@ -32,7 +32,7 @@ interface CommonPersistenceProvider {
      * Path for slice
      * default: state.name
      */
-    path: string;
+    path?: string;
     /**
      * Version for next migrate
      * default: 1
@@ -47,7 +47,7 @@ interface CommonPersistenceProvider {
     /**
      * decode/encoded
      */
-    decode?: 'base64' | 'none';
+    decode?: DecodingType;
 
     /**
      * prefix for key
@@ -62,6 +62,8 @@ interface CommonPersistenceProvider {
     nullable?: boolean;
 }
 
+export type ExistingStorageEngine = DataStorage | Storage;
+
 /**
  * @publicApi
  */
@@ -70,7 +72,7 @@ export interface ExistingEngineProvider extends CommonPersistenceProvider {
      * Storage container
      * default: window.localStorage
      */
-    existingEngine: DataStorageEngine;
+    existingEngine: ExistingStorageEngine;
 }
 
 /**
@@ -103,6 +105,7 @@ export interface StorageMeta<T = string> {
 export interface StorageContainer<T = Set<PersistenceProvider>, K = string> {
     providers: T;
     keys: Map<K, void>;
+
     getProvidedKeys(): string[];
 }
 
@@ -117,7 +120,5 @@ export interface RootInternalStorageEngine {
 
     serialize(data: Any, provider: PersistenceProvider): string;
 
-    deserialize(value: string | undefined): string | undefined;
-
-    ensureKey(provider: PersistenceProvider): string;
+    deserialize(value: string | null): string | null;
 }

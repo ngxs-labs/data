@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CountSubState } from './count-sub.state';
-import { ParentCountModel } from './count.model';
+import { CountModel, ParentCountModel } from './count.model';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 
@@ -19,28 +19,41 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
 })
 @Injectable()
 export class CountState extends NgxsDataRepository<ParentCountModel> {
-    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(map((state) => state.countSub!));
+    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(
+        map((state: Immutable<ParentCountModel>): CountModel => state.countSub!)
+    );
 
     @action()
     public increment(): void {
-        this.ctx.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 }));
+        this.ctx.setState(
+            (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({ ...state, val: state.val + 1 })
+        );
     }
 
     @action()
     public countSubIncrement(): void {
-        this.ctx.setState((state) => ({
-            ...state,
-            countSub: { val: state.countSub!.val + 1 }
-        }));
+        this.ctx.setState(
+            (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({
+                ...state,
+                countSub: { val: state.countSub!.val + 1 }
+            })
+        );
     }
 
     @action()
     public decrement(): void {
-        this.setState((state) => ({ ...state, val: state.val - 1 }));
+        this.setState(
+            (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({ ...state, val: state.val - 1 })
+        );
     }
 
     @action({ async: true, debounce: 300 })
     public setValueFromInput(val: string | number): void {
-        this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
+        this.ctx.setState(
+            (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({
+                ...state,
+                val: parseFloat(val as string) || 0
+            })
+        );
     }
 }

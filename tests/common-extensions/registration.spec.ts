@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -53,7 +54,7 @@ describe('Check correct deep instance', () => {
         public name = 'Angular + NGXS';
         public result: Any = null;
 
-        constructor(private registration: RegistrationState) {}
+        constructor(private readonly registration: RegistrationState) {}
 
         public ngOnInit() {
             this.result = this.registration.addAddress({ dirty: true, model: { hello: 'world' } });

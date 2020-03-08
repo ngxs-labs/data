@@ -22,18 +22,22 @@ export function StateRepository(): ClassDecorator {
         createRepositoryMetadata(stateClassInternal, stateMeta);
         const cloneDefaults: Any = buildDefaultsGraph(stateClassInternal);
 
-        Object.defineProperties(stateClass.prototype, {
-            name: { enumerable: true, configurable: true, value: stateMeta.name },
-            initialState: {
-                enumerable: true,
-                configurable: true,
-                get(): Any {
-                    return cloneDefaults;
-                }
-            },
-            context: createContext((stateClass as Any) as StateClass)
-        });
+        defineProperties(stateClass, stateMeta, cloneDefaults);
 
         createStateSelector((stateClass as Any) as StateClass);
     };
+}
+
+function defineProperties(stateClass: Function, stateMeta: MetaDataModel, cloneDefaults: Any): void {
+    Object.defineProperties(stateClass.prototype, {
+        name: { enumerable: true, configurable: true, value: stateMeta.name },
+        initialState: {
+            enumerable: true,
+            configurable: true,
+            get(): Any {
+                return cloneDefaults;
+            }
+        },
+        context: createContext((stateClass as Any) as StateClass)
+    });
 }

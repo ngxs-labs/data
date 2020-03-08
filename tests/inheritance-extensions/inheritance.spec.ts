@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';

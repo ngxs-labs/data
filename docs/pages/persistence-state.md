@@ -2,13 +2,13 @@
 
 ```ts
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { NGXS_DATA_STORAGE_CONTAINER, NGXS_DATA_STORAGE_EXTENSION } from '@ngxs-labs/data/storage';
+import { NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-labs/data/storage';
 
 @NgModule({
     // ..
     imports: [
         NgxsModule.forRoot([TodoState]),
-        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_EXTENSION, NGXS_DATA_STORAGE_CONTAINER])
+        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_PLUGIN])
     ]
 })
 export class AppModule {}

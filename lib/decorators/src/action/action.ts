@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS, REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
 import {
@@ -34,7 +35,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
         descriptor.value = function() {
             const instance: DataRepository<Any> = (this as Any) as DataRepository<Any>;
 
-            let result: Any | Observable<Any> = undefined;
+            let result: Any | Observable<Any>;
             const args: IArguments = arguments;
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);
             const operations: PlainObjectOf<NgxsDataOperation> | null = (repository && repository.operations) || null;
@@ -119,7 +120,9 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
                 return source.pipe(
                     debounceTime(debounce),
-                    finalize(() => scheduleTask && scheduleTask.complete())
+                    finalize((): void => {
+                        scheduleTask && scheduleTask.complete();
+                    })
                 );
             } else {
                 const dispatcher: Observable<Any> = NgxsDataInjector.store!.dispatch(event);

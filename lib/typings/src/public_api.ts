@@ -10,14 +10,17 @@ export {
 } from './types/repository';
 export {
     StorageMeta,
-    DataStorageEngine,
-    ExistingEngineProvider,
+    DataStorage,
+    DecodingType,
+    StorageContainer,
     PersistenceProvider,
+    ExistingStorageEngine,
+    ExistingEngineProvider,
     UseClassEngineProvider,
-    RootInternalStorageEngine,
-    StorageContainer
+    RootInternalStorageEngine
 } from './types/storage';
 export { RepositoryActionOptions } from './types/action-options';
 export { Any } from './types/any';
 export { PlainObjectOf } from './types/plaing-object-of';
 export { ClassType } from './types/class';
+export { MappedState } from './types/mapped-state';
