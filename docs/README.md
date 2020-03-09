@@ -8,3 +8,4 @@
     - [Action decorator](pages/action.md)
     - [Immutability helpers](pages/immutability.md)
     - [Persistence in local/session/etc storage](pages/persistence-state.md)
+    - [Extension API](pages/extension-api.md)

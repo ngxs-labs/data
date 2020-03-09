@@ -106,7 +106,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
             const prevData: Any = getValue(states, provider.path!);
             const newData: Any = getValue(nextState, provider.path!);
             if (prevData !== newData || init) {
-                const engine: ExistingStorageEngine = exposeEngine(provider);
+                const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
                 const key: string = ensureKey(provider);
 
                 try {
@@ -136,7 +136,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
 
     private whenValueExistDeserializeIt(states: PlainObject, provider: PersistenceProvider): PlainObject {
         const key: string = ensureKey(provider);
-        const engine: ExistingStorageEngine = exposeEngine(provider);
+        const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
 
         if (isNotNil(value)) {
