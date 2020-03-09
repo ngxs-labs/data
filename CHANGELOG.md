@@ -3,6 +3,7 @@
 -   Feature: extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
 -   Feature: improved `persistence` decorator
+-   Fix: correct inheritance of state classes
 -   Fix: compatibility with `@ngxs/store@3.6.2`
 -   Fix: correct value freeze from `getState()`
 -   Fix: memory leak in storage extension

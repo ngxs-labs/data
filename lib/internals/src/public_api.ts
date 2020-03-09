@@ -14,3 +14,6 @@ export { NgxsDataFactory } from './services/ngxs-data-factory.service';
 export { createContext } from './utils/create-context';
 export { createRepositoryMetadata } from './utils/create-repository-metadata';
 export { createStateSelector } from './utils/create-state-selector';
+export { validateAction } from './decorators/validate-action';
+export { resetRepository } from './utils/reset-repository';
+export { defineDefaultRepositoryMeta } from './utils/define-default-repository-meta';

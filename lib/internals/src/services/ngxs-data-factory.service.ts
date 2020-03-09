@@ -35,7 +35,7 @@ export class NgxsDataFactory {
         return cachedMeta;
     }
 
-    public static getRepositoryByInstance(target: StateClass | Any): NgxsRepositoryMeta {
+    public static getRepositoryByInstance(target: StateClass | Any): NgxsRepositoryMeta | never {
         const stateClass: StateClass = (target || {})['constructor'];
         const repository: NgxsRepositoryMeta | null = getRepository(stateClass) || null;
 
