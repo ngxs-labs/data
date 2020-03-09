@@ -7,13 +7,7 @@ import { Any } from './any';
  * @publicApi
  */
 export interface DataStorage<T = string, U = string> {
-    readonly length: number;
-
-    key(index: number): string | null;
-
     getItem(key: string): T;
-
-    getItem(key: string): string | null;
 
     setItem(key: string, val: U): void;
 

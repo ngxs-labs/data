@@ -1,14 +1,19 @@
 # To become 3.0.0
 
+-   Feature: extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
+-   Feature: improved `persistence` decorator
 -   Fix: compatibility with `@ngxs/store@3.6.2`
 -   Fix: correct value freeze from `getState()`
+-   Fix: memory leak in storage extension
+-   Fix: can now global override prefix key without `persistence` decorator
 
-### BREAKING CHANGES
+### BREAKING CHANGES &#57351;
 
 -   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
 -   Now require minimal `TypeScript v3.7.2`
+-   Other breaking changes:
 
 If you are using Angular 8, you can write in the `tsconfig.json`:
 
