@@ -23,7 +23,6 @@ export function StateRepository(): ClassDecorator {
         const cloneDefaults: Any = buildDefaultsGraph(stateClassInternal);
 
         defineProperties(stateClass, stateMeta, cloneDefaults);
-
         createStateSelector((stateClass as Any) as StateClass);
     };
 }

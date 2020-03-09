@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector } from '@ngxs-labs/data/internals';
+import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector, validateAction } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS, REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
@@ -17,15 +17,7 @@ import { debounceTime, finalize, map, take } from 'rxjs/operators';
 
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     return (target: Any, name: string | symbol, descriptor: TypedPropertyDescriptor<Any>): void => {
-        const isStaticMethod = target.hasOwnProperty('prototype');
-
-        if (isStaticMethod) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATIC_ACTION);
-        }
-
-        if (descriptor === undefined) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION);
-        }
+        validateAction(target, descriptor);
 
         const originalMethod: Any = descriptor.value;
         const key: string = name.toString();
@@ -38,18 +30,14 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
             let result: Any | Observable<Any>;
             const args: IArguments = arguments;
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);
-            const operations: PlainObjectOf<NgxsDataOperation> | null = (repository && repository.operations) || null;
-            let operation: NgxsDataOperation | null = (operations ? operations[key] : null) || null;
-            const stateMeta: MetaDataModel | null = repository.stateMeta || null;
-
-            if (!stateMeta || !operations) {
-                throw new Error('Not found meta information into state repository');
-            }
+            const operations: PlainObjectOf<NgxsDataOperation> = repository.operations!;
+            let operation: NgxsDataOperation = operations![key];
+            const stateMeta: MetaDataModel = repository.stateMeta!;
 
             if (!operation) {
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
-                const stateName: string | null = stateMeta.name || null;
+                const stateName: string = stateMeta.name!;
                 const type: string = options.type || actionNameCreator(stateName, key, argumentsNames);
 
                 operation = operations[key] = {
@@ -63,12 +51,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 ];
             }
 
-            const mapped: MappedStore | null | undefined = NgxsDataFactory.ensureMappedState(stateMeta);
-
-            if (!mapped) {
-                throw new Error('Cannot ensure mapped state from state repository');
-            }
-
+            const mapped: MappedStore = NgxsDataFactory.ensureMappedState(stateMeta)!;
             const stateInstance: StateClass = mapped.instance;
 
             // Note: invoke only after store.dispatch(...)

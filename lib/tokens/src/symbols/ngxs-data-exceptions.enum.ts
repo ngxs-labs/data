@@ -9,7 +9,7 @@ export enum NGXS_DATA_EXCEPTIONS {
         '\n Also, you cannot use this.ctx.* until the application is fully rendered ' +
         '\n (use by default ngxsOnInit(ctx: StateContext), or ngxsAfterBootstrap(ctx: StateContext) !!!',
     NGXS_DATA_STATE_DECORATOR = 'You forgot add decorator @StateRepository or initialize state!' +
-        '\n Example: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
+        '\nExample: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
     NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @action',
     NGXS_DATA_ACTION = '@action can only decorate a method implementation',
     NGXS_DATA_ACTION_RETURN_TYPE = 'RECOMMENDATION: If you use asynchronous actions' +

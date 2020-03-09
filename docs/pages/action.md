@@ -73,8 +73,108 @@ class AppComponent {
 
 The method `todo.add(payload)` is the same as `store.dispatch({ type: '@todo.add', todo: payload })`.
 
+Also you can invoke simple `setState` action:
+
+```ts
+@Component({
+    selector: 'app',
+    template: `
+        <input #inputElement />
+        <button (click)="todo.setState(inputElement.value)">Add todo</button>
+    `
+})
+class AppComponent {
+    constructor(private todo: TodoState) {}
+}
+```
+
+The method `todo.setState(payload)` is the same as `store.dispatch({ type: '@todo.setState', todo: payload })`.
+
 What are the benefits?
 
 -   No need to create action classes
 -   Typing improvements for state context
 -   Explicit interaction with states
+
+### Don't use nested actions
+
+Bad
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public add(todo: string): void {
+        // bad (action in action)
+        this.setState((state) => state.concat(todo));
+    }
+}
+```
+
+Good
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public add(todo: string): void {
+        this.ctx.setState((state) => state.concat(todo));
+    }
+}
+```
+
+---
+
+Bad
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public add(todo: string): void {
+        // bad (action in action)
+        this.concat(todo);
+    }
+
+    @action()
+    private concat(todo: string): void {
+        this.ctx.setState((state) => state.concat(todo));
+    }
+}
+```
+
+Good
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public add(todo: string): void {
+        this.concat(todo);
+    }
+
+    private concat(todo: string): void {
+        this.ctx.setState((state) => state.concat(todo));
+    }
+}
+```
