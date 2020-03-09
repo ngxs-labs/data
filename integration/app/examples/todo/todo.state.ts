@@ -15,13 +15,13 @@ export class TodoState extends NgxsDataRepository<string[]> {
     @action()
     public addTodo(todo: string): void {
         if (todo) {
-            this.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
     }
 
     @action()
     public removeTodo(idx: number): void {
-        this.setState(
+        this.ctx.setState(
             (state: Immutable<string[]>): Immutable<string[]> =>
                 state.filter((_: string, index: number): boolean => index !== idx)
         );
