@@ -12,12 +12,7 @@ export function createContext<T>(stateClass: StateClass): PropertyDescriptor {
         configurable: true,
         get(): StateContext<Any> {
             const meta: NgxsRepositoryMeta = getRepository(stateClass);
-            const mappedMeta: MappedStore | null | undefined = NgxsDataFactory.ensureMappedState(meta.stateMeta);
-
-            if (!mappedMeta) {
-                throw new Error('Cannot create state context, because not found meta information');
-            }
-
+            const mappedMeta: MappedStore = NgxsDataFactory.ensureMappedState(meta.stateMeta)!;
             return NgxsDataFactory.createStateContext(mappedMeta);
         }
     };

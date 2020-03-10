@@ -20,7 +20,7 @@ export class NgxsDataFactory {
         return NgxsDataInjector.context.createStateContext(metadata);
     }
 
-    public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedState {
+    public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedState | never {
         if (!NgxsDataInjector.factory || !stateMeta) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
