@@ -16,3 +16,5 @@ export { createRepositoryMetadata } from './utils/create-repository-metadata';
 export { createStateSelector } from './utils/create-state-selector';
 export { validateAction } from './decorators/validate-action';
 export { defineDefaultRepositoryMeta } from './utils/define-default-repository-meta';
+export { checkExistNgZone } from './utils/check-exist-ng-zone';
+export { combineStream } from './utils/combine-stream';

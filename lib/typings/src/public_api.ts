@@ -25,3 +25,5 @@ export { PlainObjectOf } from './types/plaing-object-of';
 export { ClassType } from './types/class';
 export { MappedState } from './types/mapped-state';
 export { NgxsDataExtension } from './types/extension';
+export { Descriptor } from './types/descriptor';
+export { DispatchedResult } from './types/dispatched-result';

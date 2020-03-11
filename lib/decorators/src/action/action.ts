@@ -1,10 +1,18 @@
-/* eslint-disable */
-import { $args, actionNameCreator, NgxsDataFactory, NgxsDataInjector, validateAction } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS, REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
+import {
+    $args,
+    actionNameCreator,
+    combineStream,
+    NgxsDataFactory,
+    NgxsDataInjector,
+    validateAction
+} from '@ngxs-labs/data/internals';
+import { REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
     Any,
     DataRepository,
+    Descriptor,
+    DispatchedResult,
     NgxsDataOperation,
     NgxsRepositoryMeta,
     PlainObjectOf,
@@ -12,26 +20,26 @@ import {
 } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
-import { forkJoin, isObservable, Observable, of, Subject } from 'rxjs';
-import { debounceTime, finalize, map, take } from 'rxjs/operators';
+import { isObservable, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+// eslint-disable-next-line max-lines-per-function
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
-    return (target: Any, name: string | symbol, descriptor: TypedPropertyDescriptor<Any>): void => {
+    // eslint-disable-next-line max-lines-per-function
+    return (target: Any, name: string | symbol, descriptor: Descriptor): Descriptor => {
         validateAction(target, descriptor);
 
         const originalMethod: Any = descriptor.value;
         const key: string = name.toString();
-        let scheduleId: number | null | Any = null;
-        let scheduleTask: Subject<Any> | null = null;
 
-        descriptor.value = function() {
+        // eslint-disable-next-line max-lines-per-function
+        descriptor.value = function(...args: Any[]): DispatchedResult {
             const instance: DataRepository<Any> = (this as Any) as DataRepository<Any>;
 
-            let result: Any | Observable<Any>;
-            const args: IArguments = arguments;
+            let result: DispatchedResult = null;
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);
             const operations: PlainObjectOf<NgxsDataOperation> = repository.operations!;
-            let operation: NgxsDataOperation = operations![key];
+            let operation: NgxsDataOperation = operations[key];
             const stateMeta: MetaDataModel = repository.stateMeta!;
 
             if (!operation) {
@@ -59,67 +67,20 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 result = originalMethod.apply(instance, args);
                 // Note: store.dispatch automatically subscribes, but we don’t need it
                 // We want to subscribe ourselves manually
-                return isObservable(result) ? of(null).pipe(map(() => result)) : result;
+                return isObservable(result) ? of(null).pipe(map((): Any => result)) : result;
             };
 
-            const payload: PlainObjectOf<Any> = NgxsDataFactory.createPayload(arguments, operation);
+            const payload: PlainObjectOf<Any> = NgxsDataFactory.createPayload(args, operation);
             const event: ActionEvent = { type: operation.type, payload };
+            const dispatcher: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
 
-            if (options.async) {
-                if (scheduleTask) {
-                    scheduleTask.complete();
-                }
-
-                const resultStream: Subject<Any> = (scheduleTask = new Subject<Any>());
-                const source: Observable<Any> = resultStream.asObservable().pipe(take(1));
-                const debounce: number = options.debounce || 0;
-
-                const throttleTask: Promise<Any> = new Promise((resolve) => {
-                    NgxsDataInjector.ngZone!.runOutsideAngular(() => {
-                        clearTimeout(scheduleId!);
-                        scheduleId = setTimeout(() => resolve(), options.debounce);
-                    });
-                });
-
-                throttleTask.then(() => {
-                    const dispatched: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
-
-                    if (isObservable(result)) {
-                        combine(dispatched, result)
-                            .pipe(take(1))
-                            .subscribe((val: Any) => {
-                                resultStream.next(val);
-                                resultStream.complete();
-                            });
-                    } else {
-                        if (typeof result !== 'undefined') {
-                            console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ACTION_RETURN_TYPE, typeof result);
-                        }
-
-                        resultStream.next(result);
-                        resultStream.complete();
-                    }
-                });
-
-                return source.pipe(
-                    debounceTime(debounce),
-                    finalize((): void => {
-                        scheduleTask && scheduleTask.complete();
-                    })
-                );
+            if (isObservable(result)) {
+                return combineStream(dispatcher, result);
             } else {
-                const dispatcher: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
-
-                if (isObservable(result)) {
-                    return combine(dispatcher, result);
-                } else {
-                    return result;
-                }
+                return result;
             }
         };
-    };
-}
 
-function combine(dispatched: Observable<Any>, result: Observable<Any>): Observable<Any> {
-    return forkJoin([dispatched, result]).pipe(map((combines: [Any, Any]) => combines.pop()));
+        return descriptor;
+    };
 }
