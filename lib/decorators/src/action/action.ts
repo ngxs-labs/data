@@ -38,7 +38,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
                 const stateName: string = stateMeta.name!;
-                const type: string = options.type || actionNameCreator(stateName, key, argumentsNames);
+                const type: string = actionNameCreator(stateName, key, argumentsNames);
 
                 operation = operations[key] = {
                     type,
