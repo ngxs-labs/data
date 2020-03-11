@@ -12,9 +12,8 @@ export enum NGXS_DATA_EXCEPTIONS {
         '\nExample: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
     NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @action',
     NGXS_DATA_ACTION = '@action can only decorate a method implementation',
-    NGXS_DATA_ACTION_RETURN_TYPE = 'RECOMMENDATION: If you use asynchronous actions' +
-        ' `@action({ async: true })`, ' +
-        'the return result type should only be Observable or void instead',
+    NGXS_DATA_ASYNC_ACTION_RETURN_TYPE = 'WARNING: If you use asynchronous actions' +
+        ' `@debounce(300) @action()` the return result type should only void instead:',
     NGXS_PERSISTENCE_CONTAINER = 'You forgot provide NGXS_DATA_STORAGE_CONTAINER or NGXS_DATA_STORAGE_EXTENSION!!! Example: \n' +
         '\n@NgModule({' +
         '\n imports: [ ' +

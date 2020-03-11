@@ -1,5 +1,6 @@
 # To become 3.0.0
 
+-   Feature: expose `debounce` decorator
 -   Feature: extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
 -   Feature: improved `persistence` decorator
@@ -40,7 +41,7 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 })
 @Injectable()
 class AppState extends NgxsDataRepository<string> {
-    @action({ async: true, debounce: 200 })
+    @action({ async: true, debounce: 300 })
     public concat(text: string): void {
         this.setState((state) => `${state}${text}`);
     }
@@ -55,8 +56,8 @@ class AppState extends NgxsDataRepository<string> {
 })
 @Injectable()
 class AppState extends NgxsDataRepository<string> {
+    @debounce()
     @action()
-    @debounceTime(200)
     public concat(@payload('text') text: string): void {
         this.setState((state) => `${state}${text}`);
     }

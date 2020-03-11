@@ -46,7 +46,7 @@ export class NgxsDataFactory {
         return repository;
     }
 
-    public static createPayload(args: IArguments, operation: NgxsDataOperation): PlainObjectOf<Any> {
+    public static createPayload(args: Any[], operation: NgxsDataOperation): PlainObjectOf<Any> {
         const payload: PlainObjectOf<Any> = {};
         const arrayArgs: Any[] = Array.from(args);
         operation.argumentsNames.forEach((arg: string, index: number): void => {
