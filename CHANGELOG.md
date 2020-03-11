@@ -27,6 +27,42 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 }
 ```
 
+-   The `type, async, debounce` action options are not longer support, also now it is necessary to use the `payload`
+    decorator for logging send value:
+
+```ts
+// BEFORE
+
+@StateRepository()
+@State({
+    name: 'app',
+    default: ''
+})
+@Injectable()
+class AppState extends NgxsDataRepository<string> {
+    @action({ async: true, debounce: 200 })
+    public concat(text: string): void {
+        this.setState((state) => `${state}${text}`);
+    }
+}
+
+// AFTER
+
+@StateRepository()
+@State({
+    name: 'app',
+    default: ''
+})
+@Injectable()
+class AppState extends NgxsDataRepository<string> {
+    @action()
+    @debounceTime(200)
+    public concat(@payload('text') text: string): void {
+        this.setState((state) => `${state}${text}`);
+    }
+}
+```
+
 -   Moved common interfaces to `@ngxs-labs/data/typings`:
 
 ```ts
