@@ -142,3 +142,15 @@ class AppComponent {
     constructor(public todos: TodosState) {}
 }
 ```
+
+### State operators
+
+To use state operators, you must specify the exact return type:
+
+```ts
+this.ctx.setState(
+    patch<Immutable<TodoStateModel>>({
+        todos: updateItem<Todo>(index, patch({ completed: (value) => !value }))
+    })
+);
+```
