@@ -178,3 +178,201 @@ export class TodoState extends NgxsDataRepository<string[]> {
     }
 }
 ```
+
+### What difference between `this.ctx.setState` and `this.setState`?
+
+In order to understand the difference, you need to give some examples:
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {}
+
+@Component({
+    /* ... */
+})
+class TodoComponent {
+    constructor(private todoState: TodoState) {}
+
+    public addTodo(todo: string): void {
+        this.todoState.setState(todo);
+    }
+}
+```
+
+_`setState`_ - this is a `public method` of the `NgxsDataRepository` class, it is annotated by the action decorator.
+This means that when it is called, an action will be registered into `Store` and will be called dispatch from `Store`.
+Thus you will see the state of the changed state through the logger or devtools plugins. When you call `setState` then
+it calls the `ctx.setState` method from state context.
+
+`State Context` provides a way to pass data through the global states tree without having to pass new state manually at
+every level.
+
+However, there is an unpleasant moment here, if you call the context directly, then you may not see anything in the
+devtools, because the context will be called immediately without dispatching states:
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    public addTodo(todo: string): void {
+        this.ctx.setState(todo);
+    }
+}
+
+@Component({
+    /* ... */
+})
+class TodoComponent {
+    constructor(private todoState: TodoState) {}
+
+    public addTodo(todo: string): void {
+        // When you make a call, the state will be changed directly,
+        // without notifying the NGXS lifecycle services
+        // This is a bad approach!
+        this.todoState.addTodo(todo);
+    }
+}
+```
+
+Therefore, the context should only be called inside the action.
+
+```ts
+// GOOD
+
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(todo: string): void {
+        // call context from under the action
+        this.ctx.setState(todo);
+    }
+}
+
+// GOOD
+
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    public addTodo(todo: string): void {
+        // call context inside another action
+        this.setState(todo);
+    }
+}
+```
+
+However, there are very difficult situations in which you yourself need to determine which method should be an action
+and which should not:
+
+```ts
+@StateRepository()
+@State<PersonModel>({
+    name: 'person',
+    defaults: { title: null, description: null }
+})
+@Injectable()
+export class PersonState extends NgxsDataRepository<PersonModel> {
+    constructor(private readonly personService: PersonService) {
+        super();
+    }
+
+    @action()
+    public getContent(): Observable<PersonModel> {
+        return this.personService.fetchAll().pipe(tap((content: PersonModel): void => this.ctx.setState(content)));
+    }
+}
+```
+
+In this situation, we have some problem:
+
+```ts
+@Component({
+    /* ... */
+})
+class TodoComponent implements OnInit {
+    constructor(private personState: PersonState) {}
+
+    public ngOnInit(todo: string): void {
+        this.personState.getContent().subscribe(() => console.log('loaded'));
+    }
+}
+```
+
+Why didn’t we see anything? why didn’t we see a new state?
+
+![](https://habrastorage.org/webt/ws/bl/ay/wsblayi-5jmzpfotaxmxgyrores.png)
+
+Everything is very simple, we made our method an action, this method is asynchronous and when the request ends, the
+action ends. But then we manually change the state directly through the context, but the previous action has already
+completed and we will not get the difference in states in the devtools.
+
+We can try it differently:
+
+```ts
+@StateRepository()
+@State<PersonModel>({
+    name: 'person',
+    defaults: { title: null, description: null }
+})
+@Injectable()
+export class PersonState extends NgxsDataRepository<PersonModel> {
+    constructor(private readonly personService: PersonService) {
+        super();
+    }
+
+    @action()
+    public getContent(): Observable<PersonModel> {
+        return this.personService.fetchAll().pipe(
+            tap((content: PersonModel): void => {
+                // use setState instead ctx.setState
+                this.setState(content);
+            })
+        );
+    }
+}
+```
+
+![](https://habrastorage.org/webt/fi/yp/4i/fiyp4ip_dnjavojkethoszn0t3c.png)
+
+Now everything works, but in this case, we understand that the `getContent` method should be an ordinary method, not an
+action, because during its execution the state does not change, the state changes only after the request is completed.
+Therefore, it would be more correct to write such code:
+
+```ts
+@StateRepository()
+@State<PersonModel>({
+    name: 'person',
+    defaults: { title: null, description: null }
+})
+@Injectable()
+export class PersonState extends NgxsDataRepository<PersonModel> {
+    constructor(private readonly personService: PersonService) {
+        super();
+    }
+
+    public getContent(): Observable<PersonModel> {
+        return this.personService.fetchAll().pipe(
+            tap((content: PersonModel): void => {
+                this.setState(content);
+            })
+        );
+    }
+}
+```

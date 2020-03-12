@@ -1,0 +1,17 @@
+<a
+    href="http://stackblitz.com/github/ngxs-labs/data?file=integration%2Fapp%2Fexamples%2Ftodo%2Ftodo.state.ts"
+    target="_blank"
+>
+    <img
+        class="stackblitz"
+        src="https://habrastorage.org/webt/ma/me/jm/mamejmzzxqu5pfn6rfieay6oisi.png"
+        alt="stackblitz"
+    />
+</a>
+
+<h3>Person state</h3>
+
+<div *ngIf="person.state$ | async as person">
+    <h4>{{ person.title }}</h4>
+    <p>{{ person.description }}</p>
+</div>

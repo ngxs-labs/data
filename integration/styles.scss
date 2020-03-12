@@ -50,11 +50,13 @@ button {
     min-height: 40vh;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    min-width: 500px;
+    min-width: 700px;
 }
 
 .content {
     padding: 0.5em 1em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .my-code {
@@ -117,7 +119,7 @@ button {
 }
 
 .menu {
-    min-width: 500px;
+    min-width: 700px;
     a {
         margin-right: 5px;
     }

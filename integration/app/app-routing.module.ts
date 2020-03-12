@@ -19,6 +19,11 @@ import { RouterModule } from '@angular/router';
                     path: 'todo',
                     // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/todo/todo.module').then((m) => m.TodoModule)
+                },
+                {
+                    path: 'person',
+                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
+                    loadChildren: () => import('./examples/person/person.module').then((m) => m.PersonModule)
                 }
             ],
             { useHash: true }
