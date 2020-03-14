@@ -23,9 +23,9 @@ export class CountState extends NgxsDataRepository<ParentCountModel> {
         map((state: Immutable<ParentCountModel>): CountModel => state.countSub!)
     );
 
-    // @action()
-    public increment(@payload('fuck') fuck: any): void {
-        this.setState(
+    @action()
+    public increment(): void {
+        this.ctx.setState(
             (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({ ...state, val: state.val + 1 })
         );
     }
