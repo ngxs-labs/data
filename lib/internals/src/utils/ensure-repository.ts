@@ -1,5 +1,4 @@
-import { NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
-import { StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 
 import { defineDefaultRepositoryMeta } from './define-default-repository-meta';
 import { getRepository } from './get-repository';
@@ -9,8 +8,8 @@ import { getRepository } from './get-repository';
  * don't use !target.hasOwnProperty(NGXS_DATA_META),
  * because you need support access from parent inheritance class
  */
-export function ensureRepository<T>(target: StateClassInternal): NgxsRepositoryMeta<T> {
-    const repository: NgxsRepositoryMeta<T> | null = getRepository(target) ?? null;
+export function ensureRepository<T>(target: DataStateClass): NgxsRepositoryMeta {
+    const repository: NgxsRepositoryMeta | null = getRepository(target) ?? null;
     const metaNotFound: boolean = !repository || repository?.stateClass !== target;
 
     if (metaNotFound) {

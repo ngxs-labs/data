@@ -24,5 +24,6 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_PERSISTENCE_ENGINE = 'Not found storage engine from `existingEngine` or not found instance after injecting by `useClass`.',
     NGXS_PERSISTENCE_SERIALIZE = 'Error occurred while serializing value',
     NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing value',
-    NGXS_DATA_CHILDREN_CONVERT = 'Child states can only be added to an object'
+    NGXS_DATA_CHILDREN_CONVERT = 'Child states can only be added to an object',
+    NGXS_PAYLOAD_KEY_EXIST = 'Parameter payload name already exists in action'
 }

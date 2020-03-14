@@ -1,12 +1,11 @@
-import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
+import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
-import { StateClass } from '@ngxs/store/internals';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 
 import { NgxsDataFactory } from '../services/ngxs-data-factory.service';
 import { getRepository } from './get-repository';
 
-export function createContext<T>(stateClass: StateClass): PropertyDescriptor {
+export function createContext<T>(stateClass: DataStateClass): PropertyDescriptor {
     return {
         enumerable: true,
         configurable: true,

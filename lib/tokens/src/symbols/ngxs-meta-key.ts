@@ -1,1 +1,1 @@
-export const NGXS_META_KEY: string = 'NGXS_META';
+export const NGXS_META_KEY: 'NGXS_META' = 'NGXS_META';

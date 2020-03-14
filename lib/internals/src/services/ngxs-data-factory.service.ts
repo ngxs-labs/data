@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, MappedState, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf } from '@ngxs-labs/data/typings';
+import {
+    Any,
+    DataStateClass,
+    MappedState,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
+    PlainObjectOf
+} from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
-import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 import { getRepository } from '../utils/get-repository';
@@ -35,8 +41,8 @@ export class NgxsDataFactory {
         return cachedMeta;
     }
 
-    public static getRepositoryByInstance(target: StateClass | Any): NgxsRepositoryMeta | never {
-        const stateClass: StateClass = (target || {})['constructor'];
+    public static getRepositoryByInstance(target: DataStateClass | Any): NgxsRepositoryMeta | never {
+        const stateClass: DataStateClass = (target || {})['constructor'];
         const repository: NgxsRepositoryMeta | null = getRepository(stateClass) || null;
 
         if (!repository) {

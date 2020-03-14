@@ -1,7 +1,6 @@
-import { Any } from '@ngxs-labs/data/typings';
-import { StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { Any, DataStateClass } from '@ngxs-labs/data/typings';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
-export function getStoreOptions(stateClass: StateClassInternal): StoreOptions<Any> {
+export function getStoreOptions(stateClass: DataStateClass): StoreOptions<Any> {
     return stateClass['NGXS_OPTIONS_META']! || {};
 }
