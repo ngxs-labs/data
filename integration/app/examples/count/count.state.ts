@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { action, debounce, payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
@@ -23,9 +23,9 @@ export class CountState extends NgxsDataRepository<ParentCountModel> {
         map((state: Immutable<ParentCountModel>): CountModel => state.countSub!)
     );
 
-    @action()
-    public increment(): void {
-        this.ctx.setState(
+    // @action()
+    public increment(@payload('fuck') fuck: any): void {
+        this.setState(
             (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({ ...state, val: state.val + 1 })
         );
     }
@@ -49,7 +49,7 @@ export class CountState extends NgxsDataRepository<ParentCountModel> {
 
     @debounce()
     @action()
-    public setValueFromInput(val: string | number): void {
+    public setDebounceValue(@payload('value') val: string | number): void {
         this.ctx.setState(
             (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({
                 ...state,

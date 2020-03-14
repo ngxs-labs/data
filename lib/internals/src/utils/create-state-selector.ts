@@ -1,7 +1,6 @@
 import { isDevMode } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
-import { StateClass } from '@ngxs/store/internals';
+import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -10,7 +9,7 @@ import { ngxsDeepFreeze } from './freeze';
 import { getRepository } from './get-repository';
 
 // eslint-disable-next-line max-lines-per-function
-export function createStateSelector<T>(stateClass: StateClass): void {
+export function createStateSelector<T>(stateClass: DataStateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);
     const name: string | undefined | null = (repository.stateMeta && repository.stateMeta.name) || null;
 

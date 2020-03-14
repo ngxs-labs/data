@@ -18,3 +18,6 @@ export { validateAction } from './decorators/validate-action';
 export { defineDefaultRepositoryMeta } from './utils/define-default-repository-meta';
 export { checkExistNgZone } from './utils/check-exist-ng-zone';
 export { combineStream } from './utils/combine-stream';
+export { PayloadRegistry } from './utils/payload-registry';
+export { ensurePayloadRegistry } from './utils/ensure-payload-registry';
+export { getPayloadRegistry } from './utils/get-payload-registry';

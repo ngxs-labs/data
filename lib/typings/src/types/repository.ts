@@ -2,7 +2,6 @@ import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { Observable } from 'rxjs';
 
-import { Any } from './any';
 import { Immutable } from './immutability';
 import { PlainObjectOf } from './plaing-object-of';
 
@@ -18,7 +17,7 @@ export interface NgxsDataOperation {
 /**
  * @publicApi
  */
-export interface NgxsRepositoryMeta<T = Any> {
+export interface NgxsRepositoryMeta {
     stateMeta?: MetaDataModel;
     operations?: PlainObjectOf<NgxsDataOperation>;
     stateClass?: StateClassInternal;

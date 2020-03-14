@@ -6,11 +6,11 @@ import {
     NgxsDataInjector,
     validateAction
 } from '@ngxs-labs/data/internals';
-import { REPOSITORY_ACTION_OPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
     Any,
     DataRepository,
+    DataStateClass,
     Descriptor,
     DispatchedResult,
     NgxsDataOperation,
@@ -18,10 +18,11 @@ import {
     PlainObjectOf,
     RepositoryActionOptions
 } from '@ngxs-labs/data/typings';
-import { StateClass } from '@ngxs/store/internals';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { isObservable, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { REPOSITORY_ACTION_OPTIONS } from './action.config';
 
 // eslint-disable-next-line max-lines-per-function
 export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
@@ -60,7 +61,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
             }
 
             const mapped: MappedStore = NgxsDataFactory.ensureMappedState(stateMeta)!;
-            const stateInstance: StateClass = mapped.instance;
+            const stateInstance: DataStateClass = mapped.instance;
 
             // Note: invoke only after store.dispatch(...)
             (stateInstance as Any)[operation.type] = (): Any => {

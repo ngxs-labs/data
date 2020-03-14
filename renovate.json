@@ -5,7 +5,7 @@
     "automerge": true,
     "schedule": ["after 10pm every weekday", "before 4am every weekday", "every weekend"],
     "baseBranches": ["master"],
-    "ignoreDeps": ["typescript"],
+    "ignoreDeps": ["typescript", "tsickle"],
     "packageFiles": ["package.json"],
     "major": {
         "devDependencies": {

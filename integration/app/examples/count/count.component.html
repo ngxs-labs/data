@@ -38,8 +38,15 @@ counter.state$ = {{ counter.state$ | async | json }}
 <br />
 <br />
 
-<b class="title">ngModel:</b>
+<b class="title">counter model:</b>
+<input type="text" [ngModel]="(counter.state$ | async).val" (ngModelChange)="counter.setDebounceValue($event)" />
 
-<input type="text" [ngModel]="(counter.state$ | async).val" (ngModelChange)="counter.setValueFromInput($event)" />
+(delay 300ms)
+
+<br />
+<br />
+
+<b class="title">subCount model:</b>
+<input type="text" [ngModel]="(subCount.state$ | async).val" (ngModelChange)="subCount.setDebounceSubValue($event)" />
 
 (delay 300ms)

@@ -1,7 +1,6 @@
 import { NGXS_DATA_META } from '@ngxs-labs/data/tokens';
-import { Any, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
-import { StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 
-export function getRepository<T>(target: StateClassInternal): NgxsRepositoryMeta<T> {
-    return (target as Any)[NGXS_DATA_META];
+export function getRepository<T>(target: DataStateClass): NgxsRepositoryMeta {
+    return target[NGXS_DATA_META]!;
 }

@@ -1,5 +1,5 @@
 import { isDevMode } from '@angular/core';
-import { action } from '@ngxs-labs/data/decorators';
+import { action, payload } from '@ngxs-labs/data/decorators';
 import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataPatchValue, DataRepository, Immutable, ImmutableStateContext, StateValue } from '@ngxs-labs/data/typings';
@@ -42,12 +42,12 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
     }
 
     @action()
-    public patchState(val: DataPatchValue<T>): void {
+    public patchState(@payload('patchValue') val: DataPatchValue<T>): void {
         this.ctx.patchState(val);
     }
 
     @action()
-    public setState(stateValue: StateValue<T>): void {
+    public setState(@payload('stateValue') stateValue: StateValue<T>): void {
         this.ctx.setState(stateValue);
     }
 
