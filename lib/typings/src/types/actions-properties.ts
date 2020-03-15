@@ -11,9 +11,11 @@ export type RepositoryActionOptions = ActionOptions;
 /**
  * @publicApi
  */
-export type ActionEvent = ActionType & { payload: PlainObjectOf<Any> };
+export type ActionEvent = (ActionType & { payload: PlainObjectOf<Any> }) | ActionType;
 
 export type ActionName = string;
 export type PayloadName = string;
-export type PayloadKey = ActionName & PayloadName;
-export type PayloadMap = Map<PayloadName, number>;
+export type ArgName = string;
+
+export type PayloadMap = Map<number | PayloadName, PayloadName>;
+export type ArgNameMap = Map<number | ArgName, ArgName>;

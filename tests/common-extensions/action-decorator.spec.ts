@@ -5,7 +5,7 @@ import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { action, payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { getRepository } from '@ngxs-labs/data/internals';
 
 describe('[TEST]: Action decorator', () => {
@@ -44,7 +44,7 @@ describe('[TEST]: Action decorator', () => {
             @Injectable()
             class InvalidState extends NgxsDataRepository<string> {
                 @action()
-                public setup(val: string): void {
+                public setup(@payload('val') val: string): void {
                     this.ctx.setState(val);
                 }
             }
@@ -152,9 +152,7 @@ describe('[TEST]: Action decorator', () => {
                     '@a.setup()': [
                         {
                             type: '@a.setup()',
-                            options: {
-                                cancelUncompleted: true
-                            },
+                            options: { cancelUncompleted: true },
                             fn: '@a.setup()'
                         }
                     ]
@@ -167,10 +165,7 @@ describe('[TEST]: Action decorator', () => {
             operations: {
                 setup: {
                     type: '@a.setup()',
-                    argumentsNames: [],
-                    options: {
-                        cancelUncompleted: true
-                    }
+                    options: { cancelUncompleted: true }
                 }
             }
         });
@@ -190,7 +185,7 @@ describe('[TEST]: Action decorator', () => {
             }
 
             @action()
-            public withValueSetStateAsAction(name: string): string {
+            public withValueSetStateAsAction(@payload('name') name: string): string {
                 this.setState('new value - ' + this.word + ' - ' + this.name + ' - ' + name);
                 return this.getState();
             }
@@ -305,9 +300,7 @@ describe('[TEST]: Action decorator', () => {
                         '@a.a()': [
                             {
                                 type: '@a.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@a.a()'
                             }
                         ]
@@ -320,10 +313,7 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     a: {
                         type: '@a.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });
@@ -335,9 +325,7 @@ describe('[TEST]: Action decorator', () => {
                         '@b.a()': [
                             {
                                 type: '@b.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@b.a()'
                             }
                         ]
@@ -350,10 +338,7 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     a: {
                         type: '@b.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });
@@ -365,9 +350,7 @@ describe('[TEST]: Action decorator', () => {
                         '@c.a()': [
                             {
                                 type: '@c.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@c.a()'
                             }
                         ]
@@ -380,10 +363,7 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     a: {
                         type: '@c.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });
@@ -433,36 +413,28 @@ describe('[TEST]: Action decorator', () => {
                         '@a.withValueSetStateAsAction(name)': [
                             {
                                 type: '@a.withValueSetStateAsAction(name)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@a.withValueSetStateAsAction(name)'
                             }
                         ],
                         '@a.a()': [
                             {
                                 type: '@a.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@a.a()'
                             }
                         ],
                         '@a.setState(stateValue)': [
                             {
                                 type: '@a.setState(stateValue)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@a.setState(stateValue)'
                             }
                         ],
                         '@a.reset()': [
                             {
                                 type: '@a.reset()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@a.reset()'
                             }
                         ]
@@ -475,31 +447,19 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     withValueSetStateAsAction: {
                         type: '@a.withValueSetStateAsAction(name)',
-                        argumentsNames: ['name'],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     setState: {
                         type: '@a.setState(stateValue)',
-                        argumentsNames: ['stateValue'],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     a: {
                         type: '@a.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     reset: {
                         type: '@a.reset()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });
@@ -511,36 +471,28 @@ describe('[TEST]: Action decorator', () => {
                         '@b.withValueSetStateAsAction(name)': [
                             {
                                 type: '@b.withValueSetStateAsAction(name)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@b.withValueSetStateAsAction(name)'
                             }
                         ],
                         '@b.setState(stateValue)': [
                             {
                                 type: '@b.setState(stateValue)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@b.setState(stateValue)'
                             }
                         ],
                         '@b.a()': [
                             {
                                 type: '@b.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@b.a()'
                             }
                         ],
                         '@b.reset()': [
                             {
                                 type: '@b.reset()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@b.reset()'
                             }
                         ]
@@ -553,31 +505,19 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     withValueSetStateAsAction: {
                         type: '@b.withValueSetStateAsAction(name)',
-                        argumentsNames: ['name'],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     setState: {
                         type: '@b.setState(stateValue)',
-                        argumentsNames: ['stateValue'],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     a: {
                         type: '@b.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     reset: {
                         type: '@b.reset()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });
@@ -589,36 +529,28 @@ describe('[TEST]: Action decorator', () => {
                         '@c.withValueSetStateAsAction(name)': [
                             {
                                 type: '@c.withValueSetStateAsAction(name)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@c.withValueSetStateAsAction(name)'
                             }
                         ],
                         '@c.setState(stateValue)': [
                             {
                                 type: '@c.setState(stateValue)',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@c.setState(stateValue)'
                             }
                         ],
                         '@c.a()': [
                             {
                                 type: '@c.a()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@c.a()'
                             }
                         ],
                         '@c.reset()': [
                             {
                                 type: '@c.reset()',
-                                options: {
-                                    cancelUncompleted: true
-                                },
+                                options: { cancelUncompleted: true },
                                 fn: '@c.reset()'
                             }
                         ]
@@ -631,31 +563,23 @@ describe('[TEST]: Action decorator', () => {
                 operations: {
                     withValueSetStateAsAction: {
                         type: '@c.withValueSetStateAsAction(name)',
-                        argumentsNames: ['name'],
                         options: {
                             cancelUncompleted: true
                         }
                     },
                     setState: {
                         type: '@c.setState(stateValue)',
-                        argumentsNames: ['stateValue'],
                         options: {
                             cancelUncompleted: true
                         }
                     },
                     a: {
                         type: '@c.a()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     },
                     reset: {
                         type: '@c.reset()',
-                        argumentsNames: [],
-                        options: {
-                            cancelUncompleted: true
-                        }
+                        options: { cancelUncompleted: true }
                     }
                 }
             });

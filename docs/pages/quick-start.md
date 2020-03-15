@@ -48,9 +48,9 @@ export class CountState extends NgxsDataRepository<CountModel> {
         this.ctx.setState((state) => ({ val: state.val - 1 }));
     }
 
-    @debounce(300)
+    @debounce()
     @action()
-    public setValueFromInput(val: string | number): void {
+    public setValueFromInput(@payload('value') val: string | number): void {
         this.ctx.setState({ val: parseFloat(val) || 0 });
     }
 }
@@ -108,15 +108,29 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 export class AppModule {}
 ```
 
-<details>
-<summary>Redux logger example</summary>
-<div><br>
-  
-![](https://habrastorage.org/webt/hg/gz/92/hggz92co_9mvmk8rfqkxfud0bq8.png)
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(@payload('todo') todo: string): void {
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+        }
+    }
 
-![](https://habrastorage.org/webt/60/7v/ja/607vja_6rkbxsnlfidusmv3263u.png)
+    @action()
+    public removeTodo(@payload('idx') idx: number): void {
+        this.ctx.setState(
+            (state: Immutable<string[]>): Immutable<string[]> =>
+                state.filter((_: string, index: number): boolean => index !== idx)
+        );
+    }
+}
+```
 
-<br>
-</div>
-
-</details>
+![](https://habrastorage.org/webt/6t/f5/ku/6tf5kuw5naqpgvyphebd4el_ync.png)

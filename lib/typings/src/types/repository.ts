@@ -10,7 +10,6 @@ import { PlainObjectOf } from './plaing-object-of';
  */
 export interface NgxsDataOperation {
     type: string;
-    argumentsNames: string[];
     options: ActionOptions;
 }
 

@@ -1,5 +1,7 @@
 # To become 3.0.0
 
+-   Feature: expose `payload` decorator
+-   Feature: expose `named` decorator
 -   Feature: expose `debounce` decorator
 -   Feature: extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
@@ -25,6 +27,44 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
         "disableTypeScriptVersionCheck": true
     },
     "compilerOptions": {}
+}
+```
+
+-   Now you need to explicitly set the payload:
+
+```ts
+// BEFORE
+
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(todo: string): void {
+        if (todo) {
+            this.ctx.setState((state) => state.concat(todo));
+        }
+    }
+}
+
+// AFTER
+
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(@payload('todo') todo: string): void {
+        if (todo) {
+            this.ctx.setState((state) => state.concat(todo));
+        }
+    }
 }
 ```
 
