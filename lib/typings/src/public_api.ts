@@ -4,7 +4,8 @@ export {
     ActionName,
     PayloadMap,
     PayloadName,
-    PayloadKey
+    ArgName,
+    ArgNameMap
 } from './types/actions-properties';
 export { Immutable, Mutable } from './types/immutability';
 export {
@@ -33,4 +34,4 @@ export { MappedState } from './types/mapped-state';
 export { NgxsDataExtension } from './types/extension';
 export { Descriptor } from './types/descriptor';
 export { DispatchedResult } from './types/dispatched-result';
-export { DataStateClass, StateClassDecorator, StatePayloadDecorator } from './types/data-state-class';
+export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './types/data-state-class';

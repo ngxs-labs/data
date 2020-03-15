@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { action, payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataFactory } from '@ngxs-labs/data/internals';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -178,7 +178,7 @@ describe('[TEST]: CountState', () => {
             }
 
             @action()
-            public withAction(val: number): void {
+            public withAction(@payload('val') val: number): void {
                 this.ctx.setState(val);
             }
         }
@@ -191,6 +191,10 @@ describe('[TEST]: CountState', () => {
             count = TestBed.get<CountState>(CountState);
             store = TestBed.get<Store>(Store);
             actions$ = TestBed.get<Actions>(Actions);
+        });
+
+        afterEach(() => {
+            NgxsDataFactory.clearMetaByInstance(count);
         });
 
         it('should be correct get name', () => {
@@ -244,16 +248,26 @@ describe('[TEST]: CountState', () => {
             expect(count.getState()).toEqual(10);
             expect(store.snapshot()).toEqual({ count: 10 });
 
-            expect(dispatched).toEqual([
-                { type: '@count.withAction(val)', payload: { val: 15 } },
-                { type: '@count.withAction(val)', payload: { val: 10 } }
-            ]);
+            expect(dispatched).toEqual([{ val: 15 }, { val: 10 }]);
         });
 
         it('should be correct instance repository', () => {
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(count);
 
             expect(repository.stateMeta!.name).toEqual('count');
+            expect(repository.stateMeta!.actions).toEqual({});
+            expect(repository.operations).toEqual({});
+            expect(count.getState()).toEqual(0);
+
+            count.setState(1);
+            expect(count.getState()).toEqual(1);
+
+            count.withAction(2);
+            expect(count.getState()).toEqual(2);
+
+            count.reset();
+            expect(count.getState()).toEqual(0);
+
             expect(repository.stateMeta!.actions).toEqual({
                 '@count.setState(stateValue)': [
                     {
@@ -262,36 +276,33 @@ describe('[TEST]: CountState', () => {
                         fn: '@count.setState(stateValue)'
                     }
                 ],
-                '@count.reset()': [
-                    {
-                        type: '@count.reset()',
-                        options: { cancelUncompleted: true },
-                        fn: '@count.reset()'
-                    }
-                ],
                 '@count.withAction(val)': [
                     {
                         type: '@count.withAction(val)',
                         options: { cancelUncompleted: true },
                         fn: '@count.withAction(val)'
                     }
+                ],
+                '@count.reset()': [
+                    {
+                        type: '@count.reset()',
+                        options: { cancelUncompleted: true },
+                        fn: '@count.reset()'
+                    }
                 ]
             });
 
             expect(repository.operations).toEqual({
                 setState: {
-                    argumentsNames: ['stateValue'],
                     type: '@count.setState(stateValue)',
                     options: { cancelUncompleted: true }
                 },
-                reset: {
-                    argumentsNames: [],
-                    type: '@count.reset()',
+                withAction: {
+                    type: '@count.withAction(val)',
                     options: { cancelUncompleted: true }
                 },
-                withAction: {
-                    argumentsNames: ['val'],
-                    type: '@count.withAction(val)',
+                reset: {
+                    type: '@count.reset()',
                     options: { cancelUncompleted: true }
                 }
             });

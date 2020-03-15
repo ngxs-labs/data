@@ -1,1 +1,1 @@
-export const NGXS_PAYLOAD_META: 'payloadRegistry' = 'payloadRegistry';
+export const NGXS_ARGUMENT_REGISTRY_META: 'NGXS_ARGUMENT_REGISTRY_META' = 'NGXS_ARGUMENT_REGISTRY_META';

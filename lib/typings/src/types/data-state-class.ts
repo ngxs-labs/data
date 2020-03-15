@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 import { NGXS_DATA_META, NGXS_META_KEY } from '@ngxs-labs/data/tokens';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 
@@ -11,7 +12,7 @@ export interface DataStateClass<T = Any, U = Any> extends StateClassInternal<T, 
 
 export type StateClassDecorator = (stateClass: DataStateClass) => void;
 
-export type StatePayloadDecorator = (
+export type StateArgumentDecorator = (
     stateClass: DataStateClass,
     propertyKey: string | symbol,
     parameterIndex: number

@@ -317,7 +317,7 @@ class TodoComponent implements OnInit {
 
 Why didn’t we see anything? why didn’t we see a new state?
 
-![](https://habrastorage.org/webt/ws/bl/ay/wsblayi-5jmzpfotaxmxgyrores.png)
+![](https://habrastorage.org/webt/cp/l9/vw/cpl9vwtazq2kmkms701ldo7gniy.png)
 
 Everything is very simple, we made our method an action, this method is asynchronous and when the request ends, the
 action ends. But then we manually change the state directly through the context, but the previous action has already
@@ -349,7 +349,7 @@ export class PersonState extends NgxsDataRepository<PersonModel> {
 }
 ```
 
-![](https://habrastorage.org/webt/fi/yp/4i/fiyp4ip_dnjavojkethoszn0t3c.png)
+![](https://habrastorage.org/webt/i8/s4/sc/i8s4sczamqjf8vckvmw_hf0ach4.png)
 
 Now everything works, but in this case, we understand that the `getContent` method should be an ordinary method, not an
 action, because during its execution the state does not change, the state changes only after the request is completed.
@@ -376,3 +376,92 @@ export class PersonState extends NgxsDataRepository<PersonModel> {
     }
 }
 ```
+
+![](https://habrastorage.org/webt/y8/e8/ii/y8e8iiiaehm4tgkujmq4dam98_c.png)
+
+### `Payload`
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(todo: string): void {
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+        }
+    }
+}
+```
+
+By default, all arguments have no name when automatically creating an action.
+
+![](https://habrastorage.org/webt/dh/p4/9d/dhp49dtfspp6mas7-0em2vlqcra.png)
+
+If during logging you want to see the payload, then you need to specify which action argument is this payload.
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(@payload('todo') todo: string): void {
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+        }
+    }
+}
+```
+
+![](https://habrastorage.org/webt/qf/ux/ag/qfuxagpzgabi4j8ptzk4ryeica8.png)
+
+If you do not want to see the payload, but want to see the name of the arguments normally, you can use the `named`
+decorator.
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(@named('x') todo: string): void {
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+        }
+    }
+}
+```
+
+![](https://habrastorage.org/webt/cs/1b/0j/cs1b0japo8b1sh7zvfjapfut_pm.png)
+
+Decorators can be combined:
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    @action()
+    public addTodo(@named('x') @payload('TODO') todo: string): void {
+        if (todo) {
+            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+        }
+    }
+}
+```
+
+![](https://habrastorage.org/webt/hz/3f/0l/hz3f0lmmptejx0fvjf1gxkvifwy.png)

@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
+    ActionEvent,
     Any,
     DataStateClass,
     MappedState,
     NgxsDataOperation,
     NgxsRepositoryMeta,
+    PayloadName,
     PlainObjectOf
 } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
+import { NgxsActionPayloader } from '../utils/action-payloader';
+import { dynamicActionByType } from '../utils/dynamic-action';
 import { getRepository } from '../utils/get-repository';
+import { MethodArgsRegistry } from '../utils/method-args-registry';
 import { NgxsDataInjector } from './ngxs-data-injector.service';
 
 @Injectable()
@@ -42,7 +47,7 @@ export class NgxsDataFactory {
     }
 
     public static getRepositoryByInstance(target: DataStateClass | Any): NgxsRepositoryMeta | never {
-        const stateClass: DataStateClass = (target || {})['constructor'];
+        const stateClass: DataStateClass = NgxsDataFactory.getStateClassByInstance(target);
         const repository: NgxsRepositoryMeta | null = getRepository(stateClass) || null;
 
         if (!repository) {
@@ -52,14 +57,34 @@ export class NgxsDataFactory {
         return repository;
     }
 
-    public static createPayload(args: Any[], operation: NgxsDataOperation): PlainObjectOf<Any> {
+    public static getStateClassByInstance(target: DataStateClass | Any): DataStateClass {
+        return (target || {})['constructor'];
+    }
+
+    public static clearMetaByInstance(target: DataStateClass | Any): void {
+        const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(target);
+        repository.stateMeta!.actions = {};
+        repository.operations = {};
+    }
+
+    public static createPayload(args: Any[], registry?: MethodArgsRegistry): PlainObjectOf<Any> | null {
         const payload: PlainObjectOf<Any> = {};
         const arrayArgs: Any[] = Array.from(args);
-        operation.argumentsNames.forEach((arg: string, index: number): void => {
-            payload[arg] = arrayArgs[index];
-        });
 
-        return payload;
+        for (let index: number = 0; index < arrayArgs.length; index++) {
+            if (registry?.getPayloadTypeByIndex(index)) {
+                const payloadName: PayloadName = registry?.getPayloadTypeByIndex(index)!;
+                payload[payloadName] = arrayArgs[index];
+            }
+        }
+
+        return Object.keys(payload).length > 0 ? payload : null;
+    }
+
+    public static createAction(operation: NgxsDataOperation, args: Any[], registry?: MethodArgsRegistry): ActionEvent {
+        const payload: PlainObjectOf<Any> | null = NgxsDataFactory.createPayload(args, registry);
+        const DynamicActionEvent: typeof NgxsActionPayloader = dynamicActionByType(operation.type);
+        return new DynamicActionEvent(payload) as ActionEvent;
     }
 
     private static ensureMeta(stateMeta: MetaDataModel): MappedStore | null | undefined {

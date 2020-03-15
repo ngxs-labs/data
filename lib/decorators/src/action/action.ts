@@ -2,6 +2,8 @@ import {
     $args,
     actionNameCreator,
     combineStream,
+    getMethodArgsRegistry,
+    MethodArgsRegistry,
     NgxsDataFactory,
     NgxsDataInjector,
     validateAction
@@ -42,16 +44,21 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
             const operations: PlainObjectOf<NgxsDataOperation> = repository.operations!;
             let operation: NgxsDataOperation = operations[key];
             const stateMeta: MetaDataModel = repository.stateMeta!;
+            const registry: MethodArgsRegistry | undefined = getMethodArgsRegistry(originalMethod);
 
             if (!operation) {
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
                 const stateName: string = stateMeta.name!;
-                const type: string = actionNameCreator(stateName, key, argumentsNames);
+                const type: string = actionNameCreator({
+                    stateName,
+                    methodName: key,
+                    argumentsNames,
+                    argumentRegistry: registry
+                });
 
                 operation = operations[key] = {
                     type,
-                    argumentsNames,
                     options: { cancelUncompleted: options.cancelUncompleted }
                 };
 
@@ -71,8 +78,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
                 return isObservable(result) ? of(null).pipe(map((): Any => result)) : result;
             };
 
-            const payload: PlainObjectOf<Any> = NgxsDataFactory.createPayload(args, operation);
-            const event: ActionEvent = { type: operation.type, payload };
+            const event: ActionEvent = NgxsDataFactory.createAction(operation, args, registry);
             const dispatcher: Observable<Any> = NgxsDataInjector.store!.dispatch(event);
 
             if (isObservable(result)) {

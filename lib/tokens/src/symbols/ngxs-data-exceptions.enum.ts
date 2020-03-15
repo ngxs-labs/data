@@ -25,5 +25,6 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_PERSISTENCE_SERIALIZE = 'Error occurred while serializing value',
     NGXS_PERSISTENCE_DESERIALIZE = 'Error occurred while deserializing value',
     NGXS_DATA_CHILDREN_CONVERT = 'Child states can only be added to an object',
-    NGXS_PAYLOAD_KEY_EXIST = 'Parameter payload name already exists in action'
+    NGXS_INVALID_PAYLOAD_NAME = 'Payload name should be initialized',
+    NGXS_INVALID_ARG_NAME = 'Argument name should be initialized'
 }
