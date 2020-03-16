@@ -38,13 +38,13 @@ of actions, dispatchers, and selectors for each entity type.
 
 Benefits:
 
--   Angular-way (service abstraction)
--   Immutable state context out-of-the-box
--   Persistence state out-of-the-box
--   Automatic action naming by service methods
--   Improved debugging (`@payload` by arguments)
+-   Angular-way (State as a Service)
+-   Improved debugging (`@payload` decorator)
+-   Persistence state out-of-the-box (`@Persistence` decorator)
+-   Automatic action naming by service methods (`@action, @named` decorator)
+-   Immutable state context out-of-the-box (`NgxsImmutableDataRepository`)
+-   Support debounce for throttling dispatch (`@debounce` decorator)
 -   Automatic type inference for selection
--   Support debounce for throttling dispatch
 -   Easy testable states
 
 Minimal peer dependencies:
@@ -153,13 +153,11 @@ import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 })
 @Injectable()
 export class CounterState extends NgxsDataRepository<number> {
-    @action()
-    increment() {
+    @action() increment() {
         this.ctx.setState((state) => ++state);
     }
 
-    @action()
-    decrement() {
+    @action() decrement() {
         this.ctx.setState((state) => --state);
     }
 }

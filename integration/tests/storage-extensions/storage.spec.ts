@@ -3,7 +3,7 @@ import { Injectable, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import {
     NGXS_DATA_STORAGE_CONTAINER,
     NGXS_DATA_STORAGE_CONTAINER_TOKEN,
@@ -56,7 +56,7 @@ describe('[TEST]: Storage plugin', () => {
                 @Persistence()
                 @State({ name: 'custom', defaults: 'hello world' })
                 @Injectable()
-                class Invalid extends NgxsDataRepository<string> {}
+                class Invalid extends NgxsImmutableDataRepository<string> {}
 
                 TestBed.configureTestingModule({
                     imports: [NgxsModule.forRoot([Invalid]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
@@ -73,7 +73,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
-            class CustomState extends NgxsDataRepository<string> {}
+            class CustomState extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -99,7 +99,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
-            class CustomState extends NgxsDataRepository<string> {}
+            class CustomState extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([CustomState]), NgxsDataPluginModule.forRoot()]
@@ -124,7 +124,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'a', defaults: 0 })
             @Injectable()
-            class A extends NgxsDataRepository<number> {}
+            class A extends NgxsImmutableDataRepository<number> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -189,7 +189,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'b', defaults: 100 })
             @Injectable()
-            class B extends NgxsDataRepository<number> {
+            class B extends NgxsImmutableDataRepository<number> {
                 @action()
                 public increment(): B {
                     this.ctx.setState((val) => ++val);
@@ -277,7 +277,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C extends NgxsDataRepository<string> {}
+            class C extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -312,7 +312,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c1', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C1 extends NgxsDataRepository<string> {}
+            class C1 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -347,7 +347,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c2', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C2 extends NgxsDataRepository<string> {}
+            class C2 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -376,7 +376,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c3', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C3 extends NgxsDataRepository<string> {}
+            class C3 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -408,7 +408,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c4', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C4 extends NgxsDataRepository<string> {}
+            class C4 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -440,7 +440,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c5', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C5 extends NgxsDataRepository<string> {}
+            class C5 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -470,7 +470,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c6', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C6 extends NgxsDataRepository<string> {}
+            class C6 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C6]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
@@ -502,19 +502,19 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c7', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C7 extends NgxsDataRepository<string> {}
+            class C7 extends NgxsImmutableDataRepository<string> {}
 
             @Persistence({ existingEngine: localStorage })
             @StateRepository()
             @State({ name: 'c8', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C8 extends NgxsDataRepository<string> {}
+            class C8 extends NgxsImmutableDataRepository<string> {}
 
             @Persistence({ existingEngine: localStorage, prefixKey: 'customer.' })
             @StateRepository()
             @State({ name: 'c9', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C9 extends NgxsDataRepository<string> {}
+            class C9 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C7, C8, C9]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
@@ -584,19 +584,19 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c10', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C10 extends NgxsDataRepository<string> {}
+            class C10 extends NgxsImmutableDataRepository<string> {}
 
             @Persistence({ existingEngine: localStorage })
             @StateRepository()
             @State({ name: 'c11', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C11 extends NgxsDataRepository<string> {}
+            class C11 extends NgxsImmutableDataRepository<string> {}
 
             @Persistence({ existingEngine: localStorage })
             @StateRepository()
             @State({ name: 'c12', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C12 extends NgxsDataRepository<string> {}
+            class C12 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C10, C11, C12]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
@@ -679,7 +679,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c13', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C13 extends NgxsDataRepository<string> {}
+            class C13 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C13]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
@@ -731,7 +731,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c14', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C14 extends NgxsDataRepository<string> {}
+            class C14 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C14]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
@@ -762,7 +762,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c15', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C15 extends NgxsDataRepository<string> {}
+            class C15 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -833,7 +833,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c16', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C16 extends NgxsDataRepository<string> {}
+            class C16 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [
@@ -935,7 +935,7 @@ describe('[TEST]: Storage plugin', () => {
             @StateRepository()
             @State({ name: 'c17', defaults: 'DEFAULT_VALUE' })
             @Injectable()
-            class C17 extends NgxsDataRepository<string> {}
+            class C17 extends NgxsImmutableDataRepository<string> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([C17]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],

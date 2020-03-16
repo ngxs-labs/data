@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { buildDefaultsGraph, ensureStateMetadata } from '@ngxs-labs/data/internals';
 import { NgxsModule, State, Store } from '@ngxs/store';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -114,7 +114,7 @@ describe('[TEST]: Utils', () => {
             defaults: 'any'
         })
         @Injectable()
-        class MyState extends NgxsDataRepository<string> {}
+        class MyState extends NgxsImmutableDataRepository<string> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
@@ -164,7 +164,7 @@ describe('[TEST]: Utils', () => {
             defaults: [1, 2, 3]
         })
         @Injectable()
-        class AppState extends NgxsDataRepository<number> {}
+        class AppState extends NgxsImmutableDataRepository<number> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot()]

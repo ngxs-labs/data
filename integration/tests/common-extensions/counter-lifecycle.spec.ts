@@ -9,7 +9,7 @@ import {
 } from '@angular/platform-browser';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsAfterBootstrap, NgxsModule, NgxsOnInit, State, Store } from '@ngxs/store';
 
@@ -24,7 +24,7 @@ describe('Complex lifecycle', () => {
             name: 'count',
             defaults: 0
         })
-        class CountState extends NgxsDataRepository<number> {
+        class CountState extends NgxsImmutableDataRepository<number> {
             public value: number | null = null;
             constructor(public myService: MyApiService) {
                 super();
@@ -55,7 +55,7 @@ describe('Complex lifecycle', () => {
             name: 'count',
             defaults: 0
         })
-        class CountState extends NgxsDataRepository<number> implements NgxsOnInit, NgxsAfterBootstrap {
+        class CountState extends NgxsImmutableDataRepository<number> implements NgxsOnInit, NgxsAfterBootstrap {
             constructor(public myService: MyApiService) {
                 super();
                 hooks.push('CountState - create');

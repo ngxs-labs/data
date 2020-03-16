@@ -11,10 +11,10 @@ import {
 import {
     ActionEvent,
     Any,
-    DataRepository,
     DataStateClass,
     Descriptor,
     DispatchedResult,
+    ImmutableDataRepository,
     NgxsDataOperation,
     NgxsRepositoryMeta,
     PlainObjectOf,
@@ -37,7 +37,7 @@ export function action(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTI
 
         // eslint-disable-next-line max-lines-per-function
         descriptor.value = function(...args: Any[]): DispatchedResult {
-            const instance: DataRepository<Any> = (this as Any) as DataRepository<Any>;
+            const instance: ImmutableDataRepository<Any> = (this as Any) as ImmutableDataRepository<Any>;
 
             let result: DispatchedResult = null;
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);

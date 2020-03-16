@@ -3,7 +3,7 @@ import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Injectable } from '@angular/core';
 import { NgxsModule, State } from '@ngxs/store';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 
@@ -30,7 +30,7 @@ describe('[TEST]: Debounce', () => {
         @StateRepository()
         @State({ name: 'count', defaults: 0 })
         @Injectable()
-        class DebounceState extends NgxsDataRepository<number> {
+        class DebounceState extends NgxsImmutableDataRepository<number> {
             @debounce()
             @action()
             public increment(): void {

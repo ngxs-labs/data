@@ -3,6 +3,10 @@
 `@StateRepository` - This is a decorator that provides an extension of the functionality of NGXS states, thanks to which
 you get access to the internal mechanism of the NGXS.
 
+By default, you can inherit from abstract classes that give you different benefits:
+
+-   `NgxsDataRepository` a standard repository class that gives you control over your state.
+
 ```ts
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { StateRepository } from '@ngxs-labs/data/decorators';
@@ -16,55 +20,41 @@ import { StateRepository } from '@ngxs-labs/data/decorators';
 export class AppState extends NgxsDataRepository<AppModel> {}
 ```
 
-For correct behavior you always need to inherited from an abstract NgxsDataRepository class. The basic NGXS methods are
-defined in the `DataRepository<T>` interface:
+| Method/Property                                                                                 | Return type         | Description                                         |
+| ----------------------------------------------------------------------------------------------- | ------------------- | --------------------------------------------------- |
+| state.name                                                                                      | string              | State name                                          |
+| state.initialState                                                                              | T                   | Default state value                                 |
+| state.getState()                                                                                | T                   | Current state value                                 |
+| state.patchState(Partial&lt;T &verbar; Immutable&lt;T&gt;)                                      | void                | Ability to update part of the state                 |
+| state.setState(Immutable&lt;T> &verbar; T &verbar; (state: T) => T &verbar; Immutable&lt;T&gt;) | void                | Overwrite state                                     |
+| state.reset()                                                                                   | void                | Reset state with default state value                |
+| dispatch(actions: ActionType &verbar; ActionType[])                                             | void                | Standard dispatch method                            |
+| state.state\$                                                                                   | Observable&lt;T&gt; | State data stream that you can subscribe to changes |
+
+-   `NgxsImmutableDataRepository` It is the descendant of the _`NgxsDataRepository`_ class, however it gives you
+    completely deep immutable control over your state and prevents the code from compiling if the user tries to mutate
+    something in the state. It is recommended to use it if you understand what immutability of objects is.
 
 ```ts
-import { StateValue, DataPatchValue, Immutable } from '@ngxs-labs/data/typings';
-
-export interface MyCustomRepository<T> {
-    name: string;
-    initialState: Immutable<T>;
-    state$: Observable<Immutable<T>>;
-
-    getState(): Immutable<T>;
-
-    dispatch(actions: ActionType | ActionType[]): Observable<void>;
-
-    patchState(val: DataPatchValue<T>): void;
-
-    setState(stateValue: StateValue<T>): void;
-
-    reset(): void;
-}
-```
-
-#### Create your custom repository class
-
-```ts
-export class MyEntityRepository<T> implements MyCustomRepository<T> {
-    // ..
-    public set(..): void { ... }
-    public add(..): void { ... }
-    public update(..): void { ... }
-    public delete(..): void { ... }
-    public upsert(..): void { ... }
-    public upsertMany(..): void { ... }
-
-    // Also you can override
-
-    @action()
-    public reset(): void {
-      // my logic
-    }
-
-}
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
+import { StateRepository } from '@ngxs-labs/data/decorators';
 
 @StateRepository()
 @State({
-    name: 'myEntityState',
-    defaults: { ... }
+    name: 'app',
+    defaults: {}
 })
 @Injectable()
-export class MyEntityState extends MyEntityRepository<AppModel> {}
+export class AppState extends NgxsImmutableDataRepository<AppModel> {}
 ```
+
+| Method/Property                                                                                       | Return type                          | Description                                         |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------- |
+| state.name                                                                                            | string                               | State name                                          |
+| state.initialState                                                                                    | Immutable&lt;T&gt;                   | Default state value                                 |
+| state.getState()                                                                                      | Immutable&lt;T&gt;                   | Current state value                                 |
+| state.patchState(Partial&lt;T &verbar; Immutable&lt;T&gt;)                                            | void                                 | Ability to update part of the state                 |
+| state.setState(Immutable&lt;T> &verbar; T &verbar; (state: Immutable&lt;T&gt;) => Immutable&lt;T&gt;) | void                                 | Overwrite state                                     |
+| state.reset()                                                                                         | void                                 | Reset state with default state value                |
+| dispatch(actions: ActionType &verbar; ActionType[])                                                   | void                                 | Standard dispatch method                            |
+| state.state\$                                                                                         | Observable&lt;Immutable&lt;T&gt;&gt; | State data stream that you can subscribe to changes |

@@ -3,7 +3,7 @@ import { Component, Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NgxsModule, State, Store } from '@ngxs/store';
 
 describe('[TEST]: Freeze states', () => {
@@ -14,7 +14,7 @@ describe('[TEST]: Freeze states', () => {
             defaults: null
         })
         @Injectable()
-        class MyState extends NgxsDataRepository<string> {}
+        class MyState extends NgxsImmutableDataRepository<string> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
@@ -39,7 +39,7 @@ describe('[TEST]: Freeze states', () => {
             defaults: [{ a: 1 }, { b: 2 }]
         })
         @Injectable()
-        class MyArrState extends NgxsDataRepository<StateModel[]> {}
+        class MyArrState extends NgxsImmutableDataRepository<StateModel[]> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([MyArrState]), NgxsDataPluginModule.forRoot()]
@@ -94,7 +94,7 @@ describe('[TEST]: Freeze states', () => {
             }
         })
         @Injectable()
-        class DateState extends NgxsDataRepository<DateModel> {}
+        class DateState extends NgxsImmutableDataRepository<DateModel> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([DateState]), NgxsDataPluginModule.forRoot()]
@@ -130,7 +130,7 @@ describe('[TEST]: Freeze states', () => {
             ]
         })
         @Injectable()
-        class StateListState extends NgxsDataRepository<ListModel[]> {}
+        class StateListState extends NgxsImmutableDataRepository<ListModel[]> {}
 
         @Component({ selector: 'app', template: '{{ app.state$ | async | json }}' })
         class AppComponent {

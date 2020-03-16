@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { NgxsModule, State } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -15,7 +15,7 @@ describe('[TEST]: Action decorator', () => {
         try {
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
-            class InvalidState extends NgxsDataRepository<string> {
+            class InvalidState extends NgxsImmutableDataRepository<string> {
                 @action()
                 public setup(val: string): void {
                     this.ctx.setState(val);
@@ -42,7 +42,7 @@ describe('[TEST]: Action decorator', () => {
 
         try {
             @Injectable()
-            class InvalidState extends NgxsDataRepository<string> {
+            class InvalidState extends NgxsImmutableDataRepository<string> {
                 @action()
                 public setup(@payload('val') val: string): void {
                     this.ctx.setState(val);
@@ -117,7 +117,7 @@ describe('[TEST]: Action decorator', () => {
         @StateRepository()
         @State({ name: 'a', defaults: 'a' })
         @Injectable()
-        class A extends NgxsDataRepository<string> {
+        class A extends NgxsImmutableDataRepository<string> {
             @action()
             public setup(): string {
                 return this.getState();
@@ -175,7 +175,7 @@ describe('[TEST]: Action decorator', () => {
         @StateRepository()
         @State({ name: 'a', defaults: 'a' })
         @Injectable()
-        class A extends NgxsDataRepository<string> {
+        class A extends NgxsImmutableDataRepository<string> {
             // noinspection JSUnusedGlobalSymbols
             protected word: string = 'hello';
 

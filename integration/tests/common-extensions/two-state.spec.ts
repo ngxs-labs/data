@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { action, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { forkJoin, isObservable, Observable, of } from 'rxjs';
 import { delay, finalize, map, tap } from 'rxjs/operators';
@@ -26,7 +26,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
         name: 'count',
         defaults: 0
     })
-    class CountState extends NgxsDataRepository<number> {
+    class CountState extends NgxsImmutableDataRepository<number> {
         constructor(private readonly api: ApiService) {
             super();
         }
@@ -87,7 +87,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
         name: 'todos',
         defaults: []
     })
-    class TodoState extends NgxsDataRepository<string[]> {
+    class TodoState extends NgxsImmutableDataRepository<string[]> {
         constructor(private readonly counter: CountState) {
             super();
         }

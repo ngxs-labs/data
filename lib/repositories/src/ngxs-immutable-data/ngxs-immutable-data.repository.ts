@@ -1,12 +1,19 @@
-import { isDevMode } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { action, payload } from '@ngxs-labs/data/decorators';
 import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { DataPatchValue, DataRepository, Immutable, ImmutableStateContext, StateValue } from '@ngxs-labs/data/typings';
+import {
+    Immutable,
+    ImmutableDataRepository,
+    ImmutablePatchValue,
+    ImmutableStateContext,
+    ImmutableStateValue
+} from '@ngxs-labs/data/typings';
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>, DataRepository<T> {
+@Injectable()
+export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateContext<T>, ImmutableDataRepository<T> {
     public readonly name: string;
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
@@ -24,10 +31,10 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
             getState(): Immutable<T> {
                 return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
             },
-            setState(val: StateValue<T>): void {
+            setState(val: ImmutableStateValue<T>): void {
                 context.setState(val);
             },
-            patchState(val: DataPatchValue<T>): void {
+            patchState(val: ImmutablePatchValue<T>): void {
                 context.patchState(val);
             }
         };
@@ -42,12 +49,12 @@ export abstract class NgxsDataRepository<T> implements ImmutableStateContext<T>,
     }
 
     @action()
-    public patchState(@payload('patchValue') val: DataPatchValue<T>): void {
+    public patchState(@payload('patchValue') val: ImmutablePatchValue<T>): void {
         this.ctx.patchState(val);
     }
 
     @action()
-    public setState(@payload('stateValue') stateValue: StateValue<T>): void {
+    public setState(@payload('stateValue') stateValue: ImmutableStateValue<T>): void {
         this.ctx.setState(stateValue);
     }
 

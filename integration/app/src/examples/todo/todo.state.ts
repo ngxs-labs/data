@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { action, payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
 
@@ -11,7 +11,7 @@ import { State } from '@ngxs/store';
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@payload('todo') todo: string): void {
         if (todo) {

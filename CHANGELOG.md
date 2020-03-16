@@ -1,16 +1,18 @@
 # To become 3.0.0
 
--   Feature: expose `payload` decorator
--   Feature: expose `named` decorator
--   Feature: expose `debounce` decorator
--   Feature: extension API for NGXS Data plugin
+-   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
+-   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
+-   Feature: expose `@payload` decorator for register payload in action
+-   Feature: expose `@named` decorator for register name in action
+-   Feature: expose `@debounce` decorator for throttling dispatch actions
+-   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
--   Feature: improved `persistence` decorator
+-   Feature: improved `@Persistence` decorator for stability
 -   Fix: correct inheritance of state classes
 -   Fix: compatibility with `@ngxs/store@3.6.2`
 -   Fix: correct value freeze from `getState()`
 -   Fix: memory leak in storage extension
--   Fix: can now global override prefix key without `persistence` decorator
+-   Fix: can now global override prefix key without `@Persistence` decorator
 
 ### BREAKING CHANGES &#57351;
 
@@ -41,7 +43,7 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(todo: string): void {
         if (todo) {
@@ -58,7 +60,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@payload('todo') todo: string): void {
         if (todo) {
@@ -80,7 +82,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
     default: ''
 })
 @Injectable()
-class AppState extends NgxsDataRepository<string> {
+class AppState extends NgxsImmutableDataRepository<string> {
     @action({ async: true, debounce: 300 })
     public concat(text: string): void {
         this.setState((state) => `${state}${text}`);
@@ -95,7 +97,7 @@ class AppState extends NgxsDataRepository<string> {
     default: ''
 })
 @Injectable()
-class AppState extends NgxsDataRepository<string> {
+class AppState extends NgxsImmutableDataRepository<string> {
     @debounce()
     @action()
     public concat(@payload('text') text: string): void {
@@ -164,7 +166,7 @@ import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators
 -   All repositories are now exported from a subpackage:
 
 ```ts
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 ```
 
 # 2.4.1 2020-01-07

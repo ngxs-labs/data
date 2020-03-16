@@ -3,7 +3,7 @@ import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { NgxsModule, State } from '@ngxs/store';
@@ -50,7 +50,7 @@ describe('Mutable', () => {
         @StateRepository()
         @State({ name: 'app', defaults: 0 })
         @Injectable()
-        class AppState extends NgxsDataRepository<number> {}
+        class AppState extends NgxsImmutableDataRepository<number> {}
 
         @Component({ selector: 'app', template: '{{ appState.state$ | async | mutable }}' })
         class AppComponent {

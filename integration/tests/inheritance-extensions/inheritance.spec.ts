@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { action, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { NgxsModule, State, Store } from '@ngxs/store';
 
 describe('Inheritance', () => {
     it('should be throw', () => {
         try {
-            abstract class CountRepo extends NgxsDataRepository<number> {
+            abstract class CountRepo extends NgxsImmutableDataRepository<number> {
                 // @ts-ignore
                 @action() public increment;
             }
@@ -32,7 +32,7 @@ describe('Inheritance', () => {
     });
 
     it('should be correct with inheritance', () => {
-        abstract class CountRepo extends NgxsDataRepository<number> {
+        abstract class CountRepo extends NgxsImmutableDataRepository<number> {
             @action()
             public decrement(): void {
                 this.ctx.setState((state) => --state);

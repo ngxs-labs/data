@@ -10,11 +10,15 @@ export {
 export { Immutable, Mutable } from './types/immutability';
 export {
     NgxsRepositoryMeta,
-    StateValue,
+    ImmutableStateValue,
     NgxsDataOperation,
     ImmutableStateContext,
+    ImmutableDataRepository,
+    ImmutablePatchValue,
+    StateValue,
+    PatchValue,
     DataRepository,
-    DataPatchValue
+    DataStateContext
 } from './types/repository';
 export {
     StorageMeta,

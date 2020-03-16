@@ -5,11 +5,11 @@ import { Component, Injectable, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
-import { ParentCountModel } from '../../app/src/examples/count/count.model';
-import { CountSubState } from '../../app/src/examples/count/count-sub.state';
-import { NgxsDataMutablePipe } from '../../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
+import { ParentCountModel } from '../../../app/src/examples/count/count.model';
+import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
+import { NgxsDataMutablePipe } from '../../../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
 import { Immutable, Mutable } from '@ngxs-labs/data/typings';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('TEST', () => {
@@ -21,7 +21,7 @@ describe('TEST', () => {
             children: [CountSubState]
         })
         @Injectable()
-        class CountState extends NgxsDataRepository<ParentCountModel> {
+        class CountState extends NgxsImmutableDataRepository<ParentCountModel> {
             public number$ = this.state$.pipe(
                 map(
                     // $ExpectType (state: Immutable<ParentCountModel>) => number
@@ -165,7 +165,7 @@ describe('TEST', () => {
             defaults: []
         })
         @Injectable()
-        class TodosState extends NgxsDataRepository<string[]> {
+        class TodosState extends NgxsImmutableDataRepository<string[]> {
             reversed$ = this.state$.pipe(
                 map(
                     (state) => state.reverse() // $ExpectError
@@ -207,7 +207,7 @@ describe('TEST', () => {
             defaults: { val: 0 }
         })
         @Injectable()
-        class MyState extends NgxsDataRepository<ParentCountModel> {
+        class MyState extends NgxsImmutableDataRepository<ParentCountModel> {
             // $ExpectType Observable<ParentCountModel>
             public mutableState$ = this.state$.pipe(
                 map((state: Immutable<ParentCountModel>) => state as ParentCountModel)

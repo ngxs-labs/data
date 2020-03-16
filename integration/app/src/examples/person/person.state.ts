@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { State } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { PersonService } from './person.service';
     defaults: { title: null!, description: null! }
 })
 @Injectable()
-export class PersonState extends NgxsDataRepository<PersonModel> {
+export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
