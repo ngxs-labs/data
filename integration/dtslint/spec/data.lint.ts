@@ -5,12 +5,12 @@ import { Component, Injectable, Input } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
-import { NgxsDataMutablePipe } from '../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
-import { ParentCountModel } from '../../integration/app/examples/count/count.model';
-import { CountSubState } from '../../integration/app/examples/count/count-sub.state';
+import { ParentCountModel } from '../../app/src/examples/count/count.model';
+import { CountSubState } from '../../app/src/examples/count/count-sub.state';
+import { NgxsDataMutablePipe } from '../../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
 import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
-import { StateRepository, action, debounce } from '@ngxs-labs/data/decorators';
+import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {

@@ -8,7 +8,7 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
 import { MetaDataModel, SharedSelectorOptions } from '@ngxs/store/src/internal/internals';
 import { isObservable } from 'rxjs';
-import { getStateMetadata } from '../../lib/internals/src/utils/get-state-metadata';
+import { getStateMetadata } from '../../../lib/internals/src/utils/get-state-metadata';
 import { Any } from '@ngxs-labs/data/typings';
 
 describe('[TEST]: Utils', () => {

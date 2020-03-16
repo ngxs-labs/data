@@ -14,20 +14,20 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist/integration",
-                        "index": "integration/index.html",
-                        "main": "integration/main.ts",
-                        "polyfills": "integration/polyfills.ts",
-                        "tsConfig": "integration/tsconfig.app.json",
-                        "assets": ["integration/favicon.ico", "integration/assets"],
-                        "styles": ["integration/styles.scss"],
+                        "index": "integration/app/index.html",
+                        "main": "integration/app/main.ts",
+                        "polyfills": "integration/app/polyfills.ts",
+                        "tsConfig": "integration/app/tsconfig.app.json",
+                        "assets": ["integration/app/favicon.ico", "integration/app/assets"],
+                        "styles": ["integration/app/styles.scss"],
                         "scripts": []
                     },
                     "configurations": {
                         "production": {
                             "fileReplacements": [
                                 {
-                                    "replace": "integration/environments/environment.ts",
-                                    "with": "integration/environments/environment.prod.ts"
+                                    "replace": "integration/app/environments/environment.ts",
+                                    "with": "integration/app/environments/environment.prod.ts"
                                 }
                             ],
                             "optimization": true,

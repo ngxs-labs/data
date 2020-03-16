@@ -32,5 +32,5 @@
             "@ngxs-labs/data/tokens": ["./lib/tokens/src/public_api.ts"]
         }
     },
-    "exclude": ["dtslint"]
+    "exclude": ["integration/dtslint"]
 }
