@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { Component, Injectable } from '@angular/core';
 
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { Persistence, StateRepository, action } from '@ngxs-labs/data/decorators';
@@ -77,7 +77,7 @@ describe('NGXS Integration', () => {
                 selectedTodo: null!
             }
         })
-        class TodoState extends NgxsDataRepository<TodoStateModel> {
+        class TodoState extends NgxsImmutableDataRepository<TodoStateModel> {
             @Select(TodoState)
             public readonly todos$: Observable<TodoStateModel>;
 
@@ -166,7 +166,7 @@ describe('NGXS Integration', () => {
             ]
         })
         @Injectable()
-        class StateListState extends NgxsDataRepository<ListModel[]> {}
+        class StateListState extends NgxsImmutableDataRepository<ListModel[]> {}
 
         @Component({ selector: 'app', template: '{{ app.state$ | async | json }}' })
         class AppComponent {

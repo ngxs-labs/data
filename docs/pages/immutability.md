@@ -66,7 +66,7 @@ denote properties as readonly across the entire depth of an object.
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     reversed$ = this.state$.pipe(
         map( state => state.reverse() )
     );                     ^
@@ -108,7 +108,7 @@ However, if you really need to cast to mutable, you can do this in several ways:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     mutableState$ = this.state$.pipe(
         map( state => state as string[] )
     );

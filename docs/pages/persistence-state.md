@@ -19,7 +19,7 @@ export class AppModule {}
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     // ..
 }
 ```
@@ -79,7 +79,7 @@ export class DeepCountState {}
     children: [DeepCountState]
 })
 @Injectable()
-export class CountState extends NgxsDataRepository<CountModel> {}
+export class CountState extends NgxsImmutableDataRepository<CountModel> {}
 ```
 
 ### Global custom storage
@@ -120,7 +120,7 @@ class MyState {}
     }
 })
 @Injectable()
-export class SecureState extends NgxsDataRepository<SecureModel> {}
+export class SecureState extends NgxsImmutableDataRepository<SecureModel> {}
 ```
 
 ```ts

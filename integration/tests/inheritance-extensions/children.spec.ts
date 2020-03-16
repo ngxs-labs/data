@@ -3,7 +3,7 @@ import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Any, Immutable } from '@ngxs-labs/data/typings';
 import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
 import { PlainObjectOf } from '@ngxs/store/internals';
@@ -50,7 +50,7 @@ describe('Check correct deep instance', () => {
         defaults: {},
         children: [MyChildA, MyChildB]
     })
-    class AppState extends NgxsDataRepository<Any> {
+    class AppState extends NgxsImmutableDataRepository<Any> {
         public initial: Immutable<PlainObjectOf<Any>> = {};
 
         public setup(): void {

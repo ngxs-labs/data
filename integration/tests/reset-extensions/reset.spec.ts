@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NgxsModule, State, Store } from '@ngxs/store';
 
 describe('[TEST]: Reset', () => {
@@ -38,7 +38,7 @@ describe('[TEST]: Reset', () => {
         children: [B, C]
     })
     @Injectable()
-    class A extends NgxsDataRepository<object> {}
+    class A extends NgxsImmutableDataRepository<object> {}
 
     beforeEach(() => {
         TestBed.configureTestingModule({

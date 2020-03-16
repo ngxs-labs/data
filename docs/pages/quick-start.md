@@ -20,7 +20,7 @@ export class AppModule {}
 `count.state.ts`
 
 ```ts
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { action, StateRepository } from '@ngxs-labs/data/decorators';
 import { State } from '@ngxs/store';
 // ..
@@ -35,7 +35,7 @@ export interface CountModel {
     defaults: { val: 0 }
 })
 @Injectable()
-export class CountState extends NgxsDataRepository<CountModel> {
+export class CountState extends NgxsImmutableDataRepository<CountModel> {
     public readonly values$ = this.state$.pipe(map((state) => state.val));
 
     @action()
@@ -115,7 +115,7 @@ export class AppModule {}
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@payload('todo') todo: string): void {
         if (todo) {

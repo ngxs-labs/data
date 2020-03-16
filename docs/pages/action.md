@@ -16,7 +16,7 @@ export class AddTodo {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @Action(AddTodo)
     public add({ setState }: StateContext<string[]>, { payload }: AddTodo): void {
         setState((state) => state.concat(payload));
@@ -50,7 +50,7 @@ class AppComponent {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
@@ -107,7 +107,7 @@ Bad
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public add(todo: string): void {
         // bad (action in action)
@@ -125,7 +125,7 @@ Good
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
@@ -144,7 +144,7 @@ Bad
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public add(todo: string): void {
         // bad (action in action)
@@ -167,7 +167,7 @@ Good
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public add(todo: string): void {
         this.concat(todo);
@@ -190,7 +190,7 @@ In order to understand the difference, you need to give some examples:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {}
+export class TodoState extends NgxsImmutableDataRepository<string[]> {}
 
 @Component({
     /* ... */
@@ -204,7 +204,7 @@ class TodoComponent {
 }
 ```
 
-_`setState`_ - this is a `public method` of the `NgxsDataRepository` class, it is annotated by the action decorator.
+_`setState`_ - this is a `public method` of the `NgxsImmutableDataRepository` class, it is annotated by the action decorator.
 This means that when it is called, an action will be registered into `Store` and will be called dispatch from `Store`.
 Thus you will see the state of the changed state through the logger or devtools plugins. When you call `setState` then
 it calls the `ctx.setState` method from state context.
@@ -222,7 +222,7 @@ devtools, because the context will be called immediately without dispatching sta
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     public addTodo(todo: string): void {
         this.ctx.setState(todo);
     }
@@ -254,7 +254,7 @@ Therefore, the context should only be called inside the action.
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(todo: string): void {
         // call context from under the action
@@ -270,7 +270,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     public addTodo(todo: string): void {
         // call context inside another action
         this.setState(todo);
@@ -288,7 +288,7 @@ and which should not:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsDataRepository<PersonModel> {
+export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -332,7 +332,7 @@ We can try it differently:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsDataRepository<PersonModel> {
+export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -362,7 +362,7 @@ Therefore, it would be more correct to write such code:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsDataRepository<PersonModel> {
+export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -388,7 +388,7 @@ export class PersonState extends NgxsDataRepository<PersonModel> {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(todo: string): void {
         if (todo) {
@@ -411,7 +411,7 @@ If during logging you want to see the payload, then you need to specify which ac
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@payload('todo') todo: string): void {
         if (todo) {
@@ -433,7 +433,7 @@ decorator.
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@named('x') todo: string): void {
         if (todo) {
@@ -454,7 +454,7 @@ Decorators can be combined:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsDataRepository<string[]> {
+export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @action()
     public addTodo(@named('x') @payload('TODO') todo: string): void {
         if (todo) {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsModule, State, Store } from '@ngxs/store';
@@ -20,7 +20,7 @@ describe('Mutate', () => {
             @StateRepository()
             @State({ name: 'todos', defaults: [1, 3] })
             @Injectable()
-            class TodosState extends NgxsDataRepository<string[]> {
+            class TodosState extends NgxsImmutableDataRepository<string[]> {
                 // noinspection JSUnusedGlobalSymbols
                 public mutable$ = this.state$.pipe(map((state) => (state as string[]).reverse()));
             }
@@ -41,7 +41,7 @@ describe('Mutate', () => {
         @StateRepository()
         @State({ name: 'todos', defaults: [1, 2, 3] })
         @Injectable()
-        class TodosState extends NgxsDataRepository<string[]> {
+        class TodosState extends NgxsImmutableDataRepository<string[]> {
             public mutable$(): Observable<Immutable<string[]>> {
                 return this.state$.pipe(map((state) => (state as string[]).reverse()));
             }
@@ -86,7 +86,7 @@ describe('Mutate', () => {
             defaults: [{ a: 1 }, { a: 2 }]
         })
         @Injectable()
-        class TodosState extends NgxsDataRepository<A[]> {}
+        class TodosState extends NgxsImmutableDataRepository<A[]> {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([TodosState]), NgxsDataPluginModule.forRoot()]

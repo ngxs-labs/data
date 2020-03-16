@@ -22,11 +22,7 @@ export interface NgxsRepositoryMeta {
     stateClass?: StateClassInternal;
 }
 
-/**
- * @publicApi
- * Base interface for all repositories classes
- */
-export interface DataRepository<T> {
+export interface ImmutableDataRepository<T> {
     name: string;
     initialState: Immutable<T>;
     state$: Observable<Immutable<T>>;
@@ -35,31 +31,51 @@ export interface DataRepository<T> {
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 
-    patchState(val: Partial<T | Immutable<T>>): void;
+    patchState(val: ImmutablePatchValue<T>): void;
+
+    setState(stateValue: ImmutableStateValue<T>): void;
+
+    reset(): void;
+}
+
+export type ImmutablePatchValue<T> = Partial<T | Immutable<T>>;
+export type ImmutableStateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
+
+export interface ImmutableStateContext<T> {
+    getState(): Immutable<T>;
+
+    setState(val: ImmutableStateValue<T>): void;
+
+    patchState(val: ImmutablePatchValue<T>): void;
+
+    dispatch(actions: ActionType | ActionType[]): Observable<void>;
+}
+
+export interface DataRepository<T> {
+    name: string;
+    initialState: T;
+    state$: Observable<T>;
+
+    getState(): T;
+
+    dispatch(actions: ActionType | ActionType[]): Observable<void>;
+
+    patchState(val: PatchValue<T>): void;
 
     setState(stateValue: StateValue<T>): void;
 
     reset(): void;
 }
 
-/**
- * @publicApi
- */
-export type DataPatchValue<T> = Partial<T | Immutable<T>>;
-/**
- * @publicApi
- */
-export type StateValue<T> = T | Immutable<T> | ((state: Immutable<T>) => Immutable<T> | T);
+export type PatchValue<T> = Partial<T | Immutable<T>>;
+export type StateValue<T> = T | Immutable<T> | ((state: T) => T | Immutable<T>);
 
-/**
- * @publicApi
- */
-export interface ImmutableStateContext<T> {
-    getState(): Immutable<T>;
+export interface DataStateContext<T> {
+    getState(): T;
 
     setState(val: StateValue<T>): void;
 
-    patchState(val: DataPatchValue<T>): void;
+    patchState(val: PatchValue<T>): void;
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 }
