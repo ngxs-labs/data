@@ -10,12 +10,12 @@
     "@angular-devkit/core" "8.3.25"
     rxjs "6.4.0"
 
-"@angular-devkit/architect@0.900.5":
-  version "0.900.5"
-  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.900.5.tgz#c6de20d512cb4dbc1179ec236d310b5d6314164b"
-  integrity sha512-4du29cYI5awsZ34xoS9WWSbEv7HazIlsQWaee/fRdvv4WmyB1w6geLMLHveGT2cYL/lhxsMUdYyDMa6sXcYeFA==
+"@angular-devkit/architect@0.900.7":
+  version "0.900.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.900.7.tgz#11884bc3c3be8618a62c8e80d61c3410ab954719"
+  integrity sha512-hfiTVYc72kzbXrzK4tea6jnTDnSKpE1D+vEptBXN2tdXEVNEAQI5Qm5L1zVDtt16UdqoUTUypIgUc9jcNH1mUQ==
   dependencies:
-    "@angular-devkit/core" "9.0.5"
+    "@angular-devkit/core" "9.0.7"
     rxjs "6.5.3"
 
 "@angular-devkit/build-angular@0.803.25":
@@ -80,12 +80,12 @@
     webpack-subresource-integrity "1.1.0-rc.6"
     worker-plugin "3.2.0"
 
-"@angular-devkit/build-ng-packagr@0.900.5":
-  version "0.900.5"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.900.5.tgz#ce4cdaf59c73324f1cf78dba24233840570bbd5a"
-  integrity sha512-NAslDl/oXw+Tisk4Nx7PgzuTq1AOd7c/4vQ5uTPkTZ/XXqomMlN18wkSzhTlqyXs91wC1DE+B8/eVKwLbufyFA==
+"@angular-devkit/build-ng-packagr@0.900.7":
+  version "0.900.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-ng-packagr/-/build-ng-packagr-0.900.7.tgz#ac2e3b8a5a5aa4fb2a272559516e2c4e7ef1ac91"
+  integrity sha512-c5dA/myilTaXLPHvRzbmqLslgfzf265CXL07I3jLe1+FECEXBYcOl9asEdi1GWy+eVehVkjYdDG4froIvAzEVg==
   dependencies:
-    "@angular-devkit/architect" "0.900.5"
+    "@angular-devkit/architect" "0.900.7"
     rxjs "6.5.3"
 
 "@angular-devkit/build-optimizer@0.803.25":
@@ -119,10 +119,10 @@
     rxjs "6.4.0"
     source-map "0.7.3"
 
-"@angular-devkit/core@9.0.5":
-  version "9.0.5"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.0.5.tgz#4ac28d94af02a24e84165a36142efc0e8a88f76f"
-  integrity sha512-9TPQPzfSRbV5wVEnfo1d1CS+oVXROfE7VnBRuRMilFnNhuc29wX3zvBQRTreDVyxJetLBEb9sRlcKYGaJzpKPw==
+"@angular-devkit/core@9.0.7":
+  version "9.0.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.0.7.tgz#97e452ad88d36391d621748487c5bab655edfe84"
+  integrity sha512-tMrz36sM1xrwvFf9Qm59GwALscVlMP7rQBjtd0fIR/QbsiOAIX4AQbV+vN6Vtwnzo5NIRZY1IXJUhesWms+h5w==
   dependencies:
     ajv "6.10.2"
     fast-json-stable-stringify "2.0.0"
