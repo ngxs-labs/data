@@ -36,7 +36,7 @@
         "@types/node": "13.9.2",
         "angular-cli-ghpages": "0.6.2",
         "core-js": "3.6.4",
-        "coveralls": "3.0.9",
+        "coveralls": "3.0.11",
         "dtslint": "0.9.9",
         "eslint": "6.8.0",
         "jest": "25.1.0",
