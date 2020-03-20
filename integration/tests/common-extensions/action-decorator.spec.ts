@@ -28,8 +28,6 @@ describe('[TEST]: Action decorator', () => {
 
             const state: InvalidState = TestBed.get(InvalidState);
             state.setState('new value');
-
-            console.log(state.getState());
         } catch (e) {
             message = e.message;
         }
@@ -55,8 +53,6 @@ describe('[TEST]: Action decorator', () => {
 
             const state: InvalidState = TestBed.get(InvalidState);
             state.setState('new value');
-
-            console.log(state.getState());
         } catch (e) {
             message = e.message;
         }

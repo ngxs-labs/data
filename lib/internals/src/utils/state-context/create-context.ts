@@ -2,8 +2,8 @@ import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings
 import { StateContext } from '@ngxs/store';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 
-import { NgxsDataFactory } from '../services/ngxs-data-factory.service';
-import { getRepository } from './get-repository';
+import { NgxsDataFactory } from '../../services/ngxs-data-factory.service';
+import { getRepository } from '../repository/get-repository';
 
 export function createContext<T>(stateClass: DataStateClass): PropertyDescriptor {
     return {

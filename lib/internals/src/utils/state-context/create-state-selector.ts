@@ -4,9 +4,9 @@ import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { NgxsDataInjector } from '../services/ngxs-data-injector.service';
-import { ngxsDeepFreeze } from './freeze';
-import { getRepository } from './get-repository';
+import { NgxsDataInjector } from '../../services/ngxs-data-injector.service';
+import { ngxsDeepFreeze } from '../common/freeze';
+import { getRepository } from '../repository/get-repository';
 
 // eslint-disable-next-line max-lines-per-function
 export function createStateSelector<T>(stateClass: DataStateClass): void {

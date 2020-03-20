@@ -1,4 +1,4 @@
-## State repository
+## (@)StateRepository
 
 `@StateRepository` - This is a decorator that provides an extension of the functionality of NGXS states, thanks to which
 you get access to the internal mechanism of the NGXS.
@@ -25,6 +25,7 @@ export class AppState extends NgxsDataRepository<AppModel> {}
 | state.name                                                                                      | string              | State name                                          |
 | state.initialState                                                                              | T                   | Default state value                                 |
 | state.getState()                                                                                | T                   | Current state value                                 |
+| state.snapshot                                                                                  | T                   | Memoized state value (getter)                       |
 | state.patchState(Partial&lt;T &verbar; Immutable&lt;T&gt;)                                      | void                | Ability to update part of the state                 |
 | state.setState(Immutable&lt;T> &verbar; T &verbar; (state: T) => T &verbar; Immutable&lt;T&gt;) | void                | Overwrite state                                     |
 | state.reset()                                                                                   | void                | Reset state with default state value                |
@@ -53,6 +54,7 @@ export class AppState extends NgxsImmutableDataRepository<AppModel> {}
 | state.name                                                                                            | string                               | State name                                          |
 | state.initialState                                                                                    | Immutable&lt;T&gt;                   | Default state value                                 |
 | state.getState()                                                                                      | Immutable&lt;T&gt;                   | Current state value                                 |
+| state.snapshot                                                                                        | T                                    | Memoized state value (getter)                       |
 | state.patchState(Partial&lt;T &verbar; Immutable&lt;T&gt;)                                            | void                                 | Ability to update part of the state                 |
 | state.setState(Immutable&lt;T> &verbar; T &verbar; (state: Immutable&lt;T&gt;) => Immutable&lt;T&gt;) | void                                 | Overwrite state                                     |
 | state.reset()                                                                                         | void                                 | Reset state with default state value                |

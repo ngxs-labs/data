@@ -39,3 +39,4 @@ export { NgxsDataExtension } from './types/extension';
 export { Descriptor } from './types/descriptor';
 export { DispatchedResult } from './types/dispatched-result';
 export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './types/data-state-class';
+export { ComputedOptions } from './types/computed-options';

@@ -1,8 +1,8 @@
-import { Injectable, isDevMode } from '@angular/core';
-import { action, payload } from '@ngxs-labs/data/decorators';
-import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Injectable } from '@angular/core';
+import { action, computed, payload } from '@ngxs-labs/data/decorators';
+import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import {
+    Any,
     Immutable,
     ImmutableDataRepository,
     ImmutablePatchValue,
@@ -19,25 +19,13 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
     public readonly state$: Observable<Immutable<T>>;
     private readonly context: ImmutableStateContext<T>;
 
+    @computed()
+    public get snapshot(): Immutable<T> {
+        return ensureSnapshot(this.getState());
+    }
+
     protected get ctx(): ImmutableStateContext<T> {
-        const context: ImmutableStateContext<T> = this.context || null;
-
-        if (!context) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
-        }
-
-        return {
-            ...context,
-            getState(): Immutable<T> {
-                return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
-            },
-            setState(val: ImmutableStateValue<T>): void {
-                context.setState(val);
-            },
-            patchState(val: ImmutablePatchValue<T>): void {
-                context.patchState(val);
-            }
-        };
+        return ensureDataStateContext<T, Any>(this, this.context);
     }
 
     public getState(): Immutable<T> {

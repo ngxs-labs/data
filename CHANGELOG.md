@@ -1,5 +1,6 @@
 # To become 3.0.0
 
+-   Feature: expose `@computed` for automatically computed values from state
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
 -   Feature: expose `@payload` decorator for register payload in action

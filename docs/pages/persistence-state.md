@@ -1,4 +1,4 @@
-## Persistence state
+## (@)Persistence
 
 ```ts
 import { NgxsDataPluginModule } from '@ngxs-labs/data';

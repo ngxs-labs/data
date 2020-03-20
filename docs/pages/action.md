@@ -1,4 +1,4 @@
-## Action
+## (@)action
 
 `@action` - This decorator emulates the execution of asynchronous or synchronous actions. Actions can either be thought
 of as a command which should trigger something to happen.
@@ -204,10 +204,10 @@ class TodoComponent {
 }
 ```
 
-_`setState`_ - this is a `public method` of the `NgxsImmutableDataRepository` class, it is annotated by the action decorator.
-This means that when it is called, an action will be registered into `Store` and will be called dispatch from `Store`.
-Thus you will see the state of the changed state through the logger or devtools plugins. When you call `setState` then
-it calls the `ctx.setState` method from state context.
+_`setState`_ - this is a `public method` of the `NgxsImmutableDataRepository` class, it is annotated by the action
+decorator. This means that when it is called, an action will be registered into `Store` and will be called dispatch from
+`Store`. Thus you will see the state of the changed state through the logger or devtools plugins. When you call
+`setState` then it calls the `ctx.setState` method from state context.
 
 `State Context` provides a way to pass data through the global states tree without having to pass new state manually at
 every level.

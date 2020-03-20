@@ -4,8 +4,9 @@
 2. [🚀 Quick Start](pages/quick-start.md)
 3. [📦 Advanced](#table-of-contents)
 
-    - [Repository](pages/state-repository.md)
+    - [(@)StateRepository](pages/state-repository.md)
+    - [(@)action](pages/action.md)
+    - [(@)computed](pages/computed.md)
+    - [(@)Persistence](pages/persistence-state.md)
     - [Immutability](pages/immutability.md)
-    - [Action](pages/action.md)
-    - [Persistence](pages/persistence-state.md)
     - [Extension API](pages/extension-api.md)

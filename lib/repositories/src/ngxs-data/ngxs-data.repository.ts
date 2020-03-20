@@ -1,9 +1,8 @@
-import { Injectable, isDevMode } from '@angular/core';
-import { action, payload } from '@ngxs-labs/data/decorators';
-import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Injectable } from '@angular/core';
+import { action, computed, payload } from '@ngxs-labs/data/decorators';
+import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-labs/data/typings';
-import { ActionType } from '@ngxs/store';
+import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -13,25 +12,13 @@ export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements 
     public readonly state$: Observable<T>;
     private readonly context: DataStateContext<T>;
 
+    @computed()
+    public get snapshot(): T {
+        return ensureSnapshot(this.getState());
+    }
+
     protected get ctx(): DataStateContext<T> {
-        const context: DataStateContext<T> = this.context || null;
-
-        if (!context) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
-        }
-
-        return {
-            ...context,
-            getState(): T {
-                return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
-            },
-            setState(val: T): void {
-                context.setState(val);
-            },
-            patchState(val: PatchValue<T>): void {
-                context.patchState(val);
-            }
-        };
+        return ensureDataStateContext<T, StateContext<T>>(this, this.context as StateContext<T>);
     }
 
     public getState(): T {
