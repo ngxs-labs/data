@@ -31,3 +31,4 @@ export { isGetter } from './utils/common/is-getter';
 export { ensureComputedOptions } from './utils/computed/ensure-computed-options';
 export { getComputedOptions } from './utils/computed/get-computed-options';
 export { defineComputedOptions } from './utils/computed/define-computed-options';
+export { ensureSnapshot } from './utils/repository/ensure-snapshot';

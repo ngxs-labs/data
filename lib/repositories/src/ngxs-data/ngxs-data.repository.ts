@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { action, payload } from '@ngxs-labs/data/decorators';
-import { ensureDataStateContext } from '@ngxs-labs/data/internals';
+import { action, computed, payload } from '@ngxs-labs/data/decorators';
+import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-labs/data/typings';
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -11,6 +11,11 @@ export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements 
     public readonly initialState: T;
     public readonly state$: Observable<T>;
     private readonly context: DataStateContext<T>;
+
+    @computed()
+    public get snapshot(): T {
+        return ensureSnapshot(this.getState());
+    }
 
     protected get ctx(): DataStateContext<T> {
         return ensureDataStateContext<T, StateContext<T>>(this, this.context as StateContext<T>);

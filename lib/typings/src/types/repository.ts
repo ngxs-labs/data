@@ -26,6 +26,7 @@ export interface ImmutableDataRepository<T> {
     name: string;
     initialState: Immutable<T>;
     state$: Observable<Immutable<T>>;
+    readonly snapshot: Immutable<T>;
 
     getState(): Immutable<T>;
 
@@ -55,6 +56,7 @@ export interface DataRepository<T> {
     name: string;
     initialState: T;
     state$: Observable<T>;
+    readonly snapshot: T;
 
     getState(): T;
 

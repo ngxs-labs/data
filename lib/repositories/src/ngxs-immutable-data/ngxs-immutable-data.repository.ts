@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { action, payload } from '@ngxs-labs/data/decorators';
-import { ensureDataStateContext } from '@ngxs-labs/data/internals';
+import { action, computed, payload } from '@ngxs-labs/data/decorators';
+import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import {
     Any,
     Immutable,
@@ -18,6 +18,11 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
     public readonly initialState: Immutable<T>;
     public readonly state$: Observable<Immutable<T>>;
     private readonly context: ImmutableStateContext<T>;
+
+    @computed()
+    public get snapshot(): Immutable<T> {
+        return ensureSnapshot(this.getState());
+    }
 
     protected get ctx(): ImmutableStateContext<T> {
         return ensureDataStateContext<T, Any>(this, this.context);
