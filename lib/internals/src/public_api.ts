@@ -26,7 +26,6 @@ export { getMethodArgsRegistry } from './utils/method-args-registry/get-method-a
 export { dynamicActionByType } from './utils/action/dynamic-action';
 export { getSequenceIdFromTarget } from './utils/computed/get-sequence-id-from-target';
 export { incrementSequenceId } from './utils/computed/increment-sequence-id';
-export { NgxsActionPayloader } from './utils/action/action-payloader';
 export { isGetter } from './utils/common/is-getter';
 export { ensureComputedOptions } from './utils/computed/ensure-computed-options';
 export { getComputedOptions } from './utils/computed/get-computed-options';

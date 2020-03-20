@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
@@ -13,7 +13,6 @@ import {
 import { StateContext } from '@ngxs/store';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { NgxsActionPayloader } from '../utils/action/action-payloader';
 import { dynamicActionByType } from '../utils/action/dynamic-action';
 import { MethodArgsRegistry } from '../utils/method-args-registry/method-args-registry';
 import { getRepository } from '../utils/repository/get-repository';
@@ -83,7 +82,7 @@ export class NgxsDataFactory {
 
     public static createAction(operation: NgxsDataOperation, args: Any[], registry?: MethodArgsRegistry): ActionEvent {
         const payload: PlainObjectOf<Any> | null = NgxsDataFactory.createPayload(args, registry);
-        const DynamicActionEvent: typeof NgxsActionPayloader = dynamicActionByType(operation.type);
+        const DynamicActionEvent: Type<Any> = dynamicActionByType(operation.type);
         return new DynamicActionEvent(payload) as ActionEvent;
     }
 

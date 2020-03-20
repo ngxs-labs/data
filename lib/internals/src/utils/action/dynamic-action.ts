@@ -1,7 +1,16 @@
-import { NgxsActionPayloader } from './action-payloader';
+import { Type } from '@angular/core';
+import { Any, PlainObjectOf } from '@ngxs-labs/data/typings';
 
-export function dynamicActionByType(type: string): typeof NgxsActionPayloader {
-    return class NgxsDataAction extends NgxsActionPayloader {
+export function dynamicActionByType(type: string): Type<Any> {
+    return class NgxsDataAction {
+        constructor(payload: PlainObjectOf<Any> | null) {
+            if (payload) {
+                Object.keys(payload).forEach((key: string): void => {
+                    (this as Any)[key] = payload[key];
+                });
+            }
+        }
+
         public static get type(): string {
             return type;
         }
