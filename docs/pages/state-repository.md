@@ -54,7 +54,7 @@ export class AppState extends NgxsImmutableDataRepository<AppModel> {}
 | state.name                                                                                            | string                               | State name                                          |
 | state.initialState                                                                                    | Immutable&lt;T&gt;                   | Default state value                                 |
 | state.getState()                                                                                      | Immutable&lt;T&gt;                   | Current state value                                 |
-| state.snapshot                                                                                        | T                                    | Memoized state value (getter)                       |
+| state.snapshot                                                                                        | Immutable&lt;T&gt;                   | Memoized state value (getter)                       |
 | state.patchState(Partial&lt;T &verbar; Immutable&lt;T&gt;)                                            | void                                 | Ability to update part of the state                 |
 | state.setState(Immutable&lt;T> &verbar; T &verbar; (state: Immutable&lt;T&gt;) => Immutable&lt;T&gt;) | void                                 | Overwrite state                                     |
 | state.reset()                                                                                         | void                                 | Reset state with default state value                |
