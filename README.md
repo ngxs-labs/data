@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
   <b>NGXS Persistence API (@ngxs-labs/data)</b> <br />
-  <b>🚀 See it in action on <a href="https://stackblitz.com/edit/ngxs-labs-data">Stackblitz</a></b>
+  <b>🚀 See it in action on <a href="http://stackblitz.io/github/ngxs-labs/data">Stackblitz</a></b>
   <br />
 </p>
   
@@ -62,6 +62,12 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
     "compilerOptions": {}
 }
 ```
+
+## Browsers support
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Edge 12+ (IE not supported)                                                                                                                                                                                     | Firefox 42+                                                                                                                                                                                                       | Chrome 42+                                                                                                                                                                                                    | Safari 10+                                                                                                                                                                                                    |
 
 ### Quick Links
 

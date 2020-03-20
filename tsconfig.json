@@ -6,6 +6,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "strict": true,
+        "allowUmdGlobalAccess": true,
         "strictPropertyInitialization": false,
         "strictFunctionTypes": true,
         "downlevelIteration": true,
