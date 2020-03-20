@@ -3,9 +3,9 @@ import { Any, DataStateClass } from '@ngxs-labs/data/typings';
 import { PlainObject } from '@ngxs/store/internals';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
-import { InvalidChildrenException } from '../exceptions/invalid-children.exception';
+import { InvalidChildrenException } from '../../exceptions/invalid-children.exception';
+import { getStoreOptions } from '../state-context/get-store-options';
 import { deepCloneDefaults } from './deep-close-defaults';
-import { getStoreOptions } from './get-store-options';
 import { isPlainObject } from './is-plain-object';
 
 export function buildDefaultsGraph(stateClasses: DataStateClass): Any {

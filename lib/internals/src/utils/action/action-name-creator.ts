@@ -1,4 +1,4 @@
-import { MethodArgsRegistry } from './method-args-registry';
+import { MethodArgsRegistry } from '../method-args-registry/method-args-registry';
 
 interface ActionNameCreatorOptions {
     stateName: string | null;

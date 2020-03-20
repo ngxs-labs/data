@@ -1,8 +1,8 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { action, payload } from '@ngxs-labs/data/decorators';
-import { ngxsDeepFreeze } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { ensureDataStateContext } from '@ngxs-labs/data/internals';
 import {
+    Any,
     Immutable,
     ImmutableDataRepository,
     ImmutablePatchValue,
@@ -20,24 +20,7 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
     private readonly context: ImmutableStateContext<T>;
 
     protected get ctx(): ImmutableStateContext<T> {
-        const context: ImmutableStateContext<T> = this.context || null;
-
-        if (!context) {
-            throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
-        }
-
-        return {
-            ...context,
-            getState(): Immutable<T> {
-                return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
-            },
-            setState(val: ImmutableStateValue<T>): void {
-                context.setState(val);
-            },
-            patchState(val: ImmutablePatchValue<T>): void {
-                context.patchState(val);
-            }
-        };
+        return ensureDataStateContext<T, Any>(this, this.context);
     }
 
     public getState(): Immutable<T> {

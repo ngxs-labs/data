@@ -1,4 +1,4 @@
-## State repository
+## (@)StateRepository
 
 `@StateRepository` - This is a decorator that provides an extension of the functionality of NGXS states, thanks to which
 you get access to the internal mechanism of the NGXS.

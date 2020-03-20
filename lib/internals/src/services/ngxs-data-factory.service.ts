@@ -13,10 +13,10 @@ import {
 import { StateContext } from '@ngxs/store';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-import { NgxsActionPayloader } from '../utils/action-payloader';
-import { dynamicActionByType } from '../utils/dynamic-action';
-import { getRepository } from '../utils/get-repository';
-import { MethodArgsRegistry } from '../utils/method-args-registry';
+import { NgxsActionPayloader } from '../utils/action/action-payloader';
+import { dynamicActionByType } from '../utils/action/dynamic-action';
+import { MethodArgsRegistry } from '../utils/method-args-registry/method-args-registry';
+import { getRepository } from '../utils/repository/get-repository';
 import { NgxsDataInjector } from './ngxs-data-injector.service';
 
 @Injectable()
