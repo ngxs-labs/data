@@ -173,10 +173,7 @@ import { CounterState } from './counter.state';
 @Component({
     selector: 'app-root',
     template: `
-        <ng-container *ngIf="counter.state$ | async as counter">
-            <h1>{{ counter }}</h1>
-        </ng-container>
-
+        <h1>{{ counter.snapshot }}</h1>
         <button (click)="counter.increment()">Increment</button>
         <button (click)="counter.decrement()">Decrement</button>
     `
