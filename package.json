@@ -39,7 +39,7 @@
         "coveralls": "3.0.11",
         "dtslint": "0.9.9",
         "eslint": "6.8.0",
-        "jest": "25.1.0",
+        "jest": "25.2.0",
         "jest-preset-angular": "8.1.2",
         "ng-packagr": "9.0.3",
         "npx": "10.2.2",
