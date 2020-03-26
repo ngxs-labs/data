@@ -1,14 +1,14 @@
-import { NGXS_COMPUTED_OPTION } from '@ngxs-labs/data/tokens';
 import { Any, ComputedOptions } from '@ngxs-labs/data/typings';
 
+import { computedKey } from '../common/computed-key';
 import { getComputedOptions } from './get-computed-options';
 
-export function ensureComputedOptions(target: Any): ComputedOptions {
-    const options: ComputedOptions | null = getComputedOptions(target);
+export function ensureComputedOptions(target: Any, key: string | symbol): ComputedOptions {
+    const options: ComputedOptions | null = getComputedOptions(target, key);
 
     if (!options) {
         Object.defineProperties(target, {
-            [NGXS_COMPUTED_OPTION]: {
+            [computedKey(key)]: {
                 enumerable: true,
                 configurable: true,
                 value: {
@@ -19,5 +19,5 @@ export function ensureComputedOptions(target: Any): ComputedOptions {
         });
     }
 
-    return getComputedOptions(target)!;
+    return getComputedOptions(target, key)!;
 }

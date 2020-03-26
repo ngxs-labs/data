@@ -1,9 +1,10 @@
-import { NGXS_COMPUTED_OPTION } from '@ngxs-labs/data/tokens';
 import { Any, ComputedOptions } from '@ngxs-labs/data/typings';
 
-export function defineComputedOptions(target: Any, options: ComputedOptions): void {
+import { computedKey } from '../common/computed-key';
+
+export function defineComputedOptions(target: Any, key: string | symbol, options: ComputedOptions): void {
     Object.defineProperties(target, {
-        [NGXS_COMPUTED_OPTION]: {
+        [computedKey(key)]: {
             enumerable: true,
             configurable: true,
             value: options

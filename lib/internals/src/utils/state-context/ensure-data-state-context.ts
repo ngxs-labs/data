@@ -17,12 +17,12 @@ export function ensureDataStateContext<U, T extends StateContext<U>>(target: Any
             return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
         },
         setState(val: Any): void {
-            context.setState(val);
             incrementSequenceId(target);
+            context.setState(val);
         },
         patchState(val: Any): void {
-            context.patchState(val);
             incrementSequenceId(target);
+            context.patchState(val);
         }
     };
 }
