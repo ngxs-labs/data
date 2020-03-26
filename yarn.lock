@@ -138,10 +138,10 @@
     "@angular-devkit/core" "8.3.25"
     rxjs "6.4.0"
 
-"@angular-ru/eslint-config@10.13.0":
-  version "10.13.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-10.13.0.tgz#080f8dd9e8e4804377679d9de28b28326830c752"
-  integrity sha512-M9IW8AXA/iRoDKTzYT6/AMpEtb39N2PxqbYDZ5TuDiYDxN0wbcIEtCUH/FK5yitlLcoxDtXth+sdmLVB0P2fsA==
+"@angular-ru/eslint-config@10.14.0":
+  version "10.14.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-10.14.0.tgz#45021c222523860761764a2e0a17df1aacfa2dc2"
+  integrity sha512-qBleeqYffl8jnhzVJYCimkJiN46569WuTIkXwGy9cENcyHtHAjQtAhEOVJEZa0CsvM1xb9T8xzbWaVW7Jra9pA==
   dependencies:
     "@types/eslint" "6.1.8"
     "@typescript-eslint/eslint-plugin" "2.25.0"
