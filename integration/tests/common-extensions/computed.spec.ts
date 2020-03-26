@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
-import { NgxsModule, State } from '@ngxs/store';
+import { NgxsModule, State, Store } from '@ngxs/store';
 import { action, computed, StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -231,5 +231,125 @@ describe('[TEST]: Computed fields', () => {
             expect(state.classicTotal).toEqual(25);
             expect(state.nonMemoized).toEqual(8);
         });
+    });
+
+    it('should be correct computed when change other states', () => {
+        abstract class CommonCounter extends NgxsDataRepository<number> {
+            @action()
+            public increment() {
+                this.ctx.setState((state: number) => ++state);
+            }
+        }
+
+        @StateRepository()
+        @State({
+            name: 'a',
+            defaults: 0
+        })
+        @Injectable()
+        class A extends CommonCounter {}
+
+        @StateRepository()
+        @State({
+            name: 'b',
+            defaults: 0
+        })
+        @Injectable()
+        class B extends CommonCounter {}
+
+        TestBed.configureTestingModule({
+            imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
+        });
+
+        const store: Store = TestBed.get<Store>(Store);
+        const a: A = TestBed.get<A>(A);
+        const b: B = TestBed.get<B>(B);
+
+        expect(store.snapshot()).toEqual({ b: 0, a: 0 });
+        expect(a.snapshot).toEqual(0);
+        expect(b.snapshot).toEqual(0);
+
+        a.increment();
+        a.increment();
+        a.increment();
+        b.increment();
+
+        expect(store.snapshot()).toEqual({ b: 1, a: 3 });
+        expect(a.snapshot).toEqual(3);
+        expect(b.snapshot).toEqual(1);
+    });
+
+    it('should be correct computed when change other states and inherited state', () => {
+        @State({
+            name: 'commonCounter',
+            defaults: 0
+        })
+        @Injectable()
+        class CommonCounterState extends NgxsDataRepository<number> {
+            @action()
+            public increment() {
+                this.ctx.setState((state: number) => ++state);
+            }
+        }
+
+        @StateRepository()
+        @State({ name: 'a' })
+        @Injectable()
+        class A extends CommonCounterState {}
+
+        @StateRepository()
+        @State({ name: 'b' })
+        @Injectable()
+        class B extends CommonCounterState {}
+
+        // noinspection DuplicatedCode
+        TestBed.configureTestingModule({
+            imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
+        });
+
+        const store: Store = TestBed.get<Store>(Store);
+        const a: A = TestBed.get<A>(A);
+        const b: B = TestBed.get<B>(B);
+
+        expect(store.snapshot()).toEqual({ b: 0, a: 0 });
+        expect(a.snapshot).toEqual(0);
+        expect(b.snapshot).toEqual(0);
+
+        a.increment();
+        a.increment();
+        a.increment();
+        b.increment();
+
+        expect(store.snapshot()).toEqual({ b: 1, a: 3 });
+        expect(a.snapshot).toEqual(3);
+        expect(b.snapshot).toEqual(1);
+
+        a.reset();
+        b.reset();
+
+        b.increment();
+        b.increment();
+        b.increment();
+        a.increment();
+
+        expect(store.snapshot()).toEqual({ b: 3, a: 1 });
+        expect(a.snapshot).toEqual(1);
+        expect(b.snapshot).toEqual(3);
+        expect(a.snapshot === a.getState()).toBeTruthy();
+        expect(b.snapshot === b.getState()).toBeTruthy();
+
+        a.increment();
+        a.increment();
+        a.increment();
+        a.increment();
+        a.increment();
+        a.increment();
+        b.increment();
+
+        expect(store.snapshot()).toEqual({ b: 4, a: 7 });
+        expect(a.snapshot).toEqual(7);
+        expect(b.snapshot).toEqual(4);
+        expect(a.snapshot === a.getState()).toBeTruthy();
+        expect(b.snapshot === b.getState()).toBeTruthy();
     });
 });

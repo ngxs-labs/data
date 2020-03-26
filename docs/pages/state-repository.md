@@ -60,3 +60,85 @@ export class AppState extends NgxsImmutableDataRepository<AppModel> {}
 | state.reset()                                                                                         | void                                 | Reset state with default state value                |
 | dispatch(actions: ActionType &verbar; ActionType[])                                                   | void                                 | Standard dispatch method                            |
 | state.state\$                                                                                         | Observable&lt;Immutable&lt;T&gt;&gt; | State data stream that you can subscribe to changes |
+
+### Composition
+
+You can compose multiple stores together using class inheritance. This is quite simple:
+
+```ts
+abstract class CommonCounter extends NgxsDataRepository<number> {
+    @action()
+    public increment() {
+        this.ctx.setState((state: number) => ++state);
+    }
+}
+
+@StateRepository()
+@State({
+    name: 'a',
+    defaults: 0
+})
+@Injectable()
+class A extends CommonCounter {}
+
+@StateRepository()
+@State({
+    name: 'b',
+    defaults: 0
+})
+@Injectable()
+class B extends CommonCounter {}
+
+@Component({
+    selector: 'app'
+    // ..
+})
+class AppComponent implements OnInit {
+    constructor(public a: A, public b: B) {}
+
+    public ngOnInit(): void {
+        console.log(a.snapshot); // 0
+        console.log(b.snapshot); // 0
+    }
+}
+```
+
+Now when `A` or `B` is invoked, it will share the actions of the `CommonCounter`. Also all state options are inherited
+if add `@State` under `CommonCounter`.
+
+```ts
+@State({
+    name: 'commonCounter',
+    defaults: 0
+})
+@Injectable()
+class CommonCounterState extends NgxsDataRepository<number> {
+    @action()
+    public increment() {
+        this.ctx.setState((state: number) => ++state);
+    }
+}
+
+@StateRepository()
+@State({ name: 'a' })
+@Injectable()
+class A extends CommonCounterState {}
+
+@StateRepository()
+@State({ name: 'b' })
+@Injectable()
+class B extends CommonCounterState {}
+
+@Component({
+    selector: 'app'
+    // ..
+})
+class AppComponent implements OnInit {
+    constructor(public a: A, public b: B) {}
+
+    public ngOnInit(): void {
+        console.log(a.snapshot); // 0
+        console.log(b.snapshot); // 0
+    }
+}
+```

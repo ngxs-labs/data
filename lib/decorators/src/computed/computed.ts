@@ -12,13 +12,13 @@ export function computed(): MethodDecorator {
         const originalMethod: Any = descriptor.get;
 
         descriptor.get = function(...args: Any[]): Any {
-            const options: ComputedOptions = ensureComputedOptions(descriptor.get);
+            const options: ComputedOptions = ensureComputedOptions(this, key);
             const sequenceId: number = getSequenceIdFromTarget(this);
             const invalidSequenceId: boolean = options.sequenceId !== sequenceId;
 
             if (invalidSequenceId) {
                 const result: Any = originalMethod.apply(this, args);
-                defineComputedOptions(descriptor.get, { sequenceId, value: result });
+                defineComputedOptions(this, key, { sequenceId, value: result });
                 return result;
             } else {
                 return options.value;
