@@ -10,7 +10,7 @@ import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
 import { NgxsDataMutablePipe } from '../../../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
 import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -44,7 +44,7 @@ describe('TEST', () => {
                 )
             );
 
-            @action()
+            @DataAction()
             public increment(): void {
                 this.ctx.setState(
                     // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel> | undefined; }
@@ -52,7 +52,7 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public incrementDeep(): void {
                 this.ctx.setState(
                     // $ExpectType (state: Immutable<ParentCountModel>) => { countSub: { val: number; }; val: number; }
@@ -68,7 +68,7 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public incrementInvalidDeep(): void {
                 this.ctx.setState(
                     // $ExpectType (state: Immutable<ParentCountModel>) => { a: number; val: number; countSub?: Immutable<CountModel> | undefined; }
@@ -76,13 +76,13 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public decrement(): void {
                 this.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val - 1 }));
             }
 
             @debounce()
-            @action()
+            @DataAction()
             public setValueFromInput(val: string | number): void {
                 this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
             }

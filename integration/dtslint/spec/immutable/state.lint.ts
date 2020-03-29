@@ -1,16 +1,16 @@
 /// <reference types="@types/jest" />
-import { State, Action, StateContext, Select, Selector, StateToken, NgxsModule } from '@ngxs/store';
-import { patch, append, removeItem, insertItem, updateItem } from '@ngxs/store/operators';
+import { NgxsModule, Select, Selector, State } from '@ngxs/store';
+import { patch, updateItem } from '@ngxs/store/operators';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Component, Injectable } from '@angular/core';
 
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Immutable } from '@ngxs-labs/data/typings';
-import { Persistence, StateRepository, action } from '@ngxs-labs/data/decorators';
+import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('NGXS Integration', () => {
     it('should be correct patch', () => {
@@ -81,6 +81,10 @@ describe('NGXS Integration', () => {
             @Select(TodoState)
             public readonly todos$: Observable<TodoStateModel>;
 
+            constructor(private readonly api: TodoApiService) {
+                super();
+            }
+
             @Selector()
             static todos(state: TodoStateModel): Todo[] {
                 return state.todos;
@@ -91,11 +95,7 @@ describe('NGXS Integration', () => {
                 return state.selectedTodo;
             }
 
-            constructor(private readonly api: TodoApiService) {
-                super();
-            }
-
-            @action()
+            @DataAction()
             getTodos() {
                 const state = this.ctx.getState();
                 this.api
@@ -114,21 +114,21 @@ describe('NGXS Integration', () => {
                     });
             }
 
-            @action()
+            @DataAction()
             addTodo(todo: Todo) {}
 
-            @action()
+            @DataAction()
             updateTodo(id: number) {}
 
-            @action()
+            @DataAction()
             deleteTodo(id: number) {}
 
-            @action()
+            @DataAction()
             setSelectedTodoId(id: number) {
                 const state = this.ctx.getState();
             }
 
-            @action()
+            @DataAction()
             public toggleCompleted(index: number) {
                 const state = this.ctx.getState();
 

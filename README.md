@@ -159,11 +159,11 @@ import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 })
 @Injectable()
 export class CounterState extends NgxsDataRepository<number> {
-    @action() increment() {
+    @DataAction() increment() {
         this.ctx.setState((state) => ++state);
     }
 
-    @action() decrement() {
+    @DataAction() decrement() {
         this.ctx.setState((state) => --state);
     }
 }

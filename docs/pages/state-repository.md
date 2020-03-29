@@ -67,7 +67,7 @@ You can compose multiple stores together using class inheritance. This is quite 
 
 ```ts
 abstract class CommonCounter extends NgxsDataRepository<number> {
-    @action()
+    @DataAction()
     public increment() {
         this.ctx.setState((state: number) => ++state);
     }
@@ -113,7 +113,7 @@ if add `@State` under `CommonCounter`.
 })
 @Injectable()
 class CommonCounterState extends NgxsDataRepository<number> {
-    @action()
+    @DataAction()
     public increment() {
         this.ctx.setState((state: number) => ++state);
     }

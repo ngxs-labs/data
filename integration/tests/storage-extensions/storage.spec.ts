@@ -2,7 +2,7 @@
 import { Injectable, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import {
     NGXS_DATA_STORAGE_CONTAINER,
@@ -190,7 +190,7 @@ describe('[TEST]: Storage plugin', () => {
             @State({ name: 'b', defaults: 100 })
             @Injectable()
             class B extends NgxsImmutableDataRepository<number> {
-                @action()
+                @DataAction()
                 public increment(): B {
                     this.ctx.setState((val) => ++val);
                     return this;

@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { forkJoin, isObservable, Observable, of } from 'rxjs';
@@ -31,7 +31,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
             super();
         }
 
-        @action()
+        @DataAction()
         public increment(): void {
             this.ctx.setState((state) => ++state);
         }
@@ -52,7 +52,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
             );
         }
 
-        @action()
+        @DataAction()
         public asyncSetStateAction(): Observable<number> {
             return this.api.getData().pipe(
                 tap((val: number) => {
@@ -70,7 +70,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
             );
         }
 
-        @action()
+        @DataAction()
         public asyncIncrementAction(): Observable<number> {
             return this.api.getData().pipe(
                 tap((val: number) => {
@@ -92,7 +92,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
             super();
         }
 
-        @action()
+        @DataAction()
         public add(val: string): TodoState {
             this.ctx.setState((state) => state.concat(val));
             this.counter.increment();

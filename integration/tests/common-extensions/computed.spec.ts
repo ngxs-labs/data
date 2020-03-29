@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
 import { NgxsModule, State, Store } from '@ngxs/store';
-import { action, computed, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, computed, StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
@@ -109,12 +109,12 @@ describe('[TEST]: Computed fields', () => {
                     return this.snapshot.price * this.snapshot.amount;
                 }
 
-                @action()
+                @DataAction()
                 public setPrice(price: number): void {
                     this.ctx.setState((state) => ({ price, amount: state.amount }));
                 }
 
-                @action()
+                @DataAction()
                 public setAmount(amount: number): void {
                     this.ctx.setState((state) => ({ price: state.price, amount }));
                 }
@@ -183,12 +183,12 @@ describe('[TEST]: Computed fields', () => {
                     return this.snapshot.price * this.snapshot.amount;
                 }
 
-                @action()
+                @DataAction()
                 public setPrice(price: number): void {
                     this.ctx.setState((state) => ({ price, amount: state.amount }));
                 }
 
-                @action()
+                @DataAction()
                 public setAmount(amount: number): void {
                     this.ctx.setState((state) => ({ price: state.price, amount }));
                 }
@@ -235,7 +235,7 @@ describe('[TEST]: Computed fields', () => {
 
     it('should be correct computed when change other states', () => {
         abstract class CommonCounter extends NgxsDataRepository<number> {
-            @action()
+            @DataAction()
             public increment() {
                 this.ctx.setState((state: number) => ++state);
             }
@@ -286,7 +286,7 @@ describe('[TEST]: Computed fields', () => {
         })
         @Injectable()
         class CommonCounterState extends NgxsDataRepository<number> {
-            @action()
+            @DataAction()
             public increment() {
                 this.ctx.setState((state: number) => ++state);
             }

@@ -18,6 +18,7 @@
 
 ### BREAKING CHANGES &#57351;
 
+-   Renamed decorator `@action()` to `@DataAction()`
 -   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
 -   Now require minimal `TypeScript v3.7.2`
@@ -63,7 +64,7 @@ export class TodoState extends NgxsImmutableDataRepository<string[]> {
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public addTodo(@payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state) => state.concat(todo));
@@ -101,7 +102,7 @@ class AppState extends NgxsImmutableDataRepository<string> {
 @Injectable()
 class AppState extends NgxsImmutableDataRepository<string> {
     @debounce()
-    @action()
+    @DataAction()
     public concat(@payload('text') text: string): void {
         this.setState((state) => `${state}${text}`);
     }
