@@ -413,7 +413,7 @@ If during logging you want to see the payload, then you need to specify which ac
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@payload('todo') todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
@@ -456,7 +456,7 @@ Decorators can be combined:
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@named('x') @payload('TODO') todo: string): void {
+    public addTodo(@named('x') @Payload('TODO') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }

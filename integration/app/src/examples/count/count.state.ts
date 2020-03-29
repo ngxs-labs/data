@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataAction, Debounce, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Debounce, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
@@ -49,7 +49,7 @@ export class CountState extends NgxsImmutableDataRepository<ParentCountModel> {
 
     @Debounce()
     @DataAction()
-    public setDebounceValue(@payload('val') val: string | number): void {
+    public setDebounceValue(@Payload('val') val: string | number): void {
         this.ctx.setState(
             (state: Immutable<ParentCountModel>): Immutable<ParentCountModel> => ({
                 ...state,

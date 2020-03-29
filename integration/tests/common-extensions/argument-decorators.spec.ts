@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
 import { NgxsModule, State } from '@ngxs/store';
-import { DataAction, named, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, named, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
@@ -110,7 +110,7 @@ describe('[TEST]: Argument decorators', () => {
         @Injectable()
         class D extends NgxsImmutableDataRepository<string> {
             @DataAction()
-            public set(@payload('X') x?: string, @payload(' Y ') @named(' y ') y?: string, z?: string): void {
+            public set(@Payload('X') x?: string, @Payload(' Y ') @named(' y ') y?: string, z?: string): void {
                 this.ctx.setState(`${x}${y}${z}`);
             }
         }
@@ -146,7 +146,7 @@ describe('[TEST]: Argument decorators', () => {
             @Injectable()
             class E extends NgxsImmutableDataRepository<string> {
                 @DataAction()
-                public setX(@payload('') x?: string): void {
+                public setX(@Payload('') x?: string): void {
                     this.ctx.setState(`${x}`);
                 }
             }
@@ -213,7 +213,7 @@ describe('[TEST]: Argument decorators', () => {
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
                     @DataAction()
-                    public setYZ(@payload('y') y?: string, @payload('y') z?: string): void {
+                    public setYZ(@Payload('y') y?: string, @Payload('y') z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }
@@ -235,7 +235,7 @@ describe('[TEST]: Argument decorators', () => {
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
                     @DataAction()
-                    public setYZ(@payload('y') y?: string, @named('y') z?: string): void {
+                    public setYZ(@Payload('y') y?: string, @named('y') z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }

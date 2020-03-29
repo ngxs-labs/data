@@ -50,7 +50,7 @@ export class CountState extends NgxsImmutableDataRepository<CountModel> {
 
     @Debounce()
     @DataAction()
-    public setValueFromInput(@payload('value') val: string | number): void {
+    public setValueFromInput(@Payload('value') val: string | number): void {
         this.ctx.setState({ val: parseFloat(val) || 0 });
     }
 }
@@ -117,14 +117,14 @@ export class AppModule {}
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@payload('todo') todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
     }
 
     @DataAction()
-    public removeTodo(@payload('idx') idx: number): void {
+    public removeTodo(@Payload('idx') idx: number): void {
         this.ctx.setState(
             (state: Immutable<string[]>): Immutable<string[]> =>
                 state.filter((_: string, index: number): boolean => index !== idx)
