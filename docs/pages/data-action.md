@@ -435,7 +435,7 @@ decorator.
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@named('x') todo: string): void {
+    public addTodo(@Named('x') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
@@ -456,7 +456,7 @@ Decorators can be combined:
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@named('x') @Payload('TODO') todo: string): void {
+    public addTodo(@Payload('TODO') @Named('x') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
