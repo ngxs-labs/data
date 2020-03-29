@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataAction, debounce, named, payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Debounce, named, payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { PersistenceProvider } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
@@ -16,7 +16,7 @@ const options: PersistenceProvider[] = [{ path: 'count.countSub.val', existingEn
 })
 @Injectable()
 export class CountSubState extends NgxsImmutableDataRepository<CountModel> {
-    @debounce()
+    @Debounce()
     @DataAction()
     public setDebounceSubValue(@payload('value') @named('val') val: number): void {
         this.ctx.setState({ val });

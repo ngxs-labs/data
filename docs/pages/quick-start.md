@@ -48,7 +48,7 @@ export class CountState extends NgxsImmutableDataRepository<CountModel> {
         this.ctx.setState((state) => ({ val: state.val - 1 }));
     }
 
-    @debounce()
+    @Debounce()
     @DataAction()
     public setValueFromInput(@payload('value') val: string | number): void {
         this.ctx.setState({ val: parseFloat(val) || 0 });

@@ -5,10 +5,10 @@
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
 -   Feature: expose `@payload` decorator for register payload in action
 -   Feature: expose `@named` decorator for register name in action
--   Feature: expose `@debounce` decorator for throttling dispatch actions
+-   Feature: expose `@Debounce()` decorator for throttling dispatch actions
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
--   Feature: improved `@Persistence` decorator for stability
+-   Feature: improved `@Persistence()` decorator for stability
 -   Fix: correct recalculation of state during inheritance computed fields
 -   Fix: correct inheritance of state classes
 -   Fix: compatibility with `@ngxs/store@3.6.2`
@@ -19,6 +19,7 @@
 ### BREAKING CHANGES &#57351;
 
 -   Renamed decorator `@action()` to `@DataAction()`
+-   Renamed decorator `@debounce()` to `@Debounce()`
 -   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
 -   Now require minimal `TypeScript v3.7.2`
@@ -101,7 +102,7 @@ class AppState extends NgxsImmutableDataRepository<string> {
 })
 @Injectable()
 class AppState extends NgxsImmutableDataRepository<string> {
-    @debounce()
+    @Debounce()
     @DataAction()
     public concat(@payload('text') text: string): void {
         this.setState((state) => `${state}${text}`);

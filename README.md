@@ -43,7 +43,7 @@ Benefits:
 -   Persistence state out-of-the-box (`@Persistence` decorator)
 -   Automatic action naming by service methods (`@action, @named` decorator)
 -   Immutable state context out-of-the-box (`NgxsImmutableDataRepository`)
--   Support debounce for throttling dispatch (`@debounce` decorator)
+-   Support debounce for throttling dispatch (`@Debounce()` decorator)
 -   Automatic type inference for selection
 -   Easy testable states
 
