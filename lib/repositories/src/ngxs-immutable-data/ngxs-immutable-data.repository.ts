@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { action, computed, payload } from '@ngxs-labs/data/decorators';
+import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import {
     Any,
@@ -19,7 +19,7 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
     public readonly state$: Observable<Immutable<T>>;
     private readonly context: ImmutableStateContext<T>;
 
-    @computed()
+    @Computed()
     public get snapshot(): Immutable<T> {
         return ensureSnapshot(this.getState());
     }
@@ -36,17 +36,17 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
         return this.ctx.dispatch(actions);
     }
 
-    @action()
-    public patchState(@payload('patchValue') val: ImmutablePatchValue<T>): void {
+    @DataAction()
+    public patchState(@Payload('patchValue') val: ImmutablePatchValue<T>): void {
         this.ctx.patchState(val);
     }
 
-    @action()
-    public setState(@payload('stateValue') stateValue: ImmutableStateValue<T>): void {
+    @DataAction()
+    public setState(@Payload('stateValue') stateValue: ImmutableStateValue<T>): void {
         this.ctx.setState(stateValue);
     }
 
-    @action()
+    @DataAction()
     public reset(): void {
         this.ctx.setState(this.initialState);
     }

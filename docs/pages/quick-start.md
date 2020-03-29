@@ -38,19 +38,19 @@ export interface CountModel {
 export class CountState extends NgxsImmutableDataRepository<CountModel> {
     public readonly values$ = this.state$.pipe(map((state) => state.val));
 
-    @action()
+    @DataAction()
     public increment(): void {
         this.ctx.setState((state) => ({ val: state.val + 1 }));
     }
 
-    @action()
+    @DataAction()
     public decrement(): void {
         this.ctx.setState((state) => ({ val: state.val - 1 }));
     }
 
-    @debounce()
-    @action()
-    public setValueFromInput(@payload('value') val: string | number): void {
+    @Debounce()
+    @DataAction()
+    public setValueFromInput(@Payload('value') val: string | number): void {
         this.ctx.setState({ val: parseFloat(val) || 0 });
     }
 }
@@ -116,15 +116,15 @@ export class AppModule {}
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
-    public addTodo(@payload('todo') todo: string): void {
+    @DataAction()
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
     }
 
-    @action()
-    public removeTodo(@payload('idx') idx: number): void {
+    @DataAction()
+    public removeTodo(@Payload('idx') idx: number): void {
         this.ctx.setState(
             (state: Immutable<string[]>): Immutable<string[]> =>
                 state.filter((_: string, index: number): boolean => index !== idx)

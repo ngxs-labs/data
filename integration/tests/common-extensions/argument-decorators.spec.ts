@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
 import { NgxsModule, State } from '@ngxs/store';
-import { action, named, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Named, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
@@ -43,7 +43,7 @@ describe('[TEST]: Argument decorators', () => {
         @State({ name: 'b', defaults: '' })
         @Injectable()
         class B extends NgxsImmutableDataRepository<string> {
-            @action()
+            @DataAction()
             public set(val: string, plus: string = '3'): void {
                 this.ctx.setState(`${val}${plus}`);
             }
@@ -76,8 +76,8 @@ describe('[TEST]: Argument decorators', () => {
         @State({ name: 'c', defaults: '' })
         @Injectable()
         class C extends NgxsImmutableDataRepository<string> {
-            @action()
-            public set(@named('val') val: string, @named('plus') plus: string = '3'): void {
+            @DataAction()
+            public set(@Named('val') val: string, @Named('plus') plus: string = '3'): void {
                 this.ctx.setState(`${val}${plus}`);
             }
         }
@@ -109,8 +109,8 @@ describe('[TEST]: Argument decorators', () => {
         @State({ name: 'd', defaults: '' })
         @Injectable()
         class D extends NgxsImmutableDataRepository<string> {
-            @action()
-            public set(@payload('X') x?: string, @payload(' Y ') @named(' y ') y?: string, z?: string): void {
+            @DataAction()
+            public set(@Payload('X') x?: string, @Payload(' Y ') @Named(' y ') y?: string, z?: string): void {
                 this.ctx.setState(`${x}${y}${z}`);
             }
         }
@@ -145,8 +145,8 @@ describe('[TEST]: Argument decorators', () => {
             @State({ name: 'e', defaults: '' })
             @Injectable()
             class E extends NgxsImmutableDataRepository<string> {
-                @action()
-                public setX(@payload('') x?: string): void {
+                @DataAction()
+                public setX(@Payload('') x?: string): void {
                     this.ctx.setState(`${x}`);
                 }
             }
@@ -167,8 +167,8 @@ describe('[TEST]: Argument decorators', () => {
             @State({ name: 'g', defaults: '' })
             @Injectable()
             class G extends NgxsImmutableDataRepository<string> {
-                @action()
-                public setY(@named('') y?: string): void {
+                @DataAction()
+                public setY(@Named('') y?: string): void {
                     this.ctx.setState(`${y}`);
                 }
             }
@@ -190,8 +190,8 @@ describe('[TEST]: Argument decorators', () => {
                 @State({ name: 'g', defaults: '' })
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
-                    @action()
-                    public setYZ(@named('y') y?: string, @named('y') z?: string): void {
+                    @DataAction()
+                    public setYZ(@Named('y') y?: string, @Named('y') z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }
@@ -212,8 +212,8 @@ describe('[TEST]: Argument decorators', () => {
                 @State({ name: 'g', defaults: '' })
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
-                    @action()
-                    public setYZ(@payload('y') y?: string, @payload('y') z?: string): void {
+                    @DataAction()
+                    public setYZ(@Payload('y') y?: string, @Payload('y') z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }
@@ -234,8 +234,8 @@ describe('[TEST]: Argument decorators', () => {
                 @State({ name: 'g', defaults: '' })
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
-                    @action()
-                    public setYZ(@payload('y') y?: string, @named('y') z?: string): void {
+                    @DataAction()
+                    public setYZ(@Payload('y') y?: string, @Named('y') z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }

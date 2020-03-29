@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { action, payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
@@ -12,15 +12,15 @@ import { State } from '@ngxs/store';
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
-    public addTodo(@payload('todo') todo: string): void {
+    @DataAction()
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
     }
 
-    @action()
-    public removeTodo(@payload('idx') idx: number): void {
+    @DataAction()
+    public removeTodo(@Payload('idx') idx: number): void {
         this.ctx.setState(
             (state: Immutable<string[]>): Immutable<string[]> =>
                 state.filter((_: string, index: number): boolean => index !== idx)

@@ -1,7 +1,7 @@
-## (@)action
+## (@)DataAction
 
-`@action` - This decorator emulates the execution of asynchronous or synchronous actions. Actions can either be thought
-of as a command which should trigger something to happen.
+`@DataAction()` - This decorator emulates the execution of asynchronous or synchronous actions. Actions can either be
+thought of as a command which should trigger something to happen.
 
 #### Before (origin NGXS behavior)
 
@@ -51,7 +51,7 @@ class AppComponent {
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
@@ -88,7 +88,7 @@ class AppComponent {
 }
 ```
 
-The method `todo.setState(payload)` is the same as `store.dispatch({ type: '@todo.setState', todo: payload })`.
+The method `todo.setState(payload)` is the same as `store.dispatch({ type: '@todo.setState($arg0)', payload: todo })`.
 
 What are the benefits?
 
@@ -108,7 +108,7 @@ Bad
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public add(todo: string): void {
         // bad (action in action)
         this.setState((state) => state.concat(todo));
@@ -126,7 +126,7 @@ Good
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
@@ -145,13 +145,13 @@ Bad
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public add(todo: string): void {
         // bad (action in action)
         this.concat(todo);
     }
 
-    @action()
+    @DataAction()
     private concat(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
@@ -168,7 +168,7 @@ Good
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public add(todo: string): void {
         this.concat(todo);
     }
@@ -255,7 +255,7 @@ Therefore, the context should only be called inside the action.
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public addTodo(todo: string): void {
         // call context from under the action
         this.ctx.setState(todo);
@@ -293,7 +293,7 @@ export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
         super();
     }
 
-    @action()
+    @DataAction()
     public getContent(): Observable<PersonModel> {
         return this.personService.fetchAll().pipe(tap((content: PersonModel): void => this.ctx.setState(content)));
     }
@@ -337,7 +337,7 @@ export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
         super();
     }
 
-    @action()
+    @DataAction()
     public getContent(): Observable<PersonModel> {
         return this.personService.fetchAll().pipe(
             tap((content: PersonModel): void => {
@@ -389,7 +389,7 @@ export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
+    @DataAction()
     public addTodo(todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
@@ -412,8 +412,8 @@ If during logging you want to see the payload, then you need to specify which ac
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
-    public addTodo(@payload('todo') todo: string): void {
+    @DataAction()
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
@@ -434,8 +434,8 @@ decorator.
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
-    public addTodo(@named('x') todo: string): void {
+    @DataAction()
+    public addTodo(@Named('x') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }
@@ -455,8 +455,8 @@ Decorators can be combined:
 })
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
-    @action()
-    public addTodo(@named('x') @payload('TODO') todo: string): void {
+    @DataAction()
+    public addTodo(@Payload('TODO') @Named('x') todo: string): void {
         if (todo) {
             this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
         }

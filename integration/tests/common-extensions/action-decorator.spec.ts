@@ -5,7 +5,7 @@ import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { action, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { getRepository } from '@ngxs-labs/data/internals';
 
 describe('[TEST]: Action decorator', () => {
@@ -16,7 +16,7 @@ describe('[TEST]: Action decorator', () => {
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
             class InvalidState extends NgxsImmutableDataRepository<string> {
-                @action()
+                @DataAction()
                 public setup(val: string): void {
                     this.ctx.setState(val);
                 }
@@ -41,8 +41,8 @@ describe('[TEST]: Action decorator', () => {
         try {
             @Injectable()
             class InvalidState extends NgxsImmutableDataRepository<string> {
-                @action()
-                public setup(@payload('val') val: string): void {
+                @DataAction()
+                public setup(@Payload('val') val: string): void {
                     this.ctx.setState(val);
                 }
             }
@@ -67,7 +67,7 @@ describe('[TEST]: Action decorator', () => {
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
             class InvalidState {
-                @action()
+                @DataAction()
                 public setup(): void {}
             }
 
@@ -91,7 +91,7 @@ describe('[TEST]: Action decorator', () => {
             @State({ name: 'custom', defaults: 'hello world' })
             @Injectable()
             class InvalidState {
-                @action()
+                @DataAction()
                 public setup(): void {}
             }
 
@@ -114,7 +114,7 @@ describe('[TEST]: Action decorator', () => {
         @State({ name: 'a', defaults: 'a' })
         @Injectable()
         class A extends NgxsImmutableDataRepository<string> {
-            @action()
+            @DataAction()
             public setup(): string {
                 return this.getState();
             }
@@ -175,13 +175,13 @@ describe('[TEST]: Action decorator', () => {
             // noinspection JSUnusedGlobalSymbols
             protected word: string = 'hello';
 
-            @action()
+            @DataAction()
             public a(): string {
                 return this.getState();
             }
 
-            @action()
-            public withValueSetStateAsAction(@payload('name') name: string): string {
+            @DataAction()
+            public withValueSetStateAsAction(@Payload('name') name: string): string {
                 this.setState('new value - ' + this.word + ' - ' + this.name + ' - ' + name);
                 return this.getState();
             }
@@ -197,7 +197,7 @@ describe('[TEST]: Action decorator', () => {
         @State({ name: 'b', defaults: 'b' })
         @Injectable()
         class B extends A {
-            @action()
+            @DataAction()
             public b(): string {
                 return this.getState();
             }
@@ -217,7 +217,7 @@ describe('[TEST]: Action decorator', () => {
         @State({ name: 'c', defaults: 'c' })
         @Injectable()
         class C extends B {
-            @action()
+            @DataAction()
             public b(): string {
                 return this.getState();
             }
