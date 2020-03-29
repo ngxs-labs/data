@@ -1,6 +1,6 @@
 # To become 3.0.0
 
--   Feature: expose `@computed` for automatically computed values from state
+-   Feature: expose `@Computed()` for automatically computed values from state
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
 -   Feature: expose `@Payload()` decorator for register payload in action
@@ -19,6 +19,7 @@
 ### BREAKING CHANGES 🔥
 
 -   Renamed decorator `@action()` to `@DataAction()`
+-   Renamed decorator `@computed()` to `@Computed()`
 -   Renamed decorator `@debounce()` to `@Debounce()`
 -   Renamed decorator `@named()` to `@Named()`
 -   Renamed decorator `@payload()` to `@Payload()`

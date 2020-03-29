@@ -15,7 +15,7 @@ modifiable state as small as possible. Besides that they are highly optimized, s
 })
 @Injectable()
 class OrderLineState extends NgxsDataRepository<OrderLineModel> {
-    @computed()
+    @Computed()
     public get total(): number {
         return this.snapshot.price * this.snapshot.amount;
     }

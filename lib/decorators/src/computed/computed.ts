@@ -6,7 +6,7 @@ import {
 } from '@ngxs-labs/data/internals';
 import { Any, ComputedOptions, Descriptor } from '@ngxs-labs/data/typings';
 
-export function computed(): MethodDecorator {
+export function Computed(): MethodDecorator {
     return (target: Any, key: string | symbol, descriptor: Descriptor): Descriptor => {
         validateComputedMethod(target, key);
         const originalMethod: Any = descriptor.get;
