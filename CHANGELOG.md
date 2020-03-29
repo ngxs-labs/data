@@ -4,7 +4,7 @@
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
 -   Feature: expose `@Payload()` decorator for register payload in action
--   Feature: expose `@named` decorator for register name in action
+-   Feature: expose `@Named()` decorator for register name in action
 -   Feature: expose `@Debounce()` decorator for throttling dispatch actions
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
@@ -16,10 +16,11 @@
 -   Fix: memory leak in storage extension
 -   Fix: can now global override prefix key without `@Persistence` decorator
 
-### BREAKING CHANGES &#57351;
+### BREAKING CHANGES 
 
 -   Renamed decorator `@action()` to `@DataAction()`
 -   Renamed decorator `@debounce()` to `@Debounce()`
+-   Renamed decorator `@named()` to `@Named()`
 -   Renamed decorator `@payload()` to `@Payload()`
 -   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
