@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
 import { NgxsModule, State, Store } from '@ngxs/store';
-import { DataAction, computed, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Computed, StateRepository } from '@ngxs-labs/data/decorators';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
@@ -17,7 +17,7 @@ describe('[TEST]: Computed fields', () => {
             @State({ name: 'a', defaults: 'value' })
             @Injectable()
             class A extends NgxsDataRepository<string> {
-                @computed()
+                @Computed()
                 public getSnapshot(): string {
                     return this.ctx.getState();
                 }
@@ -31,7 +31,7 @@ describe('[TEST]: Computed fields', () => {
         }
 
         expect(message).toEqual(
-            NGXS_DATA_EXCEPTIONS.NGXS_COMPUTED_DECORATOR + `\nExample: \n@computed get getSnapshot() { \n\t .. \n}`
+            NGXS_DATA_EXCEPTIONS.NGXS_COMPUTED_DECORATOR + `\nExample: \n@Computed() get getSnapshot() { \n\t .. \n}`
         );
     });
 
@@ -42,7 +42,7 @@ describe('[TEST]: Computed fields', () => {
         class B extends NgxsDataRepository<string> {
             public countSnapshot: number = 0;
 
-            @computed()
+            @Computed()
             public get snapshot(): string {
                 this.countSnapshot++;
                 return this.ctx.getState();
@@ -98,7 +98,7 @@ describe('[TEST]: Computed fields', () => {
                 public memoized: number = 0;
                 public nonMemoized: number = 0;
 
-                @computed()
+                @Computed()
                 public get total(): number {
                     this.memoized++;
                     return this.snapshot.price * this.snapshot.amount;
@@ -172,7 +172,7 @@ describe('[TEST]: Computed fields', () => {
                 public memoized: number = 0;
                 public nonMemoized: number = 0;
 
-                @computed()
+                @Computed()
                 public get total(): number {
                     this.memoized++;
                     return this.snapshot.price * this.snapshot.amount;

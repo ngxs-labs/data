@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
+import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-labs/data/typings';
 import { ActionType, StateContext } from '@ngxs/store';
@@ -12,7 +12,7 @@ export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements 
     public readonly state$: Observable<T>;
     private readonly context: DataStateContext<T>;
 
-    @computed()
+    @Computed()
     public get snapshot(): T {
         return ensureSnapshot(this.getState());
     }
