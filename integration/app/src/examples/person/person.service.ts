@@ -11,7 +11,7 @@ export class PersonService {
 
     public fetchAll(): Observable<PersonModel> {
         return this.httpService
-            .get<{ data: PersonModel }>('./assets/person.json')
+            .get<{ data: PersonModel }>('./app/json/person.json')
             .pipe(map((response: { data: PersonModel }): PersonModel => response.data));
     }
 }

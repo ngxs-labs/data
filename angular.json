@@ -7,7 +7,7 @@
             "root": "",
             "sourceRoot": "integration",
             "projectType": "application",
-            "prefix": "app",
+            "prefix": "",
             "schematics": {},
             "architect": {
                 "build": {
@@ -18,7 +18,7 @@
                         "main": "integration/app/main.ts",
                         "polyfills": "integration/app/polyfills.ts",
                         "tsConfig": "integration/app/tsconfig.app.json",
-                        "assets": ["integration/app/favicon.ico", "integration/app/assets"],
+                        "assets": ["integration/app/favicon.ico", "integration/app/assets", "integration/app/json"],
                         "styles": ["integration/app/styles.scss"],
                         "scripts": []
                     },
