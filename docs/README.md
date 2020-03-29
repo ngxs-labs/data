@@ -5,7 +5,7 @@
 3. [📦 Advanced](#table-of-contents)
 
     - [(@)StateRepository](pages/state-repository.md)
-    - [(@)action](pages/action.md)
+    - [(@)DataAction](pages/action.md)
     - [(@)computed](pages/computed.md)
     - [(@)Persistence](pages/persistence-state.md)
     - [Immutability](pages/immutability.md)

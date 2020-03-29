@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Injectable } from '@angular/core';
 import { NgxsModule, State } from '@ngxs/store';
@@ -32,19 +32,19 @@ describe('[TEST]: Debounce', () => {
         @Injectable()
         class DebounceState extends NgxsImmutableDataRepository<number> {
             @debounce()
-            @action()
+            @DataAction()
             public increment(): void {
                 this.setState((state: number): number => ++state);
             }
 
             @debounce(50)
-            @action()
+            @DataAction()
             public decrement(): void {
                 this.setState((state: number): number => --state);
             }
 
             @debounce(50)
-            @action()
+            @DataAction()
             public incrementByValue(val: number): number {
                 this.setState((state: number): number => state + val);
                 return this.getState();

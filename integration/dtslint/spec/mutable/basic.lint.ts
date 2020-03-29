@@ -1,14 +1,14 @@
 /// <reference types="@types/jest" />
 import { NgxsModule, State } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
-import { Component, Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
-import { Immutable, Mutable } from '@ngxs-labs/data/typings';
+import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
-import { action, debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -42,7 +42,7 @@ describe('TEST', () => {
                 )
             );
 
-            @action()
+            @DataAction()
             public increment(): void {
                 this.ctx.setState(
                     // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel> | undefined; }
@@ -50,7 +50,7 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public incrementDeep(): void {
                 this.ctx.setState(
                     // $ExpectType (state: ParentCountModel) => { countSub: { val: number; }; val: number; }
@@ -66,7 +66,7 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public incrementInvalidDeep(): void {
                 this.ctx.setState(
                     // $ExpectType (state: ParentCountModel) => { a: number; val: number; countSub?: CountModel | undefined; }
@@ -74,13 +74,13 @@ describe('TEST', () => {
                 );
             }
 
-            @action()
+            @DataAction()
             public decrement(): void {
                 this.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val - 1 }));
             }
 
             @debounce()
-            @action()
+            @DataAction()
             public setValueFromInput(val: string | number): void {
                 this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));
             }

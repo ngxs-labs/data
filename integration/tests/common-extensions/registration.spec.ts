@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Any } from '@ngxs-labs/data/typings';
 import { NgxsModule, Select, State, Store } from '@ngxs/store';
@@ -40,7 +40,7 @@ describe('Check correct deep instance', () => {
         @Select((state: Any) => state.registration)
         public address$: Observable<IFormState>;
 
-        @action()
+        @DataAction()
         public addAddress(address: IFormState) {
             return this.ctx.setState(() => ({ address }));
         }

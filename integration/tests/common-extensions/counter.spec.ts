@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
-import { action, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataFactory } from '@ngxs-labs/data/internals';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -126,7 +126,7 @@ describe('[TEST]: CountState', () => {
                 defaults: 0
             })
             class CountState {
-                @action()
+                @DataAction()
                 public incorrect(): void {}
             }
 
@@ -151,7 +151,7 @@ describe('[TEST]: CountState', () => {
                 })
                 @StateRepository()
                 class CountState {
-                    @action()
+                    @DataAction()
                     public static incorrect(): void {}
                 }
 
@@ -177,7 +177,7 @@ describe('[TEST]: CountState', () => {
                 this.ctx.setState(val);
             }
 
-            @action()
+            @DataAction()
             public withAction(@payload('val') val: number): void {
                 this.ctx.setState(val);
             }
