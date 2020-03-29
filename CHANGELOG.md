@@ -3,7 +3,7 @@
 -   Feature: expose `@computed` for automatically computed values from state
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
--   Feature: expose `@payload` decorator for register payload in action
+-   Feature: expose `@Payload()` decorator for register payload in action
 -   Feature: expose `@named` decorator for register name in action
 -   Feature: expose `@Debounce()` decorator for throttling dispatch actions
 -   Feature: add extension API for NGXS Data plugin
@@ -20,6 +20,7 @@
 
 -   Renamed decorator `@action()` to `@DataAction()`
 -   Renamed decorator `@debounce()` to `@Debounce()`
+-   Renamed decorator `@payload()` to `@Payload()`
 -   Removed `@query` decorator
 -   Now require minimal `@ngxs/store v3.6.2`
 -   Now require minimal `TypeScript v3.7.2`
@@ -66,7 +67,7 @@ export class TodoState extends NgxsImmutableDataRepository<string[]> {
 @Injectable()
 export class TodoState extends NgxsImmutableDataRepository<string[]> {
     @DataAction()
-    public addTodo(@payload('todo') todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state) => state.concat(todo));
         }
@@ -104,7 +105,7 @@ class AppState extends NgxsImmutableDataRepository<string> {
 class AppState extends NgxsImmutableDataRepository<string> {
     @Debounce()
     @DataAction()
-    public concat(@payload('text') text: string): void {
+    public concat(@Payload('text') text: string): void {
         this.setState((state) => `${state}${text}`);
     }
 }

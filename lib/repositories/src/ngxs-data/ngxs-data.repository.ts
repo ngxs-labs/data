@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { computed, DataAction, payload } from '@ngxs-labs/data/decorators';
+import { computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-labs/data/typings';
 import { ActionType, StateContext } from '@ngxs/store';
@@ -30,12 +30,12 @@ export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements 
     }
 
     @DataAction()
-    public patchState(@payload('patchValue') val: PatchValue<T>): void {
+    public patchState(@Payload('patchValue') val: PatchValue<T>): void {
         this.ctx.patchState(val);
     }
 
     @DataAction()
-    public setState(@payload('stateValue') stateValue: StateValue<T>): void {
+    public setState(@Payload('stateValue') stateValue: StateValue<T>): void {
         this.ctx.setState(stateValue);
     }
 

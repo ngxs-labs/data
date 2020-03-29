@@ -5,7 +5,7 @@ import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { DataAction, payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { getRepository } from '@ngxs-labs/data/internals';
 
 describe('[TEST]: Action decorator', () => {
@@ -42,7 +42,7 @@ describe('[TEST]: Action decorator', () => {
             @Injectable()
             class InvalidState extends NgxsImmutableDataRepository<string> {
                 @DataAction()
-                public setup(@payload('val') val: string): void {
+                public setup(@Payload('val') val: string): void {
                     this.ctx.setState(val);
                 }
             }
@@ -181,7 +181,7 @@ describe('[TEST]: Action decorator', () => {
             }
 
             @DataAction()
-            public withValueSetStateAsAction(@payload('name') name: string): string {
+            public withValueSetStateAsAction(@Payload('name') name: string): string {
                 this.setState('new value - ' + this.word + ' - ' + this.name + ' - ' + name);
                 return this.getState();
             }

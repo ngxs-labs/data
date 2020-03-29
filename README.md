@@ -39,10 +39,10 @@ of actions, dispatchers, and selectors for each entity type.
 Benefits:
 
 -   Angular-way (State as a Service)
--   Improved debugging (`@payload` decorator)
--   Persistence state out-of-the-box (`@Persistence` decorator)
--   Automatic action naming by service methods (`@action, @named` decorator)
--   Immutable state context out-of-the-box (`NgxsImmutableDataRepository`)
+-   Improved debugging (`@Payload()` decorator)
+-   Persistence state out-of-the-box (`@Persistence()` decorator)
+-   Automatic action naming by service methods (`@DataAction(), @Payload(), @Named()` decorator)
+-   Immutable state context out-of-the-box (`NgxsImmutableDataRepository<T>`)
 -   Support debounce for throttling dispatch (`@Debounce()` decorator)
 -   Automatic type inference for selection
 -   Easy testable states
