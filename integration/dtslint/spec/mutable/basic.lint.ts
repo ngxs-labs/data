@@ -8,7 +8,7 @@ import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
-import { DataAction, debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -79,7 +79,7 @@ describe('TEST', () => {
                 this.setState((state: Immutable<ParentCountModel>) => ({ ...state, val: state.val - 1 }));
             }
 
-            @debounce()
+            @Debounce()
             @DataAction()
             public setValueFromInput(val: string | number): void {
                 this.ctx.setState((state) => ({ ...state, val: parseFloat(val as string) || 0 }));

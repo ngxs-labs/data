@@ -5,7 +5,7 @@ import { Any, Descriptor } from '@ngxs-labs/data/typings';
 
 const DEFAULT_TIMEOUT: number = 300;
 
-export function debounce(timeout: number = DEFAULT_TIMEOUT): MethodDecorator {
+export function Debounce(timeout: number = DEFAULT_TIMEOUT): MethodDecorator {
     let timeoutRef: number | null = null;
     return <T>(target: T, name: string | symbol, descriptor: Descriptor): Descriptor => {
         const originalMethod: Any = descriptor.value;
