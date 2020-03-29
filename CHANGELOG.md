@@ -16,7 +16,7 @@
 -   Fix: memory leak in storage extension
 -   Fix: can now global override prefix key without `@Persistence` decorator
 
-### BREAKING CHANGES 
+### BREAKING CHANGES 🔥
 
 -   Renamed decorator `@action()` to `@DataAction()`
 -   Renamed decorator `@debounce()` to `@Debounce()`
