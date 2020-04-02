@@ -138,10 +138,10 @@
     "@angular-devkit/core" "8.3.25"
     rxjs "6.4.0"
 
-"@angular-ru/eslint-config@10.24.0":
-  version "10.24.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-10.24.0.tgz#e7f38cd5821ea99f9403ae4aea4d207d1a1e74c6"
-  integrity sha512-RT5/iAVKMVeRCXOkqrFSuh2pOF5sVOFt0gB2VE48CxqsHGiKgW3f3QlexNjR9OTlsygbt3eQY8DxbG/6OYJjYg==
+"@angular-ru/eslint-config@10.25.0":
+  version "10.25.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-10.25.0.tgz#9990d9c9609cc20e87ca59a06b3c619b865996f4"
+  integrity sha512-ACuuJXhmFGYpwtTUhE6tP1FBvpSDqY/TSMvgPfz2NrLA8Lyu18WXD6Gc/XeHnkY7o3eg4+9RAOin78Lp6eSy3g==
   dependencies:
     "@types/eslint" "6.1.9"
     "@typescript-eslint/eslint-plugin" "2.26.0"
@@ -154,7 +154,7 @@
     eslint-plugin-no-cyrillic-string "1.0.4"
     eslint-plugin-prettier "3.1.2"
     eslint-plugin-simple-import-sort "5.0.2"
-    tslint "6.1.0"
+    tslint "6.1.1"
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
@@ -7351,6 +7351,13 @@ mkdirp@0.5.x, mkdirp@0.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp
   dependencies:
     minimist "0.0.8"
 
+mkdirp@^0.5.3:
+  version "0.5.4"
+  resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.4.tgz#fd01504a6797ec5c9be81ff43d204961ed64a512"
+  integrity sha512-iG9AK/dJLtJ0XNgTuDbSyNS3zECqDlAhnQW4CsNxBG3LQJBbHmRX1egw39DmtOdCAqY+dKXV+sgPgilNWUKMVw==
+  dependencies:
+    minimist "^1.2.5"
+
 move-concurrently@^1.0.1, move-concurrently@~1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -10752,10 +10759,10 @@ tslint@5.14.0:
     tslib "^1.8.0"
     tsutils "^2.29.0"
 
-tslint@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.npmjs.org/tslint/-/tslint-6.1.0.tgz#c6c611b8ba0eed1549bf5a59ba05a7732133d851"
-  integrity sha512-fXjYd/61vU6da04E505OZQGb2VCN2Mq3doeWcOIryuG+eqdmFUXTYVwdhnbEu2k46LNLgUYt9bI5icQze/j0bQ==
+tslint@6.1.1:
+  version "6.1.1"
+  resolved "https://registry.npmjs.org/tslint/-/tslint-6.1.1.tgz#ac03fbd17f85bfefaae348b353b25a88efe10cde"
+  integrity sha512-kd6AQ/IgPRpLn6g5TozqzPdGNZ0q0jtXW4//hRcj10qLYBaa3mTUU2y2MCG+RXZm8Zx+KZi0eA+YCrMyNlF4UA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     builtin-modules "^1.1.1"
@@ -10765,7 +10772,7 @@ tslint@6.1.0:
     glob "^7.1.1"
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
-    mkdirp "^0.5.1"
+    mkdirp "^0.5.3"
     resolve "^1.3.2"
     semver "^5.3.0"
     tslib "^1.10.0"
