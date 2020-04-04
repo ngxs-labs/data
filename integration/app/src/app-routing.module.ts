@@ -24,6 +24,11 @@ import { RouterModule } from '@angular/router';
                     path: 'person',
                     // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/person/person.module').then((m) => m.PersonModule)
+                },
+                {
+                    path: 'amount',
+                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
+                    loadChildren: () => import('./examples/amount/amount.module').then((m) => m.AmountModule)
                 }
             ],
             { useHash: true }

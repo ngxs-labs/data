@@ -4,3 +4,4 @@
 **/node_modules/**
 **/coverage/**
 **/docs/**
+**/*.spec.ts

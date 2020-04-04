@@ -3,9 +3,12 @@ import { Any } from '@ngxs-labs/data/typings';
 import { Store } from '@ngxs/store';
 import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY } from '@ngxs/store/internals';
 
+import { NgxsDataSequence } from './ngxs-data-computed-stream.service';
+
 @Injectable()
 export class NgxsDataInjector {
     public static store: Store | null = null;
+    public static computed: NgxsDataSequence | null = null;
     public static context: Any | null = null;
     public static factory: Any | null = null;
     public static ngZone: NgZone | null = null;
@@ -19,5 +22,6 @@ export class NgxsDataInjector {
         NgxsDataInjector.ngZone = injector.get<NgZone>(NgZone);
         NgxsDataInjector.factory = stateFactory;
         NgxsDataInjector.context = stateContextFactory;
+        NgxsDataInjector.computed = injector.get<NgxsDataSequence>(NgxsDataSequence);
     }
 }

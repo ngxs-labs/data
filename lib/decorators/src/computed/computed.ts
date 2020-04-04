@@ -1,10 +1,5 @@
-import {
-    defineComputedOptions,
-    ensureComputedOptions,
-    getSequenceIdFromTarget,
-    validateComputedMethod
-} from '@ngxs-labs/data/internals';
-import { Any, ComputedOptions, Descriptor } from '@ngxs-labs/data/typings';
+import { ensureComputedCache, globalSequenceId, validateComputedMethod } from '@ngxs-labs/data/internals';
+import { Any, ComputedCacheMap, ComputedOptions, Descriptor } from '@ngxs-labs/data/typings';
 
 export function Computed(): MethodDecorator {
     return (target: Any, key: string | symbol, descriptor: Descriptor): Descriptor => {
@@ -12,16 +7,17 @@ export function Computed(): MethodDecorator {
         const originalMethod: Any = descriptor.get;
 
         descriptor.get = function(...args: Any[]): Any {
-            const options: ComputedOptions = ensureComputedOptions(this, key);
-            const sequenceId: number = getSequenceIdFromTarget(this);
-            const invalidSequenceId: boolean = options.sequenceId !== sequenceId;
+            const cacheMap: ComputedCacheMap = ensureComputedCache(this);
+            const cache: ComputedOptions | undefined = cacheMap?.get(originalMethod);
+            const invalidCache: boolean = !cache || cache.sequenceId !== globalSequenceId();
 
-            if (invalidSequenceId) {
+            if (invalidCache) {
+                cacheMap.delete(originalMethod);
                 const result: Any = originalMethod.apply(this, args);
-                defineComputedOptions(this, key, { sequenceId, value: result });
+                cacheMap.set(originalMethod, { sequenceId: globalSequenceId(), value: result });
                 return result;
             } else {
-                return options.value;
+                return cache!.value;
             }
         };
 

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
