@@ -6,7 +6,7 @@
 
     - [(@)StateRepository](pages/state-repository.md)
     - [(@)DataAction](pages/data-action.md)
-    - [(@)computed](pages/computed.md)
+    - [(@)Computed](pages/computed.md)
     - [(@)Persistence](pages/persistence-state.md)
     - [Immutability](pages/immutability.md)
     - [Extension API](pages/extension-api.md)
