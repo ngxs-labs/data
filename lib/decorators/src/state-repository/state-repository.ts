@@ -5,7 +5,7 @@ import {
     createStateSelector,
     ensureStateMetadata
 } from '@ngxs-labs/data/internals';
-import { NGXS_DATA_EXCEPTIONS, NGXS_SEQUENCE_ID } from '@ngxs-labs/data/tokens';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Any, DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
@@ -27,12 +27,10 @@ export function StateRepository(): StateClassDecorator {
 
 function defineProperties(stateClass: DataStateClass, stateMeta: MetaDataModel, cloneDefaults: Any): void {
     Object.defineProperties(stateClass.prototype, {
-        name: { enumerable: true, configurable: true, value: stateMeta.name },
-        [NGXS_SEQUENCE_ID]: {
+        name: {
             enumerable: true,
             configurable: true,
-            writable: true,
-            value: 0
+            value: stateMeta.name
         },
         initialState: {
             enumerable: true,

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { buildDefaultsGraph, ensureStateMetadata } from '@ngxs-labs/data/internals';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';

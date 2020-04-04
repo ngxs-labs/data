@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ApplicationRef, Component, Injectable, NgModule, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';

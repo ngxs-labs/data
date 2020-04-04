@@ -4,7 +4,6 @@ import { Any } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
 
 import { ngxsDeepFreeze } from '../common/freeze';
-import { incrementSequenceId } from '../computed/increment-sequence-id';
 
 export function ensureDataStateContext<U, T extends StateContext<U>>(target: Any, context: T | null): T {
     if (!context) {
@@ -17,11 +16,9 @@ export function ensureDataStateContext<U, T extends StateContext<U>>(target: Any
             return isDevMode() ? ngxsDeepFreeze(context.getState()) : context.getState();
         },
         setState(val: Any): void {
-            incrementSequenceId(target);
             context.setState(val);
         },
         patchState(val: Any): void {
-            incrementSequenceId(target);
             context.patchState(val);
         }
     };

@@ -9,6 +9,7 @@
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
 -   Feature: improved `@Persistence()` decorator for stability
+-   Fix: now `@Computed()` fields are recalculation when store has changed
 -   Fix: correct recalculation of state during inheritance computed fields
 -   Fix: correct inheritance of state classes
 -   Fix: compatibility with `@ngxs/store@3.6.2`

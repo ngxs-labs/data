@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { State } from '@ngxs/store';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { Injectable } from '@angular/core';

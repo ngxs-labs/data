@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { Injectable } from '@angular/core';

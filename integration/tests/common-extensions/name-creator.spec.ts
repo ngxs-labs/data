@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { actionNameCreator, MethodArgsRegistry } from '@ngxs-labs/data/internals';
 
 describe('[TEST]: actionNameCreator', () => {

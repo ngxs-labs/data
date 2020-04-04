@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { NgxsModule, State } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
