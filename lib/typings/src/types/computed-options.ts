@@ -1,6 +1,9 @@
+import { Observable } from 'rxjs';
+
 import { Any } from './any';
 
 export interface ComputedOptions {
     sequenceId: number;
-    value: Any;
+    isObservable: boolean;
+    value: Any | Observable<Any>;
 }

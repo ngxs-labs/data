@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataAction, Debounce, Payload, StateRepository } from '@ngxs-labs/data/decorators';
+import { Computed, DataAction, Debounce, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
@@ -19,9 +19,10 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
 })
 @Injectable()
 export class CountState extends NgxsImmutableDataRepository<ParentCountModel> {
-    public readonly values$: Observable<ParentCountModel> = this.state$.pipe(
-        map((state: Immutable<ParentCountModel>): CountModel => state.countSub!)
-    );
+    @Computed()
+    public get values$(): Observable<ParentCountModel> {
+        return this.state$.pipe(map((state: Immutable<ParentCountModel>): CountModel => state.countSub!));
+    }
 
     @DataAction()
     public increment(): void {

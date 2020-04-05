@@ -30,3 +30,4 @@ export { ensureComputedCache } from './utils/computed/ensure-computed-cache';
 export { getComputedCache } from './utils/computed/get-computed-cache';
 export { ensureSnapshot } from './utils/repository/ensure-snapshot';
 export { globalSequenceId } from './utils/computed/global-sequence-id';
+export { itObservable } from './utils/computed/it-observable';

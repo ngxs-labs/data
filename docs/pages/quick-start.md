@@ -20,7 +20,7 @@ export class AppModule {}
 `count.state.ts`
 
 ```ts
-import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { action, StateRepository } from '@ngxs-labs/data/decorators';
 import { State } from '@ngxs/store';
 // ..
@@ -35,8 +35,11 @@ export interface CountModel {
     defaults: { val: 0 }
 })
 @Injectable()
-export class CountState extends NgxsImmutableDataRepository<CountModel> {
-    public readonly values$ = this.state$.pipe(map((state) => state.val));
+export class CountState extends NgxsDataRepository<CountModel> {
+    @Computed()
+    public get values$() {
+        return this.state$.pipe(map((state) => state.countSub));
+    }
 
     @DataAction()
     public increment(): void {
@@ -75,7 +78,7 @@ export class CountState extends NgxsImmutableDataRepository<CountModel> {
 
     <b class="title">ngModel:</b>
     <input
-        [ngModel]="counter.values$ | async"
+        [ngModel]="counter.snapshot"
         (ngModelChange)="counter.setValueFromInput($event)"
     />
 
@@ -86,10 +89,6 @@ export class AppComponent {
   constructor(public counter: CountState) {}
 }
 ```
-
-#### Demo
-
-![](https://habrastorage.org/webt/8p/nt/hb/8pnthbvoorw2cf6lvmr-psi0kvc.png)
 
 #### Debugging
 
@@ -115,20 +114,17 @@ export class AppModule {}
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
-            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state) => state.concat(todo));
         }
     }
 
     @DataAction()
     public removeTodo(@Payload('idx') idx: number): void {
-        this.ctx.setState(
-            (state: Immutable<string[]>): Immutable<string[]> =>
-                state.filter((_: string, index: number): boolean => index !== idx)
-        );
+        this.ctx.setState((state) => state.filter((_: string, index: number): boolean => index !== idx));
     }
 }
 ```
