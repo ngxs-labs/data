@@ -39,11 +39,11 @@ of actions, dispatchers, and selectors for each entity type.
 Benefits:
 
 -   Angular-way (State as a Service)
--   Improved debugging (`@Payload()` decorator)
--   Persistence state out-of-the-box (`@Persistence()` decorator)
--   Automatic action naming by service methods (`@DataAction(), @Payload(), @Named()` decorator)
+-   Improved debugging (`@Payload()`)
+-   Persistence state out-of-the-box (`@Persistence()`)
+-   Automatic action naming by service methods (`@DataAction(), @Payload(), @Named()`)
 -   Immutable state context out-of-the-box (`NgxsImmutableDataRepository<T>`)
--   Support debounce for throttling dispatch (`@Debounce()` decorator)
+-   Support debounce for throttling dispatch (`@Debounce()`)
 -   Automatic type inference for selection
 -   Easy testable states
 
@@ -67,7 +67,7 @@ If you are using Angular 8, you can write in the `tsconfig.json`:
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Edge 12+ (IE not supported)                                                                                                                                                                                     | Firefox 42+                                                                                                                                                                                                       | Chrome 42+                                                                                                                                                                                                    | Safari 10+                                                                                                                                                                                                    |
+| Edge 12+ (IE + polyfills)                                                                                                                                                                                     | Firefox 42+                                                                                                                                                                                                       | Chrome 42+                                                                                                                                                                                                    | Safari 10+                                                                                                                                                                                                    |
 
 ### Quick Links
 

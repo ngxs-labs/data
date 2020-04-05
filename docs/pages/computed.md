@@ -115,14 +115,17 @@ manner. We can use a meta selector to join these two states together like:
 ```ts
 @StateRepository()
 @State({ name: 'zoo', defaults: [] })
+@Injectable()
 export class ZooState extends NgxsDataRepository<string[]> {}
 
 @StateRepository()
 @State({ name: 'themePark', defaults: [] })
+@Injectable()
 export class ThemeParkState extends NgxsDataRepository<string[]> {}
 
 @StateRepository()
 @State({ name: 'city', defaults: [] })
+@Injectable()
 export class CityState extends NgxsDataRepository<string[]> {
     constructor(private zoo: ZooState, private themePark: ThemeParkState) {
         super();
