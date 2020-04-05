@@ -77,7 +77,77 @@ class AppComponent {
 
 ![](https://habrastorage.org/webt/-k/aq/uj/-kaquj5ghj3hmx3aup7mym4xeya.png)
 
-### Side effects
+#### Now `Selector` and `Select` utilities are not needed, you can do it right in the state
+
+```ts
+@StateRepository()
+@State<string[]>({
+    name: 'animals',
+    defaults: ['panda', 'horse', 'bee']
+})
+@Injectable()
+export class ZooState extends NgxsDataRepository<string[]> {
+    @Computed()
+    public get pandas(): string[] {
+        return this.snapshot.filter((animal) => animal === 'panda');
+    }
+
+    @Computed()
+    public get horses(): string[] {
+        return this.snapshot.filter((animal) => animal === 'horse');
+    }
+
+    @Computed()
+    public get bees(): string[] {
+        return this.snapshot.filter((animal) => animal === 'bee');
+    }
+}
+```
+
+### Meta selectors
+
+By default selectors in NGXS are bound to a state. Sometimes you need the ability to join to un-related states in a
+high-performance re-usable fashion. A meta selector is a selector allows you to bind N number of selectors together to
+return a state stream. Let's say we have 2 states; 'zoos' and 'theme parks'. We have a component that needs to show all
+the zoos and theme parks for a given city. These are two very distinct state classes that are likely not related in any
+manner. We can use a meta selector to join these two states together like:
+
+```ts
+@StateRepository()
+@State({ name: 'zoo', defaults: [] })
+export class ZooState extends NgxsDataRepository<string[]> {}
+
+@StateRepository()
+@State({ name: 'themePark', defaults: [] })
+export class ThemeParkState extends NgxsDataRepository<string[]> {}
+
+@StateRepository()
+@State({ name: 'city', defaults: [] })
+export class CityState extends NgxsDataRepository<string[]> {
+    constructor(private zoo: ZooState, private themePark: ThemeParkState) {
+        super();
+    }
+
+    @Computed()
+    public get zooThemeParks(): Observable<string[]> {
+        return combineLatest([this.zoo.state$, this.themePark.state$]).pipe(
+            map(([zoo, themeParks]) => [...zoo, ...themeParks])
+        );
+    }
+}
+```
+
+Unlike NGXS native meta selectors, now you get a well typings by infer types when use combined selectors.
+
+##### forkJoin vs combineLatest
+
+`forkJoin` - When all observables complete, emit the last emitted value from each.
+
+`combineLatest` - When any observable emits a value, emit the latest value from each.
+
+Usage is pretty similar, but you shouldn't forget to unsubscribe from combineLatest unlike forkJoin.
+
+### Side effects (non observables)
 
 If you use any unknown value inside computed fields then they are not tracked:
 
