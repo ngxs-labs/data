@@ -2,7 +2,7 @@
     "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "ngPackage": {
         "lib": {
-            "flatModuleFile": "ngxs-labs-data-storage",
+            "flatModuleFile": "ngxs-labs-data-testing",
             "umdModuleIds": {
                 "@ngxs/store": "ngxs-store",
                 "@ngxs/store/internals": "ngxs-store-internals",

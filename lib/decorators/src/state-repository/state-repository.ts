@@ -3,6 +3,7 @@ import {
     createContext,
     createRepositoryMetadata,
     createStateSelector,
+    deepClone,
     ensureStateMetadata
 } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -36,7 +37,8 @@ function defineProperties(stateClass: DataStateClass, stateMeta: MetaDataModel, 
             enumerable: true,
             configurable: true,
             get(): Any {
-                return cloneDefaults;
+                // preserve mutation
+                return deepClone(cloneDefaults);
             }
         },
         context: createContext(stateClass)

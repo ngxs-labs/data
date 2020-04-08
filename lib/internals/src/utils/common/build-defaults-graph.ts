@@ -5,13 +5,13 @@ import { StoreOptions } from '@ngxs/store/src/symbols';
 
 import { InvalidChildrenException } from '../../exceptions/invalid-children.exception';
 import { getStoreOptions } from '../state-context/get-store-options';
-import { deepCloneDefaults } from './deep-close-defaults';
+import { deepClone } from './deep-clone';
 import { isPlainObject } from './is-plain-object';
 
 export function buildDefaultsGraph(stateClasses: DataStateClass): Any {
     const options: StoreOptions<Any> = getStoreOptions(stateClasses);
     const children: DataStateClass[] = options.children || [];
-    const currentDefaults: Any = deepCloneDefaults(options.defaults);
+    const currentDefaults: Any = deepClone(options.defaults);
 
     if (children.length) {
         if (isPlainObject(currentDefaults)) {

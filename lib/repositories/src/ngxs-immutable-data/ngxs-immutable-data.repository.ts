@@ -12,11 +12,11 @@ import {
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
+import { AbstractRepository } from '../common/abstract-repository';
+
 @Injectable()
-export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateContext<T>, ImmutableDataRepository<T> {
-    public readonly name: string;
-    public readonly initialState: Immutable<T>;
-    public readonly state$: Observable<Immutable<T>>;
+export abstract class NgxsImmutableDataRepository<T> extends AbstractRepository<Immutable<T>>
+    implements ImmutableStateContext<T>, ImmutableDataRepository<T> {
     private readonly context: ImmutableStateContext<T>;
 
     @Computed()
@@ -49,5 +49,6 @@ export abstract class NgxsImmutableDataRepository<T> implements ImmutableStateCo
     @DataAction()
     public reset(): void {
         this.ctx.setState(this.initialState);
+        this.markAsDirtyAfterReset();
     }
 }

@@ -1,5 +1,5 @@
 export { isNotNil } from './utils/common/is-not-nil';
-export { deepCloneDefaults } from './utils/common/deep-close-defaults';
+export { deepClone } from './utils/common/deep-clone';
 export { isPlainObject } from './utils/common/is-plain-object';
 export { getStoreOptions } from './utils/state-context/get-store-options';
 export { buildDefaultsGraph } from './utils/common/build-defaults-graph';
@@ -31,3 +31,4 @@ export { getComputedCache } from './utils/computed/get-computed-cache';
 export { ensureSnapshot } from './utils/repository/ensure-snapshot';
 export { globalSequenceId } from './utils/computed/global-sequence-id';
 export { itObservable } from './utils/computed/it-observable';
+export { getStateMetadata } from './utils/state-context/get-state-metadata';
