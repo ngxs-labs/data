@@ -1,5 +1,7 @@
 # To become 3.0.0
 
+-   Feature: add `ngxsTestingPlatform` as tools for better testing
+-   Feature: add `ngxsDataDoCheck`, `ngxsDataAfterReset` lifecycle hooks
 -   Feature: expose `@Computed()` for automatically computed values from state
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
