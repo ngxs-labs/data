@@ -8,5 +8,7 @@
     - [(@)DataAction](pages/data-action.md)
     - [(@)Computed](pages/computed.md)
     - [(@)Persistence](pages/persistence-state.md)
+    - [Unit Testing](pages/testing.md)
+    - [Lifecycle](pages/lifecycle.md)
     - [Immutability](pages/immutability.md)
     - [Extension API](pages/extension-api.md)

@@ -5,11 +5,11 @@ import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
+import { AbstractRepository } from '../common/abstract-repository';
+
 @Injectable()
-export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements DataStateContext<T>, DataRepository<T> {
-    public readonly name: string;
-    public readonly initialState: T;
-    public readonly state$: Observable<T>;
+export abstract class NgxsDataRepository<T> extends AbstractRepository<T>
+    implements DataStateContext<T>, DataRepository<T> {
     private readonly context: DataStateContext<T>;
 
     @Computed()
@@ -42,5 +42,6 @@ export abstract class NgxsDataRepository<T, U = DataStateContext<T>> implements 
     @DataAction()
     public reset(): void {
         this.ctx.setState(this.initialState);
+        this.markAsDirtyAfterReset();
     }
 }

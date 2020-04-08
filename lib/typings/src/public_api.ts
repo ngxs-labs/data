@@ -41,3 +41,4 @@ export { DispatchedResult } from './types/dispatched-result';
 export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './types/data-state-class';
 export { ComputedOptions } from './types/computed-options';
 export { ComputedCacheMap } from './types/computed-cache-map';
+export { NgxsDataAfterReset, NgxsDataDoCheck } from './types/ngxs-data-lifecycle';

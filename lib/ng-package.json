@@ -8,6 +8,7 @@
             "@ngxs/store/internals": "ngxs-store-internals",
             "@ngxs-labs/data": "ngxs-labs-data",
             "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
+            "@ngxs-labs/data/testing": "ngxs-labs-data-testing",
             "@ngxs-labs/data/typings": "ngxs-labs-data-typings",
             "@ngxs-labs/data/storage": "ngxs-labs-data-storage",
             "@ngxs-labs/data/internals": "ngxs-labs-data-internals",
