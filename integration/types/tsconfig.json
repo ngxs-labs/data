@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "noImplicitAny": true,
-        "noImplicitThis": true,
         "strict": true,
-        "strictFunctionTypes": true,
         "strictPropertyInitialization": false,
         "noEmit": true,
         "lib": ["es2017", "dom"],
