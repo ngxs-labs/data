@@ -123,9 +123,7 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
     it('should be correct injectable state', () => {
         expect(store.snapshot()).toEqual({ todos: [], count: 0 });
 
-        todo.add('A')
-            .add('B')
-            .add('C');
+        todo.add('A').add('B').add('C');
 
         expect(store.snapshot()).toEqual(store.snapshot());
 

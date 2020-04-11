@@ -9,7 +9,7 @@ export function Computed(): MethodDecorator {
         validateComputedMethod(target, key);
         const originalMethod: Any = descriptor.get;
 
-        descriptor.get = function(...args: Any[]): Observable<Any> | Any {
+        descriptor.get = function (...args: Any[]): Observable<Any> | Any {
             const cacheMap: ComputedCacheMap = ensureComputedCache(this);
             const cache: ComputedOptions | undefined = cacheMap?.get(originalMethod);
             if (cache?.isObservable) {

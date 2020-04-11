@@ -36,7 +36,7 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
         const key: string = name.toString();
 
         // eslint-disable-next-line max-lines-per-function
-        descriptor.value = function(...args: Any[]): DispatchedResult {
+        descriptor.value = function (...args: Any[]): DispatchedResult {
             const instance: ImmutableDataRepository<Any> = (this as Any) as ImmutableDataRepository<Any>;
 
             let result: DispatchedResult = null;

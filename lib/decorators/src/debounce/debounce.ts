@@ -10,7 +10,7 @@ export function Debounce(timeout: number = DEFAULT_TIMEOUT): MethodDecorator {
     return <T>(target: T, name: string | symbol, descriptor: Descriptor): Descriptor => {
         const originalMethod: Any = descriptor.value;
 
-        descriptor.value = function(...args: Any[]): Any {
+        descriptor.value = function (...args: Any[]): Any {
             checkExistNgZone();
 
             NgxsDataInjector.ngZone?.runOutsideAngular((): void => {

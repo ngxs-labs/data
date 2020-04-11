@@ -206,7 +206,7 @@ import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 # 2.2.3 2019-12-24
 
 -   Fix: remove duplicate field in DataStorageEngine
--   Fix: remove infinite loop when triggered onstorage event
+-   Fix: remove an infinite loop when triggered onstorage event
 
 # 2.2.0 2019-12-21
 

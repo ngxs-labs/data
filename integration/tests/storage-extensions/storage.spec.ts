@@ -229,9 +229,7 @@ describe('[TEST]: Storage plugin', () => {
                 data: 50
             });
 
-            b.increment()
-                .increment()
-                .increment();
+            b.increment().increment().increment();
 
             expect(b.getState()).toEqual(53);
             expect(store.snapshot()).toEqual({ b: 53 });

@@ -34,7 +34,5 @@
             "@ngxs-labs/data/tokens": ["./lib/tokens/src/public_api.ts"]
         }
     },
-    "exclude": [
-      "integration/types"
-    ]
+    "exclude": ["integration/types"]
 }
