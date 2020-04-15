@@ -88,7 +88,9 @@ export class NgxsDataFactory {
 
     private static ensureMeta(stateMeta: MetaDataModel): MappedStore | null | undefined {
         const meta: MappedState = stateMeta.name
-            ? NgxsDataInjector.factory.states.find((state: MappedStore): boolean => state.name === stateMeta.name)
+            ? (NgxsDataInjector.factory.states as MappedStore[])?.find(
+                  (state: MappedStore): boolean => state.name === stateMeta.name
+              )
             : null;
 
         if (meta && stateMeta.name) {

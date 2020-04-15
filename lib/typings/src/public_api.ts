@@ -42,3 +42,15 @@ export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './t
 export { ComputedOptions } from './types/computed-options';
 export { ComputedCacheMap } from './types/computed-cache-map';
 export { NgxsDataAfterReset, NgxsDataDoCheck } from './types/ngxs-data-lifecycle';
+export {
+    EntityIdType,
+    EntityDictionary,
+    EntityPatchValue,
+    EntityStateValue,
+    KeysDictionary
+} from './entity/entity-types';
+export { NgxsEntityCollections } from './entity/ngxs-entity-collections';
+export { EntityRepository } from './entity/entity-repository';
+export { EntityContext } from './entity/entity-context';
+export { PRIMARY_KEY } from './entity/primary-key';
+export { EntityUpdate } from './entity/entity-update';
