@@ -8,6 +8,7 @@
     - [(@)DataAction](pages/data-action.md)
     - [(@)Computed](pages/computed.md)
     - [(@)Persistence](pages/persistence-state.md)
+    - [Entity state adapter](pages/entity.md)
     - [Unit Testing](pages/testing.md)
     - [Lifecycle](pages/lifecycle.md)
     - [Immutability](pages/immutability.md)

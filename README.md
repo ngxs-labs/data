@@ -38,14 +38,16 @@ of actions, dispatchers, and selectors for each entity type.
 
 Benefits:
 
--   Angular-way (State as a Service)
--   Improved debugging (`@Payload()`)
--   Persistence state out-of-the-box (`@Persistence()`)
--   Automatic action naming by service methods (`@DataAction(), @Payload(), @Named()`)
--   Immutable state context out-of-the-box (`NgxsImmutableDataRepository<T>`)
+-   Angular-way (`State as a Service`)
+-   Snapshot's from state out-of-the-box (`@Computed()`)
 -   Support debounce for throttling dispatch (`@Debounce()`)
--   Automatic type inference for selection
--   Easy testable states
+-   Simple manipulation with data from states (`NgxsDataRepository<T>`)
+-   Automatic type inference from selection data stream (`myState.state$`)
+-   Immutable state context out-of-the-box (`NgxsImmutableDataRepository<T>`)
+-   Entity adapter out-of-the-box (`NgxsDataEntityCollectionsRepository<V, K>`)
+-   Simple API for testing states (`ngxsTestingPlatform([A], (store: Store, a: A) => {...})`)
+-   Persistence state out-of-the-box in sessionStorage, localStorage, custom (`@Persistence()`)
+-   Automatic action naming by service methods for improved debugging (`@DataAction(), @Payload(), @Named()`)
 
 Minimal peer dependencies:
 

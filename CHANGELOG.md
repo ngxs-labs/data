@@ -5,6 +5,7 @@
 -   Feature: expose `@Computed()` for automatically computed values from state
 -   Feature: expose `NgxsDataRepository<T>` for working with classic mutable data
 -   Feature: expose `NgxsImmutableDataRepository<T>` for working with immutable data
+-   Feature: expose `NgxsDataEntityCollectionsRepository<V, K>` for working with entity collections
 -   Feature: expose `@Payload()` decorator for register payload in action
 -   Feature: expose `@Named()` decorator for register name in action
 -   Feature: expose `@Debounce()` decorator for throttling dispatch actions

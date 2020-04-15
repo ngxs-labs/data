@@ -1,4 +1,4 @@
-export { isNotNil } from './utils/common/is-not-nil';
+export { isNotNil, isNullOrUndefined } from './utils/common/is-not-nil';
 export { deepClone } from './utils/common/deep-clone';
 export { isPlainObject } from './utils/common/is-plain-object';
 export { getStoreOptions } from './utils/state-context/get-store-options';
