@@ -20,4 +20,17 @@ describe('AppState', () => {
             expect(app.getState()).toEqual('hello world');
         })
     );
+
+    it('Invalid state', async () => {
+        class InvalidState {}
+        let message: string | null = null;
+
+        try {
+            await ngxsTestingPlatform([InvalidState], () => {})();
+        } catch (e) {
+            message = e.message;
+        }
+
+        expect(message).toEqual('InvalidState class must be decorated with @State() decorator');
+    });
 });

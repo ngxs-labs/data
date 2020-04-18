@@ -39,7 +39,11 @@ export interface EntityRepository<V, K extends string | number> {
 
     removeOne(id: K): void;
 
+    removeByEntity(entity: V): void;
+
     removeMany(ids: K[]): void;
+
+    removeByEntities(entities: V[]): void;
 
     removeAll(): void;
 }

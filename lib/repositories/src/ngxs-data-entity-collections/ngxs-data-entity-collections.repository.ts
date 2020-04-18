@@ -15,6 +15,7 @@ import {
 } from '@ngxs-labs/data/typings';
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AbstractRepository } from '../common/abstract-repository';
 
@@ -27,6 +28,26 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     @Computed()
     public get snapshot(): NgxsEntityCollections<V, K> {
         return ensureSnapshot(this.getState());
+    }
+
+    @Computed()
+    public get ids(): K[] {
+        return this.snapshot.ids;
+    }
+
+    @Computed()
+    public get entities(): EntityDictionary<K, V> {
+        return this.snapshot.entities;
+    }
+
+    @Computed()
+    public get ids$(): Observable<K[]> {
+        return this.state$.pipe(map((value: NgxsEntityCollections<V, K>): K[] => value.ids));
+    }
+
+    @Computed()
+    public get entities$(): Observable<EntityDictionary<K, V>> {
+        return this.state$.pipe(map((value: NgxsEntityCollections<V, K>): EntityDictionary<K, V> => value.entities));
     }
 
     private get ctx(): EntityContext<V, K> {
@@ -46,6 +67,14 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     public selectId(entity: V): K {
         return (entity as Any)?.[this.primaryKey];
+    }
+
+    public selectOne(id: K): V | null {
+        return this.snapshot.entities[id] ?? null;
+    }
+
+    public selectAll(): V[] {
+        return Object.values(this.snapshot.entities);
     }
 
     @DataAction()
@@ -106,6 +135,23 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     @DataAction()
     public removeMany(@Payload('ids') ids: K[]): void {
+        this.removeEntitiesMany(ids);
+    }
+
+    @DataAction()
+    public removeByEntity(@Payload('entity') entity: V): void {
+        const id: K = this.selectId(entity);
+        this.removeEntitiesMany([id]);
+    }
+
+    @DataAction()
+    public removeByEntities(@Payload('entities') entities: V[]): void {
+        const ids: K[] = [];
+        for (const entity of entities) {
+            const id: K = this.selectId(entity);
+            ids.push(id);
+        }
+
         this.removeEntitiesMany(ids);
     }
 
@@ -251,9 +297,9 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     private generateKeyMap(state: NgxsEntityCollections<V, K>): KeysDictionary<K> {
-        return state.ids.reduce((map: KeysDictionary<K>, id: K): KeysDictionary<K> => {
-            map[id] = id;
-            return map;
+        return state.ids.reduce((keyDictionary: KeysDictionary<K>, id: K): KeysDictionary<K> => {
+            keyDictionary[id] = id;
+            return keyDictionary;
         }, {});
     }
 
