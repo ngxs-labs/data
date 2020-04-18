@@ -19,7 +19,7 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
         "@angular-ru/eslint-config": "12.2.0",
-        "@angular-ru/prettier-config": "12.5.0",
+        "@angular-ru/prettier-config": "12.6.0",
         "@angular/animations": "8.2.14",
         "@angular/cli": "8.3.26",
         "@angular/common": "8.2.14",
