@@ -17,7 +17,7 @@
     },
     "prettier": "@angular-ru/prettier-config",
     "devDependencies": {
-        "@angular-devkit/build-angular": "0.803.26",
+        "@angular-devkit/build-angular": "0.901.1",
         "@angular-ru/eslint-config": "12.2.0",
         "@angular-ru/prettier-config": "12.6.0",
         "@angular/animations": "8.2.14",
