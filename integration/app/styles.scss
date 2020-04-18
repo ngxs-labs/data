@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 html {
     height: 100%;
     display: flex;
@@ -13,11 +16,23 @@ html {
 }
 
 body {
-    width: calc(100% - 250px);
+    width: calc(100% - 50px);
     margin: auto;
-    padding-left: 250px;
+    padding-left: 50px;
 }
 
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 ul,
 li {
     padding: 0;
@@ -50,7 +65,7 @@ button {
     min-height: 40vh;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
-    min-width: 700px;
+    min-width: 900px;
 }
 
 .content {
@@ -93,6 +108,7 @@ button {
     background-color: #fff;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    z-index: 100;
 
     .logo {
         margin-top: 20px;
@@ -119,8 +135,32 @@ button {
 }
 
 .menu {
-    min-width: 700px;
+    margin-left: 10px;
+    min-width: 900px;
     a {
         margin-right: 5px;
+    }
+
+    .menu-top {
+        margin-bottom: 10px;
+    }
+}
+
+.button-actions {
+    button {
+        margin-right: 10px;
+    }
+}
+
+.ng-icon {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 0;
+
+    .img {
+        height: 16px;
+        display: block;
+        float: left;
+        margin-right: 10px;
     }
 }

@@ -20,6 +20,11 @@
 |   |   └── *.ts
 |   ├── public_api.ts
 |   └── package.json
+└── testing - Testing API
+|   ├── src
+|   |   └── *.ts
+|   ├── public_api.ts
+|   └── package.json
 └── typings - Common interfaces for primary and secondary packages
 |   ├── src
 |   |   └── *.ts
