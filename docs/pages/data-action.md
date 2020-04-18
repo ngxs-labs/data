@@ -16,7 +16,7 @@ export class AddTodo {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @Action(AddTodo)
     public add({ setState }: StateContext<string[]>, { payload }: AddTodo): void {
         setState((state) => state.concat(payload));
@@ -50,7 +50,7 @@ class AppComponent {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
@@ -107,7 +107,7 @@ Bad
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public add(todo: string): void {
         // bad (action in action)
@@ -125,7 +125,7 @@ Good
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public add(todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
@@ -144,7 +144,7 @@ Bad
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public add(todo: string): void {
         // bad (action in action)
@@ -167,7 +167,7 @@ Good
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public add(todo: string): void {
         this.concat(todo);
@@ -190,7 +190,7 @@ In order to understand the difference, you need to give some examples:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {}
+export class TodoState extends NgxsDataRepository<string[]> {}
 
 @Component({
     /* ... */
@@ -204,10 +204,10 @@ class TodoComponent {
 }
 ```
 
-_`setState`_ - this is a `public method` of the `NgxsImmutableDataRepository` class, it is annotated by the action
-decorator. This means that when it is called, an action will be registered into `Store` and will be called dispatch from
-`Store`. Thus you will see the state of the changed state through the logger or devtools plugins. When you call
-`setState` then it calls the `ctx.setState` method from state context.
+_`setState`_ - this is a `public method` of the `NgxsDataRepository` class, it is annotated by the action decorator.
+This means that when it is called, an action will be registered into `Store` and will be called dispatch from `Store`.
+Thus you will see the state of the changed state through the logger or devtools plugins. When you call `setState` then
+it calls the `ctx.setState` method from state context.
 
 `State Context` provides a way to pass data through the global states tree without having to pass new state manually at
 every level.
@@ -222,7 +222,7 @@ devtools, because the context will be called immediately without dispatching sta
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     public addTodo(todo: string): void {
         this.ctx.setState(todo);
     }
@@ -254,7 +254,7 @@ Therefore, the context should only be called inside the action.
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(todo: string): void {
         // call context from under the action
@@ -270,7 +270,7 @@ export class TodoState extends NgxsImmutableDataRepository<string[]> {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     public addTodo(todo: string): void {
         // call context inside another action
         this.setState(todo);
@@ -288,7 +288,7 @@ and which should not:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
+export class PersonState extends NgxsDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -306,10 +306,10 @@ In this situation, we have some problem:
 @Component({
     /* ... */
 })
-class TodoComponent implements OnInit {
+class PersonComponent implements OnInit {
     constructor(private personState: PersonState) {}
 
-    public ngOnInit(todo: string): void {
+    public ngOnInit(): void {
         this.personState.getContent().subscribe(() => console.log('loaded'));
     }
 }
@@ -332,7 +332,7 @@ We can try it differently:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
+export class PersonState extends NgxsDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -362,7 +362,7 @@ Therefore, it would be more correct to write such code:
     defaults: { title: null, description: null }
 })
 @Injectable()
-export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
+export class PersonState extends NgxsDataRepository<PersonModel> {
     constructor(private readonly personService: PersonService) {
         super();
     }
@@ -388,11 +388,11 @@ export class PersonState extends NgxsImmutableDataRepository<PersonModel> {
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(todo: string): void {
         if (todo) {
-            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state: string[]) => state.concat(todo));
         }
     }
 }
@@ -411,11 +411,11 @@ If during logging you want to see the payload, then you need to specify which ac
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
-            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state: string[]) => state.concat(todo));
         }
     }
 }
@@ -433,11 +433,11 @@ decorator.
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(@Named('x') todo: string): void {
         if (todo) {
-            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state: string[]) => state.concat(todo));
         }
     }
 }
@@ -454,11 +454,11 @@ Decorators can be combined:
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
     public addTodo(@Payload('TODO') @Named('x') todo: string): void {
         if (todo) {
-            this.ctx.setState((state: Immutable<string[]>): Immutable<string[]> => state.concat(todo));
+            this.ctx.setState((state: string[]) => state.concat(todo));
         }
     }
 }

@@ -322,31 +322,148 @@ export class AppComponent implements OnInit {
 }
 ```
 
-You have full Entity Management API:
+See more about [Entity API](./state-repository.md)
+
+#### Primary key
+
+By default, the selection is on the `ID` primary key, you can override this behavior:
 
 ```ts
-export interface EntityRepository<V, K extends string | number> {
-    name: string;
-    initialState: NgxsEntityCollections<V, K>;
-    state$: Observable<NgxsEntityCollections<V, K>>;
-    readonly snapshot: NgxsEntityCollections<V, K>;
-    primaryKey: string;
+interface Lesson {
+    lessonId: number;
+    title: string;
+}
 
-    getState(): NgxsEntityCollections<V, K>;
-    dispatch(actions: ActionType | ActionType[]): Observable<void>;
-    reset(): void;
-    selectId(entity: V): K;
-    addOne(entity: V): void;
-    addMany(entities: V[]): void;
-    setOne(entity: V): void;
-    setMany(entities: V[]): void;
-    setAll(entities: V[]): void;
-    updateOne(update: EntityUpdate<V, K>): void;
-    updateMany(updates: EntityUpdate<V, K>[]): void;
-    upsertOne(entity: V): void;
-    upsertMany(entities: V[]): void;
-    removeOne(id: K): void;
-    removeMany(ids: K[]): void;
-    removeAll(): void;
+@StateRepository()
+@State({
+    name: 'lesson',
+    defaults: createEntityCollections()
+})
+class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
+    public primaryKey: string = 'lessonId';
+}
+```
+
+or
+
+```ts
+@StateRepository()
+@State({
+    name: 'lesson',
+    defaults: createEntityCollections()
+})
+class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
+    public selectId(entity: Lesson): EntityIdType {
+        return entity.lessonId;
+    }
+}
+```
+
+#### Composite key
+
+Composite key, or composite primary key, refers to cases where more than one column is used to specify the primary key
+of a table. In such cases, all foreign keys will also need to include all the columns in the composite key. Note that
+the columns that make up a composite key can be of different data types.
+
+```ts
+interface StudentEntity {
+    groupId: number;
+    batchId: number;
+    name: string;
+    course: string;
+    dateOfBirth: Date;
+}
+```
+
+```ts
+@StateRepository()
+@State({
+    name: 'students',
+    defaults: createEntityCollections()
+})
+class StudentEntitiesState extends NgxsDataEntityCollectionsRepository<StudentEntity, string> {
+    public selectId(entity: StudentEntity): string {
+        return `${entity.groupId}_${entity.batchId}`;
+    }
+}
+```
+
+```ts
+@Component({
+    /* */
+})
+export class StudentsComponent implements OnInit {
+    constructor(private studentEntities: StudentEntitiesState) {}
+
+    public ngOnInit(): void {
+        this.studentEntities.setAll([
+            {
+                groupId: 1,
+                batchId: 1,
+                name: 'Maxim',
+                course: 'Super A',
+                dateOfBirth: new Date(1994, 5, 1)
+            },
+            {
+                groupId: 1,
+                batchId: 2,
+                name: 'Ivan',
+                course: 'Super A',
+                dateOfBirth: new Date(1993, 5, 12)
+            },
+            {
+                groupId: 2,
+                batchId: 1,
+                name: 'Nikola',
+                course: 'Super B',
+                dateOfBirth: new Date(1997, 7, 11)
+            },
+            {
+                groupId: 2,
+                batchId: 2,
+                name: 'Petr',
+                course: 'Super C',
+                dateOfBirth: new Date(1994, 3, 11)
+            }
+        ]);
+    }
+}
+```
+
+We get the state in store:
+
+```json5
+{
+    ids: ['1_1', '1_2', '2_1', '2_2'],
+    entities: {
+        '1_1': {
+            groupId: 1,
+            batchId: 1,
+            name: 'Maxim',
+            course: 'Super A',
+            dateOfBirth: '1994-05-31T20:00:00.000Z'
+        },
+        '1_2': {
+            groupId: 1,
+            batchId: 2,
+            name: 'Ivan',
+            course: 'Super A',
+            dateOfBirth: '1993-06-11T20:00:00.000Z'
+        },
+        '2_1': {
+            groupId: 2,
+            batchId: 1,
+            name: 'Nikola',
+            course: 'Super B',
+            dateOfBirth: '1997-08-10T20:00:00.000Z'
+        },
+        '2_2': {
+            groupId: 2,
+            batchId: 2,
+            name: 'Petr',
+            course: 'Super C',
+            dateOfBirth: '1994-04-10T20:00:00.000Z'
+        }
+    }
 }
 ```
