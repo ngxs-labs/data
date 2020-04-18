@@ -339,6 +339,7 @@ interface Lesson {
     name: 'lesson',
     defaults: createEntityCollections()
 })
+@Injectable()
 class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
     public primaryKey: string = 'lessonId';
 }
@@ -352,6 +353,7 @@ or
     name: 'lesson',
     defaults: createEntityCollections()
 })
+@Injectable()
 class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
     public selectId(entity: Lesson): EntityIdType {
         return entity.lessonId;
@@ -381,6 +383,7 @@ interface StudentEntity {
     name: 'students',
     defaults: createEntityCollections()
 })
+@Injectable()
 class StudentEntitiesState extends NgxsDataEntityCollectionsRepository<StudentEntity, string> {
     public selectId(entity: StudentEntity): string {
         return `${entity.groupId}_${entity.batchId}`;
