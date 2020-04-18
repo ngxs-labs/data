@@ -29,6 +29,11 @@ import { RouterModule } from '@angular/router';
                     path: 'amount',
                     // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/amount/amount.module').then((m) => m.AmountModule)
+                },
+                {
+                    path: 'article',
+                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
+                    loadChildren: () => import('./examples/article/article.module').then((m) => m.ArticleModule)
                 }
             ],
             { useHash: true }
