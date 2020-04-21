@@ -131,12 +131,12 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/prettier-config@12.6.0":
-  version "12.6.0"
-  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-12.6.0.tgz#f8b25753aee02061a601dc1383dbfc3fed6a3cd0"
-  integrity sha512-JzQ+hYBHgFKF7SpbDoF1tpRAjERa+PYGZnykMK8ViD+bTBPCo7VR7O1yGk7G+3BkCQfOvbDyRI/QzlfDqe15rQ==
+"@angular-ru/prettier-config@12.7.0":
+  version "12.7.0"
+  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-12.7.0.tgz#0d6fe4b0d58df61d8474431f84568aa28c47864a"
+  integrity sha512-DPvrq3IpKs0DyI37oQcO7hL1YYviAHzzo3UmwdoycA7j/3yTqfomM36D4CRbmTw8g3Vite1Ii9zHLStU9ZcocA==
   dependencies:
-    prettier "2.0.4"
+    prettier "2.0.5"
 
 "@angular/animations@8.2.14":
   version "8.2.14"
@@ -8669,10 +8669,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@2.0.4:
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.0.4.tgz#2d1bae173e355996ee355ec9830a7a1ee05457ef"
-  integrity sha512-SVJIQ51spzFDvh4fIbCLvciiDMCrRhlN3mbZvv/+ycjvmF5E73bKdGfU8QDLNmjYJf+lsGnDBC4UUnvTe5OO0w==
+prettier@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
+  integrity sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==
 
 pretty-format@^25.0.0, pretty-format@^25.2.1, pretty-format@^25.3.0:
   version "25.3.0"
