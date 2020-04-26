@@ -95,6 +95,8 @@ THE SOFTWARE.
 
 @angular/material/icon
 
+@angular/material/sort
+
 @angular/material/table
 
 @angular/platform-browser
