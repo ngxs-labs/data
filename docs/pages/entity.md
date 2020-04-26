@@ -324,6 +324,140 @@ export class AppComponent implements OnInit {
 
 See more about [Entity API](./state-repository.md)
 
+#### Sorting
+
+By default, the store returns entities in the order in which they arrived from the server. The entities you add are
+pushed to the end of the collection.
+
+You may prefer getting the entities from the store in some other order. You can provide a sortBy option which could be
+based on an entity key, or a comparer function.
+
+#### Examples sorting
+
+```ts
+interface People {
+    id: number;
+    name: string;
+    age: number;
+}
+
+const defaults = createEntityCollections<People>({
+    ids: [1, 2, 3, 4, 5],
+    entities: {
+        1: { id: 1, name: 'Max', age: 25 },
+        2: { id: 2, name: 'Ivan', age: 15 },
+        3: { id: 3, name: 'Roger', age: 35 },
+        4: { id: 4, name: 'Petr', age: 40 },
+        5: { id: 5, name: 'Anton', age: 12 }
+    }
+});
+
+@StateRepository()
+@State({ name: 'people', defaults })
+@Injectable()
+class PeopleEntitiesState extends NgxsDataEntityCollectionsRepository<People> {}
+```
+
+##### Sort by ASC
+
+```ts
+@Component({
+    /* */
+})
+export class PeopleComponent implements OnInit {
+    constructor(private peopleEntities: PeopleEntitiesState) {}
+
+    public ngOnInit(): void {
+        this.peopleEntities.sort({
+            sortBy: 'age',
+            sortByOrder: EntitySortByOrder.ASC
+        });
+
+        console.log(this.peopleEntities.selectAll());
+        /**
+        [
+            { id: 5, name: 'Anton', age: 12 },
+            { id: 2, name: 'Ivan', age: 15 },
+            { id: 1, name: 'Max', age: 25 },
+            { id: 3, name: 'Roger', age: 35 },
+            { id: 4, name: 'Petr', age: 40 }
+        ]
+        */
+    }
+}
+```
+
+##### Sort by DESC
+
+```ts
+@Component({
+    /* */
+})
+export class PeopleComponent implements OnInit {
+    constructor(private peopleEntities: PeopleEntitiesState) {}
+
+    public ngOnInit(): void {
+        this.peopleEntities.sort({
+            sortBy: 'age',
+            sortByOrder: EntitySortByOrder.DESC
+        });
+
+        console.log(this.peopleEntities.selectAll());
+        /**
+        [
+            { id: 4, name: 'Petr', age: 40 },
+            { id: 3, name: 'Roger', age: 35 },
+            { id: 1, name: 'Max', age: 25 },
+            { id: 2, name: 'Ivan', age: 15 },
+            { id: 5, name: 'Anton', age: 12 }
+        ]
+        */
+    }
+}
+```
+
+### Sort by compare function
+
+```ts
+people.sort((a, b) => a.age - b.age);
+```
+
+##### Sorting API
+
+The `entities.sort(comparator?)` method sorts the entities ids by your entity collections state.
+
+```ts
+entities.setComparator(comparator);
+entities.sort();
+// or
+entities.sort(comparator);
+```
+
+The comparator is only needed if the collection needs to be sorted before being displayed. Set to null (by default) for
+the comparator to leave the collection unsorted, which is more performant during CRUD operations.
+
+If you want implement custom sorting, you can override setEntitiesState method:
+
+```ts
+@StateRepository()
+@State({
+    name: 'helloWorld',
+    defaults: createEntityCollections()
+})
+@Injectable()
+class HelloWorldEntitiesState {
+    // override default setEntitiesState
+    protected setEntitiesState(state: NgxsEntityCollections<V, K>): void {
+        const ids: K[] = this.customSorting(state.ids, state.entities);
+        this.ctx.setState({ ids, entities: state.entities });
+    }
+
+    private customSorting(originIds: K[], entities: EntityDictionary<K, V>): K[] {
+        // ..., where we use options from `this.comparator`
+    }
+}
+```
+
 #### Primary key
 
 By default, the selection is on the `ID` primary key, you can override this behavior:

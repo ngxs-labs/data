@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
-import { NgxsDataMutablePipe } from '../../../../lib/utils/src/pipes/mutable/ngxs-data-mutable.pipe';
+import { NgxsDataMutablePipe } from '../../../../lib/utils/src/mutable/ngxs-data-mutable.pipe';
 import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';

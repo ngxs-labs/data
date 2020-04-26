@@ -3,7 +3,7 @@ import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositorie
 import { Action, State } from '@ngxs/store';
 import { createEntityCollections } from '@ngxs-labs/data/utils';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { EntityDictionary, EntityIdType, EntityStateValue, NgxsEntityCollections } from '@ngxs-labs/data/typings';
+import { EntityDictionary, EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
 
 describe('[TEST]: Entity - primary key or unique id', () => {
     interface Lesson {
@@ -18,8 +18,8 @@ describe('[TEST]: Entity - primary key or unique id', () => {
             defaults: createEntityCollections()
         })
         class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
-            public set(val: EntityStateValue<NgxsEntityCollections<Lesson, string | number>>): void {
-                this.setState(val);
+            public set(val: NgxsEntityCollections<Lesson, string | number>): void {
+                this.setEntitiesState(val);
             }
 
             @Action({
@@ -55,7 +55,7 @@ describe('[TEST]: Entity - primary key or unique id', () => {
                     entities: { undefined: { lessonId: 1, title: 'A' } }
                 });
 
-                lesson.set(() => createEntityCollections());
+                lesson.set(createEntityCollections());
                 expect(lesson.getState()).toEqual({ ids: [], entities: {} });
 
                 lesson.dispatch({ type: 'preparedLesson' });

@@ -1,4 +1,4 @@
-import { EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
+import { EntityDictionary, EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
 
 export function createEntityCollections<V, K extends string | number = EntityIdType>(
     collections?: NgxsEntityCollections<V, K>
@@ -6,7 +6,7 @@ export function createEntityCollections<V, K extends string | number = EntityIdT
     return (
         collections ?? {
             ids: [],
-            entities: {}
+            entities: {} as EntityDictionary<K, V>
         }
     );
 }
