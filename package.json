@@ -36,7 +36,7 @@
         "@ngxs/logger-plugin": "3.6.2",
         "@ngxs/store": "3.6.2",
         "@types/jest": "25.2.1",
-        "@types/node": "13.13.3",
+        "@types/node": "13.13.4",
         "angular-cli-ghpages": "0.6.2",
         "core-js": "3.6.5",
         "coveralls": "3.1.0",
