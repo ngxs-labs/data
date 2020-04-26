@@ -27,5 +27,6 @@ export enum NGXS_DATA_EXCEPTIONS {
     NGXS_DATA_CHILDREN_CONVERT = 'Child states can only be added to an object',
     NGXS_INVALID_PAYLOAD_NAME = 'Payload name should be initialized',
     NGXS_INVALID_ARG_NAME = 'Argument name should be initialized',
-    NGXS_COMPUTED_DECORATOR = 'The method must be a getter for the computed decorator to work properly.'
+    NGXS_COMPUTED_DECORATOR = 'The method must be a getter for the computed decorator to work properly.',
+    NGXS_COMPARE = 'You must set the compare function before sorting.'
 }

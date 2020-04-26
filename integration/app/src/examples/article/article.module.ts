@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
@@ -25,7 +26,8 @@ import { ArticleDialogComponent } from './dialog/article-dialog.component';
         MatInputModule,
         MatIconModule,
         NgxsModule.forFeature([ArticleEntitiesState]),
-        RouterModule.forChild([{ path: '', component: ArticleComponent }])
+        RouterModule.forChild([{ path: '', component: ArticleComponent }]),
+        MatSortModule
     ]
 })
 export class ArticleModule {}

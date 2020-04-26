@@ -1,18 +1,23 @@
 import { isDevMode } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot, isNullOrUndefined } from '@ngxs-labs/data/internals';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     Any,
+    EmptyDictionary,
+    EntityComparator,
     EntityContext,
     EntityDictionary,
     EntityIdType,
     EntityRepository,
-    EntityStateValue,
+    EntitySortBy,
+    EntitySortByOrder,
     EntityUpdate,
     KeysDictionary,
     NgxsEntityCollections,
     PRIMARY_KEY
 } from '@ngxs-labs/data/typings';
+import { entitySortByAsc, entitySortByDesc } from '@ngxs-labs/data/utils';
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,6 +28,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     extends AbstractRepository<NgxsEntityCollections<V, K>>
     implements EntityRepository<V, K> {
     public primaryKey: string = PRIMARY_KEY.ID;
+    public comparator: EntityComparator<V> | null = null;
     private readonly context: EntityContext<V, K>;
 
     @Computed()
@@ -57,6 +63,11 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         );
     }
 
+    public setComparator(comparator: EntityComparator<V> | null): this {
+        this.comparator = comparator;
+        return this;
+    }
+
     public dispatch(actions: ActionType | ActionType[]): Observable<void> {
         return this.ctx.dispatch(actions);
     }
@@ -74,12 +85,13 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     public selectAll(): V[] {
-        return Object.values(this.snapshot.entities);
+        const state: NgxsEntityCollections<V, K> = this.getState();
+        return state.ids.map((id: K): V => state.entities[id]);
     }
 
     @DataAction()
     public reset(): void {
-        this.ctx.setState(this.initialState);
+        this.setEntitiesState(this.initialState);
         this.markAsDirtyAfterReset();
     }
 
@@ -157,7 +169,19 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     @DataAction()
     public removeAll(): void {
-        this.ctx.setState(this.initialState);
+        this.setEntitiesState(this.initialState);
+    }
+
+    @DataAction()
+    public sort(@Payload('comparator') comparator?: EntityComparator<V>): void {
+        this.comparator = comparator ?? this.comparator;
+
+        if (isNullOrUndefined(this.comparator)) {
+            console.warn(NGXS_DATA_EXCEPTIONS.NGXS_COMPARE);
+            return;
+        }
+
+        this.setEntitiesState(this.getState());
     }
 
     protected addEntityOne(entity: V): void {
@@ -168,7 +192,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             return;
         }
 
-        this.ctx.setState({
+        this.setEntitiesState({
             ids: [...state.ids, id],
             entities: { ...state.entities, [id]: entity }
         });
@@ -176,7 +200,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     protected addEntitiesMany(entities: V[]): void {
         const state: NgxsEntityCollections<V, K> = this.getState();
-        const dictionary: EntityDictionary<K, V> = {};
+        const dictionary: EntityDictionary<K, V> | EmptyDictionary<K, V> = {};
         const ids: K[] = [];
 
         for (const entity of entities) {
@@ -191,7 +215,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         }
 
         if (ids.length) {
-            this.ctx.setState({
+            this.setEntitiesState({
                 ids: [...state.ids, ...ids],
                 entities: { ...state.entities, ...dictionary }
             });
@@ -199,7 +223,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     protected setEntitiesAll(entities: V[]): void {
-        const dictionary: EntityDictionary<K, V> = {};
+        const dictionary: EntityDictionary<K, V> | EmptyDictionary<K, V> = {};
         const ids: K[] = [];
 
         for (const entity of entities) {
@@ -213,7 +237,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             dictionary[id] = entity;
         }
 
-        this.ctx.setState({ ids, entities: dictionary });
+        this.setEntitiesState({ ids, entities: dictionary as EntityDictionary<K, V> });
     }
 
     protected setEntityOne(entity: V): void {
@@ -221,9 +245,9 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         const id: K = this.selectIdValue(entity);
 
         if (id in state.entities) {
-            this.ctx.setState({ ...state, entities: { ...state.entities, [id]: entity } });
+            this.setEntitiesState({ ...state, entities: { ...state.entities, [id]: entity } });
         } else {
-            this.ctx.setState({ ids: [...state.ids, id], entities: { ...state.entities, [id]: entity } });
+            this.setEntitiesState({ ids: [...state.ids, id], entities: { ...state.entities, [id]: entity } });
         }
     }
 
@@ -256,7 +280,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             entities[newId] = updated;
         }
 
-        this.ctx.setState({ ids: state.ids.map((id: K): K => keys[id] ?? id), entities });
+        this.setEntitiesState({ ids: state.ids.map((id: K): K => keys[id] ?? id), entities });
     }
 
     protected upsertEntitiesMany(entities: V[]): void {
@@ -289,11 +313,42 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             }
         }
 
-        this.ctx.setState({ ids: state.ids.filter((id: K): boolean => id in keys), entities });
+        this.setEntitiesState({ ids: state.ids.filter((id: K): boolean => id in keys), entities });
     }
 
-    protected setState(val: EntityStateValue<NgxsEntityCollections<V, K>>): void {
-        this.ctx.setState(val);
+    protected setEntitiesState(state: NgxsEntityCollections<V, K>): void {
+        const ids: K[] = this.sortKeysByComparator(state.ids, state.entities);
+        this.ctx.setState({ ids, entities: state.entities });
+    }
+
+    protected sortKeysByComparator(originalIds: K[], entities: EntityDictionary<K, V>): K[] {
+        if (isNullOrUndefined(this.comparator)) {
+            return originalIds;
+        }
+
+        const ids: K[] = originalIds.slice();
+        const comparator: EntityComparator<V> = this.comparator!;
+
+        if (typeof comparator === 'function') {
+            return ids.sort((a: K, b: K): number => comparator(entities[a], entities[b]));
+        }
+
+        return this.sortByComparatorOptions(ids, comparator, entities);
+    }
+
+    private sortByComparatorOptions(ids: K[], comparator: EntitySortBy, entities: EntityDictionary<K, V>): K[] {
+        switch (comparator?.sortByOrder) {
+            case EntitySortByOrder.ASC:
+                return ids.sort((a: K, b: K): number => entitySortByAsc(comparator?.sortBy, entities[a], entities[b]));
+            case EntitySortByOrder.DESC:
+                return ids.sort((a: K, b: K): number => entitySortByDesc(comparator?.sortBy, entities[a], entities[b]));
+            default:
+                if (isDevMode()) {
+                    console.warn(`Invalid --> { sortByOrder: "${comparator?.sortByOrder}" } not supported!`);
+                }
+
+                return ids;
+        }
     }
 
     private generateKeyMap(state: NgxsEntityCollections<V, K>): KeysDictionary<K> {

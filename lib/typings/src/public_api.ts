@@ -45,6 +45,7 @@ export { NgxsDataAfterReset, NgxsDataDoCheck } from './types/ngxs-data-lifecycle
 export {
     EntityIdType,
     EntityDictionary,
+    EmptyDictionary,
     EntityPatchValue,
     EntityStateValue,
     KeysDictionary
@@ -54,3 +55,4 @@ export { EntityRepository } from './entity/entity-repository';
 export { EntityContext } from './entity/entity-context';
 export { PRIMARY_KEY } from './entity/primary-key';
 export { EntityUpdate } from './entity/entity-update';
+export { EntitySortByOrder, EntityComparator, EntityCompareFn, EntitySortBy } from './entity/entity-sort-by';

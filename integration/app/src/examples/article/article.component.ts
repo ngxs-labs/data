@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Sort } from '@angular/material/sort/typings/sort';
+import { uuidv4 } from '@ngxs-labs/data/utils';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { uuidv4 } from '../../utils/uuidv4';
 import { ArticleEntitiesState } from './article-entities.state';
 import { Article } from './article.interface';
 import { ArticleDialogComponent } from './dialog/article-dialog.component';
@@ -23,13 +24,18 @@ export class ArticleComponent {
     }
 
     public editById(id: string): void {
-        this.ensureDialog(this.articleEntities.selectOne(id)!).subscribe((article: Article): void =>
+        const entity: Article = this.articleEntities.selectOne(id)!;
+        this.ensureDialog(entity).subscribe((article: Article): void =>
             this.articleEntities.updateOne({ id, changes: article })
         );
     }
 
     public deleteById(id: string): void {
         this.articleEntities.removeOne(id);
+    }
+
+    public sortData(event: Sort): void {
+        this.articleEntities.sort({ sortBy: event.active, sortByOrder: event.direction });
     }
 
     private ensureDialog(entity: Article): Observable<Article> {

@@ -1,6 +1,10 @@
 export type EntityIdType = string | number;
 
 export type EntityDictionary<K extends string | number, V> = {
+    [key in K]: V;
+};
+
+export type EmptyDictionary<K extends string | number, V> = {
     [key in K]?: V;
 };
 
