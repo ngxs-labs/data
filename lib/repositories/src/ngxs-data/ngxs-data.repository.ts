@@ -10,7 +10,7 @@ import { AbstractRepository } from '../common/abstract-repository';
 @Injectable()
 export abstract class NgxsDataRepository<T> extends AbstractRepository<T>
     implements DataStateContext<T>, DataRepository<T> {
-    private readonly context: DataStateContext<T>;
+    private readonly context!: DataStateContext<T>;
 
     @Computed()
     public get snapshot(): T {
@@ -18,7 +18,7 @@ export abstract class NgxsDataRepository<T> extends AbstractRepository<T>
     }
 
     protected get ctx(): DataStateContext<T> {
-        return ensureDataStateContext<T, StateContext<T>>(this, this.context as StateContext<T>);
+        return ensureDataStateContext<T, StateContext<T>>(this.context as StateContext<T>);
     }
 
     public getState(): T {

@@ -190,7 +190,7 @@ describe('[TEST]: Argument decorators', () => {
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
                     @DataAction()
-                    public setYZ(@Named('y') y?: string, @Named('y') z?: string): void {
+                    public setYZ(@Named('y') y?: string, @Named('y') _z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }
@@ -212,7 +212,7 @@ describe('[TEST]: Argument decorators', () => {
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
                     @DataAction()
-                    public setYZ(@Payload('y') y?: string, @Payload('y') z?: string): void {
+                    public setYZ(@Payload('y') y?: string, @Payload('y') _z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }
@@ -234,7 +234,7 @@ describe('[TEST]: Argument decorators', () => {
                 @Injectable()
                 class G extends NgxsImmutableDataRepository<string> {
                     @DataAction()
-                    public setYZ(@Payload('y') y?: string, @Named('y') z?: string): void {
+                    public setYZ(@Payload('y') y?: string, @Named('y') _z?: string): void {
                         this.ctx.setState(`${y}`);
                     }
                 }

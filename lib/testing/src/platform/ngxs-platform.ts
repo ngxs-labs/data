@@ -110,7 +110,7 @@ export function ngxsTestingPlatform(
 }
 
 // eslint-disable-next-line complexity,max-lines-per-function
-function ensure<T>(
+function ensure(
     options: (TestModuleMetadata & { states?: StateClass[] }) | StateClass[]
 ): TestModuleMetadata & { states?: StateClass[] } {
     let states: StateClass[] = [];

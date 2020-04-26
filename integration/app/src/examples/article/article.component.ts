@@ -35,7 +35,7 @@ export class ArticleComponent {
     }
 
     public sortData(event: Sort): void {
-        this.articleEntities.sort({ sortBy: event.active, sortByOrder: event.direction });
+        this.articleEntities.sort({ sortBy: event.active as keyof Article, sortByOrder: event.direction });
     }
 
     private ensureDialog(entity: Article): Observable<Article> {

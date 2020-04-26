@@ -17,7 +17,7 @@ import { AbstractRepository } from '../common/abstract-repository';
 @Injectable()
 export abstract class NgxsImmutableDataRepository<T> extends AbstractRepository<Immutable<T>>
     implements ImmutableStateContext<T>, ImmutableDataRepository<T> {
-    private readonly context: ImmutableStateContext<T>;
+    private readonly context!: ImmutableStateContext<T>;
 
     @Computed()
     public get snapshot(): Immutable<T> {
@@ -25,7 +25,7 @@ export abstract class NgxsImmutableDataRepository<T> extends AbstractRepository<
     }
 
     protected get ctx(): ImmutableStateContext<T> {
-        return ensureDataStateContext<T, Any>(this, this.context);
+        return ensureDataStateContext<T, Any>(this.context);
     }
 
     public getState(): Immutable<T> {

@@ -5,7 +5,7 @@ import { MappedStore } from '@ngxs/store/src/internal/internals';
 import { NgxsDataFactory } from '../../services/ngxs-data-factory.service';
 import { getRepository } from '../repository/get-repository';
 
-export function createContext<T>(stateClass: DataStateClass): PropertyDescriptor {
+export function createContext(stateClass: DataStateClass): PropertyDescriptor {
     return {
         enumerable: true,
         configurable: true,

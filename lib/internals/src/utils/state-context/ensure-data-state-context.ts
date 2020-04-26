@@ -5,7 +5,7 @@ import { StateContext } from '@ngxs/store';
 
 import { ngxsDeepFreeze } from '../common/freeze';
 
-export function ensureDataStateContext<U, T extends StateContext<U>>(target: Any, context: T | null): T {
+export function ensureDataStateContext<U, T extends StateContext<U>>(context: T | null): T {
     if (!context) {
         throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
     }

@@ -1,9 +1,7 @@
-import { Any } from '@ngxs-labs/data/typings';
-
-export function entitySortByAsc<V>(key: string, a: Any, b: Any): number {
-    if (a?.[key] > b?.[key]) {
+export function entitySortByAsc<V>(key: keyof V, a: V, b: V): number {
+    if (a?.[key]! > b?.[key]!) {
         return 1;
     } else {
-        return a?.[key] < b?.[key] ? -1 : 0;
+        return a?.[key]! < b?.[key]! ? -1 : 0;
     }
 }

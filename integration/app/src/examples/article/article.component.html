@@ -8,21 +8,21 @@
     matSort
     matSortDisableClear
     (matSortChange)="sortData($event)"
-    [dataSource]="(articleEntities.state$ | async).ids"
+    [dataSource]="(articleEntities.state$ | async)?.ids"
 >
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>UID</th>
-        <td mat-cell *matCellDef="let id">{{ articleEntities.entities[id]?.uid }}</td>
+        <td mat-cell *matCellDef="let id">{{ articleEntities.entities![id]?.uid }}</td>
     </ng-container>
 
     <ng-container matColumnDef="title">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Title</th>
-        <td mat-cell *matCellDef="let id">{{ articleEntities.entities[id]?.title }}</td>
+        <td mat-cell *matCellDef="let id">{{ articleEntities.entities![id]?.title }}</td>
     </ng-container>
 
     <ng-container matColumnDef="category">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let id">{{ articleEntities.entities[id]?.category }}</td>
+        <td mat-cell *matCellDef="let id">{{ articleEntities.entities![id]?.category }}</td>
     </ng-container>
 
     <ng-container matColumnDef="edit">

@@ -701,17 +701,17 @@ describe('[TEST]: Storage plugin', () => {
             );
 
             class MyStorage implements DataStorage {
-                public readonly length: number;
+                public readonly length!: number;
 
-                public key(index: number): string | null {
+                public key(_index: number): string | null {
                     return null!;
                 }
 
-                public getItem(key: string): string {
+                public getItem(_key: string): string {
                     return '';
                 }
 
-                public setItem(key: string, val: Any): void {
+                public setItem(_key: string, _val: Any): void {
                     // void
                 }
 
@@ -719,7 +719,7 @@ describe('[TEST]: Storage plugin', () => {
                     // void
                 }
 
-                public removeItem(key: string): void {
+                public removeItem(_key: string): void {
                     // void
                 }
             }
@@ -901,7 +901,7 @@ describe('[TEST]: Storage plugin', () => {
                     return localStorage.length;
                 }
 
-                public key(index: number): string | null {
+                public key(_index: number): string | null {
                     return null!;
                 }
 
@@ -913,7 +913,7 @@ describe('[TEST]: Storage plugin', () => {
                     });
                 }
 
-                public setItem(key: string, val: string): void {
+                public setItem(_key: string, val: string): void {
                     if (JSON.parse(val).data === 'HELLO_WORLD') {
                         throw new Error('Custom error');
                     }
@@ -923,7 +923,7 @@ describe('[TEST]: Storage plugin', () => {
                     // void
                 }
 
-                public removeItem(key: string): void {
+                public removeItem(_key: string): void {
                     // void
                 }
             }
