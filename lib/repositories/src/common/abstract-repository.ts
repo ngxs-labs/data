@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export abstract class AbstractRepository<T> implements NgxsOnChanges, NgxsOnInit, NgxsAfterBootstrap {
-    public readonly name: string;
-    public readonly initialState: T;
-    public readonly state$: Observable<T>;
+    public readonly name!: string;
+    public readonly initialState!: T;
+    public readonly state$!: Observable<T>;
     public isInitialised: boolean = false;
     public isBootstrapped: boolean = false;
 

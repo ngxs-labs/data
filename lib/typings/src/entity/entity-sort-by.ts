@@ -5,11 +5,11 @@ export const enum EntitySortByOrder {
 
 type SortDirection = EntitySortByOrder | 'asc' | 'desc' | '';
 
-export interface EntitySortBy {
-    sortBy: string;
+export interface EntitySortBy<V> {
+    sortBy: keyof V;
     sortByOrder: SortDirection;
 }
 
 export type EntityCompareFn<V> = (a: V, b: V) => number;
 
-export type EntityComparator<V> = EntitySortBy | EntityCompareFn<V>;
+export type EntityComparator<V> = EntitySortBy<V> | EntityCompareFn<V>;

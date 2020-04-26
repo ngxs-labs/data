@@ -9,7 +9,7 @@ import { ngxsDeepFreeze } from '../common/freeze';
 import { getRepository } from '../repository/get-repository';
 
 // eslint-disable-next-line max-lines-per-function
-export function createStateSelector<T>(stateClass: DataStateClass): void {
+export function createStateSelector(stateClass: DataStateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);
     const name: string | undefined | null = (repository.stateMeta && repository.stateMeta.name) || null;
 

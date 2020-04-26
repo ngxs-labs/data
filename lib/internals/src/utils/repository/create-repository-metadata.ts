@@ -6,7 +6,7 @@ import { ensureRepository } from './ensure-repository';
 /**
  * @description need mutate metadata for correct reference
  */
-export function createRepositoryMetadata<T>(target: DataStateClass, stateMeta: MetaDataModel): void {
+export function createRepositoryMetadata(target: DataStateClass, stateMeta: MetaDataModel): void {
     const repositoryMeta: NgxsRepositoryMeta = ensureRepository(target);
     repositoryMeta.stateMeta = stateMeta;
 }

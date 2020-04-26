@@ -7,7 +7,7 @@ const DEFAULT_TIMEOUT: number = 300;
 
 export function Debounce(timeout: number = DEFAULT_TIMEOUT): MethodDecorator {
     let timeoutRef: number | null = null;
-    return <T>(target: T, name: string | symbol, descriptor: Descriptor): Descriptor => {
+    return <T>(_target: T, _name: string | symbol, descriptor: Descriptor): Descriptor => {
         const originalMethod: Any = descriptor.value;
 
         descriptor.value = function (...args: Any[]): Any {

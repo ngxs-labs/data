@@ -29,7 +29,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     implements EntityRepository<V, K> {
     public primaryKey: string = PRIMARY_KEY.ID;
     public comparator: EntityComparator<V> | null = null;
-    private readonly context: EntityContext<V, K>;
+    private readonly context!: EntityContext<V, K>;
 
     @Computed()
     public get snapshot(): NgxsEntityCollections<V, K> {
@@ -58,7 +58,6 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     private get ctx(): EntityContext<V, K> {
         return ensureDataStateContext<NgxsEntityCollections<V, K>, StateContext<NgxsEntityCollections<V, K>>>(
-            this,
             this.context as StateContext<NgxsEntityCollections<V, K>>
         );
     }
@@ -86,7 +85,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     public selectAll(): V[] {
         const state: NgxsEntityCollections<V, K> = this.getState();
-        return state.ids.map((id: K): V => state.entities[id]);
+        return state.ids.map((id: K): V => state.entities[id] as V);
     }
 
     @DataAction()
@@ -330,18 +329,22 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         const comparator: EntityComparator<V> = this.comparator!;
 
         if (typeof comparator === 'function') {
-            return ids.sort((a: K, b: K): number => comparator(entities[a], entities[b]));
+            return ids.sort((a: K, b: K): number => comparator(entities[a] as V, entities[b] as V));
         }
 
         return this.sortByComparatorOptions(ids, comparator, entities);
     }
 
-    private sortByComparatorOptions(ids: K[], comparator: EntitySortBy, entities: EntityDictionary<K, V>): K[] {
+    private sortByComparatorOptions(ids: K[], comparator: EntitySortBy<V>, entities: EntityDictionary<K, V>): K[] {
         switch (comparator?.sortByOrder) {
             case EntitySortByOrder.ASC:
-                return ids.sort((a: K, b: K): number => entitySortByAsc(comparator?.sortBy, entities[a], entities[b]));
+                return ids.sort((a: K, b: K): number =>
+                    entitySortByAsc(comparator?.sortBy, entities[a] as V, entities[b] as V)
+                );
             case EntitySortByOrder.DESC:
-                return ids.sort((a: K, b: K): number => entitySortByDesc(comparator?.sortBy, entities[a], entities[b]));
+                return ids.sort((a: K, b: K): number =>
+                    entitySortByDesc(comparator?.sortBy, entities[a] as V, entities[b] as V)
+                );
             default:
                 if (isDevMode()) {
                     console.warn(`Invalid --> { sortByOrder: "${comparator?.sortByOrder}" } not supported!`);
