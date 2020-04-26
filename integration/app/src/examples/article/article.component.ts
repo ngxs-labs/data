@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort/typings/sort';
-import { uuidv4 } from '@ngxs-labs/data/utils';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { generateUid } from '../../utils/generate-uid';
 import { ArticleEntitiesState } from './article-entities.state';
 import { Article } from './article.interface';
 import { ArticleDialogComponent } from './dialog/article-dialog.component';
@@ -18,7 +18,7 @@ export class ArticleComponent {
     constructor(public dialog: MatDialog, public articleEntities: ArticleEntitiesState) {}
 
     public createArticle(): void {
-        this.ensureDialog({ uid: uuidv4(), title: '', category: '' }).subscribe((article: Article): void =>
+        this.ensureDialog({ uid: generateUid(), title: '', category: '' }).subscribe((article: Article): void =>
             this.articleEntities.addOne(article)
         );
     }
