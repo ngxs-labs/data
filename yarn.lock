@@ -1036,6 +1036,34 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@definitelytyped/header-parser@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.npmjs.org/@definitelytyped/header-parser/-/header-parser-0.0.29.tgz#81e72279f16ffb7d2c5b2ae7a19982b40544b52d"
+  integrity sha512-d6FgX8LhSY75fa6cpjsTkLsbFuRKxT4k9EV2oc38wznndlkaWLjP9FW1GT24AMg5hkRuA9AJUbKRO1QhSqvSpA==
+  dependencies:
+    "@definitelytyped/typescript-versions" "^0.0.29"
+    "@types/parsimmon" "^1.10.1"
+    parsimmon "^1.13.0"
+
+"@definitelytyped/typescript-versions@0.0.29", "@definitelytyped/typescript-versions@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.npmjs.org/@definitelytyped/typescript-versions/-/typescript-versions-0.0.29.tgz#1f1a3bb35e2a8d31ce83763481f6e5530f0f92a0"
+  integrity sha512-jMWqu0U5MiEVuTBtAbLwxKoF1ZWzbrcFrmX6nuzPzwxNHzUJlACq9RnIH93//bU7JOxkW6UrZy/8V8W5jxmiFA==
+
+"@definitelytyped/utils@0.0.29":
+  version "0.0.29"
+  resolved "https://registry.npmjs.org/@definitelytyped/utils/-/utils-0.0.29.tgz#dfa642cbec49e6f44789083ff24c182e0da0fb0b"
+  integrity sha512-cqUjvXijj9PgEbVH+DwS5kLHjB700CmeQhFjfRlxn9CeRzSUoa5D0uOdz9b5Hl4XKDQfo1A1lY04nc6z486Nqw==
+  dependencies:
+    "@definitelytyped/typescript-versions" "^0.0.29"
+    "@types/node" "^12.12.29"
+    charm "^1.0.2"
+    fs-extra "^8.1.0"
+    fstream "^1.0.12"
+    npm-registry-client "^8.6.0"
+    tar "^2.2.2"
+    tar-stream "1.6.2"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
@@ -1474,12 +1502,17 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-13.13.4.tgz#1581d6c16e3d4803eb079c87d4ac893ee7501c2c"
   integrity sha512-x26ur3dSXgv5AwKS0lNfbjpCakGIduWU1DU91Zz58ONRWrIKGunmZBNv4P7N+e27sJkiGDsw/3fT4AtsqQBrBA==
 
+"@types/node@^12.12.29":
+  version "12.12.37"
+  resolved "https://registry.npmjs.org/@types/node/-/node-12.12.37.tgz#cb4782d847f801fa58316da5b4801ca3a59ae790"
+  integrity sha512-4mXKoDptrXAwZErQHrLzpe0FN/0Wmf5JRniSVIdwUrtDf9wnmEV1teCNLBo/TwuXhkK/bVegoEn/wmb+x0AuPg==
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
-"@types/parsimmon@^1.3.0":
+"@types/parsimmon@^1.10.1", "@types/parsimmon@^1.3.0":
   version "1.10.1"
   resolved "https://registry.npmjs.org/@types/parsimmon/-/parsimmon-1.10.1.tgz#d46015ad91128fce06a1a688ab39a2516507f740"
   integrity sha512-MoF2IC9oGSgArJwlxdst4XsvWuoYfNUWtBw0kpnCi6K05kV+Ecl7siEeJ40tgCbI9uqEMGQL/NlPMRv6KVkY5Q==
@@ -2894,6 +2927,13 @@ chardet@^0.7.0:
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
+charm@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/charm/-/charm-1.0.2.tgz#8add367153a6d9a581331052c4090991da995e35"
+  integrity sha1-it02cVOm2aWBMxBSxAkJkdqZXjU=
+  dependencies:
+    inherits "^2.0.1"
+
 "chokidar@>=2.0.0 <4.0.0", chokidar@^3.2.1:
   version "3.4.0"
   resolved "https://registry.npmjs.org/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
@@ -3710,7 +3750,7 @@ define-property@^2.0.2:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
 
-definitelytyped-header-parser@3.9.0, definitelytyped-header-parser@^3.8.2:
+definitelytyped-header-parser@^3.8.2:
   version "3.9.0"
   resolved "https://registry.npmjs.org/definitelytyped-header-parser/-/definitelytyped-header-parser-3.9.0.tgz#f992abb8e62f697ca25e1adbfd5f69ef11621644"
   integrity sha512-slbwZ5h5lasB12t+9EAGYr060aCMqEXp6cwD7CoTriK40HNDYU56/XQ6S4sbjBK8ReGRMnB/uDx0elKkb4kuQA==
@@ -3916,12 +3956,14 @@ dts-critic@^3.0.2:
     typescript "^3.7.5"
     yargs "^12.0.5"
 
-dtslint@3.4.2:
-  version "3.4.2"
-  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.4.2.tgz#b9f4e4711da4df4ba4f43a64012965901a24cd7f"
-  integrity sha512-qvZN5jI849zG8cjirBzyetK2ZGRa3rO8ExhcirqDlkas251Wt8TlZFKvW8wDGQ++fHLA8omINNxWvPBCb8AXhA==
+dtslint@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.5.0.tgz#c8dc2d9d309228f5654ff57d0cbf7874cc721bf4"
+  integrity sha512-ajY1/5ZCl7xd03TTSe2qdLCj/+lia2ZSk9r8bxNrQhZDx11fQH/YTCV2Elb5tmFCONBrqMmkYzuuraVc9RODew==
   dependencies:
-    definitelytyped-header-parser "3.9.0"
+    "@definitelytyped/header-parser" "0.0.29"
+    "@definitelytyped/typescript-versions" "0.0.29"
+    "@definitelytyped/utils" "0.0.29"
     dts-critic "^3.0.2"
     fs-extra "^6.0.1"
     json-stable-stringify "^1.0.1"
@@ -7759,7 +7801,7 @@ npm-package-arg@6.1.0:
     semver "^5.1.0"
     validate-npm-package-name "^3.0.0"
 
-"npm-package-arg@^4.0.0 || ^5.0.0 || ^6.0.0", npm-package-arg@^6.0.0, npm-package-arg@^6.1.0:
+"npm-package-arg@^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0", "npm-package-arg@^4.0.0 || ^5.0.0 || ^6.0.0", npm-package-arg@^6.0.0, npm-package-arg@^6.1.0:
   version "6.1.1"
   resolved "https://registry.npmjs.org/npm-package-arg/-/npm-package-arg-6.1.1.tgz#02168cb0a49a2b75bf988a28698de7b529df5cb7"
   integrity sha512-qBpssaL3IOZWi5vEKUKW0cO7kzLeT+EQO9W8RsLOZf76KF9E/K9+wH0C7t06HXPpaH8WH5xF1MExLuCwbTqRUg==
@@ -7803,6 +7845,25 @@ npm-pick-manifest@^2.2.3:
     figgy-pudding "^3.5.1"
     npm-package-arg "^6.0.0"
     semver "^5.4.1"
+
+npm-registry-client@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.npmjs.org/npm-registry-client/-/npm-registry-client-8.6.0.tgz#7f1529f91450732e89f8518e0f21459deea3e4c4"
+  integrity sha512-Qs6P6nnopig+Y8gbzpeN/dkt+n7IyVd8f45NTMotGk6Qo7GfBmzwYx6jRLoOOgKiMnaQfYxsuyQlD8Mc3guBhg==
+  dependencies:
+    concat-stream "^1.5.2"
+    graceful-fs "^4.1.6"
+    normalize-package-data "~1.0.1 || ^2.0.0"
+    npm-package-arg "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0"
+    once "^1.3.3"
+    request "^2.74.0"
+    retry "^0.10.0"
+    safe-buffer "^5.1.1"
+    semver "2 >=2.2.1 || 3.x || 4 || 5"
+    slide "^1.1.3"
+    ssri "^5.2.4"
+  optionalDependencies:
+    npmlog "2 || ^3.1.0 || ^4.0.0"
 
 npm-registry-client@~8.4.0:
   version "8.4.0"
@@ -8410,7 +8471,7 @@ parseurl@~1.3.2, parseurl@~1.3.3:
   resolved "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
 
-parsimmon@^1.2.0:
+parsimmon@^1.13.0, parsimmon@^1.2.0:
   version "1.13.0"
   resolved "https://registry.npmjs.org/parsimmon/-/parsimmon-1.13.0.tgz#6e4ef3dbd45ed6ea6808be600ac4b9c8a44228cf"
   integrity sha512-5UIrOCW+gjbILkjKPgTgmq8LKf8TT3Iy7kN2VD7OtQ81facKn8B4gG1X94jWqXYZsxG2KbJhrv/Yq/5H6BQn7A==
@@ -10546,7 +10607,7 @@ tar-fs@^1.15.3:
     pump "^1.0.0"
     tar-stream "^1.1.2"
 
-tar-stream@^1.1.2, tar-stream@^1.5.4:
+tar-stream@1.6.2, tar-stream@^1.1.2, tar-stream@^1.5.4:
   version "1.6.2"
   resolved "https://registry.npmjs.org/tar-stream/-/tar-stream-1.6.2.tgz#8ea55dab37972253d9a9af90fdcd559ae435c555"
   integrity sha512-rzS0heiNf8Xn7/mpdSVVSMAWAoy9bfb1WOTYC78Z0UQKeKa/CWS8FOq0lKGNa8DWKAn9gxjCvMLYc5PGXYlK2A==
@@ -10559,7 +10620,7 @@ tar-stream@^1.1.2, tar-stream@^1.5.4:
     to-buffer "^1.1.1"
     xtend "^4.0.0"
 
-tar@^2.0.0, tar@~2.2.1:
+tar@^2.0.0, tar@^2.2.2, tar@~2.2.1:
   version "2.2.2"
   resolved "https://registry.npmjs.org/tar/-/tar-2.2.2.tgz#0ca8848562c7299b8b446ff6a4d60cdbb23edc40"
   integrity sha512-FCEhQ/4rE1zYv9rYXJw/msRqsnmlje5jHP6huWeBZ704jUTy02c5AZyWujpMR1ax6mVw9NyJMfuK2CMDWVIfgA==
