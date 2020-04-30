@@ -1,30 +1,30 @@
 import {
-  $args,
-  actionNameCreator,
-  combineStream,
-  getMethodArgsRegistry,
-  MethodArgsRegistry,
-  NgxsDataFactory,
-  NgxsDataInjector,
-  validateAction
+    $args,
+    actionNameCreator,
+    combineStream,
+    getMethodArgsRegistry,
+    MethodArgsRegistry,
+    NgxsDataFactory,
+    NgxsDataInjector,
+    validateAction
 } from '@ngxs-labs/data/internals';
 import {
-  ActionEvent,
-  Any,
-  DataStateClass,
-  Descriptor,
-  DispatchedResult,
-  ImmutableDataRepository,
-  NgxsDataOperation,
-  NgxsRepositoryMeta,
-  PlainObjectOf,
-  RepositoryActionOptions
+    ActionEvent,
+    Any,
+    DataStateClass,
+    Descriptor,
+    DispatchedResult,
+    ImmutableDataRepository,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
+    PlainObjectOf,
+    RepositoryActionOptions
 } from '@ngxs-labs/data/typings';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { isObservable, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { REPOSITORY_ACTION_OPTIONS } from './data-action.config';
 
+import { REPOSITORY_ACTION_OPTIONS } from './data-action.config';
 
 // eslint-disable-next-line max-lines-per-function
 export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
