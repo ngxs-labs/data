@@ -56,7 +56,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         return this.state$.pipe(map((value: NgxsEntityCollections<V, K, C>): EntityDictionary<K, V> => value.entities));
     }
 
-    private get ctx(): EntityContext<V, K, C> {
+    protected get ctx(): EntityContext<V, K, C> {
         return ensureDataStateContext<NgxsEntityCollections<V, K, C>, StateContext<NgxsEntityCollections<V, K, C>>>(
             this.context as StateContext<NgxsEntityCollections<V, K, C>>
         );
