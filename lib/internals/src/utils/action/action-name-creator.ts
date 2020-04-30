@@ -25,5 +25,5 @@ export function actionNameCreator(options: ActionNameCreatorOptions): string {
         }
     }
 
-    return `@${statePath.split('.').join('/')}.${methodName}(${argsList})`;
+    return `@${statePath.replace(/\./g, '/')}.${methodName}(${argsList})`;
 }
