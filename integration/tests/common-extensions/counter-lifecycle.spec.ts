@@ -1,11 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ApplicationRef, Component, Injectable, NgModule, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-    BrowserModule,
-    ɵBrowserDomAdapter as BrowserDomAdapter,
-    ɵDomAdapter as DomAdapter
-} from '@angular/platform-browser';
+import { BrowserModule, ɵBrowserDomAdapter as BrowserDomAdapter } from '@angular/platform-browser';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
@@ -95,14 +91,9 @@ describe('Complex lifecycle', () => {
 
             private static createRootNode(selector = 'app-root'): void {
                 const document = TestBed.get(DOCUMENT);
-                const adapter: DomAdapter = new BrowserDomAdapter();
-
-                const root = adapter.firstChild(adapter.content(adapter.createTemplate(`<${selector}></${selector}>`)));
-
-                const oldRoots = adapter.querySelectorAll(document, selector);
-                oldRoots.forEach((oldRoot) => adapter.remove(oldRoot));
-
-                adapter.appendChild(document.body, root);
+                const adapter = new BrowserDomAdapter();
+                const root = adapter.createElement(selector);
+                document.body.appendChild(root);
             }
         }
 
