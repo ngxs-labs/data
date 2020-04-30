@@ -1,30 +1,10 @@
-import {
-    $args,
-    actionNameCreator,
-    combineStream,
-    getMethodArgsRegistry,
-    MethodArgsRegistry,
-    NgxsDataFactory,
-    NgxsDataInjector,
-    validateAction
-} from '@ngxs-labs/data/internals';
-import {
-    ActionEvent,
-    Any,
-    DataStateClass,
-    Descriptor,
-    DispatchedResult,
-    ImmutableDataRepository,
-    NgxsDataOperation,
-    NgxsRepositoryMeta,
-    PlainObjectOf,
-    RepositoryActionOptions
-} from '@ngxs-labs/data/typings';
+import { $args, actionNameCreator, combineStream, getMethodArgsRegistry, MethodArgsRegistry, NgxsDataFactory, NgxsDataInjector, validateAction } from '@ngxs-labs/data/internals';
+import { ActionEvent, Any, DataStateClass, Descriptor, DispatchedResult, ImmutableDataRepository, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf, RepositoryActionOptions } from '@ngxs-labs/data/typings';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { isObservable, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { REPOSITORY_ACTION_OPTIONS } from './data-action.config';
+
 
 // eslint-disable-next-line max-lines-per-function
 export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
@@ -49,9 +29,8 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
             if (!operation) {
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
-                const stateName: string = stateMeta.name!;
                 const type: string = actionNameCreator({
-                    stateName,
+                    statePath: stateMeta.path!,
                     methodName: key,
                     argumentsNames,
                     argumentRegistry: registry
