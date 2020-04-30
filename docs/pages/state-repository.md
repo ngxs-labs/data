@@ -180,9 +180,9 @@ class AppComponent implements OnInit {
 
 ### Extending NgxsDataEntityCollectionsRepository
 
-If you need more than the default reducer for your entity collection (e.g. to enable loading states), then you can extend it like this:
+If you need more than the default reducer properties for your entity collection (e.g. to track loading state), then you can extend it like this:
 
-```
+```ts
 interface CourseOptions {
     loading: boolean;
 };
@@ -214,7 +214,7 @@ export class CoursesEntitiesState extends NgxsDataEntityCollectionsRepository<Co
 
 }
 ```
-```
+```ts
 @Component({
     selector: 'app'
     // ..
