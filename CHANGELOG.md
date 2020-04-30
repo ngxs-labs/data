@@ -1,5 +1,6 @@
 # To become 3.0.0
 
+-   Feature: make `NgxsDataEntityCollectionsRepository<V, K, C>` extensible
 -   Feature: support sort entities
 -   Feature: add `ngxsTestingPlatform` as tools for better testing
 -   Feature: add `ngxsDataDoCheck`, `ngxsDataAfterReset` lifecycle hooks
