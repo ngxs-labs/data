@@ -1,5 +1,25 @@
-import { $args, actionNameCreator, combineStream, getMethodArgsRegistry, MethodArgsRegistry, NgxsDataFactory, NgxsDataInjector, validateAction } from '@ngxs-labs/data/internals';
-import { ActionEvent, Any, DataStateClass, Descriptor, DispatchedResult, ImmutableDataRepository, NgxsDataOperation, NgxsRepositoryMeta, PlainObjectOf, RepositoryActionOptions } from '@ngxs-labs/data/typings';
+import {
+  $args,
+  actionNameCreator,
+  combineStream,
+  getMethodArgsRegistry,
+  MethodArgsRegistry,
+  NgxsDataFactory,
+  NgxsDataInjector,
+  validateAction
+} from '@ngxs-labs/data/internals';
+import {
+  ActionEvent,
+  Any,
+  DataStateClass,
+  Descriptor,
+  DispatchedResult,
+  ImmutableDataRepository,
+  NgxsDataOperation,
+  NgxsRepositoryMeta,
+  PlainObjectOf,
+  RepositoryActionOptions
+} from '@ngxs-labs/data/typings';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { isObservable, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
