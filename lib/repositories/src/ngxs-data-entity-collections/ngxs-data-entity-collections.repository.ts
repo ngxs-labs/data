@@ -24,15 +24,15 @@ import { map } from 'rxjs/operators';
 
 import { AbstractRepository } from '../common/abstract-repository';
 
-export class NgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType>
-    extends AbstractRepository<NgxsEntityCollections<V, K>>
-    implements EntityRepository<V, K> {
+export class NgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType, C = {}>
+    extends AbstractRepository<NgxsEntityCollections<V, K, C>>
+    implements EntityRepository<V, K, C> {
     public primaryKey: string = PRIMARY_KEY.ID;
     public comparator: EntityComparator<V> | null = null;
-    private readonly context!: EntityContext<V, K>;
+    private readonly context!: EntityContext<V, K, C>;
 
     @Computed()
-    public get snapshot(): NgxsEntityCollections<V, K> {
+    public get snapshot(): NgxsEntityCollections<V, K, C> {
         return ensureSnapshot(this.getState());
     }
 
@@ -48,17 +48,17 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
     @Computed()
     public get ids$(): Observable<K[]> {
-        return this.state$.pipe(map((value: NgxsEntityCollections<V, K>): K[] => value.ids));
+        return this.state$.pipe(map((value: NgxsEntityCollections<V, K, C>): K[] => value.ids));
     }
 
     @Computed()
     public get entities$(): Observable<EntityDictionary<K, V>> {
-        return this.state$.pipe(map((value: NgxsEntityCollections<V, K>): EntityDictionary<K, V> => value.entities));
+        return this.state$.pipe(map((value: NgxsEntityCollections<V, K, C>): EntityDictionary<K, V> => value.entities));
     }
 
-    private get ctx(): EntityContext<V, K> {
-        return ensureDataStateContext<NgxsEntityCollections<V, K>, StateContext<NgxsEntityCollections<V, K>>>(
-            this.context as StateContext<NgxsEntityCollections<V, K>>
+    private get ctx(): EntityContext<V, K, C> {
+        return ensureDataStateContext<NgxsEntityCollections<V, K, C>, StateContext<NgxsEntityCollections<V, K, C>>>(
+            this.context as StateContext<NgxsEntityCollections<V, K, C>>
         );
     }
 
@@ -71,7 +71,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         return this.ctx.dispatch(actions);
     }
 
-    public getState(): NgxsEntityCollections<V, K> {
+    public getState(): NgxsEntityCollections<V, K, C> {
         return this.ctx.getState();
     }
 
@@ -84,7 +84,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     public selectAll(): V[] {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         return state.ids.map((id: K): V => state.entities[id] as V);
     }
 
@@ -184,7 +184,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     protected addEntityOne(entity: V): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const id: K = this.selectIdValue(entity);
 
         if (id in state.entities) {
@@ -192,13 +192,14 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         }
 
         this.setEntitiesState({
+            ...state,
             ids: [...state.ids, id],
             entities: { ...state.entities, [id]: entity }
         });
     }
 
     protected addEntitiesMany(entities: V[]): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const dictionary: EntityDictionary<K, V> | EmptyDictionary<K, V> = {};
         const ids: K[] = [];
 
@@ -215,6 +216,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
 
         if (ids.length) {
             this.setEntitiesState({
+                ...state,
                 ids: [...state.ids, ...ids],
                 entities: { ...state.entities, ...dictionary }
             });
@@ -222,6 +224,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     protected setEntitiesAll(entities: V[]): void {
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const dictionary: EntityDictionary<K, V> | EmptyDictionary<K, V> = {};
         const ids: K[] = [];
 
@@ -236,17 +239,17 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             dictionary[id] = entity;
         }
 
-        this.setEntitiesState({ ids, entities: dictionary as EntityDictionary<K, V> });
+        this.setEntitiesState({ ...state, ids, entities: dictionary as EntityDictionary<K, V> });
     }
 
     protected setEntityOne(entity: V): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const id: K = this.selectIdValue(entity);
 
         if (id in state.entities) {
             this.setEntitiesState({ ...state, entities: { ...state.entities, [id]: entity } });
         } else {
-            this.setEntitiesState({ ids: [...state.ids, id], entities: { ...state.entities, [id]: entity } });
+            this.setEntitiesState({ ...state, ids: [...state.ids, id], entities: { ...state.entities, [id]: entity } });
         }
     }
 
@@ -257,7 +260,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     protected updateEntitiesMany(updates: EntityUpdate<V, K>[]): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         updates = updates.filter((update: EntityUpdate<V, K>): boolean => update.id in state.entities);
         if (updates.length === 0) {
             return;
@@ -279,11 +282,11 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             entities[newId] = updated;
         }
 
-        this.setEntitiesState({ ids: state.ids.map((id: K): K => keys[id] ?? id), entities });
+        this.setEntitiesState({ ...state, ids: state.ids.map((id: K): K => keys[id] ?? id), entities });
     }
 
     protected upsertEntitiesMany(entities: V[]): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const updates: EntityUpdate<V, K>[] = [];
         const added: V[] = [];
 
@@ -301,7 +304,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
     }
 
     protected removeEntitiesMany(ids: K[]): void {
-        const state: NgxsEntityCollections<V, K> = this.getState();
+        const state: NgxsEntityCollections<V, K, C> = this.getState();
         const keys: KeysDictionary<K> = this.generateKeyMap(state);
         const entities: EntityDictionary<K, V> = { ...state.entities };
 
@@ -312,12 +315,12 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
             }
         }
 
-        this.setEntitiesState({ ids: state.ids.filter((id: K): boolean => id in keys), entities });
+        this.setEntitiesState({ ...state, ids: state.ids.filter((id: K): boolean => id in keys), entities });
     }
 
-    protected setEntitiesState(state: NgxsEntityCollections<V, K>): void {
+    protected setEntitiesState(state: NgxsEntityCollections<V, K, C>): void {
         const ids: K[] = this.sortKeysByComparator(state.ids, state.entities);
-        this.ctx.setState({ ids, entities: state.entities });
+        this.ctx.setState({ ...state, ids, entities: state.entities });
     }
 
     protected sortKeysByComparator(originalIds: K[], entities: EntityDictionary<K, V>): K[] {
@@ -354,7 +357,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         }
     }
 
-    private generateKeyMap(state: NgxsEntityCollections<V, K>): KeysDictionary<K> {
+    private generateKeyMap(state: NgxsEntityCollections<V, K, C>): KeysDictionary<K> {
         return state.ids.reduce((keyDictionary: KeysDictionary<K>, id: K): KeysDictionary<K> => {
             keyDictionary[id] = id;
             return keyDictionary;

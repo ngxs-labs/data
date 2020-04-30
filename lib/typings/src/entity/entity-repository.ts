@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { EntityUpdate } from './entity-update';
 import { NgxsEntityCollections } from './ngxs-entity-collections';
 
-export interface EntityRepository<V, K extends string | number> {
+export interface EntityRepository<V, K extends string | number, C = {}> {
     name: string;
-    initialState: NgxsEntityCollections<V, K>;
-    state$: Observable<NgxsEntityCollections<V, K>>;
-    readonly snapshot: NgxsEntityCollections<V, K>;
+    initialState: NgxsEntityCollections<V, K, C>;
+    state$: Observable<NgxsEntityCollections<V, K, C>>;
+    readonly snapshot: NgxsEntityCollections<V, K, C>;
     primaryKey: string;
 
-    getState(): NgxsEntityCollections<V, K>;
+    getState(): NgxsEntityCollections<V, K, C>;
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 
