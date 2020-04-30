@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Sort } from '@angular/material/sort/typings/sort';
+import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
