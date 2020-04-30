@@ -1,14 +1,14 @@
 import { MethodArgsRegistry } from '../method-args-registry/method-args-registry';
 
 interface ActionNameCreatorOptions {
-    stateName: string | null;
+    statePath: string;
     methodName: string;
     argumentsNames: string[];
     argumentRegistry?: MethodArgsRegistry;
 }
 
 export function actionNameCreator(options: ActionNameCreatorOptions): string {
-    const { stateName, argumentsNames, methodName, argumentRegistry }: ActionNameCreatorOptions = options;
+    const { statePath, argumentsNames, methodName, argumentRegistry }: ActionNameCreatorOptions = options;
 
     let argsList: string = '';
     for (let index: number = 0; index < argumentsNames.length; index++) {
@@ -25,5 +25,5 @@ export function actionNameCreator(options: ActionNameCreatorOptions): string {
         }
     }
 
-    return `@${stateName}.${methodName}(${argsList})`;
+    return `@${statePath.replace(/\./g, '/')}.${methodName}(${argsList})`;
 }

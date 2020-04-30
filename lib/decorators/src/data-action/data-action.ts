@@ -49,9 +49,8 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
             if (!operation) {
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
-                const stateName: string = stateMeta.name!;
                 const type: string = actionNameCreator({
-                    stateName,
+                    statePath: stateMeta.path!,
                     methodName: key,
                     argumentsNames,
                     argumentRegistry: registry

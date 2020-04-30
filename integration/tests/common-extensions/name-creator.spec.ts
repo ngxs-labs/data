@@ -2,10 +2,17 @@ import { actionNameCreator, MethodArgsRegistry } from '@ngxs-labs/data/internals
 
 describe('[TEST]: actionNameCreator', () => {
     it('should be correct', () => {
-        expect(actionNameCreator({ stateName: 'A', methodName: 'a', argumentsNames: [] })).toEqual('@A.a()');
+        expect(actionNameCreator({ statePath: 'A', methodName: 'a', argumentsNames: [] })).toEqual('@A.a()');
 
-        expect(actionNameCreator({ stateName: 'A', methodName: 'a', argumentsNames: ['x', 'y', 'z'] })).toEqual(
+        expect(actionNameCreator({ statePath: 'A', methodName: 'a', argumentsNames: ['x', 'y', 'z'] })).toEqual(
             '@A.a($arg0, $arg1, $arg2)'
+        );
+    });
+    
+    it('should be correct create nested statePath', () => {
+        expect(actionNameCreator({ statePath: 'A.B.C', methodName: 'a', argumentsNames: [] })).toEqual('@A/B/C.a()');
+        expect(actionNameCreator({ statePath: 'A.B', methodName: 'a', argumentsNames: ['x', 'y', 'z'] })).toEqual(
+            '@A/B.a($arg0, $arg1, $arg2)'
         );
     });
 
@@ -16,7 +23,7 @@ describe('[TEST]: actionNameCreator', () => {
 
         expect(
             actionNameCreator({
-                stateName: 'A',
+                statePath: 'A',
                 methodName: 'a',
                 argumentsNames: ['x', 'y', 'z'],
                 argumentRegistry: registry
@@ -32,7 +39,7 @@ describe('[TEST]: actionNameCreator', () => {
 
         expect(
             actionNameCreator({
-                stateName: 'A',
+                statePath: 'A',
                 methodName: 'a',
                 argumentsNames: ['x', 'y', 'z'],
                 argumentRegistry: registry
