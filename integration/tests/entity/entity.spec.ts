@@ -1,11 +1,18 @@
 import { createEntityCollections } from '@ngxs-labs/data/utils';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
-import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
+import { NgxsDataEntityCollectionsRepository, NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Injectable } from '@angular/core';
 import { State } from '@ngxs/store';
-import { StateRepository } from '@ngxs-labs/data/decorators';
+import { StateRepository, Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
+import { EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
 
 describe('[TEST]: Entity', () => {
+    interface Article {
+        id: number;
+        title: string;
+        category: string;
+    }
+
     it('should be correct create defaults', () => {
         expect(createEntityCollections()).toEqual({ ids: [], entities: {} });
 
@@ -28,13 +35,90 @@ describe('[TEST]: Entity', () => {
         });
     });
 
-    describe('Article Entity', () => {
-        interface Article {
-            id: number;
-            title: string;
-            category: string;
+    describe('Nested Collection Entities', () => {
+        type MyCollectionReducer<V, K extends EntityIdType = EntityIdType> = NgxsEntityCollections<V, K> & {
+            loading: boolean;
+            loaded: boolean;
+        };
+
+        class MyCollectionState<V, K extends EntityIdType = EntityIdType>
+            extends NgxsDataEntityCollectionsRepository<V, K, MyCollectionReducer<V, K>> {
+        
+            @Computed()
+            public get loading(): boolean {
+                return this.snapshot.loading;
+            }
+        
+            @Computed()
+            public get loaded(): boolean {
+                return this.snapshot.loaded;
+            }
+        
+            @DataAction()
+            public setLoading(@Payload('loading') loading: boolean): void {
+                const state = this.getState();
+                this.setEntitiesState({
+                    ...state,
+                    loading,
+                });
+            }
+        
+            @DataAction()
+            public setLoaded(@Payload('loaded') loaded: boolean): void {
+                const state = this.getState();
+                this.setEntitiesState({
+                    ...state,
+                    loaded,
+                });
+            }
         }
 
+        @StateRepository()
+        @State({
+            name: 'articles',
+            defaults: {
+                ...createEntityCollections(),
+                loading: false,
+                loaded: false,
+            },
+        })
+        @Injectable()
+        class ArticlesState extends MyCollectionState<Article> { }
+
+        @StateRepository()
+        @State({
+            name: 'entityCache',
+            defaults: {},
+            children: [ArticlesState]
+        })
+        @Injectable()
+        class EntityCacheState extends NgxsDataRepository<any> { }
+
+        it(
+          'should work with children',
+          ngxsTestingPlatform([EntityCacheState, ArticlesState], (store, entityCache, articles) => {
+              expect(store).toBeDefined();
+              expect(entityCache).toBeDefined();
+              expect(articles).toBeDefined();
+
+              expect(articles.snapshot.loaded).toBeFalsy();
+              expect(articles.snapshot.loading).toBeFalsy();
+
+              articles.setLoaded(true);
+              expect(articles.snapshot.loaded).toBeTruthy();
+              
+              articles.setLoading(true);
+              expect(articles.snapshot.loading).toBeTruthy();
+              
+              // Reset self and all children
+              entityCache.reset();
+              expect(articles.snapshot.loaded).toBeFalsy();
+              expect(articles.snapshot.loading).toBeFalsy();
+          })
+        );
+    });
+
+    describe('Article Entity', () => {
         @StateRepository()
         @State({
             name: 'article',
