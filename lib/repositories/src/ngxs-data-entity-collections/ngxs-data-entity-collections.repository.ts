@@ -2,27 +2,13 @@ import { isDevMode } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot, isNullOrUndefined } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import {
-    Any,
-    EmptyDictionary,
-    EntityComparator,
-    EntityContext,
-    EntityDictionary,
-    EntityIdType,
-    EntityRepository,
-    EntitySortBy,
-    EntitySortByOrder,
-    EntityUpdate,
-    KeysDictionary,
-    NgxsEntityCollections,
-    PRIMARY_KEY
-} from '@ngxs-labs/data/typings';
+import { Any, EmptyDictionary, EntityComparator, EntityContext, EntityDictionary, EntityIdType, EntityRepository, EntitySortBy, EntitySortByOrder, EntityUpdate, KeysDictionary, NgxsEntityCollections, PRIMARY_KEY } from '@ngxs-labs/data/typings';
 import { entitySortByAsc, entitySortByDesc } from '@ngxs-labs/data/utils';
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { AbstractRepository } from '../common/abstract-repository';
+
 
 export class NgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType, C = {}>
     extends AbstractRepository<NgxsEntityCollections<V, K, C>>
@@ -56,7 +42,7 @@ export class NgxsDataEntityCollectionsRepository<V, K extends number | string = 
         return this.state$.pipe(map((value: NgxsEntityCollections<V, K, C>): EntityDictionary<K, V> => value.entities));
     }
 
-    private get ctx(): EntityContext<V, K, C> {
+    protected get ctx(): EntityContext<V, K, C> {
         return ensureDataStateContext<NgxsEntityCollections<V, K, C>, StateContext<NgxsEntityCollections<V, K, C>>>(
             this.context as StateContext<NgxsEntityCollections<V, K, C>>
         );
