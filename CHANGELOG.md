@@ -14,6 +14,7 @@
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
 -   Feature: improved `@Persistence()` decorator for stability
+-   Fix: use deep equals when state update in storage from another browser tab
 -   Fix: now `@Computed()` fields are recalculation when store has changed
 -   Fix: correct recalculation of state during inheritance computed fields
 -   Fix: correct inheritance of state classes
