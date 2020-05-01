@@ -12,7 +12,8 @@ export function mergeOptions({ option, decodeType, prefix, meta }: MergeOptions)
         decode: isNotNil(option.decode) ? option.decode : decodeType,
         prefixKey: isNotNil(option.prefixKey) ? option.prefixKey : prefix,
         nullable: isNotNil(option.nullable) ? option.nullable : false,
-        fireInit: isNotNil(option.fireInit) ? option.fireInit : true
+        fireInit: isNotNil(option.fireInit) ? option.fireInit : true,
+        rehydrate: isNotNil(option.rehydrate) ? option.rehydrate : true
     };
 
     return validatePathInProvider(meta, provider);

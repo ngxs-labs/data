@@ -53,6 +53,11 @@ LocalStorage by default.
 -   `fireInit` (optional) - Disable initial synchronized with the storage after occurred rehydrate from storage (by
     always default will be synchronized).
 
+-   `nullable` (optional) - If the state is undefined or null in the storage by key, then it will overwrite the default
+    state when initial prepared.
+
+-   `rehydrate` (optional) - Pull initial state from storage on a startup (true by default).
+
 ### Fire init
 
 If you don't want your value that was received from the storage to be synchronized again with the storage, you can

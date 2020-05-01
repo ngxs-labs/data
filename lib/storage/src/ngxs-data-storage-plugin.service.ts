@@ -82,10 +82,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         }
 
         const init: boolean = isInitAction(action);
-        states = this.firstSynchronizationWithStorage(states, action, init);
+        states = this.pullStateFromStorage(states, action, init);
 
         return next(states, action).pipe(
-            tap((nextState: PlainObject): void => this.nextSynchronizationWithStorage(states, nextState, init))
+            tap((nextState: PlainObject): void => this.pushStateToStorage(states, nextState, init))
         );
     }
 
@@ -102,7 +102,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return deserializeByStorageMeta(meta, value);
     }
 
-    private nextSynchronizationWithStorage(states: PlainObject, nextState: PlainObject, init: boolean): void {
+    private pushStateToStorage(states: PlainObject, nextState: PlainObject, init: boolean): void {
         for (const [provider] of this.entries) {
             const prevData: Any = getValue(states, provider.path!);
             const newData: Any = getValue(nextState, provider.path!);
@@ -123,7 +123,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         }
     }
 
-    private firstSynchronizationWithStorage(states: PlainObject, action: ActionType, init: boolean): PlainObject {
+    private pullStateFromStorage(states: PlainObject, action: ActionType, init: boolean): PlainObject {
         if (this.canBeSyncStoreWithStorage(action, init)) {
             for (const [provider] of this.entries) {
                 states = this.whenValueExistDeserializeIt(states, provider);
@@ -150,6 +150,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return states;
     }
 
+    // eslint-disable-next-line max-lines-per-function
     private globalStorageValueHandle<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject {
         const { key, provider, value, engine }: GlobalStorageOptionsHandler = options;
         try {
@@ -160,7 +161,9 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
                 this.keys.set(key);
 
                 const prevData: T = getValue(states, provider.path!);
-                if (JSON.stringify(prevData) !== JSON.stringify(data)) {
+                const firstRehydrate: boolean =
+                    JSON.stringify(prevData) !== JSON.stringify(data) && provider.rehydrate!;
+                if (firstRehydrate) {
                     states = setValue(states, provider.path!, data);
                 }
             } else {

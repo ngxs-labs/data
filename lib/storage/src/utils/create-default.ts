@@ -1,5 +1,6 @@
 import { DecodingType, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
 
+// eslint-disable-next-line max-lines-per-function
 export function createDefault(
     meta: NgxsRepositoryMeta,
     prefix: string,
@@ -16,7 +17,8 @@ export function createDefault(
             decode: decodeType,
             prefixKey: prefix,
             nullable: false,
-            fireInit: true
+            fireInit: true,
+            rehydrate: true
         }
     ] as PersistenceProvider[];
 }

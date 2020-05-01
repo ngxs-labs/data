@@ -60,6 +60,12 @@ interface CommonPersistenceProvider {
      * default: true
      */
     fireInit?: boolean;
+
+    /**
+     * Pull initial state from storage on startup
+     * default: true
+     */
+    rehydrate?: boolean;
 }
 
 export type ExistingStorageEngine = DataStorage | Storage;

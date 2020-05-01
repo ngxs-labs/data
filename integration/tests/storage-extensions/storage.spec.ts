@@ -147,6 +147,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     nullable: false,
+                    rehydrate: true,
                     fireInit: true
                 }
             ]);
@@ -171,6 +172,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 }
             ]);
@@ -220,6 +222,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     nullable: false,
+                    rehydrate: true,
                     fireInit: true
                 }
             ]);
@@ -264,6 +267,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 }
             ]);
@@ -543,6 +547,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: 'customer.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 },
                 {
@@ -553,6 +558,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 },
                 {
@@ -563,6 +569,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: true
                 }
             ]);
@@ -637,6 +644,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 },
                 {
@@ -647,6 +655,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 },
                 {
@@ -657,6 +666,7 @@ describe('[TEST]: Storage plugin', () => {
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
+                    rehydrate: true,
                     nullable: false
                 }
             ]);
@@ -1224,7 +1234,7 @@ describe('[TEST]: Storage plugin', () => {
         });
 
         describe('fire init', () => {
-            it('fire init: true', () => {
+            it('fire init: true (default)', () => {
                 const lastChanged: string = '2020-01-01T12:00:00.000Z';
 
                 localStorage.setItem(
@@ -1287,6 +1297,116 @@ describe('[TEST]: Storage plugin', () => {
 
                 const newLastChanged2: string = JSON.parse(localStorage.getItem('@ngxs.store.fire2')!).lastChanged;
                 expect(lastChanged).not.toEqual(newLastChanged2);
+            });
+        });
+
+        describe('nullable', () => {
+            it('nullable: false (default)', () => {
+                localStorage.setItem(
+                    '@ngxs.store.storage',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: null })
+                );
+
+                @Persistence({
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'storage', defaults: 'value' })
+                @Injectable()
+                class StorageState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([StorageState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const storage: StorageState = TestBed.get<StorageState>(StorageState);
+                expect(storage.getState()).toEqual('value');
+            });
+
+            it('nullable: true', () => {
+                localStorage.setItem(
+                    '@ngxs.store.storage',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: null })
+                );
+
+                @Persistence({
+                    nullable: true,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'storage', defaults: 'value' })
+                @Injectable()
+                class StorageState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([StorageState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const storage: StorageState = TestBed.get<StorageState>(StorageState);
+                expect(storage.getState()).toEqual(null);
+            });
+        });
+
+        describe('rehydrate', () => {
+            it('rehydrate: true', () => {
+                localStorage.setItem(
+                    '@ngxs.store.rehydrate',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 'VALUE_FROM_STORAGE' })
+                );
+
+                @Persistence({
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'rehydrate', defaults: 'value' })
+                @Injectable()
+                class RehydrateState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([RehydrateState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: RehydrateState = TestBed.get<RehydrateState>(RehydrateState);
+                expect(state.getState()).toEqual('VALUE_FROM_STORAGE');
+            });
+
+            it('rehydrate: false', () => {
+                localStorage.setItem(
+                    '@ngxs.store.rehydrate',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:30:00.000Z', version: 1, data: 'VALUE_FROM_STORAGE' })
+                );
+
+                @Persistence({
+                    rehydrate: false,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'rehydrate', defaults: 'value' })
+                @Injectable()
+                class RehydrateState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([RehydrateState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: RehydrateState = TestBed.get<RehydrateState>(RehydrateState);
+                expect(state.getState()).toEqual('value');
+
+                state.setState('new value');
+                expect(state.getState()).toEqual('new value');
+                expect(JSON.parse(localStorage.getItem('@ngxs.store.rehydrate')!).data).toEqual('new value');
             });
         });
 
