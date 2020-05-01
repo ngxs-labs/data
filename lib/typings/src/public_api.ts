@@ -29,7 +29,8 @@ export {
     ExistingStorageEngine,
     ExistingEngineProvider,
     UseClassEngineProvider,
-    RootInternalStorageEngine
+    RootInternalStorageEngine,
+    GlobalStorageOptionsHandler
 } from './types/storage';
 export { Any } from './types/any';
 export { PlainObjectOf } from './types/plaing-object-of';

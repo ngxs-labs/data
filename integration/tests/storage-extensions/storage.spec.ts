@@ -2,7 +2,7 @@ import { Injectable, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import {
     NGXS_DATA_STORAGE_CONTAINER,
     NGXS_DATA_STORAGE_CONTAINER_TOKEN,
@@ -949,6 +949,268 @@ describe('[TEST]: Storage plugin', () => {
                 "Error occurred while serializing value from metadata { key: '@ngxs.store.c17' }. \n" +
                     'Error serialize: Custom error'
             );
+        });
+
+        it('should be correct listen changes from storage and synchronized', () => {
+            localStorage.setItem(
+                '@ngxs.store.d1',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 'VALUE_d1' })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 'VALUE_d2' })
+            );
+
+            @Persistence({
+                existingEngine: localStorage
+            })
+            @StateRepository()
+            @State({ name: 'd1', defaults: 'DEFAULT_VALUE' })
+            @Injectable()
+            class D1 extends NgxsDataRepository<string> {}
+
+            @Persistence({
+                existingEngine: sessionStorage
+            })
+            @StateRepository()
+            @State({ name: 'd2', defaults: 'DEFAULT_VALUE' })
+            @Injectable()
+            class D2 extends NgxsDataRepository<string> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([D1, D2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const d1: D1 = TestBed.get<D1>(D1);
+            const d2: D2 = TestBed.get<D2>(D2);
+
+            d1.state$.subscribe((s) => events.push(`d1: ${s}`));
+            d2.state$.subscribe((s) => events.push(`d2: ${s}`));
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2');
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 'VALUE_d2_2' })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.d2'
+                })
+            );
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2_2');
+            expect(events).toEqual(['d1: VALUE_d1', 'd2: VALUE_d2', 'd2: VALUE_d2_2']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:20:00.000Z', version: 1, data: 'VALUE_d2_2' })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.d2'
+                })
+            );
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2_2');
+            expect(events).toEqual(['d1: VALUE_d1', 'd2: VALUE_d2', 'd2: VALUE_d2_2']);
+        });
+
+        it('should be correct listen changes from storage and synchronized when object', () => {
+            interface EModel {
+                a: number;
+                b: number;
+            }
+
+            localStorage.setItem(
+                '@ngxs.store.e1',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: { a: 1, b: 2 } })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            @Persistence({
+                existingEngine: localStorage
+            })
+            @StateRepository()
+            @State({ name: 'e1', defaults: { a: null, b: null } })
+            @Injectable()
+            class E1 extends NgxsDataRepository<EModel> {}
+
+            @Persistence({
+                existingEngine: sessionStorage
+            })
+            @StateRepository()
+            @State({ name: 'e2', defaults: { a: null, b: null } })
+            @Injectable()
+            class E2 extends NgxsDataRepository<EModel> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([E1, E2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const e1: E1 = TestBed.get<E1>(E1);
+            const e2: E2 = TestBed.get<E2>(E2);
+
+            e1.state$.subscribe((e) => events.push(`e1: ${JSON.stringify(e)}`));
+            e2.state$.subscribe((e) => events.push(`e2: ${JSON.stringify(e)}`));
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:20:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+        });
+
+        it('should be correct listen changes from storage and synchronized when slice object and defaults null', () => {
+            interface EModel {
+                a: number;
+                b: number;
+            }
+
+            localStorage.setItem(
+                '@ngxs.store.e1.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 1 })
+            );
+
+            localStorage.setItem(
+                '@ngxs.store.e1.b',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 2 })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 3 })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.b',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 4 })
+            );
+
+            @Persistence([
+                {
+                    path: 'e1.a',
+                    existingEngine: localStorage
+                },
+                {
+                    path: 'e1.b',
+                    existingEngine: localStorage
+                }
+            ])
+            @StateRepository()
+            @State({ name: 'e1', defaults: { a: null, b: null } })
+            @Injectable()
+            class E1 extends NgxsDataRepository<EModel> {}
+
+            @Persistence([
+                {
+                    path: 'e2.a',
+                    existingEngine: sessionStorage
+                },
+                {
+                    path: 'e2.b',
+                    existingEngine: sessionStorage
+                }
+            ])
+            @StateRepository()
+            @State({ name: 'e2', defaults: { a: null, b: null } })
+            @Injectable()
+            class E2 extends NgxsDataRepository<EModel> {}
+
+            // noinspection DuplicatedCode
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([E1, E2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const e1: E1 = TestBed.get<E1>(E1);
+            const e2: E2 = TestBed.get<E2>(E2);
+
+            e1.state$.subscribe((e) => events.push(`e1: ${JSON.stringify(e)}`));
+            e2.state$.subscribe((e) => events.push(`e2: ${JSON.stringify(e)}`));
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 6 })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2.a'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 6, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}', 'e2: {"a":6,"b":4}']);
+
+            localStorage.setItem(
+                '@ngxs.store.e1.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 10 })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e1.a'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 10, b: 2 });
+            expect(e2.getState()).toEqual({ a: 6, b: 4 });
+            expect(events).toEqual([
+                'e1: {"a":1,"b":2}',
+                'e2: {"a":3,"b":4}',
+                'e2: {"a":6,"b":4}',
+                'e1: {"a":10,"b":2}'
+            ]);
         });
 
         afterEach(() => {

@@ -5,6 +5,7 @@ import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     Any,
     ExistingStorageEngine,
+    GlobalStorageOptionsHandler,
     PersistenceProvider,
     RootInternalStorageEngine,
     StorageContainer,
@@ -96,8 +97,8 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         });
     }
 
-    public deserialize(value: string | null): string | null | never {
-        const meta: StorageMeta = parseStorageMeta(value);
+    public deserialize<T>(value: string | null): T | null | never {
+        const meta: StorageMeta<T> = parseStorageMeta<T>(value);
         return deserializeByStorageMeta(meta, value);
     }
 
@@ -138,20 +139,34 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         const key: string = ensureKey(provider);
         const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
+        const existValueByKeyInStorage: boolean = isNotNil(value);
 
-        if (isNotNil(value)) {
-            try {
-                const data: string | undefined | null = this.deserialize(value);
-                if (isNotNil(data) || provider.nullable) {
-                    this.keys.set(key);
+        if (existValueByKeyInStorage) {
+            states = this.globalStorageValueHandle(states, { key, engine, provider, value });
+        }
+
+        return states;
+    }
+
+    private globalStorageValueHandle<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject {
+        const { key, provider, value, engine }: GlobalStorageOptionsHandler = options;
+        try {
+            const data: T | undefined | null = this.deserialize<T>(value);
+            const canBeOverrideFromStorage: boolean = isNotNil(data) || provider.nullable!;
+
+            if (canBeOverrideFromStorage) {
+                this.keys.set(key);
+
+                const prevData: T = getValue(states, provider.path!);
+                if (JSON.stringify(prevData) !== JSON.stringify(data)) {
                     states = setValue(states, provider.path!, data);
-                } else {
-                    engine.removeItem(key);
-                    this.keys.delete(key);
                 }
-            } catch (error) {
-                silentDeserializeWarning(key, value, error.message);
+            } else {
+                engine.removeItem(key);
+                this.keys.delete(key);
             }
+        } catch (error) {
+            silentDeserializeWarning(key, value, error.message);
         }
 
         return states;

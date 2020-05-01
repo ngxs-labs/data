@@ -87,10 +87,10 @@ export type PersistenceProvider = ExistingEngineProvider | UseClassEngineProvide
 /**
  * @publicApi
  */
-export interface StorageMeta<T = string> {
-    lastChanged: string;
+export interface StorageMeta<T> {
     data: T;
     version: number;
+    lastChanged: string;
 }
 
 /**
@@ -115,4 +115,11 @@ export interface RootInternalStorageEngine {
     serialize(data: Any, provider: PersistenceProvider): string;
 
     deserialize(value: string | null): string | null;
+}
+
+export interface GlobalStorageOptionsHandler {
+    key: string;
+    value: string | null;
+    engine: ExistingStorageEngine;
+    provider: PersistenceProvider;
 }

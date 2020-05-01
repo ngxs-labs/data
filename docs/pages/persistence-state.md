@@ -151,51 +151,35 @@ export class SecureStorageService implements DataStorage {
 
 ![](https://habrastorage.org/webt/kk/gk/lb/kkgklbnwopcbsifj78x4muwvxyk.png)
 
+### API
+
+### Not recommended
+
 ```ts
-interface CommonPersistenceProvider {
-    /**
-     * Path for slice
-     * default: state.name
-     */
-    path?: string;
-    /**
-     * Version for next migrate
-     * default: 1
-     */
-    version?: number;
-    /**
-     * Time to live in ms
-     * default: -1
-     */
-    ttl?: number;
-    /**
-     * decode/encoded
-     */
-    decode?: 'base64' | 'none';
-    /**
-     * prefix for key
-     * default: '@ngxs.store.'
-     */
-    prefixKey?: string;
-    /**
-     * sync with null value from storage
-     * default: false
-     */
-    nullable?: boolean;
-}
-
-interface ExistingEngineProvider extends CommonPersistenceProvider {
-    /**
-     * Storage container
-     * default: window.localStorage
-     */
-    existingEngine: DataStorageEngine;
-}
-
-interface UseClassEngineProvider extends CommonPersistenceProvider {
-    /**
-     * Storage class from DI
-     */
-    useClass: Type<unknown>;
-}
+@Persistence([
+    {
+        path: 'customerFilter.cardNumber',
+        existingEngine: sessionStorage
+    },
+    {
+        path: 'customerFilter.sibelId',
+        existingEngine: sessionStorage
+    },
+    {
+        path: 'customerFilter',
+        // conflict with child properties -> cardNumber and sibelId fields can't sync from sessionStorage
+        // because override every time from localStorage data
+        existingEngine: localStorage
+    }
+])
+@StateRepository()
+@State({
+    name: 'customerFilter',
+    defaults: {
+        cardNumber: null,
+        sibelId: null
+    }
+})
+@Injectable()
+export class CustomerFilterState extends NgxsDataRepository<CustomerFilterModel> {}
 ```
