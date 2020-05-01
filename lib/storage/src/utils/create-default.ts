@@ -15,7 +15,8 @@ export function createDefault(
             version: 1,
             decode: decodeType,
             prefixKey: prefix,
-            nullable: false
+            nullable: false,
+            fireInit: true
         }
     ] as PersistenceProvider[];
 }

@@ -62,7 +62,6 @@ describe('Mutate', () => {
             expect(state).toEqual([3, 2, 1]);
         });
 
-        // TODO: need fix
         todo.mutable$().subscribe(
             () => {},
             (e) => {

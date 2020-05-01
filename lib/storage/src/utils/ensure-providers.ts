@@ -1,11 +1,10 @@
-import { DecodingType, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { DecodingType, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
 
 import { NgxsDataStoragePlugin } from '../ngxs-data-storage-plugin.service';
 import { DEFAULT_DECODE_TYPE } from '../tokens/storage-decode-type';
 import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../tokens/storage-decode-type-token';
 import { DEFAULT_KEY_PREFIX } from '../tokens/storage-prefix';
 import { NGXS_DATA_STORAGE_PREFIX_TOKEN } from '../tokens/storage-prefix-token';
-import { ProviderOptions } from '../typings/symbol';
 import { createDefault } from './create-default';
 import { mergeOptions } from './merge-options';
 
