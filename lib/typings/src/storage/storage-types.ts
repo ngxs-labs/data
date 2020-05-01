@@ -1,4 +1,5 @@
-import { DecodingType, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { NgxsRepositoryMeta } from '../types/repository';
+import { DecodingType, PersistenceProvider } from '../types/storage';
 
 export type ProviderOptions = PersistenceProvider[] | PersistenceProvider;
 

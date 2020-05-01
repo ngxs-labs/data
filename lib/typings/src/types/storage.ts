@@ -54,6 +54,12 @@ interface CommonPersistenceProvider {
      * default: false
      */
     nullable?: boolean;
+
+    /**
+     * sync storage from state after init
+     * default: true
+     */
+    fireInit?: boolean;
 }
 
 export type ExistingStorageEngine = DataStorage | Storage;

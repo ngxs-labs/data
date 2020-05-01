@@ -106,7 +106,9 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         for (const [provider] of this.entries) {
             const prevData: Any = getValue(states, provider.path!);
             const newData: Any = getValue(nextState, provider.path!);
-            if (prevData !== newData || init) {
+            const canBeInitFire: boolean = provider.fireInit! && init;
+
+            if (prevData !== newData || canBeInitFire) {
                 const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
                 const key: string = ensureKey(provider);
 

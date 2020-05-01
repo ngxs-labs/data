@@ -1,10 +1,10 @@
 import { ensureStateMetadata, getRepository } from '@ngxs-labs/data/internals';
 import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { Any, DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-export function Persistence(options?: PersistenceProvider[] | PersistenceProvider): Any {
+export function Persistence(options?: ProviderOptions): Any {
     return (stateClass: DataStateClass): Any => {
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);

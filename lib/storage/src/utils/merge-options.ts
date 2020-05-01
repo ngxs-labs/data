@@ -1,9 +1,9 @@
 import { isNotNil } from '@ngxs-labs/data/internals';
-import { PersistenceProvider } from '@ngxs-labs/data/typings';
+import { MergeOptions, PersistenceProvider } from '@ngxs-labs/data/typings';
 
-import { MergeOptions } from '../typings/symbol';
 import { validatePathInProvider } from './validate-path-in-provider';
 
+// eslint-disable-next-line complexity
 export function mergeOptions({ option, decodeType, prefix, meta }: MergeOptions): PersistenceProvider {
     const provider: PersistenceProvider = {
         ...option,
@@ -11,7 +11,8 @@ export function mergeOptions({ option, decodeType, prefix, meta }: MergeOptions)
         version: isNotNil(option.version) ? option.version : 1,
         decode: isNotNil(option.decode) ? option.decode : decodeType,
         prefixKey: isNotNil(option.prefixKey) ? option.prefixKey : prefix,
-        nullable: isNotNil(option.nullable) ? option.nullable : false
+        nullable: isNotNil(option.nullable) ? option.nullable : false,
+        fireInit: isNotNil(option.fireInit) ? option.fireInit : true
     };
 
     return validatePathInProvider(meta, provider);

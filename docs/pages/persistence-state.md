@@ -19,15 +19,62 @@ export class AppModule {}
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> {
+export class TodoState extends NgxsDataRepository<string[]> {
     // ..
 }
 ```
 
-`@Persistence()` - If you add current decorator without options, then the `todo` state will synchronize with
+`@Persistence()` - If you add a current decorator without options, then the `todo` state will synchronize with
 LocalStorage by default.
 
 ![](https://habrastorage.org/webt/p_/ur/jw/p_urjwost3fn2n-ogpduwjnz8zo.png)
+
+### API
+
+`@Persistence(options?: PersistenceProvider[] | PersistenceProvider)`
+
+---
+
+##### PersistenceProvider
+
+-   `existingEngine` (required|optional) - Specify an object that conforms to the Storage interface to use, this will
+    default to localStorage.
+
+-   `useClass` (required|optional) - If no `existingEngine` is specified, you can provide by class token your storage
+    container.
+
+-   `path` (optional) - Path for slice data from NGXS store, this will default path to current state in store.
+
+-   `version` (optional) - You can migrate data from one version to another during the startup of the store, this will
+    default first version.
+
+-   `ttl` (optional) - You can determine the lifetime of a given key.
+
+-   `fireInit` (optional) - Disable initial synchronized with the storage after occurred rehydrate from storage (by
+    always default will be synchronized).
+
+### Fire init
+
+If you don't want your value that was received from the storage to be synchronized again with the storage, you can
+disable this step. You will see that lastChanged is not updated again and again when the page reloads.
+
+```ts
+@Persistence({
+    fireInit: false,
+    existingEngine: localStorage
+})
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {
+    // ..
+}
+```
+
+![](https://habrastorage.org/webt/cb/6i/6e/cb6i6eps4lizxl2nfkaqamzcosk.png)
 
 ### Override global prefix key
 
@@ -79,14 +126,13 @@ export class DeepCountState {}
     children: [DeepCountState]
 })
 @Injectable()
-export class CountState extends NgxsImmutableDataRepository<CountModel> {}
+export class CountState extends NgxsDataRepository<CountModel> {}
 ```
 
 ### Global custom storage
 
 ```ts
 import { DataStorage } from '@ngxs-labs/data/typings';
-import { NGXS_DATA_STORAGE_PREFIX_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-labs/data/storage';
 
 class MyGlobalStorage implements DataStorage {
     // ..
@@ -120,7 +166,7 @@ class MyState {}
     }
 })
 @Injectable()
-export class SecureState extends NgxsImmutableDataRepository<SecureModel> {}
+export class SecureState extends NgxsDataRepository<SecureModel> {}
 ```
 
 ```ts
@@ -150,8 +196,6 @@ export class SecureStorageService implements DataStorage {
 ### Options
 
 ![](https://habrastorage.org/webt/kk/gk/lb/kkgklbnwopcbsifj78x4muwvxyk.png)
-
-### API
 
 ### Not recommended
 

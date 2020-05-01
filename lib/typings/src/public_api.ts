@@ -57,3 +57,4 @@ export { EntityContext } from './entity/entity-context';
 export { PRIMARY_KEY } from './entity/primary-key';
 export { EntityUpdate } from './entity/entity-update';
 export { EntitySortByOrder, EntityComparator, EntityCompareFn, EntitySortBy } from './entity/entity-sort-by';
+export { MergeOptions, ProviderOptions } from './storage/storage-types';

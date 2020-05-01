@@ -1213,6 +1213,73 @@ describe('[TEST]: Storage plugin', () => {
             ]);
         });
 
+        describe('fire init', () => {
+            it('fire init: true', () => {
+                const lastChanged: string = '2020-01-01T12:00:00.000Z';
+
+                localStorage.setItem(
+                    '@ngxs.store.fire',
+                    JSON.stringify({ lastChanged: lastChanged, version: 1, data: 'FIRE_VALUE' })
+                );
+
+                @Persistence({
+                    path: 'fire',
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'fire', defaults: null })
+                @Injectable()
+                class FireState extends NgxsDataRepository<string> {}
+
+                // noinspection DuplicatedCode
+                TestBed.configureTestingModule({
+                    imports: [NgxsModule.forRoot([FireState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+                });
+
+                const fire: FireState = TestBed.get<FireState>(FireState);
+                expect(fire.snapshot).toEqual('FIRE_VALUE');
+
+                const newLastChanged: string = JSON.parse(localStorage.getItem('@ngxs.store.fire')!).lastChanged;
+                expect(lastChanged).not.toEqual(newLastChanged);
+            });
+
+            it('fire init: false', () => {
+                const lastChanged: string = '2020-01-01T12:10:00.000Z';
+
+                localStorage.setItem(
+                    '@ngxs.store.fire2',
+                    JSON.stringify({ lastChanged, version: 1, data: 'FIRE_VALUE' })
+                );
+
+                @Persistence({
+                    path: 'fire2',
+                    fireInit: false,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'fire2', defaults: null })
+                @Injectable()
+                class Fire2State extends NgxsDataRepository<string> {}
+
+                // noinspection DuplicatedCode
+                TestBed.configureTestingModule({
+                    imports: [NgxsModule.forRoot([Fire2State]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+                });
+
+                const fire: Fire2State = TestBed.get<Fire2State>(Fire2State);
+                expect(fire.snapshot).toEqual('FIRE_VALUE');
+
+                const newLastChanged: string = JSON.parse(localStorage.getItem('@ngxs.store.fire2')!).lastChanged;
+                expect(lastChanged).toEqual(newLastChanged);
+
+                fire.setState('FIRE2_VALUE');
+                expect(fire.snapshot).toEqual('FIRE2_VALUE');
+
+                const newLastChanged2: string = JSON.parse(localStorage.getItem('@ngxs.store.fire2')!).lastChanged;
+                expect(lastChanged).not.toEqual(newLastChanged2);
+            });
+        });
+
         afterEach(() => {
             localStorage.clear();
             sessionStorage.clear();
