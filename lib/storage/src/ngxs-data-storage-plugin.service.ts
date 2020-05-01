@@ -11,7 +11,7 @@ import {
     StorageContainer,
     StorageMeta
 } from '@ngxs-labs/data/typings';
-import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, setValue, Store } from '@ngxs/store';
+import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 import { fromEvent, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -22,6 +22,7 @@ import { ensureKey } from './utils/ensure-key';
 import { exposeEngine } from './utils/expose-engine';
 import { isInitAction } from './utils/is-init-action';
 import { parseStorageMeta } from './utils/parse-storage-meta';
+import { rehydrate } from './utils/rehydrate';
 import { silentDeserializeWarning } from './utils/silent-deserialize-warning';
 import { silentSerializeWarning } from './utils/silent-serialize-warning';
 
@@ -150,7 +151,6 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return states;
     }
 
-    // eslint-disable-next-line max-lines-per-function
     private globalStorageValueHandle<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject {
         const { key, provider, value, engine }: GlobalStorageOptionsHandler = options;
         try {
@@ -159,13 +159,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
 
             if (canBeOverrideFromStorage) {
                 this.keys.set(key);
-
-                const prevData: T = getValue(states, provider.path!);
-                const firstRehydrate: boolean =
-                    JSON.stringify(prevData) !== JSON.stringify(data) && provider.rehydrate!;
-                if (firstRehydrate) {
-                    states = setValue(states, provider.path!, data);
-                }
+                states = rehydrate(states, provider, data);
             } else {
                 engine.removeItem(key);
                 this.keys.delete(key);
