@@ -146,7 +146,8 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    nullable: false,
+                    fireInit: true
                 }
             ]);
 
@@ -169,6 +170,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 }
             ]);
@@ -217,7 +219,8 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    nullable: false,
+                    fireInit: true
                 }
             ]);
 
@@ -260,6 +263,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 }
             ]);
@@ -538,6 +542,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: 'customer.',
+                    fireInit: true,
                     nullable: false
                 },
                 {
@@ -547,6 +552,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 },
                 {
@@ -556,6 +562,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: true
                 }
             ]);
@@ -629,6 +636,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 },
                 {
@@ -638,6 +646,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 },
                 {
@@ -647,6 +656,7 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
+                    fireInit: true,
                     nullable: false
                 }
             ]);
