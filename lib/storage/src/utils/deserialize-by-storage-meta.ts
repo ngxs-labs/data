@@ -6,7 +6,7 @@ import { InvalidLastChangedException } from '../exceptions/invalid-last-changed.
 import { InvalidStructureDataException } from '../exceptions/invalid-structure-data.exception';
 import { InvalidVersionException } from '../exceptions/invalid-version.exception';
 
-export function deserializeByStorageMeta<T>(meta: StorageMeta<T>, value: string | null): T | never {
+export function deserializeByStorageMeta<T>(meta: StorageMeta<T>, value: string | null): T | null | never {
     if (isPlainObject(meta)) {
         if (missingLastChanged(meta)) {
             throw new InvalidLastChangedException(value);

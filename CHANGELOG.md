@@ -13,6 +13,7 @@
 -   Feature: expose `@Debounce()` decorator for throttling dispatch actions
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
+-   Feature: support observers for listening expiration time to live
 -   Feature: add fire init option to `@Persistence()`
 -   Feature: add rehydrate option to `@Persistence()`
 -   Fix: improved `@Persistence()` decorator for stability

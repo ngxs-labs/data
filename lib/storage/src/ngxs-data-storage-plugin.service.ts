@@ -4,12 +4,16 @@ import { isNotNil } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     Any,
+    CheckExpiredInitOptions,
+    DataStoragePlugin,
     ExistingStorageEngine,
     GlobalStorageOptionsHandler,
     PersistenceProvider,
-    RootInternalStorageEngine,
+    PullFromStorageInfo,
+    RehydrateInfo,
     StorageContainer,
-    StorageMeta
+    StorageMeta,
+    TtlListenerOptions
 } from '@ngxs-labs/data/typings';
 import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
@@ -17,9 +21,13 @@ import { fromEvent, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/storage-container-token';
+import { canBePullFromStorage } from './utils/can-be-pull-from-storage';
+import { createTtlInterval } from './utils/create-ttl-interval';
 import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
 import { ensureKey } from './utils/ensure-key';
+import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
+import { firedStateWhenInvalid } from './utils/fire-state-when-invalid';
 import { isInitAction } from './utils/is-init-action';
 import { parseStorageMeta } from './utils/parse-storage-meta';
 import { rehydrate } from './utils/rehydrate';
@@ -27,9 +35,10 @@ import { silentDeserializeWarning } from './utils/silent-deserialize-warning';
 import { silentSerializeWarning } from './utils/silent-serialize-warning';
 
 @Injectable()
-export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEngine {
+export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     public static injector: Injector | null = null;
     private static eventsSubscriptions: Subscription | null = null;
+    private static ttlListeners: WeakMap<PersistenceProvider, TtlListenerOptions> = new WeakMap();
 
     constructor(@Inject(PLATFORM_ID) private readonly _platformId: string, @Self() injector: Injector) {
         NgxsDataStoragePlugin.injector = injector;
@@ -42,6 +51,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
 
     public get size(): number {
         return this.providers.size;
+    }
+
+    public get ttlListeners(): WeakMap<PersistenceProvider, TtlListenerOptions> {
+        return NgxsDataStoragePlugin.ttlListeners;
     }
 
     /**
@@ -90,17 +103,30 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         );
     }
 
-    public serialize(data: Any, provider: PersistenceProvider): string {
-        return JSON.stringify({
+    public serialize<T>(data: T, provider: PersistenceProvider): string {
+        const meta: StorageMeta<T> = {
             lastChanged: new Date().toISOString(),
-            version: provider.version,
+            version: provider.version!,
             data: isNotNil(data) ? data : null
-        });
+        };
+
+        if (existTtl(provider)) {
+            const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
+            const expiry: Date = new Date(Date.now() + parseInt(provider.ttl as Any));
+            createTtlInterval({ provider, expiry, map: this.ttlListeners, engine });
+            meta.expiry = expiry.toISOString();
+        }
+
+        return JSON.stringify(meta);
     }
 
-    public deserialize<T>(value: string | null): T | null | never {
-        const meta: StorageMeta<T> = parseStorageMeta<T>(value);
+    public deserialize<T>(meta: StorageMeta<T>, value: string | null): T | null {
         return deserializeByStorageMeta(meta, value);
+    }
+
+    public destroyOldTasks(): void {
+        NgxsDataStoragePlugin.eventsSubscriptions?.unsubscribe();
+        NgxsDataStoragePlugin.ttlListeners = new WeakMap();
     }
 
     private pushStateToStorage(states: PlainObject, nextState: PlainObject, init: boolean): void {
@@ -127,7 +153,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
     private pullStateFromStorage(states: PlainObject, action: ActionType, init: boolean): PlainObject {
         if (this.canBeSyncStoreWithStorage(action, init)) {
             for (const [provider] of this.entries) {
-                states = this.whenValueExistDeserializeIt(states, provider);
+                states = this.deserializeByProvider(states, provider);
             }
         }
 
@@ -138,31 +164,33 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return this.size > 0 && (init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE);
     }
 
-    private whenValueExistDeserializeIt(states: PlainObject, provider: PersistenceProvider): PlainObject {
+    private deserializeByProvider(states: PlainObject, provider: PersistenceProvider): PlainObject {
         const key: string = ensureKey(provider);
         const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
         const existValueByKeyInStorage: boolean = isNotNil(value);
 
         if (existValueByKeyInStorage) {
-            states = this.globalStorageValueHandle(states, { key, engine, provider, value });
+            states = this.deserializeHandler(states, { key, engine, provider, value });
         }
 
         return states;
     }
 
-    private globalStorageValueHandle<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject {
-        const { key, provider, value, engine }: GlobalStorageOptionsHandler = options;
+    private deserializeHandler<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject | never {
+        const { key, provider, value }: GlobalStorageOptionsHandler = options;
         try {
-            const data: T | undefined | null = this.deserialize<T>(value);
-            const canBeOverrideFromStorage: boolean = isNotNil(data) || provider.nullable!;
+            const meta: StorageMeta<T> = parseStorageMeta<T>(value);
+            const data: T | null = this.deserialize(meta, value);
+            const info: PullFromStorageInfo = canBePullFromStorage({ provider, meta, data });
 
-            if (canBeOverrideFromStorage) {
+            if (info.canBeOverrideFromStorage) {
+                const rehydrateInfo: RehydrateInfo = rehydrate(states, provider, data);
                 this.keys.set(key);
-                states = rehydrate(states, provider, data);
+                states = rehydrateInfo.states;
+                this.checkExpiredInit({ info, rehydrateInfo, options });
             } else {
-                engine.removeItem(key);
-                this.keys.delete(key);
+                this.removeKeyWhenPullInvalid(info, options);
             }
         } catch (error) {
             silentDeserializeWarning(key, value, error.message);
@@ -171,13 +199,32 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, RootInternalStorageEng
         return states;
     }
 
+    private checkExpiredInit(params: CheckExpiredInitOptions): void {
+        const { info, rehydrateInfo, options }: CheckExpiredInitOptions = params;
+        const { provider, engine }: GlobalStorageOptionsHandler = options;
+
+        if (rehydrateInfo.rehydrateIn && info.expiry) {
+            createTtlInterval({ provider, expiry: info.expiry, map: this.ttlListeners, engine });
+        }
+    }
+
+    private removeKeyWhenPullInvalid(info: PullFromStorageInfo, options: GlobalStorageOptionsHandler): void {
+        const { key, engine, provider }: GlobalStorageOptionsHandler = options;
+
+        if (info.expired) {
+            firedStateWhenInvalid(key, { provider, engine, map: this.ttlListeners, expiry: info.expiry! });
+        }
+
+        engine.removeItem(key);
+        this.keys.delete(key);
+    }
+
     private listenWindowEvents(): void {
         if (isPlatformServer(this._platformId)) {
             return;
         }
 
-        // preserve memory leak when usage static injector
-        NgxsDataStoragePlugin.eventsSubscriptions?.unsubscribe();
+        this.destroyOldTasks();
 
         NgxsDataStoragePlugin.eventsSubscriptions = fromEvent<StorageEvent>(window, 'storage').subscribe(
             (event: StorageEvent): void => {

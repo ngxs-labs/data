@@ -48,7 +48,13 @@ LocalStorage by default.
 -   `version` (optional) - You can migrate data from one version to another during the startup of the store, this will
     default first version.
 
--   `ttl` (optional) - You can determine the lifetime of a given key.
+-   `ttl` (optional) - You can determine the lifetime of a given key (default: -1, disable).
+
+-   `ttlDelay` (optional) - The time, in milliseconds (thousandths of a second), the timer should delay in between
+    checking for expiration time live (default: 60000ms / 1min).
+
+-   `ttlExpiredStrategy` (optional) - You can determine what to do with the key if it expires (default:
+    TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED).
 
 -   `fireInit` (optional) - Disable initial synchronized with the storage after occurred rehydrate from storage (by
     always default will be synchronized).
@@ -79,7 +85,47 @@ export class TodoState extends NgxsDataRepository<string[]> {
 }
 ```
 
-![](https://habrastorage.org/webt/cb/6i/6e/cb6i6eps4lizxl2nfkaqamzcosk.png)
+### Time to live (TTL)
+
+```ts
+interface AuthJwtModel {
+    accessToken: string | null;
+    refreshToken: string | null;
+}
+
+@Persistence({
+    path: 'auth.accessToken',
+    existingEngine: localStorage,
+    ttl: 1000 * 60 * 15 // 15min
+})
+@StateRepository()
+@State<AuthJwtModel>({
+    name: 'auth',
+    defaults: {
+        accessToken: null,
+        refreshToken: null
+    }
+})
+@Injectable()
+export class AuthJwtState extends NgxsDataRepository<AuthJwtModel> implements NgxsDataAfterExpired {
+    public expired$: Subject<NgxsDataExpiredEvent> = new Subject();
+
+    constructor(private readonly snackBar: MatSnackBar, private readonly auth: AuthService) {
+        super();
+    }
+
+    public ngxsDataAfterExpired(event: NgxsDataExpiredEvent, _provider: PersistenceProvider): void {
+        this.auth.refreshAccessToken();
+        this.snackBar.open('Expired', event.key, {
+            duration: 5000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+        });
+    }
+}
+```
+
+![](https://habrastorage.org/webt/xk/_h/wq/xk_hwqvh6testmou6b6vtjzdekm.png)
 
 ### Override global prefix key
 
