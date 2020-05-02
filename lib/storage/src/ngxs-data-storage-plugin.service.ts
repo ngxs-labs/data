@@ -27,7 +27,7 @@ import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
 import { ensureKey } from './utils/ensure-key';
 import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
-import { firedStateWhenInvalid } from './utils/fire-state-when-invalid';
+import { firedStateWhenExpired } from './utils/fire-state-when-expired';
 import { isInitAction } from './utils/is-init-action';
 import { parseStorageMeta } from './utils/parse-storage-meta';
 import { rehydrate } from './utils/rehydrate';
@@ -212,7 +212,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { key, engine, provider }: GlobalStorageOptionsHandler = options;
 
         if (info.expired) {
-            firedStateWhenInvalid(key, { provider, engine, map: this.ttlListeners, expiry: info.expiry! });
+            firedStateWhenExpired(key, { provider, engine, map: this.ttlListeners, expiry: info.expiry! });
         }
 
         engine.removeItem(key);

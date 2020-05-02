@@ -1,7 +1,7 @@
 import { NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { Any, NgxsDataAfterExpired, NgxsDataExpiredEvent, TtLCreatorOptions } from '@ngxs-labs/data/typings';
 
-export function firedStateWhenInvalid(key: string, options: TtLCreatorOptions): void {
+export function firedStateWhenExpired(key: string, options: TtLCreatorOptions): void {
     const { provider, expiry }: TtLCreatorOptions = options;
 
     const event: NgxsDataExpiredEvent = {

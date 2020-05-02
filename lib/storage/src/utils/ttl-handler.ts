@@ -2,7 +2,7 @@ import { TtLCreatorOptions } from '@ngxs-labs/data/typings';
 import { Subscription } from 'rxjs';
 
 import { ensureKey } from './ensure-key';
-import { firedStateWhenInvalid } from './fire-state-when-invalid';
+import { firedStateWhenExpired } from './fire-state-when-expired';
 import { isExpiredByTtl } from './is-expired';
 import { ttlStrategyHandler } from './ttl-strategy-handler';
 
@@ -16,7 +16,7 @@ export function ttlHandler(start: string, options: TtLCreatorOptions, subscripti
             const endListen: string = new Date(Date.now()).toISOString();
 
             ttlStrategyHandler(key, value, options);
-            firedStateWhenInvalid(key, options);
+            firedStateWhenExpired(key, options);
 
             subscription.unsubscribe();
             map.set(provider, { subscription, startListen: start, endListen });
