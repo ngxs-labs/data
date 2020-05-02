@@ -1,10 +1,11 @@
-import { DecodingType, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { CreateStorageDefaultOptions, PersistenceProvider, TTL_EXPIRED_STRATEGY } from '@ngxs-labs/data/typings';
 
-export function createDefault(
-    meta: NgxsRepositoryMeta,
-    prefix: string,
-    decodeType: DecodingType
-): PersistenceProvider[] {
+import { STORAGE_TTL_DELAY } from '../tokens/storage-ttl-delay';
+
+// eslint-disable-next-line max-lines-per-function
+export function createDefault(options: CreateStorageDefaultOptions): PersistenceProvider[] {
+    const { meta, decodeType, prefix, stateInstance }: CreateStorageDefaultOptions = options;
+
     return [
         {
             get path(): string | null | undefined {
@@ -16,7 +17,11 @@ export function createDefault(
             decode: decodeType,
             prefixKey: prefix,
             nullable: false,
-            fireInit: true
+            fireInit: true,
+            rehydrate: true,
+            ttlDelay: STORAGE_TTL_DELAY,
+            ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+            stateInstance
         }
     ] as PersistenceProvider[];
 }

@@ -47,26 +47,24 @@ describe('[TEST]: Deep data action type', () => {
             prop: undefined,
             b: {
                 prop: undefined,
-                c: { prop: undefined },
-            },
+                c: { prop: undefined }
+            }
         });
 
         const stateB: B = TestBed.get(B);
         expect(stateB.getState()).toEqual({
             prop: undefined,
-            c: { prop: undefined },
+            c: { prop: undefined }
         });
 
         const stateC: C = TestBed.get(C);
         expect(stateC.getState()).toEqual({
-            prop: undefined,
+            prop: undefined
         });
 
         const actions: any[] = [];
         const actions$: Actions = TestBed.get(Actions);
-        actions$
-            .pipe(take(6))
-            .subscribe(action => actions.push(action));
+        actions$.pipe(take(6)).subscribe((action) => actions.push(action));
 
         stateA.setProp('A');
         stateB.setProp('B');
@@ -82,8 +80,8 @@ describe('[TEST]: Deep data action type', () => {
             prop: 'A',
             b: {
                 prop: 'B',
-                c: { prop: 'C' },
-            },
+                c: { prop: 'C' }
+            }
         });
     }));
 

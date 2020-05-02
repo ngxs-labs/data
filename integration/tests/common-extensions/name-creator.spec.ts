@@ -8,7 +8,7 @@ describe('[TEST]: actionNameCreator', () => {
             '@A.a($arg0, $arg1, $arg2)'
         );
     });
-    
+
     it('should be correct create nested statePath', () => {
         expect(actionNameCreator({ statePath: 'A.B.C', methodName: 'a', argumentsNames: [] })).toEqual('@A/B/C.a()');
         expect(actionNameCreator({ statePath: 'A.B', methodName: 'a', argumentsNames: ['x', 'y', 'z'] })).toEqual(

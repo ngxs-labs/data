@@ -607,24 +607,24 @@ We get the state in store:
 
 ### Extending NgxsDataEntityCollectionsRepository
 
-If you need more than the default reducer properties for your entity collection (e.g. to track loading state), then you can extend it like this:
+If you need more than the default reducer properties for your entity collection (e.g. to track loading state), then you
+can extend it like this:
 
 ```ts
 interface CourseOptions {
     loading: boolean;
-};
+}
 
 @StateRepository()
 @State({
     name: 'courses',
     defaults: {
-      ...createEntityCollections(),
-      loading: false
+        ...createEntityCollections(),
+        loading: false
     }
 })
 @Injectable()
 export class CoursesEntitiesState extends NgxsDataEntityCollectionsRepository<Course, EntityIdType, CourseOptions> {
-
     @Computed()
     public get loading(): boolean {
         return this.snapshot.loading;
@@ -635,12 +635,12 @@ export class CoursesEntitiesState extends NgxsDataEntityCollectionsRepository<Co
         const state = this.getState();
         this.setEntitiesState({
             ...state,
-            loading,
+            loading
         });
     }
-
 }
 ```
+
 ```ts
 @Component({
     selector: 'app'
@@ -651,13 +651,12 @@ export class AppComponent implements OnInit {
 
     public ngOnInit(): void {
         this.courses.setLoading(true);
-        this.api.getCourses()
-          .pipe(
-              finalize(() => this.courses.setLoading(false)),
-          )
-          .subscribe((courses: Course[]) => {
-              this.courses.setAll(courses);
-          });
+        this.api
+            .getCourses()
+            .pipe(finalize(() => this.courses.setLoading(false)))
+            .subscribe((courses: Course[]) => {
+                this.courses.setAll(courses);
+            });
     }
 }
 ```

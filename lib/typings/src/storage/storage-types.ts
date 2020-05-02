@@ -1,3 +1,5 @@
+import { StateClass } from '@ngxs/store/internals';
+
 import { NgxsRepositoryMeta } from '../types/repository';
 import { DecodingType, PersistenceProvider } from '../types/storage';
 
@@ -8,4 +10,5 @@ export interface MergeOptions {
     option: PersistenceProvider;
     prefix: string;
     decodeType: DecodingType;
+    stateInstance: StateClass;
 }

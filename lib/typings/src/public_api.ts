@@ -29,8 +29,18 @@ export {
     ExistingStorageEngine,
     ExistingEngineProvider,
     UseClassEngineProvider,
-    RootInternalStorageEngine,
-    GlobalStorageOptionsHandler
+    DataStoragePlugin,
+    GlobalStorageOptionsHandler,
+    NgxsDataExpiredEvent,
+    NgxsDataAfterExpired,
+    TtlListenerOptions,
+    TtLCreatorOptions,
+    TTL_EXPIRED_STRATEGY,
+    CreateStorageDefaultOptions,
+    PullFromStorageInfo,
+    PullFromStorageOptions,
+    RehydrateInfo,
+    CheckExpiredInitOptions
 } from './types/storage';
 export { Any } from './types/any';
 export { PlainObjectOf } from './types/plaing-object-of';

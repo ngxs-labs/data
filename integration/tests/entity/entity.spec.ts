@@ -39,11 +39,13 @@ describe('[TEST]: Entity', () => {
         interface ArticleOptions {
             loading: boolean;
             category: string;
-        };
+        }
 
-        class MyCollectionState<V, K extends EntityIdType = EntityIdType>
-            extends NgxsDataEntityCollectionsRepository<V, K, ArticleOptions> {
-
+        class MyCollectionState<V, K extends EntityIdType = EntityIdType> extends NgxsDataEntityCollectionsRepository<
+            V,
+            K,
+            ArticleOptions
+        > {
             @Computed()
             public get loading(): boolean {
                 return this.snapshot.loading;
@@ -59,7 +61,7 @@ describe('[TEST]: Entity', () => {
                 const state = this.getState();
                 this.setEntitiesState({
                     ...state,
-                    loading,
+                    loading
                 });
             }
 
@@ -68,7 +70,7 @@ describe('[TEST]: Entity', () => {
                 const state = this.getState();
                 this.setEntitiesState({
                     ...state,
-                    category,
+                    category
                 });
             }
         }
@@ -79,11 +81,11 @@ describe('[TEST]: Entity', () => {
             defaults: {
                 ...createEntityCollections(),
                 loading: false,
-                category: undefined,
-            },
+                category: undefined
+            }
         })
         @Injectable()
-        class ArticlesState extends MyCollectionState<Article, number> { }
+        class ArticlesState extends MyCollectionState<Article, number> {}
 
         @StateRepository()
         @State({
@@ -92,7 +94,7 @@ describe('[TEST]: Entity', () => {
             children: [ArticlesState]
         })
         @Injectable()
-        class EntityCacheState extends NgxsDataRepository<any> { }
+        class EntityCacheState extends NgxsDataRepository<any> {}
 
         it(
             'should work with children',
@@ -125,7 +127,7 @@ describe('[TEST]: Entity', () => {
             defaults: createEntityCollections()
         })
         @Injectable()
-        class ArticleEntitiesState extends NgxsDataEntityCollectionsRepository<Article> { }
+        class ArticleEntitiesState extends NgxsDataEntityCollectionsRepository<Article> {}
 
         it(
             '@article.addOne(entity: V)',
