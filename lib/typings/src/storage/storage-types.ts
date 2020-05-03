@@ -1,7 +1,7 @@
 import { StateClass } from '@ngxs/store/internals';
 
-import { NgxsRepositoryMeta } from '../types/repository';
-import { DecodingType, PersistenceProvider } from '../types/storage';
+import { NgxsRepositoryMeta } from '../common/repository';
+import { DecodingType, PersistenceProvider } from '../common/storage';
 
 export type ProviderOptions = PersistenceProvider[] | PersistenceProvider;
 
