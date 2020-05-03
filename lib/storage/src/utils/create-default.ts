@@ -21,7 +21,8 @@ export function createDefault(options: CreateStorageDefaultOptions): Persistence
             rehydrate: true,
             ttlDelay: STORAGE_TTL_DELAY,
             ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-            stateInstance
+            stateInstance,
+            skipMigrate: false
         }
     ] as PersistenceProvider[];
 }

@@ -88,7 +88,21 @@ interface CommonPersistenceProvider {
      * default: current state instance
      */
     stateInstance?: StateClass;
+
+    /**
+     * function that accepts a state and expects the new state in return.
+     * defaults: undefined
+     */
+    migrate?: MigrateFn;
+
+    /**
+     * skip key migration,
+     * default: false
+     */
+    skipMigrate?: boolean;
 }
+
+export type MigrateFn<T = Any, R = Any> = ((defaults: T, storage: R) => T) | undefined;
 
 export type ExistingStorageEngine = DataStorage | Storage;
 
@@ -155,6 +169,10 @@ export interface NgxsDataAfterExpired {
     ngxsDataAfterExpired?(event: NgxsDataExpiredEvent, provider: PersistenceProvider): void;
 }
 
+export interface NgxsDataMigrateStorage<T = unknown, R = unknown> {
+    ngxsDataStorageMigrate?(defaults: T, storage: R): T;
+}
+
 export interface TtlListenerOptions {
     subscription: Subscription;
     startListen: string | null;
@@ -183,8 +201,16 @@ export interface PullFromStorageOptions<T> {
 
 export interface PullFromStorageInfo {
     canBeOverrideFromStorage: boolean;
+    versionMismatch: boolean;
     expiry: Date | null;
     expired: boolean;
+}
+
+export interface RehydrateInfoOptions<T> {
+    states: PlainObject;
+    provider: PersistenceProvider;
+    data: T | null;
+    info: PullFromStorageInfo;
 }
 
 export interface RehydrateInfo {

@@ -16,6 +16,7 @@ import {
     DataStorage,
     NgxsDataAfterExpired,
     NgxsDataExpiredEvent,
+    NgxsDataMigrateStorage,
     PersistenceProvider,
     StorageContainer,
     StorageMeta,
@@ -160,6 +161,7 @@ describe('[TEST]: Storage plugin', () => {
                     nullable: false,
                     rehydrate: true,
                     fireInit: true,
+                    skipMigrate: false,
                     stateInstance: expect.any(A),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -187,6 +189,7 @@ describe('[TEST]: Storage plugin', () => {
                     prefixKey: '@ngxs.store.',
                     fireInit: true,
                     rehydrate: true,
+                    skipMigrate: false,
                     nullable: false,
                     stateInstance: expect.any(A),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
@@ -241,6 +244,7 @@ describe('[TEST]: Storage plugin', () => {
                     nullable: false,
                     rehydrate: true,
                     fireInit: true,
+                    skipMigrate: false,
                     stateInstance: expect.any(B),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -289,6 +293,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(B),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -572,6 +577,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(C9),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -586,6 +592,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(C8),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -600,6 +607,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: true,
+                    skipMigrate: false,
                     stateInstance: expect.any(C7),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -678,6 +686,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(C12),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -692,6 +701,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(C11),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -706,6 +716,7 @@ describe('[TEST]: Storage plugin', () => {
                     fireInit: true,
                     rehydrate: true,
                     nullable: false,
+                    skipMigrate: false,
                     stateInstance: expect.any(C10),
                     ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
                     ttlDelay: STORAGE_TTL_DELAY
@@ -1550,6 +1561,7 @@ describe('[TEST]: Storage plugin', () => {
                             prefixKey: '@ngxs.store.',
                             nullable: false,
                             fireInit: true,
+                            skipMigrate: false,
                             rehydrate: true,
                             ttlExpiredStrategy: 0,
                             stateInstance: expect.any(AuthJwtState)
@@ -1624,6 +1636,7 @@ describe('[TEST]: Storage plugin', () => {
                             prefixKey: '@ngxs.store.',
                             nullable: false,
                             fireInit: true,
+                            skipMigrate: false,
                             rehydrate: true,
                             ttlExpiredStrategy: 0,
                             stateInstance: expect.any(AuthJwtState)
@@ -1679,6 +1692,7 @@ describe('[TEST]: Storage plugin', () => {
                             prefixKey: '@ngxs.store.',
                             nullable: false,
                             fireInit: true,
+                            skipMigrate: false,
                             rehydrate: true,
                             ttlExpiredStrategy: 0,
                             stateInstance: expect.any(AuthJwtState)
@@ -1700,6 +1714,7 @@ describe('[TEST]: Storage plugin', () => {
                             prefixKey: '@ngxs.store.',
                             nullable: false,
                             fireInit: true,
+                            skipMigrate: false,
                             rehydrate: true,
                             ttlExpiredStrategy: 0,
                             stateInstance: expect.any(AuthJwtState)
@@ -1709,8 +1724,321 @@ describe('[TEST]: Storage plugin', () => {
             }));
         });
 
-        function ensureMockStorage<T>(key: string): StorageMeta<T> {
-            return JSON.parse(localStorage.getItem(key)! ?? '{}');
+        describe('Migration strategy', () => {
+            it('v1 -> v2 (without migrate)', () => {
+                localStorage.setItem(
+                    '@ngxs.store.migrate',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: 10
+                    })
+                );
+
+                @Persistence({
+                    version: 2,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({
+                    name: 'migrate',
+                    defaults: 'hello_world'
+                })
+                @Injectable()
+                class MigrateV1toV2State extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([MigrateV1toV2State]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: MigrateV1toV2State = TestBed.get<MigrateV1toV2State>(MigrateV1toV2State);
+
+                expect(state.getState()).toEqual('hello_world');
+                expect(ensureMockStorage('@ngxs.store.migrate')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: 'hello_world'
+                });
+            });
+
+            it('v1 -> v2 (with migrate)', () => {
+                interface OldModel {
+                    cachedIds: number[];
+                    myValues: string[];
+                }
+
+                interface NewModel {
+                    ids: number[];
+                    values: string[];
+                }
+
+                localStorage.setItem(
+                    '@ngxs.store.migrate',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: {
+                            cachedIds: [1, 2, 3],
+                            myValues: ['123', '5125', '255']
+                        }
+                    })
+                );
+
+                @Persistence({
+                    version: 2,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'migrate',
+                    defaults: {
+                        ids: [5, 7],
+                        values: ['63']
+                    }
+                })
+                @Injectable()
+                class MigrateV1toV2State extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public ngxsDataStorageMigrate(defaults: NewModel, storage: OldModel): NewModel {
+                        return {
+                            ids: [...defaults.ids, ...storage.cachedIds],
+                            values: [...defaults.values, ...storage.myValues]
+                        };
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([MigrateV1toV2State]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: MigrateV1toV2State = TestBed.get<MigrateV1toV2State>(MigrateV1toV2State);
+
+                expect(state.getState()).toEqual({ ids: [5, 7, 1, 2, 3], values: ['63', '123', '5125', '255'] });
+
+                expect(ensureMockStorage('@ngxs.store.migrate')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { ids: [5, 7, 1, 2, 3], values: ['63', '123', '5125', '255'] }
+                });
+            });
+
+            it('migrate v1 -> v2 when multiple providers', () => {
+                sessionStorage.setItem(
+                    '@ngxs.store.deepFilter.myFilter',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { phoneValue: '8911-111-1111' }
+                    })
+                );
+
+                localStorage.setItem(
+                    '@ngxs.store.deepFilter.options',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { size: 10, number: 2 }
+                    })
+                );
+
+                interface MyFilter {
+                    phone: string | null;
+                    cardNumber: string | null;
+                }
+
+                interface MyOptions {
+                    pageSize: number | null;
+                    pageNumber: number | null;
+                }
+
+                interface NewModel {
+                    myFilter: MyFilter;
+                    options: MyOptions;
+                }
+
+                @Persistence([
+                    {
+                        version: 2,
+                        path: 'deepFilter.myFilter',
+                        existingEngine: sessionStorage,
+                        migrate: (defaults: MyFilter, storage: { phoneValue: string }): MyFilter => ({
+                            ...defaults,
+                            phone: storage.phoneValue
+                        })
+                    },
+                    {
+                        version: 2,
+                        path: 'deepFilter.options',
+                        existingEngine: localStorage,
+                        migrate: (defaults: MyOptions, storage: { size: number; number: number }): MyOptions => ({
+                            ...defaults,
+                            pageSize: storage.size,
+                            pageNumber: storage.number
+                        })
+                    }
+                ])
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'deepFilter',
+                    defaults: {
+                        myFilter: {
+                            phone: null,
+                            cardNumber: null
+                        },
+                        options: {
+                            pageNumber: null,
+                            pageSize: null
+                        }
+                    }
+                })
+                @Injectable()
+                class DeepFilterState extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public invoker: number = 0;
+
+                    public ngxsDataStorageMigrate(defaults: Any, _storage: Any): Any {
+                        this.invoker++;
+                        return defaults;
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([DeepFilterState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: DeepFilterState = TestBed.get<DeepFilterState>(DeepFilterState);
+
+                expect(state.getState()).toEqual({
+                    myFilter: { phone: '8911-111-1111', cardNumber: null },
+                    options: { pageNumber: 2, pageSize: 10 }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.myFilter', sessionStorage)).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { phone: '8911-111-1111', cardNumber: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.options')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { pageNumber: 2, pageSize: 10 }
+                });
+
+                expect(state.invoker).toEqual(0);
+            });
+
+            it('skip migrate v1 -> v2', () => {
+                sessionStorage.setItem(
+                    '@ngxs.store.deepFilter.myFilter',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { phoneValue: '8911-111-1111' }
+                    })
+                );
+
+                localStorage.setItem(
+                    '@ngxs.store.deepFilter.options',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { size: 10, number: 2 }
+                    })
+                );
+
+                interface MyFilter {
+                    phone: string | null;
+                    cardNumber: string | null;
+                }
+
+                interface MyOptions {
+                    pageSize: number | null;
+                    pageNumber: number | null;
+                }
+
+                interface NewModel {
+                    myFilter: MyFilter;
+                    options: MyOptions;
+                }
+
+                @Persistence([
+                    {
+                        version: 2,
+                        skipMigrate: true,
+                        path: 'deepFilter.myFilter',
+                        existingEngine: sessionStorage
+                    },
+                    {
+                        version: 2,
+                        skipMigrate: true,
+                        path: 'deepFilter.options',
+                        existingEngine: localStorage
+                    }
+                ])
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'deepFilter',
+                    defaults: {
+                        myFilter: {
+                            phone: null,
+                            cardNumber: null
+                        },
+                        options: {
+                            pageNumber: null,
+                            pageSize: null
+                        }
+                    }
+                })
+                @Injectable()
+                class DeepFilterState extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public invoker: number = 0;
+
+                    public ngxsDataStorageMigrate(defaults: Any, _storage: Any): Any {
+                        this.invoker++;
+                        return defaults;
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([DeepFilterState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: DeepFilterState = TestBed.get<DeepFilterState>(DeepFilterState);
+
+                expect(state.getState()).toEqual({
+                    myFilter: { phone: null, cardNumber: null },
+                    options: { pageNumber: null, pageSize: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.myFilter', sessionStorage)).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { phone: null, cardNumber: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.options')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { pageNumber: null, pageSize: null }
+                });
+
+                expect(state.invoker).toEqual(0);
+            });
+        });
+
+        function ensureMockStorage<T>(key: string, storage: Storage = localStorage): StorageMeta<T> {
+            return JSON.parse(storage.getItem(key)! ?? '{}');
         }
 
         afterEach(() => {
