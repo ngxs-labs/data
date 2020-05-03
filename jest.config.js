@@ -1,30 +1,14 @@
+const { createTsJestConfig } = require('@angular-ru/jest-utils');
 const path = require('path');
-const { pathsToModuleNameMapper: resolver } = require('ts-jest/utils');
-const { compilerOptions } = require('./tsconfig.json');
 
-const moduleNameMapper = resolver(compilerOptions.paths, { prefix: '<rootDir>/' });
-
-module.exports = {
-    verbose: true,
-    watch: false,
-    cache: false,
-    maxWorkers: 1,
-    maxConcurrency: 1,
-    preset: 'jest-preset-angular',
+module.exports = createTsJestConfig({
+    maxWorkers: 2,
+    maxConcurrency: 2,
+    displayName: '@ngxs-labs/data',
     rootDir: path.resolve('.'),
-    testMatch: ['<rootDir>/**/*.spec.ts'],
-    collectCoverageFrom: ['<rootDir>/lib/**/*.ts'],
-    setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
-    coverageReporters: ['json', 'lcovonly', 'lcov', 'text', 'html'],
-    coveragePathIgnorePatterns: ['/node_modules/'],
-    globals: {
-        'ts-jest': {
-            tsConfig: '<rootDir>/tsconfig.json',
-            allowSyntheticDefaultImports: true
-        }
-    },
-    bail: true,
-    moduleNameMapper,
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
-    modulePaths: ['<rootDir>']
-};
+    setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
+    collectCoverageFrom: ['<rootDir>/lib/**/*.ts'],
+    testMatch: ['<rootDir>/integration/tests/**/*.spec.ts'],
+    tsConfigRootPath: path.resolve('./tsconfig.json')
+});
