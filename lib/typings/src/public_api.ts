@@ -42,7 +42,10 @@ export {
     RehydrateInfo,
     CheckExpiredInitOptions,
     MergeOptions,
-    ProviderOptions
+    ProviderOptions,
+    NgxsDataMigrateStorage,
+    RehydrateInfoOptions,
+    MigrateFn
 } from './storage/storage';
 export { Any } from './common/any';
 export { PlainObjectOf } from './common/plaing-object-of';

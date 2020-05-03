@@ -185,7 +185,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
             const info: PullFromStorageInfo = canBePullFromStorage({ provider, meta, data });
 
             if (info.canBeOverrideFromStorage) {
-                const rehydrateInfo: RehydrateInfo = rehydrate(states, provider, data);
+                const rehydrateInfo: RehydrateInfo = rehydrate({ states, provider, data, info });
                 this.keys.set(key);
                 states = rehydrateInfo.states;
                 this.checkExpiredInit({ info, rehydrateInfo, options });

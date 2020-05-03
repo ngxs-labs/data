@@ -19,7 +19,8 @@ export function mergeOptions({ option, decodeType, prefix, meta, stateInstance }
         ttlExpiredStrategy: isNotNil(option.ttlExpiredStrategy)
             ? option.ttlExpiredStrategy
             : TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-        stateInstance: isNotNil(option.stateInstance) ? option.stateInstance : stateInstance
+        stateInstance: isNotNil(option.stateInstance) ? option.stateInstance : stateInstance,
+        skipMigrate: isNotNil(option.skipMigrate) ? option.skipMigrate : false
     };
 
     return validatePathInProvider(meta, provider);

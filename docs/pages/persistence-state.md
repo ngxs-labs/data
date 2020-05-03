@@ -37,32 +37,37 @@ LocalStorage by default.
 
 ##### PersistenceProvider
 
--   `existingEngine` (required|optional) - Specify an object that conforms to the Storage interface to use, this will
-    default to localStorage.
+-   `existingEngine` (required|optional, `DataStorage|Storage`) - Specify an object that conforms to the Storage
+    interface to use, this will default to localStorage.
 
--   `useClass` (required|optional) - If no `existingEngine` is specified, you can provide by class token your storage
-    container.
+-   `useClass` (required|optional, `Type<T>`) - If no `existingEngine` is specified, you can provide by class token your
+    storage container.
 
--   `path` (optional) - Path for slice data from NGXS store, this will default path to current state in store.
+-   `path` (optional, `string`) - Path for slice data from NGXS store, this will default path to current state in store.
 
--   `version` (optional) - You can migrate data from one version to another during the startup of the store, this will
-    default first version.
+-   `version` (optional, `number`) - You can migrate data from one version to another during the startup of the store,
+    this will default first version.
 
--   `ttl` (optional) - You can determine the lifetime of a given key (default: -1, disable).
+-   `ttl` (optional, `number`) - You can determine the lifetime of a given key (default: -1, disable).
 
--   `ttlDelay` (optional) - The time, in milliseconds (thousandths of a second), the timer should delay in between
-    checking for expiration time live (default: 60000ms / 1min).
+-   `ttlDelay` (optional, `number`) - The time, in milliseconds (thousandths of a second), the timer should delay in
+    between checking for expiration time live (default: 60000ms / 1min).
 
--   `ttlExpiredStrategy` (optional) - You can determine what to do with the key if it expires (default:
-    TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED).
+-   `ttlExpiredStrategy` (optional, `TTL_EXPIRED_STRATEGY`) - You can determine what to do with the key if it expires
+    (default: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED).
 
--   `fireInit` (optional) - Disable initial synchronized with the storage after occurred rehydrate from storage (by
-    always default will be synchronized).
+-   `fireInit` (optional, `boolean`) - Disable initial synchronized with the storage after occurred rehydrate from
+    storage (by always default will be synchronized).
 
--   `nullable` (optional) - If the state is undefined or null in the storage by key, then it will overwrite the default
-    state when initial prepared.
+-   `nullable` (optional, `boolean`) - If the state is undefined or null in the storage by key, then it will overwrite
+    the default state when initial prepared.
 
--   `rehydrate` (optional) - Pull initial state from storage on a startup (true by default).
+-   `rehydrate` (optional, `boolean`) - Pull initial state from storage on a startup (true by default).
+
+-   `migrate` (optional, `defaults: T, storage: R) => T`) - Function that accepts a state and expects the new state in
+    return.
+
+-   `skipMigrate` (optional, `boolean`) - Skip key migration (default: false).
 
 ### Fire init
 
@@ -126,6 +131,148 @@ export class AuthJwtState extends NgxsDataRepository<AuthJwtModel> implements Ng
 ```
 
 ![](https://habrastorage.org/webt/xk/_h/wq/xk_hwqvh6testmou6b6vtjzdekm.png)
+
+### Migration strategy
+
+```ts
+// mock for example
+localStorage.setItem(
+    '@ngxs.store.migrate',
+    JSON.stringify({
+        lastChanged: '2020-01-01T12:10:00.000Z',
+        version: 1,
+        data: {
+            cachedIds: [1, 2, 3],
+            myValues: ['123', '5125', '255']
+        }
+    })
+);
+
+// state with migration strategy
+@Persistence({
+    version: 2,
+    existingEngine: localStorage
+})
+@StateRepository()
+@State<NewModel>({
+    name: 'migrate',
+    defaults: {
+        ids: [5, 7],
+        values: ['63']
+    }
+})
+@Injectable()
+class MigrateV1toV2State extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+    public ngxsDataStorageMigrate(defaults: NewModel, storage: OldModel): NewModel {
+        return {
+            ids: [...defaults.ids, ...storage.cachedIds],
+            values: [...defaults.values, ...storage.myValues]
+        };
+    }
+}
+
+state.getState();
+
+// { ids: [ 5, 7, 1, 2, 3 ], values: [ '63', '123', '5125', '255' ] }
+```
+
+#### Multiples providers
+
+However, a situation may arise when you need to migrate different data sources. Suppose you had different models for a
+nested state:
+
+```ts
+sessionStorage.setItem(
+    '@ngxs.store.deepFilter.myFilter',
+    JSON.stringify({
+        lastChanged: '2020-01-01T12:10:00.000Z',
+        version: 1,
+        data: { phoneValue: '8911-111-1111' }
+    })
+);
+
+localStorage.setItem(
+    '@ngxs.store.deepFilter.options',
+    JSON.stringify({
+        lastChanged: '2020-01-01T12:10:00.000Z',
+        version: 1,
+        data: { size: 10, number: 2 }
+    })
+);
+```
+
+And the new model now looks like this:
+
+```ts
+export interface MyFilter {
+    phone: string | null;
+    cardNumber: string | null;
+}
+
+export interface MyOptions {
+    pageSize: number | null;
+    pageNumber: number | null;
+}
+
+export interface NewModel {
+    myFilter: MyFilter;
+    options: MyOptions;
+}
+```
+
+In this case, you can define a handler for each:
+
+```ts
+@Persistence([
+    {
+        version: 2,
+        path: 'deepFilter.myFilter',
+        existingEngine: sessionStorage,
+        migrate: (defaults: MyFilter, storage: { phoneValue: string }): MyFilter => ({
+            ...defaults,
+            phone: storage.phoneValue
+        })
+    },
+    {
+        version: 2,
+        path: 'deepFilter.options',
+        existingEngine: localStorage,
+        migrate: (defaults: MyOptions, storage: { size: number; number: number }): MyOptions => ({
+            ...defaults,
+            pageSize: storage.size,
+            pageNumber: storage.number
+        })
+    }
+])
+@StateRepository()
+@State<NewModel>({
+    name: 'deepFilter',
+    defaults: {
+        myFilter: {
+            phone: null,
+            cardNumber: null
+        },
+        options: {
+            pageNumber: null,
+            pageSize: null
+        }
+    }
+})
+@Injectable()
+class DeepFilterState extends NgxsDataRepository<NewModel> {}
+
+// state.getState()
+/*
+
+ {
+    myFilter: { phone: '8911-111-1111', cardNumber: null },
+    options: { pageNumber: 2, pageSize: 10 }
+ }
+
+*/
+```
+
+Also, if you want skipping migration for another provider, you can set `skipMigrate` to `true`.
 
 ### Override global prefix key
 
