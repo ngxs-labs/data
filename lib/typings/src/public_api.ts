@@ -40,8 +40,10 @@ export {
     PullFromStorageInfo,
     PullFromStorageOptions,
     RehydrateInfo,
-    CheckExpiredInitOptions
-} from './common/storage';
+    CheckExpiredInitOptions,
+    MergeOptions,
+    ProviderOptions
+} from './storage/storage';
 export { Any } from './common/any';
 export { PlainObjectOf } from './common/plaing-object-of';
 export { ClassType } from './common/class';
@@ -67,4 +69,3 @@ export { EntityContext } from './entity/entity-context';
 export { PRIMARY_KEY } from './entity/primary-key';
 export { EntityUpdate } from './entity/entity-update';
 export { EntitySortByOrder, EntityComparator, EntityCompareFn, EntitySortBy } from './entity/entity-sort-by';
-export { MergeOptions, ProviderOptions } from './storage/storage-types';

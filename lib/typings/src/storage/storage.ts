@@ -3,8 +3,8 @@ import { Store } from '@ngxs/store';
 import { PlainObject, StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
 
-import { Any } from './any';
-import { NgxsRepositoryMeta } from './repository';
+import { Any } from '../common/any';
+import { NgxsRepositoryMeta } from '../common/repository';
 
 export interface DataStorage<T = string, U = string> {
     getItem(key: string): T;
@@ -196,4 +196,14 @@ export interface CheckExpiredInitOptions {
     info: PullFromStorageInfo;
     options: GlobalStorageOptionsHandler;
     rehydrateInfo: RehydrateInfo;
+}
+
+export type ProviderOptions = PersistenceProvider[] | PersistenceProvider;
+
+export interface MergeOptions {
+    meta: NgxsRepositoryMeta;
+    option: PersistenceProvider;
+    prefix: string;
+    decodeType: DecodingType;
+    stateInstance: StateClass;
 }
