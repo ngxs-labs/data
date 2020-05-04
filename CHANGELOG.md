@@ -16,6 +16,7 @@
 -   Feature: support observers for listening expiration time to live
 -   Feature: add fire init option to `@Persistence()`
 -   Feature: add rehydrate option to `@Persistence()`
+-   Feature: add `insideZone` option to `@DataAction()`
 -   Fix: hide `Angular is running in the development mode` message in testing mode
 -   Fix: support migration strategy
 -   Fix: improved `@Persistence()` decorator for stability

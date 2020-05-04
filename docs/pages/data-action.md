@@ -465,3 +465,28 @@ export class TodoState extends NgxsDataRepository<string[]> {
 ```
 
 ![](https://habrastorage.org/webt/hz/3f/0l/hz3f0lmmptejx0fvjf1gxkvifwy.png)
+
+### How to check whether the code is in `NgZone`?
+
+The most common use of action is to optimize performance when starting a work consisting of one or more asynchronous or
+synchronous tasks that don't require UI updates or error handling to be handled by Angular. Such tasks can be kicked off
+via runOutsideAngular and if needed, these tasks can reenter the Angular zone via run.
+
+By default, all action methods are called outside the Angular zone. But if you want to change this, you can define a
+parameter `insideZone`:
+
+```ts
+@StateRepository()
+@State({
+    name: 'counter',
+    defaults: 0
+})
+@Injectable()
+class CounterState extends NgxsDataRepository<number> {
+    @DataAction({ insideZone: true })
+    public incrementInZone(): void {
+        console.log('expect is in Angular Zone', NgZone.isInAngularZone());
+        this.ctx.setState((state) => ++state);
+    }
+}
+```
