@@ -27,6 +27,7 @@ import { canBePullFromStorage } from './utils/can-be-pull-from-storage';
 import { createTtlInterval } from './utils/create-ttl-interval';
 import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
 import { ensureKey } from './utils/ensure-key';
+import { ensureSerializeData } from './utils/ensure-serialize-data';
 import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
 import { firedStateWhenExpired } from './utils/fire-state-when-expired';
@@ -96,7 +97,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     private static checkIsStorageEvent<T>(
         options: GlobalStorageOptionsHandler,
         info: RehydrateInfo,
-        data: T | null
+        data: T | string | null
     ): void {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
         if (info.rehydrateIn && isStorageEvent(action)) {
@@ -131,9 +132,9 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
 
     public serialize<T>(data: T, provider: PersistenceProvider): string {
         const meta: StorageMeta<T> = {
-            lastChanged: new Date().toISOString(),
             version: provider.version!,
-            data: isNotNil(data) ? data : null
+            lastChanged: new Date().toISOString(),
+            data: ensureSerializeData(data, provider)
         };
 
         if (existTtl(provider)) {
@@ -146,8 +147,12 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         return JSON.stringify(meta);
     }
 
-    public deserialize<T>(meta: StorageMeta<T>, value: string | null): T | null {
-        return deserializeByStorageMeta(meta, value);
+    public deserialize<T>(
+        meta: StorageMeta<T>,
+        value: string | null,
+        provider: PersistenceProvider
+    ): T | string | null {
+        return deserializeByStorageMeta(meta, value, provider);
     }
 
     public destroyOldTasks(): void {
@@ -207,7 +212,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { key, provider, value }: GlobalStorageOptionsHandler = options;
         try {
             const meta: StorageMeta<T> = parseStorageMeta<T>(value);
-            const data: T | null = this.deserialize(meta, value);
+            const data: T | string | null = this.deserialize(meta, value, provider);
             const info: PullFromStorageInfo = canBePullFromStorage({ provider, meta, data });
 
             if (info.canBeOverrideFromStorage) {

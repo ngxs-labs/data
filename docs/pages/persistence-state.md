@@ -69,6 +69,8 @@ LocalStorage by default.
 
 -   `skipMigrate` (optional, `boolean`) - Skip key migration (default: false).
 
+-   `decode` (optional, `STORAGE_DECODE_TYPE`) - You can also decode or encode your data in base64 (default: none).
+
 ### Fire init
 
 If you don't want your value that was received from the storage to be synchronized again with the storage, you can
@@ -313,6 +315,24 @@ window.dispatchEvent(
 When an event occurs, you will receive a new state, also, if you implemented a `ngxsDataAfterStorageEvent` method, it
 will be called.
 
+### Decode/encode
+
+```ts
+@Persistence({
+    existingEngine: localStorage,
+    decode: STORAGE_DECODE_TYPE.BASE64
+})
+@StateRepository()
+@State<string[]>({
+    name: 'todo',
+    defaults: []
+})
+@Injectable()
+export class TodoState extends NgxsDataRepository<string[]> {}
+```
+
+![](https://habrastorage.org/webt/zq/iu/yk/zqiuyk0htv0swwa_b5ji45vuahe.png)
+
 ### Override global prefix key
 
 By default, key search uses the prefix `@ngxs.store.`, but you can override the prefix:
@@ -323,6 +343,19 @@ import { NGXS_DATA_STORAGE_PREFIX_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-
 @NgModule({
     imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
     providers: [{ provide: NGXS_DATA_STORAGE_PREFIX_TOKEN, useValue: '@myCompany.store.' }]
+})
+export class AppModule {}
+```
+
+### Use base64 for decode/encode data in storage
+
+```ts
+import { STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
+import { NGXS_DATA_STORAGE_CONTAINER_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-labs/data/storage';
+
+@NgModule({
+    imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
+    providers: [{ provide: NGXS_DATA_STORAGE_CONTAINER_TOKEN, useValue: STORAGE_DECODE_TYPE.BASE64 }]
 })
 export class AppModule {}
 ```

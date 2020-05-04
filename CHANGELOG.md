@@ -21,6 +21,7 @@
 -   Feature: add `insideZone` option to `@DataAction()`
 -   Fix: hide `Angular is running in the development mode` message in testing mode
 -   Fix: support migration strategy
+-   Fix: support decode/encode data in storage
 -   Fix: improved `@Persistence()` decorator for stability
 -   Fix: use deep equals when state update in storage from another browser tab
 -   Fix: now `@Computed()` fields are recalculation when store has changed

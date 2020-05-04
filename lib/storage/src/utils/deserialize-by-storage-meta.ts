@@ -1,12 +1,16 @@
 import { isPlainObject } from '@ngxs-labs/data/internals';
-import { Any, StorageMeta } from '@ngxs-labs/data/typings';
+import { Any, PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
 
 import { InvalidDataValueException } from '../exceptions/invalid-data-value.exception';
 import { InvalidLastChangedException } from '../exceptions/invalid-last-changed.exception';
 import { InvalidStructureDataException } from '../exceptions/invalid-structure-data.exception';
 import { InvalidVersionException } from '../exceptions/invalid-version.exception';
 
-export function deserializeByStorageMeta<T>(meta: StorageMeta<T>, value: string | null): T | null | never {
+export function deserializeByStorageMeta<T>(
+    meta: StorageMeta<T>,
+    value: string | null,
+    provider: PersistenceProvider
+): StorageData<T> | never {
     if (isPlainObject(meta)) {
         if (missingLastChanged(meta)) {
             throw new InvalidLastChangedException(value);
@@ -16,7 +20,9 @@ export function deserializeByStorageMeta<T>(meta: StorageMeta<T>, value: string 
             throw new InvalidDataValueException();
         }
 
-        return meta.data;
+        return provider.decode === STORAGE_DECODE_TYPE.BASE64
+            ? JSON.parse(window.atob(meta.data as string))
+            : meta.data;
     } else {
         throw new InvalidStructureDataException(`"${value}" not an object`);
     }
