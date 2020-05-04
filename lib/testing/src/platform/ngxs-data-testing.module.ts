@@ -8,6 +8,7 @@ import { StateClass } from '@ngxs/store/internals';
 
 import { createInternalNgxsRootElement } from './internal/create-internal-ngxs-root-element';
 import { NgxsAppMockModule } from './ngxs-app-mock.module';
+import { patchConsoleLog } from './patch-console-log';
 
 type NgxsDataTestingModuleProviders = [
     Type<NgxsAppMockModule>,
@@ -31,6 +32,7 @@ export class NgxsDataTestingModule {
     }
 
     public static ngxsInitPlatform(): void {
+        patchConsoleLog();
         destroyPlatform();
         createInternalNgxsRootElement();
         NgxsAppMockModule.ngDoBootstrap(TestBed.get(ApplicationRef));
