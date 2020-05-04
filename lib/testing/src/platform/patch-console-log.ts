@@ -1,5 +1,7 @@
 import { Any } from '@ngxs-labs/data/typings';
 
+declare const global: Any;
+
 ((window || global) as Any)['IS_PATCHED'] = false;
 
 export function patchConsoleLog(): void {
