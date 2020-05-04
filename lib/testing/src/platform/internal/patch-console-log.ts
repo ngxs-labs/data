@@ -1,5 +1,7 @@
 import { Any } from '@ngxs-labs/data/typings';
 
+import { getStackTraceLine } from './get-stack-trace';
+
 declare const global: Any;
 
 ((window || global) as Any)['IS_PATCHED'] = false;
@@ -21,6 +23,8 @@ export function patchConsoleLog(): void {
 
         if (accessedArgs.length > 0) {
             originConsoleLog.apply(console, accessedArgs);
+            // eslint-disable-next-line no-console
+            console.info(getStackTraceLine());
         }
     };
 

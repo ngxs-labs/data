@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { ActionType, Store } from '@ngxs/store';
 import { PlainObject, StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
 
@@ -152,6 +152,7 @@ export interface DataStoragePlugin {
 
 export interface GlobalStorageOptionsHandler {
     key: string;
+    action: ActionType;
     value: string | null;
     engine: ExistingStorageEngine;
     provider: PersistenceProvider;
@@ -171,6 +172,17 @@ export interface NgxsDataAfterExpired {
 
 export interface NgxsDataMigrateStorage<T = unknown, R = unknown> {
     ngxsDataStorageMigrate?(defaults: T, storage: R): T;
+}
+
+export interface NgxsDataAfterStorageEvent<T = Any> {
+    ngxsDataAfterStorageEvent?(event: NgxsDataStorageEvent<T>): void;
+}
+
+export interface NgxsDataStorageEvent<T = Any> {
+    provider: PersistenceProvider;
+    value: string | null;
+    data: T | null;
+    key: string;
 }
 
 export interface TtlListenerOptions {
@@ -222,6 +234,7 @@ export interface CheckExpiredInitOptions {
     info: PullFromStorageInfo;
     options: GlobalStorageOptionsHandler;
     rehydrateInfo: RehydrateInfo;
+    map: WeakMap<PersistenceProvider, TtlListenerOptions>;
 }
 
 export type ProviderOptions = PersistenceProvider[] | PersistenceProvider;
@@ -232,4 +245,9 @@ export interface MergeOptions {
     prefix: string;
     decodeType: DecodingType;
     stateInstance: StateClass;
+}
+
+export interface PullStorageMeta {
+    init: boolean;
+    action: ActionType;
 }
