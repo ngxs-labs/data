@@ -8,8 +8,10 @@ import {
     DataStoragePlugin,
     ExistingStorageEngine,
     GlobalStorageOptionsHandler,
+    NgxsDataAfterStorageEvent,
     PersistenceProvider,
     PullFromStorageInfo,
+    PullStorageMeta,
     RehydrateInfo,
     StorageContainer,
     StorageMeta,
@@ -29,6 +31,7 @@ import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
 import { firedStateWhenExpired } from './utils/fire-state-when-expired';
 import { isInitAction } from './utils/is-init-action';
+import { isStorageEvent } from './utils/is-storage-event';
 import { parseStorageMeta } from './utils/parse-storage-meta';
 import { rehydrate } from './utils/rehydrate';
 import { silentDeserializeWarning } from './utils/silent-deserialize-warning';
@@ -90,16 +93,39 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         return this.size === 0 || isPlatformServer(this._platformId);
     }
 
+    private static checkIsStorageEvent<T>(
+        options: GlobalStorageOptionsHandler,
+        info: RehydrateInfo,
+        data: T | null
+    ): void {
+        const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
+        if (info.rehydrateIn && isStorageEvent(action)) {
+            const instance: NgxsDataAfterStorageEvent = (provider.stateInstance as Any) as NgxsDataAfterStorageEvent;
+            if (instance?.ngxsDataAfterStorageEvent) {
+                instance?.ngxsDataAfterStorageEvent?.({ key, value, data, provider });
+            }
+        }
+    }
+
+    private static checkExpiredInit(params: CheckExpiredInitOptions): void {
+        const { info, rehydrateInfo, options, map }: CheckExpiredInitOptions = params;
+        const { provider, engine }: GlobalStorageOptionsHandler = options;
+
+        if (rehydrateInfo.rehydrateIn && info.expiry) {
+            createTtlInterval({ provider, expiry: info.expiry, map, engine });
+        }
+    }
+
     public handle(states: PlainObject, action: ActionType, next: NgxsNextPluginFn): NgxsNextPluginFn {
         if (this.skipStorageInterceptions) {
             return next(states, action);
         }
 
         const init: boolean = isInitAction(action);
-        states = this.pullStateFromStorage(states, action, init);
+        states = this.pullStateFromStorage(states, { action, init });
 
         return next(states, action).pipe(
-            tap((nextState: PlainObject): void => this.pushStateToStorage(states, nextState, init))
+            tap((nextState: PlainObject): void => this.pushStateToStorage(states, nextState, { action, init }))
         );
     }
 
@@ -129,11 +155,11 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         NgxsDataStoragePlugin.ttlListeners = new WeakMap();
     }
 
-    private pushStateToStorage(states: PlainObject, nextState: PlainObject, init: boolean): void {
+    private pushStateToStorage(states: PlainObject, nextState: PlainObject, meta: PullStorageMeta): void {
         for (const [provider] of this.entries) {
             const prevData: Any = getValue(states, provider.path!);
             const newData: Any = getValue(nextState, provider.path!);
-            const canBeInitFire: boolean = provider.fireInit! && init;
+            const canBeInitFire: boolean = provider.fireInit! && meta.init;
 
             if (prevData !== newData || canBeInitFire) {
                 const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
@@ -150,10 +176,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         }
     }
 
-    private pullStateFromStorage(states: PlainObject, action: ActionType, init: boolean): PlainObject {
+    private pullStateFromStorage(states: PlainObject, { action, init }: PullStorageMeta): PlainObject {
         if (this.canBeSyncStoreWithStorage(action, init)) {
             for (const [provider] of this.entries) {
-                states = this.deserializeByProvider(states, provider);
+                states = this.deserializeByProvider(states, action, provider);
             }
         }
 
@@ -164,14 +190,14 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         return this.size > 0 && (init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE);
     }
 
-    private deserializeByProvider(states: PlainObject, provider: PersistenceProvider): PlainObject {
+    private deserializeByProvider(states: PlainObject, action: ActionType, provider: PersistenceProvider): PlainObject {
         const key: string = ensureKey(provider);
         const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
         const existValueByKeyInStorage: boolean = isNotNil(value);
 
         if (existValueByKeyInStorage) {
-            states = this.deserializeHandler(states, { key, engine, provider, value });
+            states = this.deserializeHandler(states, { key, engine, provider, value, action });
         }
 
         return states;
@@ -188,7 +214,8 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
                 const rehydrateInfo: RehydrateInfo = rehydrate({ states, provider, data, info });
                 this.keys.set(key);
                 states = rehydrateInfo.states;
-                this.checkExpiredInit({ info, rehydrateInfo, options });
+                NgxsDataStoragePlugin.checkIsStorageEvent<T>(options, rehydrateInfo, data);
+                NgxsDataStoragePlugin.checkExpiredInit({ info, rehydrateInfo, options, map: this.ttlListeners });
             } else {
                 this.removeKeyWhenPullInvalid(info, options);
             }
@@ -197,15 +224,6 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         }
 
         return states;
-    }
-
-    private checkExpiredInit(params: CheckExpiredInitOptions): void {
-        const { info, rehydrateInfo, options }: CheckExpiredInitOptions = params;
-        const { provider, engine }: GlobalStorageOptionsHandler = options;
-
-        if (rehydrateInfo.rehydrateIn && info.expiry) {
-            createTtlInterval({ provider, expiry: info.expiry, map: this.ttlListeners, engine });
-        }
     }
 
     private removeKeyWhenPullInvalid(info: PullFromStorageInfo, options: GlobalStorageOptionsHandler): void {

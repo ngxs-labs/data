@@ -32,7 +32,9 @@ export {
     DataStoragePlugin,
     GlobalStorageOptionsHandler,
     NgxsDataExpiredEvent,
+    NgxsDataStorageEvent,
     NgxsDataAfterExpired,
+    NgxsDataAfterStorageEvent,
     TtlListenerOptions,
     TtLCreatorOptions,
     TTL_EXPIRED_STRATEGY,
@@ -45,7 +47,8 @@ export {
     ProviderOptions,
     NgxsDataMigrateStorage,
     RehydrateInfoOptions,
-    MigrateFn
+    MigrateFn,
+    PullStorageMeta
 } from './storage/storage';
 export { Any } from './common/any';
 export { PlainObjectOf } from './common/plaing-object-of';

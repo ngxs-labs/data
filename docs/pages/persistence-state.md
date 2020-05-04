@@ -274,6 +274,45 @@ class DeepFilterState extends NgxsDataRepository<NewModel> {}
 
 Also, if you want skipping migration for another provider, you can set `skipMigrate` to `true`.
 
+### Storage events
+
+The storage event of the Window interface fires when a storage area (localStorage or sessionStorage) has been modified
+in the context of another document.
+
+```ts
+@Persistence()
+@StateRepository()
+@State({
+    name: 'count',
+    defaults: 0
+})
+@Injectable()
+class CountState extends NgxsDataRepository<number> implements NgxsDataAfterStorageEvent {
+    public ngxsDataAfterStorageEvent(event: NgxsDataStorageEvent) {
+        console.log(event);
+        // my logic
+    }
+}
+```
+
+```ts
+// emulate storage event
+
+localStorage.setItem(
+    '@ngxs.store.count',
+    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 15 })
+);
+
+window.dispatchEvent(
+    new StorageEvent('storage', {
+        key: '@ngxs.store.count'
+    })
+);
+```
+
+When an event occurs, you will receive a new state, also, if you implemented a `ngxsDataAfterStorageEvent` method, it
+will be called.
+
 ### Override global prefix key
 
 By default, key search uses the prefix `@ngxs.store.`, but you can override the prefix:
@@ -288,7 +327,7 @@ import { NGXS_DATA_STORAGE_PREFIX_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-
 export class AppModule {}
 ```
 
-### More options
+### Nested states
 
 In more complex cases, when you need to use other storage, or you want to save part of the state, you can use the
 complex options:
@@ -390,10 +429,6 @@ export class SecureStorageService implements DataStorage {
     // ...
 }
 ```
-
-### Options
-
-![](https://habrastorage.org/webt/kk/gk/lb/kkgklbnwopcbsifj78x4muwvxyk.png)
 
 ### Not recommended
 
