@@ -16,7 +16,10 @@ export interface DataStorage<T = string, U = string> {
     clear(): void;
 }
 
-export type DecodingType = 'base64' | 'none';
+export const enum STORAGE_DECODE_TYPE {
+    BASE64 = 'base64',
+    NONE = 'none'
+}
 
 export const enum TTL_EXPIRED_STRATEGY {
     REMOVE_KEY_AFTER_EXPIRED,
@@ -57,8 +60,9 @@ interface CommonPersistenceProvider {
 
     /**
      * decode/encoded
+     * default: STORAGE_DECODE_TYPE.NONE
      */
-    decode?: DecodingType;
+    decode?: STORAGE_DECODE_TYPE;
 
     /**
      * prefix for key
@@ -124,7 +128,7 @@ export interface UseClassEngineProvider extends CommonPersistenceProvider {
 export type PersistenceProvider = ExistingEngineProvider | UseClassEngineProvider;
 
 export interface StorageMeta<T> {
-    data: T | null;
+    data: StorageData<T>;
     version: number;
     lastChanged: string;
     expiry?: string;
@@ -145,10 +149,12 @@ export interface DataStoragePlugin {
 
     serialize(data: Any, provider: PersistenceProvider): string;
 
-    deserialize<T>(meta: StorageMeta<T>, value: string | null): T | null;
+    deserialize<T>(meta: StorageMeta<T>, value: string | null, provider: PersistenceProvider): StorageData<T>;
 
     destroyOldTasks(): void;
 }
+
+export type StorageData<T> = T | string | null;
 
 export interface GlobalStorageOptionsHandler {
     key: string;
@@ -201,7 +207,7 @@ export interface TtLCreatorOptions {
 export interface CreateStorageDefaultOptions {
     prefix: string;
     meta: NgxsRepositoryMeta;
-    decodeType: DecodingType;
+    decodeType: STORAGE_DECODE_TYPE;
     stateInstance: StateClass;
 }
 
@@ -243,7 +249,7 @@ export interface MergeOptions {
     meta: NgxsRepositoryMeta;
     option: PersistenceProvider;
     prefix: string;
-    decodeType: DecodingType;
+    decodeType: STORAGE_DECODE_TYPE;
     stateInstance: StateClass;
 }
 

@@ -22,12 +22,14 @@ import {
     PersistenceProvider,
     StorageContainer,
     StorageMeta,
-    TTL_EXPIRED_STRATEGY
+    TTL_EXPIRED_STRATEGY,
+    STORAGE_DECODE_TYPE
 } from '@ngxs-labs/data/typings';
 import { Actions, NGXS_PLUGINS, NgxsModule, ofActionDispatched, ofActionSuccessful, State, Store } from '@ngxs/store';
 import { NGXS_DATA_EXCEPTIONS, NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import { Subject } from 'rxjs';
 import { STORAGE_TTL_DELAY } from '../../../lib/storage/src/tokens/storage-ttl-delay';
+import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../../../lib/storage/src/tokens/storage-decode-type-token';
 
 describe('[TEST]: Storage plugin', () => {
     let store: Store;
@@ -2106,6 +2108,79 @@ describe('[TEST]: Storage plugin', () => {
                     }
                 }
             ]);
+        });
+
+        it('should be correct encode/decode', () => {
+            localStorage.setItem(
+                '@ngxs.store.filter',
+                JSON.stringify({
+                    lastChanged: '2020-05-04T19:53:06.310Z',
+                    version: 1,
+                    data: 'eyJwaG9uZSI6IjExMTExIiwiY2FyZCI6IjIyMjIyIn0='
+                })
+            );
+
+            interface FilterModel {
+                phone: string;
+                card: string;
+            }
+
+            @Persistence()
+            @StateRepository()
+            @State({
+                name: 'filter',
+                defaults: {
+                    phone: null,
+                    card: null
+                }
+            })
+            @Injectable()
+            class FilterState extends NgxsDataRepository<FilterModel> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([FilterState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
+                providers: [{ provide: NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, useValue: STORAGE_DECODE_TYPE.BASE64 }]
+            });
+
+            const state: FilterState = TestBed.get<FilterState>(FilterState);
+
+            // noinspection DuplicatedCode
+            const container: StorageContainer = TestBed.get(NGXS_DATA_STORAGE_CONTAINER_TOKEN);
+            expect(container.getProvidedKeys()).toEqual(['@ngxs.store.filter']);
+
+            expect(Array.from(container.providers)).toEqual([
+                {
+                    path: 'filter',
+                    existingEngine: expect.any(Storage),
+                    ttl: -1,
+                    version: 1,
+                    decode: 'base64',
+                    prefixKey: '@ngxs.store.',
+                    nullable: false,
+                    rehydrate: true,
+                    fireInit: true,
+                    skipMigrate: false,
+                    stateInstance: expect.any(FilterState),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
+                }
+            ]);
+
+            expect(state.getState()).toEqual({ phone: '11111', card: '22222' });
+
+            expect(ensureMockStorage('@ngxs.store.filter')).toEqual({
+                lastChanged: expect.any(String),
+                version: 1,
+                data: 'eyJwaG9uZSI6IjExMTExIiwiY2FyZCI6IjIyMjIyIn0='
+            });
+
+            state.setState({ phone: '4444', card: '5555' });
+
+            expect(ensureMockStorage('@ngxs.store.filter')).toEqual({
+                version: 1,
+                lastChanged: expect.any(String),
+                data: 'eyJwaG9uZSI6IjQ0NDQiLCJjYXJkIjoiNTU1NSJ9'
+            });
         });
 
         function ensureMockStorage<T>(key: string, storage: Storage = localStorage): StorageMeta<T> {

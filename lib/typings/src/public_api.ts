@@ -23,7 +23,6 @@ export {
 export {
     StorageMeta,
     DataStorage,
-    DecodingType,
     StorageContainer,
     PersistenceProvider,
     ExistingStorageEngine,
@@ -38,6 +37,7 @@ export {
     TtlListenerOptions,
     TtLCreatorOptions,
     TTL_EXPIRED_STRATEGY,
+    STORAGE_DECODE_TYPE,
     CreateStorageDefaultOptions,
     PullFromStorageInfo,
     PullFromStorageOptions,
@@ -48,7 +48,8 @@ export {
     NgxsDataMigrateStorage,
     RehydrateInfoOptions,
     MigrateFn,
-    PullStorageMeta
+    PullStorageMeta,
+    StorageData
 } from './storage/storage';
 export { Any } from './common/any';
 export { PlainObjectOf } from './common/plaing-object-of';

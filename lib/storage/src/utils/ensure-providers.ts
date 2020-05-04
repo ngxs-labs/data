@@ -1,8 +1,7 @@
-import { DecodingType, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
+import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
 import { StateClass } from '@ngxs/store/internals';
 
 import { NgxsDataStoragePlugin } from '../ngxs-data-storage-plugin.service';
-import { DEFAULT_DECODE_TYPE } from '../tokens/storage-decode-type';
 import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../tokens/storage-decode-type-token';
 import { DEFAULT_KEY_PREFIX } from '../tokens/storage-prefix';
 import { NGXS_DATA_STORAGE_PREFIX_TOKEN } from '../tokens/storage-prefix-token';
@@ -17,9 +16,9 @@ export function ensureProviders(
 ): PersistenceProvider[] {
     let providers: PersistenceProvider[];
     const prefix: string = NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_PREFIX_TOKEN, DEFAULT_KEY_PREFIX)!;
-    const decodeType: DecodingType = NgxsDataStoragePlugin.injector?.get(
+    const decodeType: STORAGE_DECODE_TYPE = NgxsDataStoragePlugin.injector?.get(
         NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN,
-        DEFAULT_DECODE_TYPE
+        STORAGE_DECODE_TYPE.NONE
     )!;
 
     if (options) {

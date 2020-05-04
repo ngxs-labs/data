@@ -15,7 +15,7 @@ export { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/storage-container-to
 export { NGXS_DATA_STORAGE_PREFIX_TOKEN } from './tokens/storage-prefix-token';
 export { NGXS_DATA_STORAGE_CONTAINER } from './tokens/storage-container-provider';
 export { NGXS_DATA_STORAGE_PREFIX, DEFAULT_KEY_PREFIX } from './tokens/storage-prefix';
-export { NGXS_DATA_STORAGE_DECODE_TYPE, DEFAULT_DECODE_TYPE } from './tokens/storage-decode-type';
+export { NGXS_DATA_STORAGE_DECODE_TYPE } from './tokens/storage-decode-type';
 
 export const NGXS_DATA_STORAGE_PLUGIN: Provider[] = [
     NGXS_DATA_STORAGE_EXTENSION,
