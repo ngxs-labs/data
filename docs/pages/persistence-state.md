@@ -347,7 +347,7 @@ import { NGXS_DATA_STORAGE_PREFIX_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-
 export class AppModule {}
 ```
 
-### Use base64 for decode/encode data in storage
+### Use base64 for decode/encode data in storage by default everything
 
 ```ts
 import { STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
