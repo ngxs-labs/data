@@ -28,7 +28,6 @@ import { Actions, NGXS_PLUGINS, NgxsModule, ofActionDispatched, ofActionSuccessf
 import { NGXS_DATA_EXCEPTIONS, NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import { Subject } from 'rxjs';
 import { STORAGE_TTL_DELAY } from '../../../lib/storage/src/tokens/storage-ttl-delay';
-import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
 
 describe('[TEST]: Storage plugin', () => {
     let store: Store;
@@ -2040,7 +2039,7 @@ describe('[TEST]: Storage plugin', () => {
             });
         });
 
-        describe('ngxsDataAfterStorageEvent', () => {
+        it('should be correct invoked after storage event', () => {
             localStorage.setItem(
                 '@ngxs.store.count',
                 JSON.stringify({
@@ -2064,48 +2063,49 @@ describe('[TEST]: Storage plugin', () => {
                 }
             }
 
-            it(
-                'should be correct invoked after storage event',
-                ngxsTestingPlatform([CountState], (_, state) => {
-                    expect(state.getState()).toEqual(5);
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
 
-                    localStorage.setItem(
-                        '@ngxs.store.count',
-                        JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 15 })
-                    );
+            const state: CountState = TestBed.get<CountState>(CountState);
 
-                    window.dispatchEvent(
-                        new StorageEvent('storage', {
-                            key: '@ngxs.store.count'
-                        })
-                    );
+            expect(state.getState()).toEqual(5);
 
-                    expect(state.getState()).toEqual(15);
+            localStorage.setItem(
+                '@ngxs.store.count',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 15 })
+            );
 
-                    expect(state.events).toEqual([
-                        {
-                            key: '@ngxs.store.count',
-                            value: expect.any(String),
-                            data: 15,
-                            provider: {
-                                path: 'count',
-                                existingEngine: expect.any(Storage),
-                                ttl: -1,
-                                version: 1,
-                                decode: 'none',
-                                prefixKey: '@ngxs.store.',
-                                nullable: false,
-                                fireInit: true,
-                                rehydrate: true,
-                                ttlDelay: 60000,
-                                ttlExpiredStrategy: 0,
-                                stateInstance: expect.any(CountState),
-                                skipMigrate: false
-                            }
-                        }
-                    ]);
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.count'
                 })
             );
+
+            expect(state.getState()).toEqual(15);
+
+            expect(state.events).toEqual([
+                {
+                    key: '@ngxs.store.count',
+                    value: expect.any(String),
+                    data: 15,
+                    provider: {
+                        path: 'count',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        nullable: false,
+                        fireInit: true,
+                        rehydrate: true,
+                        ttlDelay: 60000,
+                        ttlExpiredStrategy: 0,
+                        stateInstance: expect.any(CountState),
+                        skipMigrate: false
+                    }
+                }
+            ]);
         });
 
         function ensureMockStorage<T>(key: string, storage: Storage = localStorage): StorageMeta<T> {
