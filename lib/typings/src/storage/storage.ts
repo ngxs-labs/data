@@ -128,7 +128,7 @@ export interface UseClassEngineProvider extends CommonPersistenceProvider {
 export type PersistenceProvider = ExistingEngineProvider | UseClassEngineProvider;
 
 export interface StorageMeta<T> {
-    data: T | string | null;
+    data: StorageData<T>;
     version: number;
     lastChanged: string;
     expiry?: string;

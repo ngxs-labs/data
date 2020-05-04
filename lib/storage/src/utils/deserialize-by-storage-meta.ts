@@ -20,9 +20,7 @@ export function deserializeByStorageMeta<T>(
             throw new InvalidDataValueException();
         }
 
-        return provider.decode === STORAGE_DECODE_TYPE.BASE64
-            ? JSON.parse(window.atob(meta.data as string))
-            : meta.data;
+        return provider.decode === STORAGE_DECODE_TYPE.BASE64 ? JSON.parse(atob(meta.data as string)) : meta.data;
     } else {
         throw new InvalidStructureDataException(`"${value}" not an object`);
     }

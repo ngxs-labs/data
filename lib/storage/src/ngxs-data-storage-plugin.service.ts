@@ -14,6 +14,7 @@ import {
     PullStorageMeta,
     RehydrateInfo,
     StorageContainer,
+    StorageData,
     StorageMeta,
     TtlListenerOptions
 } from '@ngxs-labs/data/typings';
@@ -97,7 +98,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     private static checkIsStorageEvent<T>(
         options: GlobalStorageOptionsHandler,
         info: RehydrateInfo,
-        data: T | string | null
+        data: StorageData<T>
     ): void {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
         if (info.rehydrateIn && isStorageEvent(action)) {
@@ -212,7 +213,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { key, provider, value }: GlobalStorageOptionsHandler = options;
         try {
             const meta: StorageMeta<T> = parseStorageMeta<T>(value);
-            const data: T | string | null = this.deserialize(meta, value, provider);
+            const data: StorageData<T> = this.deserialize(meta, value, provider);
             const info: PullFromStorageInfo = canBePullFromStorage({ provider, meta, data });
 
             if (info.canBeOverrideFromStorage) {
