@@ -10,6 +10,7 @@ export { NgxsDataStorageContainer } from './ngxs-data-storage-container';
 export { registerStorageProviders } from './utils/register-storage-providers';
 export { ensureProviders } from './utils/ensure-providers';
 export { isStorageEvent } from './utils/is-storage-event';
+export { storageUseFactory } from './tokens/storage-use-factory';
 export { NGXS_DATA_STORAGE_EXTENSION } from './tokens/storage-extension-provider';
 export { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/storage-container-token';
 export { NGXS_DATA_STORAGE_PREFIX_TOKEN } from './tokens/storage-prefix-token';

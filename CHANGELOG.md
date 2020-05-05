@@ -19,6 +19,7 @@
 -   Feature: add `ngxsDataStorageMigrate` lifecycle hook
 -   Feature: add `ngxsDataAfterStorageEvent` lifecycle hook
 -   Feature: add `insideZone` option to `@DataAction()`
+-   Fix: Function expressions are not supported in decorators
 -   Fix: hide `Angular is running in the development mode` message in testing mode
 -   Fix: support migration strategy
 -   Fix: support decode/encode data in storage
