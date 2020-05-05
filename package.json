@@ -50,7 +50,7 @@
         "sort-package-json": "1.42.2",
         "ts-node": "8.10.1",
         "tsickle": "0.38.1",
-        "tslib": "1.11.1",
+        "tslib": "1.11.2",
         "typescript": "3.8.3",
         "zone.js": "0.10.3"
     }
