@@ -1,4 +1,4 @@
-# To become 3.0.0
+# 3.0.0 2020-05-05
 
 -   Feature: make `NgxsDataEntityCollectionsRepository<V, K, C>` extensible
 -   Feature: support sort entities
