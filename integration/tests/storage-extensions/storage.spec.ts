@@ -1,8 +1,8 @@
 import { Injectable, PLATFORM_ID } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
+import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import {
     NGXS_DATA_STORAGE_CONTAINER,
     NGXS_DATA_STORAGE_CONTAINER_TOKEN,
@@ -11,9 +11,25 @@ import {
     NGXS_DATA_STORAGE_PREFIX_TOKEN,
     NgxsDataStoragePlugin
 } from '@ngxs-labs/data/storage';
-import { Any, DataStorage, StorageContainer } from '@ngxs-labs/data/typings';
+import {
+    Any,
+    DataStorage,
+    NgxsDataAfterExpired,
+    NgxsDataAfterStorageEvent,
+    NgxsDataExpiredEvent,
+    NgxsDataMigrateStorage,
+    NgxsDataStorageEvent,
+    PersistenceProvider,
+    StorageContainer,
+    StorageMeta,
+    TTL_EXPIRED_STRATEGY,
+    STORAGE_DECODE_TYPE
+} from '@ngxs-labs/data/typings';
 import { Actions, NGXS_PLUGINS, NgxsModule, ofActionDispatched, ofActionSuccessful, State, Store } from '@ngxs/store';
 import { NGXS_DATA_EXCEPTIONS, NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
+import { Subject } from 'rxjs';
+import { STORAGE_TTL_DELAY } from '../../../lib/storage/src/tokens/storage-ttl-delay';
+import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../../../lib/storage/src/tokens/storage-decode-type-token';
 
 describe('[TEST]: Storage plugin', () => {
     let store: Store;
@@ -146,7 +162,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    nullable: false,
+                    rehydrate: true,
+                    fireInit: true,
+                    skipMigrate: false,
+                    stateInstance: expect.any(A),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
 
@@ -169,7 +191,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    skipMigrate: false,
+                    nullable: false,
+                    stateInstance: expect.any(A),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
         });
@@ -217,7 +245,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    nullable: false,
+                    rehydrate: true,
+                    fireInit: true,
+                    skipMigrate: false,
+                    stateInstance: expect.any(B),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
 
@@ -260,7 +294,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(B),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
         });
@@ -538,7 +578,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: 'customer.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C9),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 },
                 {
                     path: 'c8',
@@ -547,7 +593,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C8),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 },
                 {
                     path: 'c7',
@@ -556,7 +608,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: true
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: true,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C7),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
         });
@@ -629,7 +687,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C12),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 },
                 {
                     path: 'c11',
@@ -638,7 +702,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C11),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 },
                 {
                     path: 'c10',
@@ -647,7 +717,13 @@ describe('[TEST]: Storage plugin', () => {
                     version: 1,
                     decode: 'none',
                     prefixKey: '@ngxs.store.',
-                    nullable: false
+                    fireInit: true,
+                    rehydrate: true,
+                    nullable: false,
+                    skipMigrate: false,
+                    stateInstance: expect.any(C10),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
                 }
             ]);
 
@@ -950,6 +1026,1166 @@ describe('[TEST]: Storage plugin', () => {
                     'Error serialize: Custom error'
             );
         });
+
+        it('should be correct listen changes from storage and synchronized', () => {
+            localStorage.setItem(
+                '@ngxs.store.d1',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 'VALUE_d1' })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 'VALUE_d2' })
+            );
+
+            @Persistence({
+                existingEngine: localStorage
+            })
+            @StateRepository()
+            @State({ name: 'd1', defaults: 'DEFAULT_VALUE' })
+            @Injectable()
+            class D1 extends NgxsDataRepository<string> {}
+
+            @Persistence({
+                existingEngine: sessionStorage
+            })
+            @StateRepository()
+            @State({ name: 'd2', defaults: 'DEFAULT_VALUE' })
+            @Injectable()
+            class D2 extends NgxsDataRepository<string> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([D1, D2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const d1: D1 = TestBed.get<D1>(D1);
+            const d2: D2 = TestBed.get<D2>(D2);
+
+            d1.state$.subscribe((s) => events.push(`d1: ${s}`));
+            d2.state$.subscribe((s) => events.push(`d2: ${s}`));
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2');
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 'VALUE_d2_2' })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.d2'
+                })
+            );
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2_2');
+            expect(events).toEqual(['d1: VALUE_d1', 'd2: VALUE_d2', 'd2: VALUE_d2_2']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.d2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:20:00.000Z', version: 1, data: 'VALUE_d2_2' })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.d2'
+                })
+            );
+
+            expect(d1.getState()).toEqual('VALUE_d1');
+            expect(d2.getState()).toEqual('VALUE_d2_2');
+            expect(events).toEqual(['d1: VALUE_d1', 'd2: VALUE_d2', 'd2: VALUE_d2_2']);
+        });
+
+        it('should be correct listen changes from storage and synchronized when object', () => {
+            interface EModel {
+                a: number;
+                b: number;
+            }
+
+            localStorage.setItem(
+                '@ngxs.store.e1',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: { a: 1, b: 2 } })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            @Persistence({
+                existingEngine: localStorage
+            })
+            @StateRepository()
+            @State({ name: 'e1', defaults: { a: null, b: null } })
+            @Injectable()
+            class E1 extends NgxsDataRepository<EModel> {}
+
+            @Persistence({
+                existingEngine: sessionStorage
+            })
+            @StateRepository()
+            @State({ name: 'e2', defaults: { a: null, b: null } })
+            @Injectable()
+            class E2 extends NgxsDataRepository<EModel> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([E1, E2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const e1: E1 = TestBed.get<E1>(E1);
+            const e2: E2 = TestBed.get<E2>(E2);
+
+            e1.state$.subscribe((e) => events.push(`e1: ${JSON.stringify(e)}`));
+            e2.state$.subscribe((e) => events.push(`e2: ${JSON.stringify(e)}`));
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2',
+                JSON.stringify({ lastChanged: '2020-01-01T12:20:00.000Z', version: 1, data: { a: 3, b: 4 } })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+        });
+
+        it('should be correct listen changes from storage and synchronized when slice object and defaults null', () => {
+            interface EModel {
+                a: number;
+                b: number;
+            }
+
+            localStorage.setItem(
+                '@ngxs.store.e1.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 1 })
+            );
+
+            localStorage.setItem(
+                '@ngxs.store.e1.b',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 2 })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 3 })
+            );
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.b',
+                JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z', version: 1, data: 4 })
+            );
+
+            @Persistence([
+                {
+                    path: 'e1.a',
+                    existingEngine: localStorage
+                },
+                {
+                    path: 'e1.b',
+                    existingEngine: localStorage
+                }
+            ])
+            @StateRepository()
+            @State({ name: 'e1', defaults: { a: null, b: null } })
+            @Injectable()
+            class E1 extends NgxsDataRepository<EModel> {}
+
+            @Persistence([
+                {
+                    path: 'e2.a',
+                    existingEngine: sessionStorage
+                },
+                {
+                    path: 'e2.b',
+                    existingEngine: sessionStorage
+                }
+            ])
+            @StateRepository()
+            @State({ name: 'e2', defaults: { a: null, b: null } })
+            @Injectable()
+            class E2 extends NgxsDataRepository<EModel> {}
+
+            // noinspection DuplicatedCode
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([E1, E2]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const events: string[] = [];
+
+            const e1: E1 = TestBed.get<E1>(E1);
+            const e2: E2 = TestBed.get<E2>(E2);
+
+            e1.state$.subscribe((e) => events.push(`e1: ${JSON.stringify(e)}`));
+            e2.state$.subscribe((e) => events.push(`e2: ${JSON.stringify(e)}`));
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 3, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}']);
+
+            sessionStorage.setItem(
+                '@ngxs.store.e2.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 6 })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e2.a'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 1, b: 2 });
+            expect(e2.getState()).toEqual({ a: 6, b: 4 });
+            expect(events).toEqual(['e1: {"a":1,"b":2}', 'e2: {"a":3,"b":4}', 'e2: {"a":6,"b":4}']);
+
+            localStorage.setItem(
+                '@ngxs.store.e1.a',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 10 })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.e1.a'
+                })
+            );
+
+            expect(e1.getState()).toEqual({ a: 10, b: 2 });
+            expect(e2.getState()).toEqual({ a: 6, b: 4 });
+            expect(events).toEqual([
+                'e1: {"a":1,"b":2}',
+                'e2: {"a":3,"b":4}',
+                'e2: {"a":6,"b":4}',
+                'e1: {"a":10,"b":2}'
+            ]);
+        });
+
+        describe('fire init', () => {
+            it('fire init: true (default)', () => {
+                const lastChanged: string = '2020-01-01T12:00:00.000Z';
+
+                localStorage.setItem(
+                    '@ngxs.store.fire',
+                    JSON.stringify({ lastChanged: lastChanged, version: 1, data: 'FIRE_VALUE' })
+                );
+
+                @Persistence({
+                    path: 'fire',
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'fire', defaults: null })
+                @Injectable()
+                class FireState extends NgxsDataRepository<string> {}
+
+                // noinspection DuplicatedCode
+                TestBed.configureTestingModule({
+                    imports: [NgxsModule.forRoot([FireState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+                });
+
+                const fire: FireState = TestBed.get<FireState>(FireState);
+                expect(fire.snapshot).toEqual('FIRE_VALUE');
+
+                const newLastChanged: string = JSON.parse(localStorage.getItem('@ngxs.store.fire')!).lastChanged;
+                expect(lastChanged).not.toEqual(newLastChanged);
+            });
+
+            it('fire init: false', () => {
+                const lastChanged: string = '2020-01-01T12:10:00.000Z';
+
+                localStorage.setItem(
+                    '@ngxs.store.fire2',
+                    JSON.stringify({ lastChanged, version: 1, data: 'FIRE_VALUE' })
+                );
+
+                @Persistence({
+                    path: 'fire2',
+                    fireInit: false,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'fire2', defaults: null })
+                @Injectable()
+                class Fire2State extends NgxsDataRepository<string> {}
+
+                // noinspection DuplicatedCode
+                TestBed.configureTestingModule({
+                    imports: [NgxsModule.forRoot([Fire2State]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+                });
+
+                const fire: Fire2State = TestBed.get<Fire2State>(Fire2State);
+                expect(fire.snapshot).toEqual('FIRE_VALUE');
+
+                const newLastChanged: string = JSON.parse(localStorage.getItem('@ngxs.store.fire2')!).lastChanged;
+                expect(lastChanged).toEqual(newLastChanged);
+
+                fire.setState('FIRE2_VALUE');
+                expect(fire.snapshot).toEqual('FIRE2_VALUE');
+
+                const newLastChanged2: string = JSON.parse(localStorage.getItem('@ngxs.store.fire2')!).lastChanged;
+                expect(lastChanged).not.toEqual(newLastChanged2);
+            });
+        });
+
+        describe('nullable', () => {
+            it('nullable: false (default)', () => {
+                localStorage.setItem(
+                    '@ngxs.store.storage',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: null })
+                );
+
+                @Persistence({
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'storage', defaults: 'value' })
+                @Injectable()
+                class StorageState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([StorageState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const storage: StorageState = TestBed.get<StorageState>(StorageState);
+                expect(storage.getState()).toEqual('value');
+            });
+
+            it('nullable: true', () => {
+                localStorage.setItem(
+                    '@ngxs.store.storage',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: null })
+                );
+
+                @Persistence({
+                    nullable: true,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'storage', defaults: 'value' })
+                @Injectable()
+                class StorageState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([StorageState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const storage: StorageState = TestBed.get<StorageState>(StorageState);
+                expect(storage.getState()).toEqual(null);
+            });
+        });
+
+        describe('rehydrate', () => {
+            it('rehydrate: true', () => {
+                localStorage.setItem(
+                    '@ngxs.store.rehydrate',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 'VALUE_FROM_STORAGE' })
+                );
+
+                @Persistence({
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'rehydrate', defaults: 'value' })
+                @Injectable()
+                class RehydrateState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([RehydrateState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: RehydrateState = TestBed.get<RehydrateState>(RehydrateState);
+                expect(state.getState()).toEqual('VALUE_FROM_STORAGE');
+            });
+
+            it('rehydrate: false', () => {
+                localStorage.setItem(
+                    '@ngxs.store.rehydrate',
+                    JSON.stringify({ lastChanged: '2020-01-01T12:30:00.000Z', version: 1, data: 'VALUE_FROM_STORAGE' })
+                );
+
+                @Persistence({
+                    rehydrate: false,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({ name: 'rehydrate', defaults: 'value' })
+                @Injectable()
+                class RehydrateState extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([RehydrateState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: RehydrateState = TestBed.get<RehydrateState>(RehydrateState);
+                expect(state.getState()).toEqual('value');
+
+                state.setState('new value');
+                expect(state.getState()).toEqual('new value');
+                expect(ensureMockStorage('@ngxs.store.rehydrate').data).toEqual('new value');
+            });
+        });
+
+        describe('TTL', () => {
+            interface AuthJwtModel {
+                accessToken: string | null;
+                refreshToken: string | null;
+            }
+
+            it('localstorage empty with ttl 10sec', fakeAsync(() => {
+                @Persistence({
+                    ttl: 10000, // 1000 * 10 = 10sec
+                    ttlDelay: 500,
+                    path: 'auth.accessToken',
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State<AuthJwtModel>({
+                    name: 'auth',
+                    defaults: {
+                        accessToken: null,
+                        refreshToken: null
+                    }
+                })
+                @Injectable()
+                class AuthJwtState extends NgxsDataRepository<AuthJwtModel> implements NgxsDataAfterExpired {
+                    public internalEvents: { event: NgxsDataExpiredEvent; provider: PersistenceProvider }[] = [];
+                    public expired$: Subject<NgxsDataExpiredEvent> = new Subject();
+
+                    public ngxsDataAfterExpired(event: NgxsDataExpiredEvent, provider: PersistenceProvider): void {
+                        this.internalEvents.push({ event, provider });
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([AuthJwtState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: AuthJwtState = TestBed.get<AuthJwtState>(AuthJwtState);
+                const events: NgxsDataExpiredEvent[] = [];
+
+                state.expired$.subscribe((e) => events.push(e));
+                expect(events.length).toEqual(0);
+                expect(state.internalEvents.length).toEqual(0);
+
+                const expiredFirst: string = ensureMockStorage('@ngxs.store.auth.accessToken').expiry!;
+
+                tick(100);
+
+                state.setState({ accessToken: 'ABC', refreshToken: 'CDE' });
+                expect(state.getState()).toEqual({ accessToken: 'ABC', refreshToken: 'CDE' });
+
+                const storageMeta: StorageMeta<string> = ensureMockStorage('@ngxs.store.auth.accessToken');
+                expect(storageMeta.expiry).not.toEqual(expiredFirst);
+
+                expect(storageMeta).toEqual({
+                    lastChanged: expect.any(String),
+                    expiry: expect.any(String),
+                    version: 1,
+                    data: 'ABC'
+                });
+
+                tick(5000);
+
+                expect(ensureMockStorage('@ngxs.store.auth.accessToken')).toEqual({
+                    lastChanged: expect.any(String),
+                    expiry: expect.any(String),
+                    version: 1,
+                    data: 'ABC'
+                });
+
+                tick(10000);
+
+                expect(ensureMockStorage('@ngxs.store.auth.accessToken')).toEqual({});
+                expect(events).toEqual([
+                    {
+                        key: '@ngxs.store.auth.accessToken',
+                        expiry: expect.any(String),
+                        timestamp: expect.any(String)
+                    }
+                ]);
+
+                expect(state.internalEvents).toEqual([
+                    {
+                        event: {
+                            key: '@ngxs.store.auth.accessToken',
+                            expiry: expect.any(String),
+                            timestamp: expect.any(String)
+                        },
+                        provider: {
+                            ttl: 10000,
+                            ttlDelay: 500,
+                            path: 'auth.accessToken',
+                            existingEngine: expect.any(Storage),
+                            version: 1,
+                            decode: 'none',
+                            prefixKey: '@ngxs.store.',
+                            nullable: false,
+                            fireInit: true,
+                            skipMigrate: false,
+                            rehydrate: true,
+                            ttlExpiredStrategy: 0,
+                            stateInstance: expect.any(AuthJwtState)
+                        }
+                    }
+                ]);
+            }));
+
+            it('localstorage with prepared value with ttl 15sec', fakeAsync(() => {
+                localStorage.setItem(
+                    '@ngxs.store.auth.accessToken',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        expiry: '2020-01-01T12:15:00.000Z',
+                        version: 1,
+                        data: 'ACCESS_TOKEN'
+                    })
+                );
+
+                @Persistence({
+                    ttl: 15000, // 1000 * 10 = 10sec
+                    ttlDelay: 500,
+                    path: 'auth.accessToken',
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State<AuthJwtModel>({
+                    name: 'auth',
+                    defaults: {
+                        accessToken: null,
+                        refreshToken: null
+                    }
+                })
+                @Injectable()
+                class AuthJwtState extends NgxsDataRepository<AuthJwtModel> implements NgxsDataAfterExpired {
+                    public internalEvents: { event: NgxsDataExpiredEvent; provider: PersistenceProvider }[] = [];
+                    public expired$: Subject<NgxsDataExpiredEvent> = new Subject();
+
+                    public ngxsDataAfterExpired(event: NgxsDataExpiredEvent, provider: PersistenceProvider): void {
+                        this.internalEvents.push({ event, provider });
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([AuthJwtState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: AuthJwtState = TestBed.get<AuthJwtState>(AuthJwtState);
+                const events: NgxsDataExpiredEvent[] = [];
+
+                state.expired$.subscribe((e) => events.push(e));
+                expect(events.length).toEqual(0);
+                expect(state.internalEvents.length).toEqual(1);
+
+                expect(state.internalEvents).toEqual([
+                    {
+                        event: {
+                            key: '@ngxs.store.auth.accessToken',
+                            expiry: expect.any(String),
+                            timestamp: expect.any(String)
+                        },
+                        provider: {
+                            ttl: 15000,
+                            ttlDelay: 500,
+                            path: 'auth.accessToken',
+                            existingEngine: expect.any(Storage),
+                            version: 1,
+                            decode: 'none',
+                            prefixKey: '@ngxs.store.',
+                            nullable: false,
+                            fireInit: true,
+                            skipMigrate: false,
+                            rehydrate: true,
+                            ttlExpiredStrategy: 0,
+                            stateInstance: expect.any(AuthJwtState)
+                        }
+                    }
+                ]);
+
+                expect(ensureMockStorage('@ngxs.store.auth.accessToken')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 1,
+                    data: null,
+                    expiry: expect.any(String)
+                });
+
+                tick(100);
+
+                state.setState({ accessToken: 'ABC', refreshToken: 'CDE' });
+                expect(state.getState()).toEqual({ accessToken: 'ABC', refreshToken: 'CDE' });
+
+                expect(ensureMockStorage('@ngxs.store.auth.accessToken')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 1,
+                    data: 'ABC',
+                    expiry: expect.any(String)
+                });
+
+                tick(15000);
+
+                expect(ensureMockStorage('@ngxs.store.auth.accessToken')).toEqual({});
+
+                expect(events).toEqual([
+                    {
+                        key: '@ngxs.store.auth.accessToken',
+                        expiry: expect.any(String),
+                        timestamp: expect.any(String)
+                    }
+                ]);
+
+                expect(state.internalEvents).toEqual([
+                    {
+                        event: {
+                            key: '@ngxs.store.auth.accessToken',
+                            expiry: expect.any(String),
+                            timestamp: expect.any(String)
+                        },
+                        provider: {
+                            ttl: 15000,
+                            ttlDelay: 500,
+                            path: 'auth.accessToken',
+                            existingEngine: expect.any(Storage),
+                            version: 1,
+                            decode: 'none',
+                            prefixKey: '@ngxs.store.',
+                            nullable: false,
+                            fireInit: true,
+                            skipMigrate: false,
+                            rehydrate: true,
+                            ttlExpiredStrategy: 0,
+                            stateInstance: expect.any(AuthJwtState)
+                        }
+                    },
+                    {
+                        event: {
+                            key: '@ngxs.store.auth.accessToken',
+                            expiry: expect.any(String),
+                            timestamp: expect.any(String)
+                        },
+                        provider: {
+                            ttl: 15000,
+                            ttlDelay: 500,
+                            path: 'auth.accessToken',
+                            existingEngine: expect.any(Storage),
+                            version: 1,
+                            decode: 'none',
+                            prefixKey: '@ngxs.store.',
+                            nullable: false,
+                            fireInit: true,
+                            skipMigrate: false,
+                            rehydrate: true,
+                            ttlExpiredStrategy: 0,
+                            stateInstance: expect.any(AuthJwtState)
+                        }
+                    }
+                ]);
+            }));
+        });
+
+        describe('Migration strategy', () => {
+            it('v1 -> v2 (without migrate)', () => {
+                localStorage.setItem(
+                    '@ngxs.store.migrate',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: 10
+                    })
+                );
+
+                @Persistence({
+                    version: 2,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State({
+                    name: 'migrate',
+                    defaults: 'hello_world'
+                })
+                @Injectable()
+                class MigrateV1toV2State extends NgxsDataRepository<string> {}
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([MigrateV1toV2State]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: MigrateV1toV2State = TestBed.get<MigrateV1toV2State>(MigrateV1toV2State);
+
+                expect(state.getState()).toEqual('hello_world');
+                expect(ensureMockStorage('@ngxs.store.migrate')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: 'hello_world'
+                });
+            });
+
+            it('v1 -> v2 (with migrate)', () => {
+                interface OldModel {
+                    cachedIds: number[];
+                    myValues: string[];
+                }
+
+                interface NewModel {
+                    ids: number[];
+                    values: string[];
+                }
+
+                localStorage.setItem(
+                    '@ngxs.store.migrate',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: {
+                            cachedIds: [1, 2, 3],
+                            myValues: ['123', '5125', '255']
+                        }
+                    })
+                );
+
+                @Persistence({
+                    version: 2,
+                    existingEngine: localStorage
+                })
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'migrate',
+                    defaults: {
+                        ids: [5, 7],
+                        values: ['63']
+                    }
+                })
+                @Injectable()
+                class MigrateV1toV2State extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public ngxsDataStorageMigrate(defaults: NewModel, storage: OldModel): NewModel {
+                        return {
+                            ids: [...defaults.ids, ...storage.cachedIds],
+                            values: [...defaults.values, ...storage.myValues]
+                        };
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([MigrateV1toV2State]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: MigrateV1toV2State = TestBed.get<MigrateV1toV2State>(MigrateV1toV2State);
+
+                expect(state.getState()).toEqual({ ids: [5, 7, 1, 2, 3], values: ['63', '123', '5125', '255'] });
+
+                expect(ensureMockStorage('@ngxs.store.migrate')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { ids: [5, 7, 1, 2, 3], values: ['63', '123', '5125', '255'] }
+                });
+            });
+
+            it('migrate v1 -> v2 when multiple providers', () => {
+                sessionStorage.setItem(
+                    '@ngxs.store.deepFilter.myFilter',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { phoneValue: '8911-111-1111' }
+                    })
+                );
+
+                localStorage.setItem(
+                    '@ngxs.store.deepFilter.options',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { size: 10, number: 2 }
+                    })
+                );
+
+                interface MyFilter {
+                    phone: string | null;
+                    cardNumber: string | null;
+                }
+
+                interface MyOptions {
+                    pageSize: number | null;
+                    pageNumber: number | null;
+                }
+
+                interface NewModel {
+                    myFilter: MyFilter;
+                    options: MyOptions;
+                }
+
+                @Persistence([
+                    {
+                        version: 2,
+                        path: 'deepFilter.myFilter',
+                        existingEngine: sessionStorage,
+                        migrate: (defaults: MyFilter, storage: { phoneValue: string }): MyFilter => ({
+                            ...defaults,
+                            phone: storage.phoneValue
+                        })
+                    },
+                    {
+                        version: 2,
+                        path: 'deepFilter.options',
+                        existingEngine: localStorage,
+                        migrate: (defaults: MyOptions, storage: { size: number; number: number }): MyOptions => ({
+                            ...defaults,
+                            pageSize: storage.size,
+                            pageNumber: storage.number
+                        })
+                    }
+                ])
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'deepFilter',
+                    defaults: {
+                        myFilter: {
+                            phone: null,
+                            cardNumber: null
+                        },
+                        options: {
+                            pageNumber: null,
+                            pageSize: null
+                        }
+                    }
+                })
+                @Injectable()
+                class DeepFilterState extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public invoker: number = 0;
+
+                    public ngxsDataStorageMigrate(defaults: Any, _storage: Any): Any {
+                        this.invoker++;
+                        return defaults;
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([DeepFilterState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: DeepFilterState = TestBed.get<DeepFilterState>(DeepFilterState);
+
+                expect(state.getState()).toEqual({
+                    myFilter: { phone: '8911-111-1111', cardNumber: null },
+                    options: { pageNumber: 2, pageSize: 10 }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.myFilter', sessionStorage)).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { phone: '8911-111-1111', cardNumber: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.options')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { pageNumber: 2, pageSize: 10 }
+                });
+
+                expect(state.invoker).toEqual(0);
+            });
+
+            it('skip migrate v1 -> v2', () => {
+                sessionStorage.setItem(
+                    '@ngxs.store.deepFilter.myFilter',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { phoneValue: '8911-111-1111' }
+                    })
+                );
+
+                localStorage.setItem(
+                    '@ngxs.store.deepFilter.options',
+                    JSON.stringify({
+                        lastChanged: '2020-01-01T12:10:00.000Z',
+                        version: 1,
+                        data: { size: 10, number: 2 }
+                    })
+                );
+
+                interface MyFilter {
+                    phone: string | null;
+                    cardNumber: string | null;
+                }
+
+                interface MyOptions {
+                    pageSize: number | null;
+                    pageNumber: number | null;
+                }
+
+                interface NewModel {
+                    myFilter: MyFilter;
+                    options: MyOptions;
+                }
+
+                @Persistence([
+                    {
+                        version: 2,
+                        skipMigrate: true,
+                        path: 'deepFilter.myFilter',
+                        existingEngine: sessionStorage
+                    },
+                    {
+                        version: 2,
+                        skipMigrate: true,
+                        path: 'deepFilter.options',
+                        existingEngine: localStorage
+                    }
+                ])
+                @StateRepository()
+                @State<NewModel>({
+                    name: 'deepFilter',
+                    defaults: {
+                        myFilter: {
+                            phone: null,
+                            cardNumber: null
+                        },
+                        options: {
+                            pageNumber: null,
+                            pageSize: null
+                        }
+                    }
+                })
+                @Injectable()
+                class DeepFilterState extends NgxsDataRepository<NewModel> implements NgxsDataMigrateStorage {
+                    public invoker: number = 0;
+
+                    public ngxsDataStorageMigrate(defaults: Any, _storage: Any): Any {
+                        this.invoker++;
+                        return defaults;
+                    }
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [
+                        NgxsModule.forRoot([DeepFilterState]),
+                        NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)
+                    ]
+                });
+
+                const state: DeepFilterState = TestBed.get<DeepFilterState>(DeepFilterState);
+
+                expect(state.getState()).toEqual({
+                    myFilter: { phone: null, cardNumber: null },
+                    options: { pageNumber: null, pageSize: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.myFilter', sessionStorage)).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { phone: null, cardNumber: null }
+                });
+
+                expect(ensureMockStorage('@ngxs.store.deepFilter.options')).toEqual({
+                    lastChanged: expect.any(String),
+                    version: 2,
+                    data: { pageNumber: null, pageSize: null }
+                });
+
+                expect(state.invoker).toEqual(0);
+            });
+        });
+
+        it('should be correct invoked after storage event', () => {
+            localStorage.setItem(
+                '@ngxs.store.count',
+                JSON.stringify({
+                    lastChanged: '2020-01-01T12:10:00.000Z',
+                    version: 1,
+                    data: 5
+                })
+            );
+
+            @Persistence()
+            @StateRepository()
+            @State({
+                name: 'count',
+                defaults: 0
+            })
+            @Injectable()
+            class CountState extends NgxsDataRepository<number> implements NgxsDataAfterStorageEvent {
+                public events: NgxsDataStorageEvent[] = [];
+                public ngxsDataAfterStorageEvent(event: NgxsDataStorageEvent) {
+                    this.events.push(event);
+                }
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)]
+            });
+
+            const state: CountState = TestBed.get<CountState>(CountState);
+
+            expect(state.getState()).toEqual(5);
+
+            localStorage.setItem(
+                '@ngxs.store.count',
+                JSON.stringify({ lastChanged: '2020-01-01T12:10:00.000Z', version: 1, data: 15 })
+            );
+
+            window.dispatchEvent(
+                new StorageEvent('storage', {
+                    key: '@ngxs.store.count'
+                })
+            );
+
+            expect(state.getState()).toEqual(15);
+
+            expect(state.events).toEqual([
+                {
+                    key: '@ngxs.store.count',
+                    value: expect.any(String),
+                    data: 15,
+                    provider: {
+                        path: 'count',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        nullable: false,
+                        fireInit: true,
+                        rehydrate: true,
+                        ttlDelay: 60000,
+                        ttlExpiredStrategy: 0,
+                        stateInstance: expect.any(CountState),
+                        skipMigrate: false
+                    }
+                }
+            ]);
+        });
+
+        it('should be correct encode/decode', () => {
+            localStorage.setItem(
+                '@ngxs.store.filter',
+                JSON.stringify({
+                    lastChanged: '2020-05-04T19:53:06.310Z',
+                    version: 1,
+                    data: 'eyJwaG9uZSI6IjExMTExIiwiY2FyZCI6IjIyMjIyIn0='
+                })
+            );
+
+            interface FilterModel {
+                phone: string;
+                card: string;
+            }
+
+            @Persistence()
+            @StateRepository()
+            @State({
+                name: 'filter',
+                defaults: {
+                    phone: null,
+                    card: null
+                }
+            })
+            @Injectable()
+            class FilterState extends NgxsDataRepository<FilterModel> {}
+
+            TestBed.configureTestingModule({
+                imports: [NgxsModule.forRoot([FilterState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
+                providers: [{ provide: NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, useValue: STORAGE_DECODE_TYPE.BASE64 }]
+            });
+
+            const state: FilterState = TestBed.get<FilterState>(FilterState);
+
+            // noinspection DuplicatedCode
+            const container: StorageContainer = TestBed.get(NGXS_DATA_STORAGE_CONTAINER_TOKEN);
+            expect(container.getProvidedKeys()).toEqual(['@ngxs.store.filter']);
+
+            expect(Array.from(container.providers)).toEqual([
+                {
+                    path: 'filter',
+                    existingEngine: expect.any(Storage),
+                    ttl: -1,
+                    version: 1,
+                    decode: 'base64',
+                    prefixKey: '@ngxs.store.',
+                    nullable: false,
+                    rehydrate: true,
+                    fireInit: true,
+                    skipMigrate: false,
+                    stateInstance: expect.any(FilterState),
+                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                    ttlDelay: STORAGE_TTL_DELAY
+                }
+            ]);
+
+            expect(state.getState()).toEqual({ phone: '11111', card: '22222' });
+
+            expect(ensureMockStorage('@ngxs.store.filter')).toEqual({
+                lastChanged: expect.any(String),
+                version: 1,
+                data: 'eyJwaG9uZSI6IjExMTExIiwiY2FyZCI6IjIyMjIyIn0='
+            });
+
+            state.setState({ phone: '4444', card: '5555' });
+
+            expect(ensureMockStorage('@ngxs.store.filter')).toEqual({
+                version: 1,
+                lastChanged: expect.any(String),
+                data: 'eyJwaG9uZSI6IjQ0NDQiLCJjYXJkIjoiNTU1NSJ9'
+            });
+        });
+
+        function ensureMockStorage<T>(key: string, storage: Storage = localStorage): StorageMeta<T> {
+            return JSON.parse(storage.getItem(key)! ?? '{}');
+        }
 
         afterEach(() => {
             localStorage.clear();

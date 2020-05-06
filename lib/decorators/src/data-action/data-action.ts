@@ -26,7 +26,7 @@ import { map } from 'rxjs/operators';
 
 import { REPOSITORY_ACTION_OPTIONS } from './data-action.config';
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function,@typescript-eslint/tslint/config
 export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     // eslint-disable-next-line max-lines-per-function
     return (target: Any, name: string | symbol, descriptor: Descriptor): Descriptor => {
@@ -71,7 +71,14 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
 
             // Note: invoke only after store.dispatch(...)
             (stateInstance as Any)[operation.type] = (): Any => {
-                result = originalMethod.apply(instance, args);
+                if (options.insideZone) {
+                    NgxsDataInjector.ngZone?.run((): void => {
+                        result = originalMethod.apply(instance, args);
+                    });
+                } else {
+                    result = originalMethod.apply(instance, args);
+                }
+
                 // Note: store.dispatch automatically subscribes, but we don’t need it
                 // We want to subscribe ourselves manually
                 return isObservable(result) ? of(null).pipe(map((): Any => result)) : result;

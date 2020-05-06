@@ -6,7 +6,9 @@ import { PlainObjectOf } from './plaing-object-of';
 /**
  * @publicApi
  */
-export type RepositoryActionOptions = ActionOptions;
+export interface RepositoryActionOptions extends ActionOptions {
+    insideZone?: boolean;
+}
 
 /**
  * @publicApi

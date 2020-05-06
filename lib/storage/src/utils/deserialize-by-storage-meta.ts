@@ -1,12 +1,16 @@
 import { isPlainObject } from '@ngxs-labs/data/internals';
-import { Any, StorageMeta } from '@ngxs-labs/data/typings';
+import { Any, PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
 
 import { InvalidDataValueException } from '../exceptions/invalid-data-value.exception';
 import { InvalidLastChangedException } from '../exceptions/invalid-last-changed.exception';
 import { InvalidStructureDataException } from '../exceptions/invalid-structure-data.exception';
 import { InvalidVersionException } from '../exceptions/invalid-version.exception';
 
-export function deserializeByStorageMeta(meta: StorageMeta, value: string | null): string | never {
+export function deserializeByStorageMeta<T>(
+    meta: StorageMeta<T>,
+    value: string | null,
+    provider: PersistenceProvider
+): StorageData<T> | never {
     if (isPlainObject(meta)) {
         if (missingLastChanged(meta)) {
             throw new InvalidLastChangedException(value);
@@ -16,21 +20,21 @@ export function deserializeByStorageMeta(meta: StorageMeta, value: string | null
             throw new InvalidDataValueException();
         }
 
-        return meta.data;
+        return provider.decode === STORAGE_DECODE_TYPE.BASE64 ? JSON.parse(atob(meta.data as string)) : meta.data;
     } else {
         throw new InvalidStructureDataException(`"${value}" not an object`);
     }
 }
 
-function versionIsInvalid(meta: StorageMeta): boolean {
+function versionIsInvalid<T>(meta: StorageMeta<T>): boolean {
     const version: number = parseFloat(meta.version as Any);
     return isNaN(version) || version < 1 || parseInt(meta.version as Any) !== version;
 }
 
-function missingDataKey(meta: StorageMeta): boolean {
+function missingDataKey<T>(meta: StorageMeta<T>): boolean {
     return !('data' in meta);
 }
 
-function missingLastChanged(meta: StorageMeta): boolean {
+function missingLastChanged<T>(meta: StorageMeta<T>): boolean {
     return !('lastChanged' in meta) || !meta.lastChanged;
 }

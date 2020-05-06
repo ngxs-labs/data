@@ -1,10 +1,11 @@
 import { ensureStateMetadata, getRepository } from '@ngxs-labs/data/internals';
 import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, NgxsRepositoryMeta, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { Any, DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
+import { StateClass } from '@ngxs/store/internals';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
-export function Persistence(options?: PersistenceProvider[] | PersistenceProvider): Any {
+export function Persistence(options?: ProviderOptions): Any {
     return (stateClass: DataStateClass): Any => {
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
@@ -15,11 +16,11 @@ export function Persistence(options?: PersistenceProvider[] | PersistenceProvide
         }
 
         return new Proxy(stateClass, {
-            construct(clazz: DataStateClass, args: Any[]): Any {
-                const result: Any = Reflect.construct(clazz, args);
-                const providers: PersistenceProvider[] = ensureProviders(repositoryMeta, options);
+            construct(clazz: DataStateClass, args: Any[]): StateClass {
+                const stateInstance: StateClass = Reflect.construct(clazz, args);
+                const providers: PersistenceProvider[] = ensureProviders(repositoryMeta, stateInstance, options);
                 registerStorageProviders(providers);
-                return result;
+                return stateInstance;
             }
         });
     };

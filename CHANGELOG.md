@@ -1,4 +1,4 @@
-# To become 3.0.0
+# 3.0.0 2020-05-05
 
 -   Feature: make `NgxsDataEntityCollectionsRepository<V, K, C>` extensible
 -   Feature: support sort entities
@@ -13,7 +13,18 @@
 -   Feature: expose `@Debounce()` decorator for throttling dispatch actions
 -   Feature: add extension API for NGXS Data plugin
 -   Feature: expose storage extension as plugin
--   Feature: improved `@Persistence()` decorator for stability
+-   Feature: support observers for listening expiration time to live
+-   Feature: add fire init option to `@Persistence()`
+-   Feature: add rehydrate option to `@Persistence()`
+-   Feature: add `ngxsDataStorageMigrate` lifecycle hook
+-   Feature: add `ngxsDataAfterStorageEvent` lifecycle hook
+-   Feature: add `insideZone` option to `@DataAction()`
+-   Fix: Function expressions are not supported in decorators
+-   Fix: hide `Angular is running in the development mode` message in testing mode
+-   Fix: support migration strategy
+-   Fix: support decode/encode data in storage
+-   Fix: improved `@Persistence()` decorator for stability
+-   Fix: use deep equals when state update in storage from another browser tab
 -   Fix: now `@Computed()` fields are recalculation when store has changed
 -   Fix: correct recalculation of state during inheritance computed fields
 -   Fix: correct inheritance of state classes

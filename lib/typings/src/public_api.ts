@@ -6,8 +6,8 @@ export {
     PayloadName,
     ArgName,
     ArgNameMap
-} from './types/actions-properties';
-export { Immutable, Mutable } from './types/immutability';
+} from './common/actions-properties';
+export { Immutable, Mutable } from './common/immutability';
 export {
     NgxsRepositoryMeta,
     ImmutableStateValue,
@@ -19,29 +19,49 @@ export {
     PatchValue,
     DataRepository,
     DataStateContext
-} from './types/repository';
+} from './common/repository';
 export {
     StorageMeta,
     DataStorage,
-    DecodingType,
     StorageContainer,
     PersistenceProvider,
     ExistingStorageEngine,
     ExistingEngineProvider,
     UseClassEngineProvider,
-    RootInternalStorageEngine
-} from './types/storage';
-export { Any } from './types/any';
-export { PlainObjectOf } from './types/plaing-object-of';
-export { ClassType } from './types/class';
-export { MappedState } from './types/mapped-state';
-export { NgxsDataExtension } from './types/extension';
-export { Descriptor } from './types/descriptor';
-export { DispatchedResult } from './types/dispatched-result';
-export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './types/data-state-class';
-export { ComputedOptions } from './types/computed-options';
-export { ComputedCacheMap } from './types/computed-cache-map';
-export { NgxsDataAfterReset, NgxsDataDoCheck } from './types/ngxs-data-lifecycle';
+    DataStoragePlugin,
+    GlobalStorageOptionsHandler,
+    NgxsDataExpiredEvent,
+    NgxsDataStorageEvent,
+    NgxsDataAfterExpired,
+    NgxsDataAfterStorageEvent,
+    TtlListenerOptions,
+    TtLCreatorOptions,
+    TTL_EXPIRED_STRATEGY,
+    STORAGE_DECODE_TYPE,
+    CreateStorageDefaultOptions,
+    PullFromStorageInfo,
+    PullFromStorageOptions,
+    RehydrateInfo,
+    CheckExpiredInitOptions,
+    MergeOptions,
+    ProviderOptions,
+    NgxsDataMigrateStorage,
+    RehydrateInfoOptions,
+    MigrateFn,
+    PullStorageMeta,
+    StorageData
+} from './storage/storage';
+export { Any } from './common/any';
+export { PlainObjectOf } from './common/plaing-object-of';
+export { ClassType } from './common/class';
+export { MappedState } from './common/mapped-state';
+export { NgxsDataExtension } from './common/extension';
+export { Descriptor } from './common/descriptor';
+export { DispatchedResult } from './common/dispatched-result';
+export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './common/data-state-class';
+export { ComputedOptions } from './common/computed-options';
+export { ComputedCacheMap } from './common/computed-cache-map';
+export { NgxsDataAfterReset, NgxsDataDoCheck } from './common/ngxs-data-lifecycle';
 export {
     EntityIdType,
     EntityDictionary,
