@@ -19,7 +19,7 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
         "@angular-ru/eslint-config": "12.6.0",
-        "@angular-ru/jest-utils": "12.9.0",
+        "@angular-ru/jest-utils": "12.10.0",
         "@angular-ru/prettier-config": "12.7.0",
         "@angular-ru/tsconfig": "12.1.0",
         "@angular/animations": "8.2.14",
