@@ -131,15 +131,15 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@12.10.0":
-  version "12.10.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.10.0.tgz#44360a5dd5b1715618891ca1d7f51a6972f21c49"
-  integrity sha512-ReFn7Zpa4Yydc//8CYmHpcBCuGOi9r/yWv4JdDwaXnUuhKA4hjbVYVNO9FyPR8pIdQhS28GHkuAHS3YVcHswoA==
+"@angular-ru/jest-utils@12.11.0":
+  version "12.11.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.11.0.tgz#d827d7ad5fc9d095e90ed2ee14457d58dd279620"
+  integrity sha512-3vYPB7F1CTV/H1fJavwUXxMqXEpgEDcdPpzuEarPD2IzpO68ZzfmJ60iOqyPqxzBvP13ViwkhGtf/kTsL0w4rQ==
   dependencies:
     "@types/jest" "25.2.1"
     jest "25.5.4"
     jest-preset-angular "8.2.0"
-    ts-jest "25.5.0"
+    ts-jest "25.5.1"
 
 "@angular-ru/prettier-config@12.7.0":
   version "12.7.0"
@@ -10847,10 +10847,10 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@25.5.0:
-  version "25.5.0"
-  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-25.5.0.tgz#f56f039b6caa15d9e32d064b0a8902886ab2fe72"
-  integrity sha512-govrjbOk1UEzcJ5cX5k8X8IUtFuP3lp3mrF3ZuKtCdAOQzdeCM7qualhb/U8s8SWFwEDutOqfF5PLkJ+oaYD4w==
+ts-jest@25.5.1:
+  version "25.5.1"
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-25.5.1.tgz#2913afd08f28385d54f2f4e828be4d261f4337c7"
+  integrity sha512-kHEUlZMK8fn8vkxDjwbHlxXRB9dHYpyzqKIGDNxbzs+Rz+ssNDSDNusEK8Fk/sDd4xE6iKoQLfFkFVaskmTJyw==
   dependencies:
     bs-logger "0.x"
     buffer-from "1.x"
