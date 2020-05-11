@@ -12,7 +12,7 @@ export function getStackTraceLine(): string {
         stack
             .split('\n')
             .map((line: string): string => line.trim())
-            // eslint-disable-next-line no-magic-numbers
+            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
             .splice(stack[0] === 'Error' ? 2 : 1)?.[2]
     );
 }

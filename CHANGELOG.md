@@ -1,3 +1,7 @@
+# To become 3.1.0
+
+-   Feature: support Angular Schematics `ng add @ngxs-labs/data`
+
 # 3.0.0 2020-05-05
 
 -   Feature: make `NgxsDataEntityCollectionsRepository<V, K, C>` extensible
