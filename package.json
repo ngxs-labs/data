@@ -5,6 +5,7 @@
     "scripts": {
         "build:app": "ng build --prod",
         "build:lib": "ts-node --project tools/tsconfig.tools.json tools/build && ts-node --project tools/tsconfig.tools.json tools/copy-readme",
+        "build:schematics": "cd lib && npm run build",
         "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "deploy": "ng deploy --no-build --repo=https://github.com/ngxs-labs/data.git",
         "format": "npx sort-package-json && prettier --write \"**/*.{js,ts,html,css,scss,md,json,yml}\"",
@@ -18,7 +19,8 @@
     "prettier": "@angular-ru/prettier-config",
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
-        "@angular-ru/eslint-config": "12.6.0",
+        "@angular-devkit/schematics-cli": "0.803.26",
+        "@angular-ru/eslint-config": "12.9.0",
         "@angular-ru/jest-utils": "12.11.0",
         "@angular-ru/prettier-config": "12.7.0",
         "@angular-ru/tsconfig": "12.1.0",
@@ -37,6 +39,7 @@
         "@angular/router": "8.2.14",
         "@ngxs/logger-plugin": "3.6.2",
         "@ngxs/store": "3.6.2",
+        "@schematics/angular": "8.3.26",
         "@types/node": "13.13.5",
         "angular-cli-ghpages": "0.6.2",
         "core-js": "3.6.5",

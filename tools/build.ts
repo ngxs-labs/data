@@ -5,7 +5,7 @@ async function buildPackage(): Promise<void> {
     try {
         await ngPackagr()
             .forProject(join(__dirname, '../lib/ng-package.json'))
-            .withTsConfig(join(__dirname, './tsconfig.lib.json'))
+            .withTsConfig(join(__dirname, '../lib/tsconfig.lib.json'))
             .build();
     } catch {
         process.exit(1);
