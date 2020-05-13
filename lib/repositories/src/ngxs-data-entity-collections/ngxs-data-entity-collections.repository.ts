@@ -1,4 +1,4 @@
-import { isDevMode } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot, isNullOrUndefined } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -24,7 +24,8 @@ import { map } from 'rxjs/operators';
 
 import { AbstractRepository } from '../common/abstract-repository';
 
-export class NgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType, C = {}>
+@Injectable()
+export abstract class AbstractNgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType, C = {}>
     extends AbstractRepository<NgxsEntityCollections<V, K, C>>
     implements EntityRepository<V, K, C> {
     public primaryKey: string = PRIMARY_KEY.ID;
