@@ -19,8 +19,8 @@
     "prettier": "@angular-ru/prettier-config",
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
-        "@angular-devkit/schematics-cli": "0.901.5",
-        "@angular-ru/eslint-config": "12.11.0",
+        "@angular-devkit/schematics-cli": "0.803.26",
+        "@angular-ru/eslint-config": "12.13.0",
         "@angular-ru/jest-utils": "12.11.0",
         "@angular-ru/prettier-config": "12.7.0",
         "@angular-ru/tsconfig": "12.1.0",
@@ -45,7 +45,6 @@
         "core-js": "3.6.5",
         "coveralls": "3.1.0",
         "dtslint": "3.5.2",
-        "eslint": "6.8.0",
         "hammerjs": "2.0.8",
         "ng-packagr": "9.1.3",
         "npx": "10.2.2",
