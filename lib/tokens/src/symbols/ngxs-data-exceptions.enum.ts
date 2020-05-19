@@ -10,7 +10,7 @@ export enum NGXS_DATA_EXCEPTIONS {
         '\n (use by default ngxsOnInit(ctx: StateContext), or ngxsAfterBootstrap(ctx: StateContext) !!!',
     NGXS_DATA_STATE_DECORATOR = 'You forgot add decorator @StateRepository or initialize state!' +
         '\nExample: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
-    NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @DataAction',
+    NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @DataAction()',
     NGXS_DATA_ACTION = '@DataAction() can only decorate a method implementation',
     NGXS_DATA_ASYNC_ACTION_RETURN_TYPE = 'WARNING: If you use asynchronous actions' +
         ' `@Debounce() @DataAction()` the return result type should only void instead:',
