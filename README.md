@@ -151,7 +151,7 @@ export class AppComponent {
 
 ```ts
 import { State } from '@ngxs/store';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 
 @StateRepository()

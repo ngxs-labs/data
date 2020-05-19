@@ -188,7 +188,7 @@ export class AppModule {}
 -   All decorators are now exported from a subpackage:
 
 ```ts
-import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 ```
 
 -   All repositories are now exported from a subpackage:
