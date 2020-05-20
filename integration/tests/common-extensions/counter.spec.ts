@@ -119,7 +119,7 @@ describe('[TEST]: CountState', () => {
             }
         });
 
-        it('should be throw when use @action without context', () => {
+        it('should be throw when use @DataAction without context', () => {
             @State({
                 name: 'count',
                 defaults: 0
@@ -142,7 +142,7 @@ describe('[TEST]: CountState', () => {
             }
         });
 
-        it('should be throw when use static with @action', () => {
+        it('should be throw when use static with @DataAction', () => {
             try {
                 @State({
                     name: 'count',
