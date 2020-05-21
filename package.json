@@ -19,7 +19,7 @@
     "prettier": "@angular-ru/prettier-config",
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
-        "@angular-devkit/schematics-cli": "0.901.6",
+        "@angular-devkit/schematics-cli": "0.901.7",
         "@angular-ru/eslint-config": "12.15.0",
         "@angular-ru/jest-utils": "12.13.0",
         "@angular-ru/prettier-config": "12.7.0",
