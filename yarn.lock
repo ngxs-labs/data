@@ -103,10 +103,10 @@
     rxjs "6.4.0"
     source-map "0.7.3"
 
-"@angular-devkit/core@9.1.6":
-  version "9.1.6"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.1.6.tgz#d108430a48e58bf1efd1b87aa2edb64e3b9241d1"
-  integrity sha512-lYXoRtsMsfyIrNAa49Hcx79FPRW6ZrWjK2yJ3avON1Q3WEHYb/DIUP+ItyOQAkNUsCVMyK4wkddsu8PsqEW6tg==
+"@angular-devkit/core@9.1.7":
+  version "9.1.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.1.7.tgz#f193ccbae4c80b34188bc9cc401c16b3ced50339"
+  integrity sha512-guvolu9Cl+qYMTtedLZD9wCqustJjdqzJ2psD2C1Sr1LrX9T0mprmDldR/YnhsitThveJEb6sM/0EvqWxoSvKw==
   dependencies:
     ajv "6.12.0"
     fast-json-stable-stringify "2.1.0"
@@ -114,14 +114,14 @@
     rxjs "6.5.4"
     source-map "0.7.3"
 
-"@angular-devkit/schematics-cli@0.901.6":
-  version "0.901.6"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.6.tgz#f0c2af19d37f17225df40b1fb8b2f8953ba957d7"
-  integrity sha512-7kX0GDu9fmCUqcXoQLoGth35RldKmfGB5ywqyqXQbDOO7MIT+YPFrULS17BL6gQyLkD/QQgwxv+ZQIkW+Nb92w==
+"@angular-devkit/schematics-cli@0.901.7":
+  version "0.901.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.7.tgz#f34c663d8030aa77b13ae111222654f4fbe7ea6c"
+  integrity sha512-9LTyCvgiU74nc5FcwRfgHGMZSfspSsqTFgivuS627Dju2D/knmXzdrNXeqU0D4CRsWGbJBKbcAjnlgmtZDTydg==
   dependencies:
-    "@angular-devkit/core" "9.1.6"
-    "@angular-devkit/schematics" "9.1.6"
-    "@schematics/schematics" "0.901.6"
+    "@angular-devkit/core" "9.1.7"
+    "@angular-devkit/schematics" "9.1.7"
+    "@schematics/schematics" "0.901.7"
     inquirer "7.1.0"
     minimist "1.2.5"
     rxjs "6.5.4"
@@ -135,12 +135,12 @@
     "@angular-devkit/core" "8.3.26"
     rxjs "6.4.0"
 
-"@angular-devkit/schematics@9.1.6":
-  version "9.1.6"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-9.1.6.tgz#759b01ef6815fd2d7366c3f1907d5878403a816e"
-  integrity sha512-twS8Sxc6NG4A0n7yITugP0snIMJ2Rm6aOGkckomWjZAP1fPo8pup8EFGc5wUBAtAOM3DJBphEnskpwEWCkBaLg==
+"@angular-devkit/schematics@9.1.7":
+  version "9.1.7"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-9.1.7.tgz#45394a1c928db449b412dacf205c3ec78fb5ef0c"
+  integrity sha512-oeHPJePBcPp/bd94jHQeFUnft93PGF5iJiKV9szxqS8WWC5OMZ5eK7icRY0PwvLyfenspAZxdZcNaqJqPMul5A==
   dependencies:
-    "@angular-devkit/core" "9.1.6"
+    "@angular-devkit/core" "9.1.7"
     ora "4.0.3"
     rxjs "6.5.4"
 
@@ -1386,13 +1386,13 @@
     "@angular-devkit/core" "8.3.26"
     "@angular-devkit/schematics" "8.3.26"
 
-"@schematics/schematics@0.901.6":
-  version "0.901.6"
-  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.6.tgz#a7fe0d30d2830f33e0553fdbf1d6f0867698b2d5"
-  integrity sha512-6CewIeOedz+oByZLcirVz7Qogf+zJn5Ego2tPwbHphJ90j0K2jc8MJ8h2QMRDiKd0wPprp+4MGAZD584FYfV2Q==
+"@schematics/schematics@0.901.7":
+  version "0.901.7"
+  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.7.tgz#de1dafaf6910e6c77781c11c81640fa7ec8aa1d5"
+  integrity sha512-tn45fGbL63EXnKb9Hl85y5Dy6J6cJxVe706aMOZDSzP4z2e4Lem5CCrmA4M9+2RGmyj0UaV/O6/jkmg8W5ZvRQ==
   dependencies:
-    "@angular-devkit/core" "9.1.6"
-    "@angular-devkit/schematics" "9.1.6"
+    "@angular-devkit/core" "9.1.7"
+    "@angular-devkit/schematics" "9.1.7"
 
 "@schematics/update@0.803.26":
   version "0.803.26"
