@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
-import { StoreModule } from './store.module';
 import { AppComponent } from './app.component';
+import { StoreModule } from './store.module';
 
 const routes: Routes = [{ path: '', component: AppComponent }];
 

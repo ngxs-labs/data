@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AppState } from './app.state';
 
 @Component({
@@ -6,7 +7,7 @@ import { AppState } from './app.state';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
-    title = 'app';
+    public title: string = 'app';
 
     constructor(public readonly app: AppState) {}
 }

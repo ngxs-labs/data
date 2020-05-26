@@ -1,6 +1,6 @@
-import { State } from '@ngxs/store';
-import { StateRepository, Persistence } from '@ngxs-labs/data/decorators';
+import { Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
+import { State } from '@ngxs/store';
 
 @Persistence()
 @StateRepository()
