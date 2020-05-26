@@ -13,7 +13,9 @@
         "start": "ng serve --open --port 4400",
         "test": "jest --config ./jest.config.js",
         "test:ci": "jest --config ./jest.config.js --coverage",
-        "test:types": "dtslint ./integration/types --localTs node_modules/typescript/lib"
+        "test:types": "dtslint ./integration/types --localTs node_modules/typescript/lib",
+        "// - INTEGRATION": "Integration builds",
+        "integration:ng8": "cd integration/hello-world-ng8 && yarn test"
     },
     "prettier": "@angular-ru/prettier-config",
     "devDependencies": {
@@ -41,6 +43,7 @@
         "angular-cli-ghpages": "0.6.2",
         "core-js": "3.6.5",
         "coveralls": "3.1.0",
+        "cpx": "^1.5.0",
         "dtslint": "3.5.1",
         "eslint": "6.8.0",
         "hammerjs": "2.0.8",
