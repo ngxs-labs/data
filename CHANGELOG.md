@@ -1,3 +1,7 @@
+# To become 3.1.0
+
+-   Feature: support Angular Schematics `ng add @ngxs-labs/data`
+
 # 3.0.0 2020-05-05
 
 -   Feature: make `NgxsDataEntityCollectionsRepository<V, K, C>` extensible
@@ -184,7 +188,7 @@ export class AppModule {}
 -   All decorators are now exported from a subpackage:
 
 ```ts
-import { action, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 ```
 
 -   All repositories are now exported from a subpackage:

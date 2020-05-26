@@ -13,6 +13,7 @@ install:
 script:
     - yarn lint --cache
     - yarn build:lib
+    - yarn build:schematics
     - yarn build:app
     - yarn test:ci
     - yarn test:types

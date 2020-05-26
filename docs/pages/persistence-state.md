@@ -351,11 +351,11 @@ export class AppModule {}
 
 ```ts
 import { STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
-import { NGXS_DATA_STORAGE_CONTAINER_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-labs/data/storage';
+import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, NGXS_DATA_STORAGE_PLUGIN } from '@ngxs-labs/data/storage';
 
 @NgModule({
     imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(NGXS_DATA_STORAGE_PLUGIN)],
-    providers: [{ provide: NGXS_DATA_STORAGE_CONTAINER_TOKEN, useValue: STORAGE_DECODE_TYPE.BASE64 }]
+    providers: [{ provide: NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, useValue: STORAGE_DECODE_TYPE.BASE64 }]
 })
 export class AppModule {}
 ```
