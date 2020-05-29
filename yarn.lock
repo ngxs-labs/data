@@ -4108,28 +4108,27 @@ dotenv@^5.0.1:
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
   integrity sha512-4As8uPrjfwb7VXC+WnLCbXK7y+Ueb2B3zgNCePYfhxS1PYeaO1YTeplffTEcbfLhvFNGLAz90VvJs9yomG7bow==
 
-dts-critic@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.npmjs.org/dts-critic/-/dts-critic-3.2.3.tgz#892c9a02fd620a1d30449b26b314cd4820d9ba9c"
-  integrity sha512-CErYGgQiloLH0PZ/vrLH5+WgpPbHiOj77qFF+6pGuGtlQzb43oFUSS9Qetr4y9fAg2ZOG9ZvGp7h+jhh0kkbAg==
+dts-critic@latest:
+  version "3.2.4"
+  resolved "https://registry.npmjs.org/dts-critic/-/dts-critic-3.2.4.tgz#88e0473d3db7eb07e14c08b9e84e7dc23ea3e2df"
+  integrity sha512-KdW/qVKydHF8HkFBe3hNqXRIDUwSqioTOxVAUS7tbo0++vlRNq7wluCfTgi5J26bS1L4ybJvN22BBVRR5Cp2wQ==
   dependencies:
     "@definitelytyped/header-parser" "0.0.34"
     command-exists "^1.2.8"
     rimraf "^3.0.2"
     semver "^6.2.0"
     tmp "^0.2.1"
-    typescript "^3.9.2"
     yargs "^12.0.5"
 
-dtslint@3.6.7:
-  version "3.6.7"
-  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.6.7.tgz#122701a32193913d7715a1b20b65f8dabcdd1040"
-  integrity sha512-0Ap/EjQ8s17SzsjL9mf07pYuGO5yL1wWPKr5TbrRdguNHdbDxd8gVyuF3L3lVanXIg6bwEXmU+umUjSY7nFx4w==
+dtslint@3.6.9:
+  version "3.6.9"
+  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.6.9.tgz#dd5299fc524267c75305ea66a6a481c1c04ba568"
+  integrity sha512-m3inh2igjzQnoJX6cf7DcGaejUwAca4ok7mWTDV5dhFvdCGsHkFabdwdm6vGyhq0Xzo/lV4G1RFdU5tRAsHggQ==
   dependencies:
     "@definitelytyped/header-parser" latest
     "@definitelytyped/typescript-versions" latest
     "@definitelytyped/utils" latest
-    dts-critic "^3.2.3"
+    dts-critic latest
     fs-extra "^6.0.1"
     json-stable-stringify "^1.0.1"
     strip-json-comments "^2.0.1"
@@ -11513,11 +11512,6 @@ typescript@3.8.3:
   version "3.8.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
-
-typescript@^3.9.2:
-  version "3.9.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-3.9.3.tgz#d3ac8883a97c26139e42df5e93eeece33d610b8a"
-  integrity sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==
 
 typescript@next:
   version "4.0.0-dev.20200526"
