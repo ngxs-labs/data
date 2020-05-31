@@ -15,7 +15,6 @@
         "outDir": "./dist/out-tsc",
         "target": "es2015",
         "lib": ["es2017", "dom"],
-        "module": "esnext",
         "typeRoots": ["./node_modules/@types"],
         "paths": {
             "@ngxs-labs/data": ["./lib/public_api.ts"],
