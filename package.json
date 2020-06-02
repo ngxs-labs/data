@@ -24,7 +24,7 @@
         "@angular-devkit/schematics-cli": "0.901.7",
         "@angular-ru/eslint-config": "12.16.0",
         "@angular-ru/jest-utils": "12.13.0",
-        "@angular-ru/prettier-config": "12.7.0",
+        "@angular-ru/prettier-config": "12.17.0",
         "@angular-ru/tsconfig": "12.1.0",
         "@angular/animations": "8.2.14",
         "@angular/cdk": "8.2.3",
