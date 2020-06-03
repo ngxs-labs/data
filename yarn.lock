@@ -183,10 +183,10 @@
   dependencies:
     prettier "2.0.5"
 
-"@angular-ru/tsconfig@12.1.0":
-  version "12.1.0"
-  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-12.1.0.tgz#9ddb49e04b75388760ce7a4a6d88640306055606"
-  integrity sha512-TaiNfZ634nhLQCtEH/pcMuM5CqUnNaTnyTCP05cqw9/SAIz0uoq94oU5x/dlBWc9242MMfTru116SVIn3TWkwQ==
+"@angular-ru/tsconfig@12.17.0":
+  version "12.17.0"
+  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-12.17.0.tgz#1331eaf98867431043c29d0c47284e348e6b5655"
+  integrity sha512-TDzujeA6xK1y4kq3nG/wI17ruq2sDJRlTRCh46dfcn1v0o4PCOQBC23bL1Hy20GmEmAQs+Be3FijH5V7jDUXYA==
 
 "@angular/animations@8.2.14":
   version "8.2.14"
