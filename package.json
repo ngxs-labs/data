@@ -25,7 +25,7 @@
         "@angular-ru/eslint-config": "12.18.1",
         "@angular-ru/jest-utils": "12.13.0",
         "@angular-ru/prettier-config": "12.18.1",
-        "@angular-ru/tsconfig": "12.17.0",
+        "@angular-ru/tsconfig": "12.18.1",
         "@angular/animations": "8.2.14",
         "@angular/cdk": "8.2.3",
         "@angular/cli": "8.3.26",
