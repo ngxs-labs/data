@@ -176,10 +176,10 @@
     jest-preset-angular "8.2.0"
     ts-jest "26.1.0"
 
-"@angular-ru/prettier-config@12.18.1":
-  version "12.18.1"
-  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-12.18.1.tgz#6c00b189ebfa398dc7799cc19a6341085d05012a"
-  integrity sha512-dztu6bWFJ4cVG+a9wiINatFhY1DNsJ4oS7bQk8okUfll8r5Swacm8/KS3/fyiboUOpbBInQMTUdGpR9V8LxjWA==
+"@angular-ru/prettier-config@12.19.1":
+  version "12.19.1"
+  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-12.19.1.tgz#48faf051b77d7a34e39b04d9c4c473f05765f4c2"
+  integrity sha512-j57yPLe7HFkOnrMPtglIFFEZ4f1CPJjuWuwwAEgTwfIJcUpMHjiVXD1CjgZCcLeg8cJ7Eo4jR45s/bDSx6D8wA==
   dependencies:
     prettier "2.0.5"
 
