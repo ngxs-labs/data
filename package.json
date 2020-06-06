@@ -53,7 +53,7 @@
         "npx": "10.2.2",
         "rxjs": "6.5.5",
         "sort-package-json": "1.42.2",
-        "ts-node": "8.10.1",
+        "ts-node": "8.10.2",
         "tslib": "1.13.0",
         "typescript": "3.8.3",
         "zone.js": "0.10.3"
