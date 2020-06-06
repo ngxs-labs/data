@@ -1,4 +1,4 @@
-import { buildDefaultsGraph, ensureStateMetadata } from '@ngxs-labs/data/internals';
+import { buildDefaultsGraph, ensureStateMetadata, getStateMetadata } from '@ngxs-labs/data/internals';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { StateRepository } from '@ngxs-labs/data/decorators';
@@ -7,7 +7,6 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
 import { MetaDataModel, SharedSelectorOptions } from '@ngxs/store/src/internal/internals';
 import { isObservable } from 'rxjs';
-import { getStateMetadata } from '../../../lib/internals/src/utils/state-context/get-state-metadata';
 import { Any } from '@ngxs-labs/data/typings';
 
 describe('[TEST]: Utils', () => {
