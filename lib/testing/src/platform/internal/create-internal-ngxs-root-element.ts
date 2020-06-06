@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { ɵgetDOM as getDOM } from '@angular/platform-browser';
 
 export function createInternalNgxsRootElement(): void {
-    const document: Document = TestBed.get(DOCUMENT);
+    const document: Document = TestBed.inject(DOCUMENT);
     const root: HTMLElement = getDOM().createElement('app-root', document);
-    getDOM().appendChild(document.body, root);
+    document.body.appendChild(root);
 }
