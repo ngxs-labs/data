@@ -1,3 +1,3 @@
-export enum PRIMARY_KEY {
+export const enum PrimaryKey {
     ID = 'id'
 }

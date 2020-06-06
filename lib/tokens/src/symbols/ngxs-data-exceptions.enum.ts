@@ -1,7 +1,7 @@
 /**
  * @privateApi
  */
-export enum NGXS_DATA_EXCEPTIONS {
+export const enum NgxsDataExceptions {
     NGXS_PERSISTENCE_STATE = '@Persistence should be add before decorator @State and @StateRepository',
     NGXS_DATA_STATE = '@StateRepository should be add before decorator @State',
     NGXS_DATA_STATE_NAME_NOT_FOUND = 'State name not provided in class',
