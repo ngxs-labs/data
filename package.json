@@ -22,7 +22,7 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "0.803.26",
         "@angular-devkit/schematics-cli": "0.901.7",
-        "@angular-ru/eslint-config": "12.18.1",
+        "@angular-ru/eslint-config": "12.19.2",
         "@angular-ru/jest-utils": "12.19.0",
         "@angular-ru/prettier-config": "12.18.1",
         "@angular-ru/tsconfig": "12.18.1",
