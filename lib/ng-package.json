@@ -17,5 +17,6 @@
             "@ngxs-labs/data/tokens": "ngxs-labs-data-tokens"
         }
     },
-    "dest": "../dist/ngxs-data"
+    "dest": "../dist/ngxs-data",
+    "assets": ["ngcc.config.js"]
 }
