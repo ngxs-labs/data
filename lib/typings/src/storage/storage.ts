@@ -16,12 +16,12 @@ export interface DataStorage<T = string, U = string> {
     clear(): void;
 }
 
-export const enum STORAGE_DECODE_TYPE {
+export const enum StorageDecodeType {
     BASE64 = 'base64',
     NONE = 'none'
 }
 
-export const enum TTL_EXPIRED_STRATEGY {
+export const enum TtlExpiredStrategy {
     REMOVE_KEY_AFTER_EXPIRED,
     SET_NULL_DATA_AFTER_EXPIRED,
     DO_NOTHING_AFTER_EXPIRED
@@ -56,13 +56,13 @@ interface CommonPersistenceProvider {
     /**
      *
      */
-    ttlExpiredStrategy?: TTL_EXPIRED_STRATEGY;
+    ttlExpiredStrategy?: TtlExpiredStrategy;
 
     /**
      * decode/encoded
      * default: STORAGE_DECODE_TYPE.NONE
      */
-    decode?: STORAGE_DECODE_TYPE;
+    decode?: StorageDecodeType;
 
     /**
      * prefix for key
@@ -207,7 +207,7 @@ export interface TtLCreatorOptions {
 export interface CreateStorageDefaultOptions {
     prefix: string;
     meta: NgxsRepositoryMeta;
-    decodeType: STORAGE_DECODE_TYPE;
+    decodeType: StorageDecodeType;
     stateInstance: StateClass;
 }
 
@@ -249,7 +249,7 @@ export interface MergeOptions {
     meta: NgxsRepositoryMeta;
     option: PersistenceProvider;
     prefix: string;
-    decodeType: STORAGE_DECODE_TYPE;
+    decodeType: StorageDecodeType;
     stateInstance: StateClass;
 }
 

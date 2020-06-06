@@ -36,8 +36,8 @@ export {
     NgxsDataAfterStorageEvent,
     TtlListenerOptions,
     TtLCreatorOptions,
-    TTL_EXPIRED_STRATEGY,
-    STORAGE_DECODE_TYPE,
+    TtlExpiredStrategy as TTL_EXPIRED_STRATEGY,
+    StorageDecodeType as STORAGE_DECODE_TYPE,
     CreateStorageDefaultOptions,
     PullFromStorageInfo,
     PullFromStorageOptions,
@@ -73,6 +73,6 @@ export {
 export { NgxsEntityCollections } from './entity/ngxs-entity-collections';
 export { EntityRepository } from './entity/entity-repository';
 export { EntityContext } from './entity/entity-context';
-export { PRIMARY_KEY } from './entity/primary-key';
+export { PrimaryKey as PRIMARY_KEY } from './entity/primary-key';
 export { EntityUpdate } from './entity/entity-update';
 export { EntitySortByOrder, EntityComparator, EntityCompareFn, EntitySortBy } from './entity/entity-sort-by';
