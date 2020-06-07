@@ -2,7 +2,11 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "outDir": "../out-tsc/app",
-        "types": []
+        "types": [],
+        "paths": {
+            "@ngxs-labs/data": ["./dist/ngxs-data/"],
+            "@ngxs-labs/data/*": ["./dist/ngxs-data/*"]
+        }
     },
     "files": ["main.ts", "polyfills.ts"],
     "include": ["integration/**/*.d.ts"]
