@@ -130,10 +130,10 @@
     ora "4.0.3"
     rxjs "6.5.4"
 
-"@angular-ru/eslint-config@12.19.3":
-  version "12.19.3"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-12.19.3.tgz#b1f0bb6e632a6fd769a40418c36e220f67b44c66"
-  integrity sha512-unr6KJzePJVVSP7Gjv8s3KoI5k7RKRcstf2KTJvpjY8MrybMpUmjxYpnwqwJhVBxyLNIa4ysUPkiczgyVBs54w==
+"@angular-ru/eslint-config@12.19.4":
+  version "12.19.4"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-12.19.4.tgz#abcae16124706c30de032ad4cab5328cb3d5f862"
+  integrity sha512-id4DlhHciLwqgTT/rNpIrNE+Rdrf8PHCsRybm7+otDzxURPKHlJDelbSCGHp39w7QUchYomAOXYrwKd4coJVWw==
   dependencies:
     "@types/eslint" "6.8.1"
     "@typescript-eslint/eslint-plugin" "2.34.0"
@@ -144,7 +144,7 @@
     eslint "7.2.0"
     eslint-config-import "0.13.0"
     eslint-import-resolver-typescript "2.0.0"
-    eslint-plugin-import "2.21.0"
+    eslint-plugin-import "2.21.1"
     eslint-plugin-no-cyrillic-string "1.0.4"
     eslint-plugin-prettier "3.1.3"
     eslint-plugin-simple-import-sort "5.0.3"
@@ -4672,10 +4672,10 @@ eslint-module-utils@^2.6.0:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-import@2.21.0:
-  version "2.21.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.21.0.tgz#15cb42ba1db390068d67ed8d4810d817c952a6c8"
-  integrity sha512-fbbjKv3jv23WZ1+uCyYOGx+J8H4vAVlVcc9YLHRCycDry1LdgjdSvt7O0dQS1PwOUu/s0QWfR1xE7mq0GuqYnA==
+eslint-plugin-import@2.21.1:
+  version "2.21.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.21.1.tgz#3398318e5e4abbd23395c4964ce61538705154c8"
+  integrity sha512-qYOOsgUv63vHof7BqbzuD+Ud34bXHxFJxntuAC1ZappFZXYbRIek3aJ7jc9i2dHDGDyZ/0zlO0cpioES265Lsw==
   dependencies:
     array-includes "^3.1.1"
     array.prototype.flat "^1.2.3"
