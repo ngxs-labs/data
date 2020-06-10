@@ -149,6 +149,15 @@
     ora "4.0.3"
     rxjs "6.5.4"
 
+"@angular-devkit/schematics@9.1.8":
+  version "9.1.8"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-9.1.8.tgz#8eeea0b6f9702a5b065f909cdcaf1d35cc8e2fa3"
+  integrity sha512-/8L5J4X6SkcFMRmrSQHvJWOPilrMWTNlv1lD+1z06D3xGJEktVxXM3gCUXhDrbMvpoi+lYtR2Fuia0E6zvyjCQ==
+  dependencies:
+    "@angular-devkit/core" "9.1.8"
+    ora "4.0.3"
+    rxjs "6.5.4"
+
 "@angular-ru/eslint-config@12.19.5":
   version "12.19.5"
   resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-12.19.5.tgz#909bad21dcfa04709be25d4d9edcd0aae01d51f3"
@@ -1454,6 +1463,14 @@
   dependencies:
     "@angular-devkit/core" "9.1.7"
     "@angular-devkit/schematics" "9.1.7"
+
+"@schematics/angular@9.1.8":
+  version "9.1.8"
+  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-9.1.8.tgz#da6cd63b65776b18c43d8515bfca754dd9acdbc9"
+  integrity sha512-fjyAP9m4aF51OVdksRXCOF8BTyt96PqFmKK9G0kuwOzgfx2gPZNOO3wOZH6xFAMZ09y86VGzasZxZNeDdyN4sQ==
+  dependencies:
+    "@angular-devkit/core" "9.1.8"
+    "@angular-devkit/schematics" "9.1.8"
 
 "@schematics/schematics@0.901.7":
   version "0.901.7"
