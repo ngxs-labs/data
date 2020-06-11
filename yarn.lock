@@ -127,14 +127,14 @@
     rxjs "6.5.4"
     source-map "0.7.3"
 
-"@angular-devkit/schematics-cli@0.901.7":
-  version "0.901.7"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.7.tgz#f34c663d8030aa77b13ae111222654f4fbe7ea6c"
-  integrity sha512-9LTyCvgiU74nc5FcwRfgHGMZSfspSsqTFgivuS627Dju2D/knmXzdrNXeqU0D4CRsWGbJBKbcAjnlgmtZDTydg==
+"@angular-devkit/schematics-cli@0.901.8":
+  version "0.901.8"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.8.tgz#1d9e088e3138284a402d8e5e75a21f4d4c155489"
+  integrity sha512-8TQuB2G8X4Wk/oUarOdYabU/V9asg/GVWptPU9dMetVIlrSG1GkXzW1xbB56PVOcSQ7v87HwgtbSFyGY3RXEpg==
   dependencies:
-    "@angular-devkit/core" "9.1.7"
-    "@angular-devkit/schematics" "9.1.7"
-    "@schematics/schematics" "0.901.7"
+    "@angular-devkit/core" "9.1.8"
+    "@angular-devkit/schematics" "9.1.8"
+    "@schematics/schematics" "0.901.8"
     inquirer "7.1.0"
     minimist "1.2.5"
     rxjs "6.5.4"
@@ -1472,13 +1472,13 @@
     "@angular-devkit/core" "9.1.8"
     "@angular-devkit/schematics" "9.1.8"
 
-"@schematics/schematics@0.901.7":
-  version "0.901.7"
-  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.7.tgz#de1dafaf6910e6c77781c11c81640fa7ec8aa1d5"
-  integrity sha512-tn45fGbL63EXnKb9Hl85y5Dy6J6cJxVe706aMOZDSzP4z2e4Lem5CCrmA4M9+2RGmyj0UaV/O6/jkmg8W5ZvRQ==
+"@schematics/schematics@0.901.8":
+  version "0.901.8"
+  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.8.tgz#f33eebefc0dd29d5ff61a5ff7e6afe214a1d849f"
+  integrity sha512-0nHTTM5kiPRm/9JMC+oNmwroRtUZikKdF8Z3l5C0ILv0DAwwORa15fvgSksyYOwYFsFtFLZ3q/+TiQN8ug5wDw==
   dependencies:
-    "@angular-devkit/core" "9.1.7"
-    "@angular-devkit/schematics" "9.1.7"
+    "@angular-devkit/core" "9.1.8"
+    "@angular-devkit/schematics" "9.1.8"
 
 "@schematics/update@0.901.7":
   version "0.901.7"
