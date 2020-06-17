@@ -130,10 +130,10 @@
     ora "4.0.3"
     rxjs "6.5.4"
 
-"@angular-ru/eslint-config@12.19.6":
-  version "12.19.6"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-12.19.6.tgz#d307e694f7629a463bccc67f6e68f3786ed01022"
-  integrity sha512-5+Dy/zP3eUV0iH+HCqu+V4QAlxL4e+H10j1sAaAMPQ/joNdoEPs8M/yStMTK6cx9I04EZ/kSxBn1Tqp6aQ0BZg==
+"@angular-ru/eslint-config@12.20.1":
+  version "12.20.1"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-12.20.1.tgz#d6c0d66e7dfac9ab1699e4321a21183c34b58965"
+  integrity sha512-en0SESCzSx408gck9fvgYPLKN71+VONtK/alb2h6HaIIH071BeAZ38vMxm+sWVukjvP38haiZN8OQhlAnrvoJA==
   dependencies:
     "@types/eslint" "6.8.1"
     "@typescript-eslint/eslint-plugin" "2.34.0"
