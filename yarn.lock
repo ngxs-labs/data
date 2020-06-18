@@ -1464,6 +1464,14 @@
     "@angular-devkit/core" "9.1.8"
     "@angular-devkit/schematics" "9.1.8"
 
+"@schematics/angular@9.1.9":
+  version "9.1.9"
+  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-9.1.9.tgz#df9f30dd7b63856121fbb9ab5dda57b443802a33"
+  integrity sha512-c8YGZ6pDfr8IDD1qaOjlEBAkEz14KFSxDj0hCWs0xIM0py513tu5sW8+ziYxGG4bgqpsgVR/KAxuY78iBfUVag==
+  dependencies:
+    "@angular-devkit/core" "9.1.9"
+    "@angular-devkit/schematics" "9.1.9"
+
 "@schematics/schematics@0.901.9":
   version "0.901.9"
   resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.9.tgz#298b59acfe5b478ba12c80feb42a9e618ef2522e"
