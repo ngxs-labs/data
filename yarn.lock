@@ -97,17 +97,6 @@
     "@angular-devkit/core" "9.1.9"
     rxjs "6.5.4"
 
-"@angular-devkit/core@9.1.8":
-  version "9.1.8"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.1.8.tgz#7c517a14e3ddfd180858972d9f1836aa90a1248e"
-  integrity sha512-4k1pZwje2oh5c/ULg7pnCBzTstx3l3uF7O5tQq/KXomDDsam97IhLm6cKUqQpaoyC1NUsBV6xJARJ0PyUP5TPQ==
-  dependencies:
-    ajv "6.12.0"
-    fast-json-stable-stringify "2.1.0"
-    magic-string "0.25.7"
-    rxjs "6.5.4"
-    source-map "0.7.3"
-
 "@angular-devkit/core@9.1.9":
   version "9.1.9"
   resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-9.1.9.tgz#e6283912093179313ccfc69856841e9b6b318231"
@@ -131,15 +120,6 @@
     minimist "1.2.5"
     rxjs "6.5.4"
     symbol-observable "1.2.0"
-
-"@angular-devkit/schematics@9.1.8":
-  version "9.1.8"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-9.1.8.tgz#8eeea0b6f9702a5b065f909cdcaf1d35cc8e2fa3"
-  integrity sha512-/8L5J4X6SkcFMRmrSQHvJWOPilrMWTNlv1lD+1z06D3xGJEktVxXM3gCUXhDrbMvpoi+lYtR2Fuia0E6zvyjCQ==
-  dependencies:
-    "@angular-devkit/core" "9.1.8"
-    ora "4.0.3"
-    rxjs "6.5.4"
 
 "@angular-devkit/schematics@9.1.9":
   version "9.1.9"
@@ -189,10 +169,10 @@
   dependencies:
     prettier "2.0.5"
 
-"@angular-ru/tsconfig@12.19.1":
-  version "12.19.1"
-  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-12.19.1.tgz#489bea7b796970184f47a90790953f1d76618ff4"
-  integrity sha512-ldPJkixeF3AhsDhQBmwnsi2f0iJpxWmNrfXFG0aUiU7MvtMbBUnW9LahgNgrfoSDn1Uy9vwrx8LyUmIUt/95BA==
+"@angular-ru/tsconfig@12.21.5":
+  version "12.21.5"
+  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-12.21.5.tgz#705f51ca9696e55d05736fad7f3582cbf3c4e3f3"
+  integrity sha512-78lZabT+4Hb2T1Ad23kuPj0o3LoEJEMJycCT31aMZRz/kzKsgkC1wgGSAwn5sHY6FV9oFqIih/rdXAmIbI0/yg==
 
 "@angular/animations@9.1.11":
   version "9.1.11"
@@ -1447,14 +1427,6 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
-
-"@schematics/angular@9.1.8":
-  version "9.1.8"
-  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-9.1.8.tgz#da6cd63b65776b18c43d8515bfca754dd9acdbc9"
-  integrity sha512-fjyAP9m4aF51OVdksRXCOF8BTyt96PqFmKK9G0kuwOzgfx2gPZNOO3wOZH6xFAMZ09y86VGzasZxZNeDdyN4sQ==
-  dependencies:
-    "@angular-devkit/core" "9.1.8"
-    "@angular-devkit/schematics" "9.1.8"
 
 "@schematics/angular@9.1.9":
   version "9.1.9"
