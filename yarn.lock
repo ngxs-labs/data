@@ -127,14 +127,14 @@
     rxjs "6.5.4"
     source-map "0.7.3"
 
-"@angular-devkit/schematics-cli@0.901.8":
-  version "0.901.8"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.8.tgz#1d9e088e3138284a402d8e5e75a21f4d4c155489"
-  integrity sha512-8TQuB2G8X4Wk/oUarOdYabU/V9asg/GVWptPU9dMetVIlrSG1GkXzW1xbB56PVOcSQ7v87HwgtbSFyGY3RXEpg==
+"@angular-devkit/schematics-cli@0.901.9":
+  version "0.901.9"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-0.901.9.tgz#507718a152da6ab6f8d71525f7747077efb0c5c2"
+  integrity sha512-mkbN30u7/GvFOIOjj20w5OWi+vEOc/mdnpSrm3AxXvmha4AG56VL6uzF/kKHw9vyhfv8wLMt11OK/iSms9hSWw==
   dependencies:
-    "@angular-devkit/core" "9.1.8"
-    "@angular-devkit/schematics" "9.1.8"
-    "@schematics/schematics" "0.901.8"
+    "@angular-devkit/core" "9.1.9"
+    "@angular-devkit/schematics" "9.1.9"
+    "@schematics/schematics" "0.901.9"
     inquirer "7.1.0"
     minimist "1.2.5"
     rxjs "6.5.4"
@@ -146,6 +146,15 @@
   integrity sha512-/8L5J4X6SkcFMRmrSQHvJWOPilrMWTNlv1lD+1z06D3xGJEktVxXM3gCUXhDrbMvpoi+lYtR2Fuia0E6zvyjCQ==
   dependencies:
     "@angular-devkit/core" "9.1.8"
+    ora "4.0.3"
+    rxjs "6.5.4"
+
+"@angular-devkit/schematics@9.1.9":
+  version "9.1.9"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-9.1.9.tgz#1369ee586cb91ffebf12673bb839d31ad5c00357"
+  integrity sha512-aKuMmS3wshOTl9+01jiB50ml09fRN1WfOOtoNqwvKTEi87DrT6Mn3l0eVQo8PJK/bIq/FBmPgsIl2nsETiBSxg==
+  dependencies:
+    "@angular-devkit/core" "9.1.9"
     ora "4.0.3"
     rxjs "6.5.4"
 
@@ -1455,13 +1464,13 @@
     "@angular-devkit/core" "9.1.8"
     "@angular-devkit/schematics" "9.1.8"
 
-"@schematics/schematics@0.901.8":
-  version "0.901.8"
-  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.8.tgz#f33eebefc0dd29d5ff61a5ff7e6afe214a1d849f"
-  integrity sha512-0nHTTM5kiPRm/9JMC+oNmwroRtUZikKdF8Z3l5C0ILv0DAwwORa15fvgSksyYOwYFsFtFLZ3q/+TiQN8ug5wDw==
+"@schematics/schematics@0.901.9":
+  version "0.901.9"
+  resolved "https://registry.npmjs.org/@schematics/schematics/-/schematics-0.901.9.tgz#298b59acfe5b478ba12c80feb42a9e618ef2522e"
+  integrity sha512-Nca8Ig/mFFnhLmosbdWysX4N2HiwVOzA4gQj2TZnMCJ98Cftdebs388LstjsJwGtJyvAa2v4yoaPaUMIGVgQ9w==
   dependencies:
-    "@angular-devkit/core" "9.1.8"
-    "@angular-devkit/schematics" "9.1.8"
+    "@angular-devkit/core" "9.1.9"
+    "@angular-devkit/schematics" "9.1.9"
 
 "@schematics/update@0.901.8":
   version "0.901.8"
