@@ -152,10 +152,10 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@12.19.0":
-  version "12.19.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.19.0.tgz#58450bf17b0b298c09f526846185e7abbc37cc3a"
-  integrity sha512-+kOaiBQk00/7pqEjnog/kxWtd3IZb2fSkEuvTSoL6w6eIT6xj/WO8s9t2NTlpBRhtcPKDP0+AgXRKVpfkjqGgA==
+"@angular-ru/jest-utils@12.21.0":
+  version "12.21.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.21.0.tgz#de7ad6de43912f55953c38606456fbd62ef2bd43"
+  integrity sha512-U4nv/t0YMzHzZXHgs+BpINP3byg+kdPHZtyn1FaBbCkfvqz2Qsi6Y/StgSBD9g9cASKNPPxfKmxMcqjP4X1l2g==
   dependencies:
     "@types/jest" "25.2.3"
     jest "26.0.1"
