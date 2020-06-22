@@ -152,15 +152,15 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@12.22.0":
-  version "12.22.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.22.0.tgz#af24c510c3ae548b2a184ecffaf337585df1e6fc"
-  integrity sha512-Tug3wpCMqJ0WLTIl5HpA9jb613sHUXsit9iQnuhlZOKbVx4+770PJZ2qcQGDUyO10x18jPNrSph6DXmYB6UsYw==
+"@angular-ru/jest-utils@12.24.0":
+  version "12.24.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-12.24.0.tgz#c3826bc7e093172f50b9d9e16d84ed19eadcf99d"
+  integrity sha512-BBp29JBm1qavlK9tieKQh02/U/nbILM40NBdx9eBfcEWopPMktjXDfgTR+9fg38IIGITxyuMGIFaDrvriSfJOg==
   dependencies:
-    "@types/jest" "25.2.3"
+    "@types/jest" "26.0.0"
     jest "26.0.1"
     jest-preset-angular "8.2.1"
-    ts-jest "26.1.0"
+    ts-jest "26.1.1"
 
 "@angular-ru/prettier-config@12.19.1":
   version "12.19.1"
@@ -1581,10 +1581,10 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@25.2.3":
-  version "25.2.3"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-25.2.3.tgz#33d27e4c4716caae4eced355097a47ad363fdcaf"
-  integrity sha512-JXc1nK/tXHiDhV55dvfzqtmP4S3sy3T3ouV2tkViZgxY/zeUkcpQcQPGRlgF4KmWzWW5oiWYSZwtCB+2RsE4Fw==
+"@types/jest@26.0.0":
+  version "26.0.0"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.0.tgz#a6d7573dffa9c68cbbdf38f2e0de26f159e11134"
+  integrity sha512-/yeMsH9HQ1RLORlXAwoLXe8S98xxvhNtUz3yrgrwbaxYjT+6SFPZZRksmRKRA6L5vsUtSHeN71viDOTTyYAD+g==
   dependencies:
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
@@ -11988,7 +11988,23 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@26.1.0, ts-jest@^26.0.0:
+ts-jest@26.1.1:
+  version "26.1.1"
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.1.1.tgz#b98569b8a4d4025d966b3d40c81986dd1c510f8d"
+  integrity sha512-Lk/357quLg5jJFyBQLnSbhycnB3FPe+e9i7ahxokyXxAYoB0q1pPmqxxRPYr4smJic1Rjcf7MXDBhZWgxlli0A==
+  dependencies:
+    bs-logger "0.x"
+    buffer-from "1.x"
+    fast-json-stable-stringify "2.x"
+    json5 "2.x"
+    lodash.memoize "4.x"
+    make-error "1.x"
+    micromatch "4.x"
+    mkdirp "1.x"
+    semver "7.x"
+    yargs-parser "18.x"
+
+ts-jest@^26.0.0:
   version "26.1.0"
   resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.1.0.tgz#e9070fc97b3ea5557a48b67c631c74eb35e15417"
   integrity sha512-JbhQdyDMYN5nfKXaAwCIyaWLGwevcT2/dbqRPsQeh6NZPUuXjZQZEfeLb75tz0ubCIgEELNm6xAzTe5NXs5Y4Q==
