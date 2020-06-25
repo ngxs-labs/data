@@ -1,6 +1,9 @@
 # To become 3.1.0
 
 -   Feature: support Angular Schematics `ng add @ngxs-labs/data`
+
+# 3.0.6 2020-06-25
+
 -   Fix: entry point '@ngxs/store/src/\*' contains deep imports into in lib
 
 # 3.0.0 2020-05-05
