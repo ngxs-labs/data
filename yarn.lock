@@ -4591,10 +4591,10 @@ dts-critic@latest:
     tmp "^0.2.1"
     yargs "^12.0.5"
 
-dtslint@3.6.12:
-  version "3.6.12"
-  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.6.12.tgz#cd6f6fb915227bb7ef5eaa031f660b147339d97a"
-  integrity sha512-fNqUqLcKu6up8rT7bb6rnfUCPDYTUButrHEsp4uENlsYiQJETaB+cM9eltYcUhiHtBoULEZrnl081yRvNUPcGA==
+dtslint@3.6.13:
+  version "3.6.13"
+  resolved "https://registry.npmjs.org/dtslint/-/dtslint-3.6.13.tgz#3b42e965a5662188df9219ec42b1e7b609efea59"
+  integrity sha512-CoK4eRmO3cnQlLRP32jlfENAfHo8HzKKBmP8TKehq4jv9ms6Pft5+TdWvbnvUP8gqkm/ZIy8xRTRiC+f1SZ47w==
   dependencies:
     "@definitelytyped/header-parser" latest
     "@definitelytyped/typescript-versions" latest
