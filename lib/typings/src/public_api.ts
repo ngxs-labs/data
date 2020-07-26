@@ -7,7 +7,6 @@ export {
     ArgName,
     ArgNameMap
 } from './common/actions-properties';
-export { Immutable, Mutable } from './common/immutability';
 export {
     NgxsRepositoryMeta,
     ImmutableStateValue,
@@ -51,12 +50,8 @@ export {
     PullStorageMeta,
     StorageData
 } from './storage/storage';
-export { Any } from './common/any';
-export { PlainObjectOf } from './common/plaing-object-of';
-export { ClassType } from './common/class';
 export { MappedState } from './common/mapped-state';
 export { NgxsDataExtension } from './common/extension';
-export { Descriptor } from './common/descriptor';
 export { DispatchedResult } from './common/dispatched-result';
 export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './common/data-state-class';
 export { ComputedOptions } from './common/computed-options';

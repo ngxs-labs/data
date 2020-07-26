@@ -1,7 +1,7 @@
+import { Immutable } from '@angular-ru/common/typings';
 import { Injectable } from '@angular/core';
 import { Computed, DataAction, Debounce, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Immutable } from '@ngxs-labs/data/typings';
 import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,8 +20,8 @@ const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountMode
 @Injectable()
 export class CountState extends NgxsImmutableDataRepository<ParentCountModel> {
     @Computed()
-    public get values$(): Observable<ParentCountModel> {
-        return this.state$.pipe(map((state: Immutable<ParentCountModel>): CountModel => state.countSub!));
+    public get values$(): Observable<ParentCountModel | undefined> {
+        return this.state$.pipe(map((state: Immutable<ParentCountModel>): CountModel | undefined => state.countSub));
     }
 
     @DataAction()

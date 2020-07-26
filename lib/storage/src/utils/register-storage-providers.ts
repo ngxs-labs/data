@@ -6,9 +6,12 @@ import { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from '../tokens/storage-container-t
 
 export function registerStorageProviders(options: PersistenceProvider[]): void {
     try {
-        const container: StorageContainer = NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_CONTAINER_TOKEN)!;
+        const container: StorageContainer | undefined = NgxsDataStoragePlugin.injector?.get<StorageContainer>(
+            NGXS_DATA_STORAGE_CONTAINER_TOKEN
+        );
+
         options.forEach((option: PersistenceProvider): void => {
-            container.providers.add(option);
+            container?.providers.add(option);
         });
     } catch {
         throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_CONTAINER);

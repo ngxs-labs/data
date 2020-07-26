@@ -1,3 +1,4 @@
+import { Any } from '@angular-ru/common/typings';
 import {
     buildDefaultsGraph,
     createContext,
@@ -7,7 +8,7 @@ import {
     ensureStateMetadata
 } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
+import { DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 export function StateRepository(): StateClassDecorator {

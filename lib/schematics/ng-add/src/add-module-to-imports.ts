@@ -2,7 +2,7 @@ import { normalize } from '@angular-devkit/core';
 import { Path } from '@angular-devkit/core/src/virtual-fs/path';
 import { Rule, SchematicsException, Tree } from '@angular-devkit/schematics';
 import { UpdateRecorder } from '@angular-devkit/schematics/src/tree/interface';
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 import { addSymbolToNgModuleMetadata } from '@schematics/angular/utility/ast-utils';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';

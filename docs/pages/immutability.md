@@ -79,7 +79,7 @@ Thus, the developer will not be able to make his own mistake. If he will mutate 
 methods. If you need to use states for set input property:
 
 ```ts
-import { Immutable } from '@ngxs-labs/data/typings';
+import { Immutable } from '@angular-ru/common/typings';
 
 @Component({ .. })
 class TodoComponent {

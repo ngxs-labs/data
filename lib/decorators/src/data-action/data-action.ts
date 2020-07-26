@@ -1,3 +1,4 @@
+import { Any, Descriptor, PlainObjectOf } from '@angular-ru/common/typings';
 import {
     $args,
     actionNameCreator,
@@ -10,14 +11,11 @@ import {
 } from '@ngxs-labs/data/internals';
 import {
     ActionEvent,
-    Any,
     DataStateClass,
-    Descriptor,
     DispatchedResult,
     ImmutableDataRepository,
     NgxsDataOperation,
     NgxsRepositoryMeta,
-    PlainObjectOf,
     RepositoryActionOptions
 } from '@ngxs-labs/data/typings';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';

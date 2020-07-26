@@ -4,8 +4,8 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
-import { Any, Immutable } from '@ngxs-labs/data/typings';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
+import { Any, Immutable } from '@angular-ru/common/typings';
 
 describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
     it('should be throw exception when forgot add StateRepository', () => {
@@ -27,7 +27,7 @@ describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
                 imports: [NgxsModule.forRoot([MyAppState]), NgxsDataPluginModule.forRoot()]
             });
 
-            TestBed.get(MyAppState);
+            TestBed.inject(MyAppState);
         } catch (e) {
             message = e.message;
         }
@@ -55,7 +55,7 @@ describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
                 imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
             });
 
-            TestBed.get(MyState);
+            TestBed.inject(MyState);
         } catch (e) {
             message = e.message;
         }
@@ -85,8 +85,8 @@ describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
             imports: [NgxsModule.forRoot([MyDataState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: MyDataState = TestBed.get<MyDataState>(MyDataState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: MyDataState = TestBed.inject<MyDataState>(MyDataState);
 
         expect(store.snapshot()).toEqual({ myState: null });
         expect(state.getState()).toEqual(null);
@@ -126,8 +126,8 @@ describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
             imports: [NgxsModule.forRoot([MyDataArrState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: MyDataArrState = TestBed.get<MyDataArrState>(MyDataArrState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: MyDataArrState = TestBed.inject<MyDataArrState>(MyDataArrState);
 
         expect(store.snapshot()).toEqual({ myArrState: [{ a: 1 }, { b: 3 }] });
         expect(state.getState()).toEqual([{ a: 1 }, { b: 3 }]);
@@ -182,8 +182,8 @@ describe('[TEST]: Freeze states when extends NgxsDataRepository', () => {
             imports: [NgxsModule.forRoot([MyDateState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: MyDateState = TestBed.get<MyDateState>(MyDateState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: MyDateState = TestBed.inject<MyDateState>(MyDateState);
 
         expect(store.snapshot()).toEqual({
             dateState: {

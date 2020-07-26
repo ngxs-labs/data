@@ -1,4 +1,4 @@
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 export function deepClone(value: Any): Any {
     const prepared: Any = value === undefined ? {} : value;

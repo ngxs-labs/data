@@ -1,4 +1,5 @@
-import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
 

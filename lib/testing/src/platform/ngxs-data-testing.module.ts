@@ -35,6 +35,6 @@ export class NgxsDataTestingModule {
         patchConsoleLog();
         destroyPlatform();
         createInternalNgxsRootElement();
-        NgxsAppMockModule.ngDoBootstrap(TestBed.get(ApplicationRef));
+        NgxsAppMockModule.ngDoBootstrap(TestBed.inject(ApplicationRef));
     }
 }

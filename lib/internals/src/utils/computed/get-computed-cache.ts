@@ -1,4 +1,5 @@
-import { Any, ComputedCacheMap } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
+import { ComputedCacheMap } from '@ngxs-labs/data/typings';
 
 import { computedKey } from '../common/computed-key';
 

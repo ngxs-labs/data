@@ -82,7 +82,7 @@ describe('Inheritance', () => {
             imports: [NgxsModule.forRoot([TodoState]), NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_PLUGIN])]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
+        const store: Store = TestBed.inject<Store>(Store);
 
         expect(store.snapshot()).toEqual({ todos: { todos: [], loaded: false, selectedTodo: null } });
         expect(store.selectSnapshot(TodoState.todos)).toEqual([]);
@@ -113,8 +113,8 @@ describe('Inheritance', () => {
             imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const count: CountState = TestBed.get<CountState>(CountState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const count: CountState = TestBed.inject<CountState>(CountState);
 
         expect(store.snapshot()).toEqual({ count: 0 });
         expect(count.getState()).toEqual(0);

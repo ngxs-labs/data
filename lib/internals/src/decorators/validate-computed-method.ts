@@ -1,5 +1,5 @@
+import { Any } from '@angular-ru/common/typings';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any } from '@ngxs-labs/data/typings';
 
 import { isGetter } from '../utils/common/is-getter';
 

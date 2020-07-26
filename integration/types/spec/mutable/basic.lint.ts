@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
-import { Immutable } from '@ngxs-labs/data/typings';
+import { Immutable } from '@angular-ru/common/typings';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
 
@@ -88,7 +88,7 @@ describe('TEST', () => {
 
         NgxsModule.forRoot([CountState]);
 
-        const counter: CountState = TestBed.get<CountState>(CountState);
+        const counter: CountState = TestBed.inject<CountState>(CountState);
 
         // noinspection BadExpressionStatementJS
         counter.state$; // $ExpectType Observable<ParentCountModel>
@@ -125,7 +125,7 @@ describe('TEST', () => {
         }
 
         NgxsModule.forRoot([MyState]);
-        const myState: MyState = TestBed.get<MyState>(MyState);
+        const myState: MyState = TestBed.inject<MyState>(MyState);
 
         myState.state$; // $ExpectType Observable<ParentCountModel>
 

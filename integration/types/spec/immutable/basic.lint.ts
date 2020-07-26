@@ -8,9 +8,9 @@ import { map } from 'rxjs/operators';
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
 import { NgxsDataMutablePipe } from '../../../../lib/utils/src/mutable/ngxs-data-mutable.pipe';
-import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { Immutable, Mutable } from '@angular-ru/common/typings';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -90,7 +90,7 @@ describe('TEST', () => {
 
         NgxsModule.forRoot([CountState]);
 
-        const counter: CountState = TestBed.get<CountState>(CountState);
+        const counter: CountState = TestBed.inject<CountState>(CountState);
 
         // noinspection BadExpressionStatementJS
         counter.state$; // $ExpectType Observable<Immutable<ParentCountModel>>
@@ -191,7 +191,7 @@ describe('TEST', () => {
             imports: [NgxsModule.forRoot([TodosState])]
         });
 
-        const todos: TodosState = TestBed.get<TodosState>(TodosState);
+        const todos: TodosState = TestBed.inject<TodosState>(TodosState);
 
         const stream = new AsyncPipe(null!).transform(todos.state$);
         stream; // $ExpectType readonly string[] | null
@@ -215,7 +215,7 @@ describe('TEST', () => {
         }
 
         NgxsModule.forRoot([MyState]);
-        const myState: MyState = TestBed.get<MyState>(MyState);
+        const myState: MyState = TestBed.inject<MyState>(MyState);
 
         myState.state$; // $ExpectType Observable<Immutable<ParentCountModel>>
 

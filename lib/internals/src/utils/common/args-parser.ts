@@ -1,4 +1,6 @@
-export function $args(func: Function): string[] {
+import { Fn } from '@angular-ru/common/typings';
+
+export function $args(func: Fn): string[] {
     return (func + '') // fast to string
         .replace(/[/][/].*$/gm, '') // strip single-line comments
         .replace(/\s+/g, '') // strip white space

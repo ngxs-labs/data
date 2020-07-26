@@ -1,8 +1,9 @@
+import { Immutable } from '@angular-ru/common/typings';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataAction, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Immutable, NgxsDataAfterExpired, NgxsDataExpiredEvent, PersistenceProvider } from '@ngxs-labs/data/typings';
+import { NgxsDataAfterExpired, NgxsDataExpiredEvent, PersistenceProvider } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
 import { Subject } from 'rxjs';
 

@@ -1,5 +1,5 @@
+import { Any } from '@angular-ru/common/typings';
 import { Inject, Injectable, Injector, NgZone } from '@angular/core';
-import { Any } from '@ngxs-labs/data/typings';
 import { Store } from '@ngxs/store';
 import { NGXS_STATE_CONTEXT_FACTORY, NGXS_STATE_FACTORY } from '@ngxs/store/internals';
 

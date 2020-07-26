@@ -1,4 +1,5 @@
-import { Any, DataStateClass } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
+import { DataStateClass } from '@ngxs-labs/data/typings';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
 export function getStoreOptions(stateClass: DataStateClass): StoreOptions<Any> {

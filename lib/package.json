@@ -31,6 +31,7 @@
     },
     "homepage": "https://github.com/ngxs-labs/data#readme",
     "peerDependencies": {
+        "@angular-ru/common": ">=13.20.0",
         "@ngxs/store": ">=3.6.2 <4.0.0",
         "typescript": ">=3.7.0"
     }

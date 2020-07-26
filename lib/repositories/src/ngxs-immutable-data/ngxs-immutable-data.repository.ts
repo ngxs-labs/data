@@ -1,9 +1,8 @@
+import { Any, Immutable } from '@angular-ru/common/typings';
 import { Injectable } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import {
-    Any,
-    Immutable,
     ImmutableDataRepository,
     ImmutablePatchValue,
     ImmutableStateContext,
