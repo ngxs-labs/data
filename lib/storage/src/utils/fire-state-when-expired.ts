@@ -1,5 +1,6 @@
+import { Any } from '@angular-ru/common/typings';
 import { NgxsDataInjector } from '@ngxs-labs/data/internals';
-import { Any, NgxsDataAfterExpired, NgxsDataExpiredEvent, TtLCreatorOptions } from '@ngxs-labs/data/typings';
+import { NgxsDataAfterExpired, NgxsDataExpiredEvent, TtLCreatorOptions } from '@ngxs-labs/data/typings';
 
 export function firedStateWhenExpired(key: string, options: TtLCreatorOptions): void {
     const { provider, expiry }: TtLCreatorOptions = options;

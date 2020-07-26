@@ -1,10 +1,11 @@
+import { Any } from '@angular-ru/common/typings';
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { EntityUpdate } from './entity-update';
 import { NgxsEntityCollections } from './ngxs-entity-collections';
 
-export interface EntityRepository<V, K extends string | number, C = {}> {
+export interface EntityRepository<V, K extends string | number, C = Record<string, Any>> {
     name: string;
     initialState: NgxsEntityCollections<V, K, C>;
     state$: Observable<NgxsEntityCollections<V, K, C>>;

@@ -1,4 +1,4 @@
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 const { execSync }: Any = require('child_process');

@@ -1,9 +1,9 @@
+import { Any, PlainObject } from '@angular-ru/common/typings';
 import { Type } from '@angular/core';
 import { ActionType, Store } from '@ngxs/store';
-import { PlainObject, StateClass } from '@ngxs/store/internals';
+import { StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
 
-import { Any } from '../common/any';
 import { NgxsRepositoryMeta } from '../common/repository';
 
 export interface DataStorage<T = string, U = string> {

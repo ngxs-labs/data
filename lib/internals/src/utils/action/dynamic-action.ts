@@ -1,5 +1,5 @@
+import { Any, PlainObjectOf } from '@angular-ru/common/typings';
 import { Type } from '@angular/core';
-import { Any, PlainObjectOf } from '@ngxs-labs/data/typings';
 
 export function dynamicActionByType(type: string): Type<Any> {
     return class NgxsDataAction {

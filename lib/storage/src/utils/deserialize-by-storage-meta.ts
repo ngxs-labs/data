@@ -1,5 +1,6 @@
+import { Any } from '@angular-ru/common/typings';
 import { isPlainObject } from '@ngxs-labs/data/internals';
-import { Any, PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
+import { PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
 
 import { InvalidDataValueException } from '../exceptions/invalid-data-value.exception';
 import { InvalidLastChangedException } from '../exceptions/invalid-last-changed.exception';

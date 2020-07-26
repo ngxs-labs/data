@@ -1,7 +1,5 @@
+import { Any, PlainObjectOf } from '@angular-ru/common/typings';
 import { ActionOptions, ActionType } from '@ngxs/store';
-
-import { Any } from './any';
-import { PlainObjectOf } from './plaing-object-of';
 
 /**
  * @publicApi

@@ -1,4 +1,4 @@
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 // eslint-disable-next-line max-lines-per-function
 export const ngxsDeepFreeze: (value: Any) => Any = (value: Any): Any => {

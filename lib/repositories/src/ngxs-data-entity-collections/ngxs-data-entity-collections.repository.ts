@@ -1,9 +1,9 @@
+import { Any } from '@angular-ru/common/typings';
 import { Injectable, isDevMode } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot, isNullOrUndefined } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
-    Any,
     EmptyDictionary,
     EntityComparator,
     EntityContext,
@@ -25,9 +25,11 @@ import { map } from 'rxjs/operators';
 import { AbstractRepository } from '../common/abstract-repository';
 
 @Injectable()
-export abstract class AbstractNgxsDataEntityCollectionsRepository<V, K extends number | string = EntityIdType, C = {}>
-    extends AbstractRepository<NgxsEntityCollections<V, K, C>>
-    implements EntityRepository<V, K, C> {
+export abstract class AbstractNgxsDataEntityCollectionsRepository<
+    V,
+    K extends number | string = EntityIdType,
+    C = Record<string, Any>
+> extends AbstractRepository<NgxsEntityCollections<V, K, C>> implements EntityRepository<V, K, C> {
     public primaryKey: string = PRIMARY_KEY.ID;
     public comparator: EntityComparator<V> | null = null;
     private readonly context!: EntityContext<V, K, C>;

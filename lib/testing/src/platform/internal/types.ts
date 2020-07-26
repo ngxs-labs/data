@@ -1,3 +1,3 @@
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 export type TestSpec = (...args: Any[]) => Promise<void>;

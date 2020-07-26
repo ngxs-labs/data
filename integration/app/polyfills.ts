@@ -1,7 +1,7 @@
 import 'core-js/proposals/reflect-metadata';
 import 'zone.js/dist/zone';
 
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 (window as Any)['__importDefault'] =
     (this && (this as Any).__importDefault) ||

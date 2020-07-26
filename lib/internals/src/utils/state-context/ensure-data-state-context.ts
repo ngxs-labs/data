@@ -1,6 +1,6 @@
+import { Any } from '@angular-ru/common/typings';
 import { isDevMode } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any } from '@ngxs-labs/data/typings';
 import { StateContext } from '@ngxs/store';
 
 import { ngxsDeepFreeze } from '../common/freeze';

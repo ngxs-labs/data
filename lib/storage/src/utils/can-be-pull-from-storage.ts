@@ -1,5 +1,6 @@
+import { Any } from '@angular-ru/common/typings';
 import { isNotNil } from '@ngxs-labs/data/internals';
-import { Any, NgxsDataMigrateStorage, PullFromStorageInfo, PullFromStorageOptions } from '@ngxs-labs/data/typings';
+import { NgxsDataMigrateStorage, PullFromStorageInfo, PullFromStorageOptions } from '@ngxs-labs/data/typings';
 
 import { existTtl } from './exist-ttl';
 import { isExpiredByTtl } from './is-expired';

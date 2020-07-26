@@ -12,7 +12,6 @@ import {
     NgxsDataStoragePlugin
 } from '@ngxs-labs/data/storage';
 import {
-    Any,
     DataStorage,
     NgxsDataAfterExpired,
     NgxsDataAfterStorageEvent,
@@ -30,6 +29,7 @@ import { NGXS_DATA_EXCEPTIONS, NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/d
 import { Subject } from 'rxjs';
 import { STORAGE_TTL_DELAY } from '../../../lib/storage/src/tokens/storage-ttl-delay';
 import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../../../lib/storage/src/tokens/storage-decode-type-token';
+import { Any } from '@angular-ru/common/typings';
 
 describe('[TEST]: Storage plugin', () => {
     let store: Store;

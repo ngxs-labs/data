@@ -15,11 +15,12 @@ export function ensureProviders(
     options?: ProviderOptions
 ): PersistenceProvider[] {
     let providers: PersistenceProvider[];
-    const prefix: string = NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_PREFIX_TOKEN, DEFAULT_KEY_PREFIX)!;
-    const decodeType: STORAGE_DECODE_TYPE = NgxsDataStoragePlugin.injector?.get(
-        NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN,
-        STORAGE_DECODE_TYPE.NONE
-    )!;
+    const prefix: string =
+        NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_PREFIX_TOKEN, DEFAULT_KEY_PREFIX) ?? DEFAULT_KEY_PREFIX;
+
+    const decodeType: STORAGE_DECODE_TYPE =
+        NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, STORAGE_DECODE_TYPE.NONE) ??
+        STORAGE_DECODE_TYPE.NONE;
 
     if (options) {
         const prepared: PersistenceProvider[] = Array.isArray(options) ? options : [options];

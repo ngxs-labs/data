@@ -1,4 +1,5 @@
-import { Any, ComputedCacheMap, ComputedOptions } from '@ngxs-labs/data/typings';
+import { Any, Fn } from '@angular-ru/common/typings';
+import { ComputedCacheMap, ComputedOptions } from '@ngxs-labs/data/typings';
 
 import { computedKey } from '../common/computed-key';
 import { getComputedCache } from './get-computed-cache';
@@ -11,7 +12,7 @@ export function ensureComputedCache(target: Any): ComputedCacheMap {
             [computedKey()]: {
                 enumerable: true,
                 configurable: true,
-                value: new WeakMap<Function, ComputedOptions>()
+                value: new WeakMap<Fn, ComputedOptions>()
             }
         });
     }

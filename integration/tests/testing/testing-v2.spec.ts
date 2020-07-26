@@ -1,9 +1,10 @@
 import { NgxsSimpleChange, State, Store } from '@ngxs/store';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Any, Immutable, NgxsDataAfterReset, NgxsDataDoCheck } from '@ngxs-labs/data/typings';
+import { NgxsDataAfterReset, NgxsDataDoCheck } from '@ngxs-labs/data/typings';
 import { Injectable } from '@angular/core';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
+import { Any, Immutable } from '@angular-ru/common/typings';
 
 describe('[TEST]: Abstract ngxs data repository', () => {
     let event: string[] = [];

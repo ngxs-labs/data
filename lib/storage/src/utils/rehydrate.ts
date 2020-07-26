@@ -1,4 +1,5 @@
-import { Any, MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
+import { MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
 import { getValue, setValue } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 

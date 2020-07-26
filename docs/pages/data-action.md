@@ -402,7 +402,8 @@ By default, all arguments have no name when automatically creating an action.
 
 ![](https://habrastorage.org/webt/dh/p4/9d/dhp49dtfspp6mas7-0em2vlqcra.png)
 
-If during logging you want to see the payload, then you need to specify which action argument is this payload, using the `@Payload()` decorator.
+If during logging you want to see the payload, then you need to specify which action argument is this payload, using the
+`@Payload()` decorator.
 
 ```ts
 @StateRepository()

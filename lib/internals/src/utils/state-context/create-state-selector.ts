@@ -1,6 +1,7 @@
+import { Any } from '@angular-ru/common/typings';
 import { isDevMode } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 

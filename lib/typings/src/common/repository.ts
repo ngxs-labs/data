@@ -1,9 +1,7 @@
+import { Immutable, PlainObjectOf } from '@angular-ru/common/typings';
 import { ActionOptions, ActionType } from '@ngxs/store';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
 import { Observable } from 'rxjs';
-
-import { Immutable } from './immutability';
-import { PlainObjectOf } from './plaing-object-of';
 
 /**
  * @publicApi

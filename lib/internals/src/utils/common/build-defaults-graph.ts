@@ -1,6 +1,6 @@
+import { Any, PlainObject } from '@angular-ru/common/typings';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass } from '@ngxs-labs/data/typings';
-import { PlainObject } from '@ngxs/store/internals';
+import { DataStateClass } from '@ngxs-labs/data/typings';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 
 import { InvalidChildrenException } from '../../exceptions/invalid-children.exception';

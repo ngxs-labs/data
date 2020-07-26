@@ -27,12 +27,7 @@ describe('AppState', () => {
 #### Example where we testing NGXS Lifecycle
 
 ```ts
-import { NgxsSimpleChange, State, Store } from '@ngxs/store';
-import { StateRepository } from '@ngxs-labs/data/decorators';
-import { NgxsDataRepository, NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Any, Immutable, NgxsDataAfterReset, NgxsDataDoCheck } from '@ngxs-labs/data/typings';
-import { Injectable } from '@angular/core';
-import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
+// ..
 
 describe('[TEST]: Abstract ngxs data repository', () => {
     let event: string[] = [];

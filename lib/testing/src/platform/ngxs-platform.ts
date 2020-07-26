@@ -1,7 +1,7 @@
+import { Any } from '@angular-ru/common/typings';
 import { SchemaMetadata, Type } from '@angular/core';
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { getStateMetadata } from '@ngxs-labs/data/internals';
-import { Any } from '@ngxs-labs/data/typings';
 import { Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 

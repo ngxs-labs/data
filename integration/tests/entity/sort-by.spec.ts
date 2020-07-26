@@ -4,7 +4,8 @@ import { createEntityCollections } from '@ngxs-labs/data/utils';
 import { Injectable } from '@angular/core';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
-import { Any, EntitySortByOrder } from '@ngxs-labs/data/typings';
+import { EntitySortByOrder } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 describe('Sort by entities', () => {
     let spy: jest.MockInstance<Any, Any>;

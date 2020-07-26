@@ -1,7 +1,7 @@
+import { Any, Fn } from '@angular-ru/common/typings';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any } from '@ngxs-labs/data/typings';
 
-export function validateAction(target: Function, descriptor: TypedPropertyDescriptor<Any>): void {
+export function validateAction(target: Fn, descriptor: TypedPropertyDescriptor<Any>): void {
     const isStaticMethod: boolean = target.hasOwnProperty('prototype');
 
     if (isStaticMethod) {

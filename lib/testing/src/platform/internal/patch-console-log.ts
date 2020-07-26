@@ -1,4 +1,4 @@
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 import { getStackTraceLine } from './get-stack-trace';
 

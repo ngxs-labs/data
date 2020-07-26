@@ -1,5 +1,6 @@
+import { Any } from '@angular-ru/common/typings';
 import { NGXS_META_KEY } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass } from '@ngxs-labs/data/typings';
+import { DataStateClass } from '@ngxs-labs/data/typings';
 import { MetaDataModel, RuntimeSelectorContext } from '@ngxs/store/src/internal/internals';
 
 import { getStateMetadata } from './get-state-metadata';
