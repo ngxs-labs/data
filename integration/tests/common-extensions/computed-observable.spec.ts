@@ -91,8 +91,8 @@ describe('[TEST]: Observable with computed $a field', () => {
             imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
         });
 
-        a = TestBed.get(A);
-        b = TestBed.get(B);
+        a = TestBed.inject(A);
+        b = TestBed.inject(B);
         subResult = [];
 
         ref1 = null;

@@ -68,7 +68,7 @@ describe('Check correct deep instance', () => {
 
         fixture = TestBed.createComponent(AppComponent);
         component = fixture.componentInstance;
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
     });
 
     it('should be correct ngOnInit', () => {

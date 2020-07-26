@@ -25,7 +25,7 @@ describe('[TEST]: Action decorator', () => {
                 imports: [NgxsModule.forRoot([InvalidState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const state: InvalidState = TestBed.get(InvalidState);
+            const state: InvalidState = TestBed.inject(InvalidState);
             state.setState('new value');
         } catch (e) {
             message = e.message;
@@ -50,7 +50,7 @@ describe('[TEST]: Action decorator', () => {
                 imports: [NgxsModule.forRoot([InvalidState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const state: InvalidState = TestBed.get(InvalidState);
+            const state: InvalidState = TestBed.inject(InvalidState);
             state.setState('new value');
         } catch (e) {
             message = e.message;
@@ -74,7 +74,7 @@ describe('[TEST]: Action decorator', () => {
                 imports: [NgxsModule.forRoot([InvalidState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const state: InvalidState = TestBed.get(InvalidState);
+            const state: InvalidState = TestBed.inject(InvalidState);
             state.setup();
         } catch (e) {
             message = e.message;
@@ -99,7 +99,7 @@ describe('[TEST]: Action decorator', () => {
                 providers: [InvalidState]
             });
 
-            const state: InvalidState = TestBed.get(InvalidState);
+            const state: InvalidState = TestBed.inject(InvalidState);
             state.setup();
         } catch (e) {
             message = e.message;
@@ -123,7 +123,7 @@ describe('[TEST]: Action decorator', () => {
             imports: [NgxsModule.forRoot([A]), NgxsDataPluginModule.forRoot()]
         });
 
-        const stateA: A = TestBed.get(A);
+        const stateA: A = TestBed.inject(A);
 
         expect(getRepository(A)).toEqual({
             stateMeta: {
@@ -240,9 +240,9 @@ describe('[TEST]: Action decorator', () => {
                 imports: [NgxsModule.forRoot([A, B, C]), NgxsDataPluginModule.forRoot()]
             });
 
-            stateA = TestBed.get(A);
-            stateB = TestBed.get(B);
-            stateC = TestBed.get(C);
+            stateA = TestBed.inject(A);
+            stateB = TestBed.inject(B);
+            stateC = TestBed.inject(C);
         });
 
         it('should be correct metadata before invoked actions', () => {

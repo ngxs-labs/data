@@ -55,7 +55,7 @@ describe('[TEST]: NgxsTestingModule', () => {
 
         it('should be correct bootstrap ngxs testing', () => {
             NgxsDataTestingModule.ngxsInitPlatform();
-            const app: AppState = TestBed.get(AppState);
+            const app: AppState = TestBed.inject(AppState);
 
             app.increment();
             app.increment();

@@ -96,8 +96,8 @@ describe('Check correct deep instance', () => {
             ]
         }).compileComponents();
 
-        app = TestBed.get<AppState>(AppState);
-        store = TestBed.get<Store>(Store);
+        app = TestBed.inject<AppState>(AppState);
+        store = TestBed.inject<Store>(Store);
     });
 
     it('should be correct app state tree', () => {

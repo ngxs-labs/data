@@ -53,7 +53,7 @@ describe('[TEST]: Computed fields', () => {
             imports: [NgxsModule.forRoot([B]), NgxsDataPluginModule.forRoot()]
         });
 
-        const b: B = TestBed.get<B>(B); // sequenceId = 0
+        const b: B = TestBed.inject<B>(B); // sequenceId = 0
 
         expect(b.snapshot).toEqual('value');
         expect(b.snapshot).toEqual('value');
@@ -122,7 +122,7 @@ describe('[TEST]: Computed fields', () => {
                 imports: [NgxsModule.forRoot([OrderLineState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const state: OrderLineState = TestBed.get<OrderLineState>(OrderLineState);
+            const state: OrderLineState = TestBed.inject<OrderLineState>(OrderLineState);
 
             // noinspection DuplicatedCode
             expect(state.total).toEqual(0);
@@ -196,7 +196,7 @@ describe('[TEST]: Computed fields', () => {
                 imports: [NgxsModule.forRoot([ImmutableOrderLineState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const state: ImmutableOrderLineState = TestBed.get<ImmutableOrderLineState>(ImmutableOrderLineState);
+            const state: ImmutableOrderLineState = TestBed.inject<ImmutableOrderLineState>(ImmutableOrderLineState);
 
             // noinspection DuplicatedCode
             expect(state.total).toEqual(0);
@@ -259,9 +259,9 @@ describe('[TEST]: Computed fields', () => {
             imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const a: A = TestBed.get<A>(A);
-        const b: B = TestBed.get<B>(B);
+        const store: Store = TestBed.inject<Store>(Store);
+        const a: A = TestBed.inject<A>(A);
+        const b: B = TestBed.inject<B>(B);
 
         expect(store.snapshot()).toEqual({ b: 0, a: 0 });
         expect(a.snapshot).toEqual(0);
@@ -305,9 +305,9 @@ describe('[TEST]: Computed fields', () => {
             imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const a: A = TestBed.get<A>(A);
-        const b: B = TestBed.get<B>(B);
+        const store: Store = TestBed.inject<Store>(Store);
+        const a: A = TestBed.inject<A>(A);
+        const b: B = TestBed.inject<B>(B);
 
         expect(store.snapshot()).toEqual({ b: 0, a: 0 });
         expect(a.snapshot).toEqual(0);
@@ -388,10 +388,10 @@ describe('[TEST]: Computed fields', () => {
             imports: [NgxsModule.forRoot([A, B]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get(Store);
-        const a: A = TestBed.get(A);
-        const b: B = TestBed.get(B);
-        const stream: NgxsDataSequence = TestBed.get(NgxsDataSequence);
+        const store: Store = TestBed.inject(Store);
+        const a: A = TestBed.inject(A);
+        const b: B = TestBed.inject(B);
+        const stream: NgxsDataSequence = TestBed.inject(NgxsDataSequence);
 
         expect(stream.sequenceValue).toEqual(1);
         expect(store.snapshot()).toEqual({ b: { value: 2 }, a: { value: 1 } });
@@ -490,8 +490,8 @@ describe('[TEST]: Computed fields', () => {
             providers: [MyFirstCountService]
         });
 
-        const first: MyFirstCountService = TestBed.get(MyFirstCountService);
-        const second: MySecondCountState = TestBed.get(MySecondCountState);
+        const first: MyFirstCountService = TestBed.inject(MyFirstCountService);
+        const second: MySecondCountState = TestBed.inject(MySecondCountState);
 
         expect(first.getValue()).toEqual(0);
         expect(second.snapshot).toEqual(0);
@@ -559,8 +559,8 @@ describe('[TEST]: Computed fields', () => {
             providers: [MyFirstCountService]
         });
 
-        const first: MyFirstCountService = TestBed.get(MyFirstCountService);
-        const second: MySecondCountState = TestBed.get(MySecondCountState);
+        const first: MyFirstCountService = TestBed.inject(MyFirstCountService);
+        const second: MySecondCountState = TestBed.inject(MySecondCountState);
 
         expect(first.getValue()).toEqual(0);
         expect(second.snapshot).toEqual(0);

@@ -98,9 +98,9 @@ export function ngxsTestingPlatform(
 
             NgxsDataTestingModule.ngxsInitPlatform();
 
-            const store: Store = TestBed.get(Store);
+            const store: Store = TestBed.inject(Store);
             const injectedStates: StateClass[] =
-                states?.map((state: StateClass): StateClass => TestBed.get(state)) ?? [];
+                states?.map((state: StateClass): StateClass => TestBed.inject(state)) ?? [];
 
             return await fn.apply(this, [store, ...injectedStates]);
         } finally {

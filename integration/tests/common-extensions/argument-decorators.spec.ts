@@ -19,7 +19,7 @@ describe('[TEST]: Argument decorators', () => {
             imports: [NgxsModule.forRoot([A]), NgxsDataPluginModule.forRoot()]
         });
 
-        const a: A = TestBed.get<A>(A);
+        const a: A = TestBed.inject<A>(A);
 
         a.setState('1');
 
@@ -52,7 +52,7 @@ describe('[TEST]: Argument decorators', () => {
             imports: [NgxsModule.forRoot([B]), NgxsDataPluginModule.forRoot()]
         });
 
-        const b: B = TestBed.get<B>(B);
+        const b: B = TestBed.inject<B>(B);
 
         b.set('2');
 
@@ -85,7 +85,7 @@ describe('[TEST]: Argument decorators', () => {
             imports: [NgxsModule.forRoot([C]), NgxsDataPluginModule.forRoot()]
         });
 
-        const c: C = TestBed.get<C>(C);
+        const c: C = TestBed.inject<C>(C);
 
         c.set('4', '10');
 
@@ -118,7 +118,7 @@ describe('[TEST]: Argument decorators', () => {
             imports: [NgxsModule.forRoot([D]), NgxsDataPluginModule.forRoot()]
         });
 
-        const d: D = TestBed.get<D>(D);
+        const d: D = TestBed.inject<D>(D);
 
         d.set('1', '2', '3');
 

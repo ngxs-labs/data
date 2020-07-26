@@ -34,8 +34,8 @@ describe('Complex lifecycle', () => {
         });
 
         try {
-            TestBed.get<CountState>(CountState);
-            TestBed.get<Store>(Store);
+            TestBed.inject<CountState>(CountState);
+            TestBed.inject<Store>(Store);
         } catch (e) {
             expect(e.message).toEqual(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
@@ -102,7 +102,7 @@ describe('Complex lifecycle', () => {
             providers: [MyApiService]
         });
 
-        AppTestModule.ngDoBootstrap(TestBed.get(ApplicationRef));
+        AppTestModule.ngDoBootstrap(TestBed.inject(ApplicationRef));
 
         expect(hooks).toEqual([
             'CountState - create',

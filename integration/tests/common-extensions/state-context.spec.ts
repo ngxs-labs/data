@@ -118,8 +118,8 @@ describe('[TEST]: Utils', () => {
             imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const state: MyState = TestBed.get(MyState);
-        const store: Store = TestBed.get(Store);
+        const state: MyState = TestBed.inject(MyState);
+        const store: Store = TestBed.inject(Store);
         expect(state.getState() === new MyState().getState());
 
         new MyState().setState('hello');
@@ -168,8 +168,8 @@ describe('[TEST]: Utils', () => {
             imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const state: AppState = TestBed.get(AppState);
-        const store: Store = TestBed.get(Store);
+        const state: AppState = TestBed.inject(AppState);
+        const store: Store = TestBed.inject(Store);
         const meta: MetaDataModel = getStateMetadata(AppState);
 
         expect(isObservable(state.state$)).toEqual(true);

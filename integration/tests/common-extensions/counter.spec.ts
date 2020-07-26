@@ -19,7 +19,7 @@ describe('[TEST]: CountState', () => {
             imports: [NgxsModule.forRoot([CountState])]
         });
 
-        store = TestBed.get<Store>(Store);
+        store = TestBed.inject<Store>(Store);
 
         expect(store.snapshot()).toEqual({ count: 0 });
     });
@@ -56,8 +56,8 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState])]
             });
 
-            store = TestBed.get<Store>(Store);
-            const count: CountState = TestBed.get<CountState>(CountState);
+            store = TestBed.inject<Store>(Store);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             expect(store.snapshot()).toEqual({ count: 0 });
 
@@ -80,7 +80,7 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.getState();
@@ -102,7 +102,7 @@ describe('[TEST]: CountState', () => {
                 providers: [CountState]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.getState();
@@ -133,7 +133,7 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState])]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.incorrect();
@@ -187,9 +187,9 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot()]
             });
 
-            count = TestBed.get<CountState>(CountState);
-            store = TestBed.get<Store>(Store);
-            actions$ = TestBed.get<Actions>(Actions);
+            count = TestBed.inject<CountState>(CountState);
+            store = TestBed.inject<Store>(Store);
+            actions$ = TestBed.inject<Actions>(Actions);
         });
 
         afterEach(() => {
