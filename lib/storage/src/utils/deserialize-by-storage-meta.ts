@@ -1,5 +1,5 @@
+import { isSimpleObject } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
-import { isPlainObject } from '@ngxs-labs/data/internals';
 import { PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
 
 import { InvalidDataValueException } from '../exceptions/invalid-data-value.exception';
@@ -12,7 +12,7 @@ export function deserializeByStorageMeta<T>(
     value: string | null,
     provider: PersistenceProvider
 ): StorageData<T> | never {
-    if (isPlainObject(meta)) {
+    if (isSimpleObject(meta)) {
         if (missingLastChanged(meta)) {
             throw new InvalidLastChangedException(value);
         } else if (versionIsInvalid(meta)) {

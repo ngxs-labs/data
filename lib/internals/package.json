@@ -6,6 +6,7 @@
             "umdModuleIds": {
                 "@ngxs/store": "ngxs-store",
                 "@ngxs/store/internals": "ngxs-store-internals",
+                "@angular-ru/common/object": "angular-ru-common-object",
                 "@ngxs-labs/data": "ngxs-labs-data",
                 "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
                 "@ngxs-labs/data/testing": "ngxs-labs-data-testing",

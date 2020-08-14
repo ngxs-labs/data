@@ -1,6 +1,4 @@
-export { isNotNil, isNullOrUndefined } from './utils/common/is-not-nil';
 export { deepClone } from './utils/common/deep-clone';
-export { isPlainObject } from './utils/common/is-plain-object';
 export { getStoreOptions } from './utils/state-context/get-store-options';
 export { buildDefaultsGraph } from './utils/common/build-defaults-graph';
 export { actionNameCreator } from './utils/action/action-name-creator';
@@ -25,7 +23,6 @@ export { validateComputedMethod } from './decorators/validate-computed-method';
 export { ensureDataStateContext } from './utils/state-context/ensure-data-state-context';
 export { getMethodArgsRegistry } from './utils/method-args-registry/get-method-args-registry';
 export { dynamicActionByType } from './utils/action/dynamic-action';
-export { isGetter } from './utils/common/is-getter';
 export { ensureComputedCache } from './utils/computed/ensure-computed-cache';
 export { getComputedCache } from './utils/computed/get-computed-cache';
 export { ensureSnapshot } from './utils/repository/ensure-snapshot';

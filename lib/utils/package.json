@@ -2,7 +2,10 @@
     "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "ngPackage": {
         "lib": {
-            "flatModuleFile": "ngxs-labs-data-utils"
+            "flatModuleFile": "ngxs-labs-data-utils",
+            "umdModuleIds": {
+                "@angular-ru/common/utils": "angular-ru-common-utils"
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
 import { Any } from '@angular-ru/common/typings';
+import { isNil } from '@angular-ru/common/utils';
 import { Injectable, isDevMode } from '@angular/core';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
-import { ensureDataStateContext, ensureSnapshot, isNullOrUndefined } from '@ngxs-labs/data/internals';
+import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     EmptyDictionary,
@@ -178,7 +179,7 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
     public sort(@Payload('comparator') comparator?: EntityComparator<V>): void {
         this.comparator = comparator ?? this.comparator;
 
-        if (isNullOrUndefined(this.comparator)) {
+        if (isNil(this.comparator)) {
             console.warn(NGXS_DATA_EXCEPTIONS.NGXS_COMPARE);
             return;
         }
@@ -327,12 +328,12 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
     }
 
     protected sortKeysByComparator(originalIds: K[], entities: EntityDictionary<K, V>): K[] {
-        if (isNullOrUndefined(this.comparator)) {
+        if (isNil(this.comparator)) {
             return originalIds;
         }
 
         const ids: K[] = originalIds.slice();
-        const comparator: EntityComparator<V> = this.comparator!;
+        const comparator: EntityComparator<V> = this.comparator;
 
         if (typeof comparator === 'function') {
             return ids.sort((a: K, b: K): number => comparator(entities[a] as V, entities[b] as V));
@@ -374,7 +375,7 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
 
     private selectIdValue(entity: V): K {
         const id: K = this.selectId(entity);
-        const invalidId: boolean = isNullOrUndefined(id) && isDevMode();
+        const invalidId: boolean = isNil(id) && isDevMode();
 
         if (invalidId) {
             console.warn(
