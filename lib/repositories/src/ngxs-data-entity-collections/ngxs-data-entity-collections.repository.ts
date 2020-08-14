@@ -1,3 +1,4 @@
+import { sortByAsc, sortByDesc } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
 import { isNil } from '@angular-ru/common/utils';
 import { Injectable, isDevMode } from '@angular/core';
@@ -18,7 +19,6 @@ import {
     NgxsEntityCollections,
     PRIMARY_KEY
 } from '@ngxs-labs/data/typings';
-import { entitySortByAsc, entitySortByDesc } from '@ngxs-labs/data/utils';
 import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -346,11 +346,11 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
         switch (comparator?.sortByOrder) {
             case EntitySortByOrder.ASC:
                 return ids.sort((a: K, b: K): number =>
-                    entitySortByAsc(comparator?.sortBy, entities[a] as V, entities[b] as V)
+                    sortByAsc(comparator?.sortBy, entities[a] as V, entities[b] as V)
                 );
             case EntitySortByOrder.DESC:
                 return ids.sort((a: K, b: K): number =>
-                    entitySortByDesc(comparator?.sortBy, entities[a] as V, entities[b] as V)
+                    sortByDesc(comparator?.sortBy, entities[a] as V, entities[b] as V)
                 );
             default:
                 if (isDevMode()) {
