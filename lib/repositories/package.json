@@ -7,7 +7,6 @@
                 "@ngxs/store": "ngxs-store",
                 "@ngxs/store/internals": "ngxs-store-internals",
                 "@ngxs-labs/data": "ngxs-labs-data",
-                "@ngxs-labs/data/utils": "ngxs-labs-data-utils",
                 "@ngxs-labs/data/testing": "ngxs-labs-data-testing",
                 "@ngxs-labs/data/typings": "ngxs-labs-data-typings",
                 "@ngxs-labs/data/storage": "ngxs-labs-data-storage",
@@ -15,7 +14,8 @@
                 "@ngxs-labs/data/repositories": "ngxs-labs-data-repositories",
                 "@ngxs-labs/data/decorators": "ngxs-labs-data-decorators",
                 "@ngxs-labs/data/tokens": "ngxs-labs-data-tokens",
-                "@angular-ru/common/utils": "angular-ru-common-utils"
+                "@angular-ru/common/utils": "angular-ru-common-utils",
+                "@angular-ru/common/object": "angular-ru-common-object"
             }
         }
     }

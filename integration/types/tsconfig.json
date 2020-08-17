@@ -20,7 +20,6 @@
             "@angular/*": ["./../../node_modules/@angular/*"],
             "@ngxs/*": ["./../../node_modules/@ngxs/*"],
             "@ngxs-labs/data": ["../../lib/public_api.ts"],
-            "@ngxs-labs/data/utils": ["../../lib/utils/src/public_api.ts"],
             "@ngxs-labs/data/storage": ["../../lib/storage/src/public_api.ts"],
             "@ngxs-labs/data/typings": ["../../lib/typings/src/public_api.ts"],
             "@ngxs-labs/data/decorators": ["../../lib/decorators/src/public_api.ts"],

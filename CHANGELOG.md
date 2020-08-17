@@ -8,6 +8,26 @@
 import { Immutable, Mutable, Any } from '@angular-ru/common/typings';
 ```
 
+- Moved `createEntityCollections` to `@angular-ru/common/entity`:
+
+```ts
+import { createEntityCollections } from '@angular-ru/common/entity';
+
+@StateRepository()
+@State({
+    name: 'students',
+    defaults: createEntityCollections()
+})
+@Injectable()
+class StudentEntitiesState extends NgxsDataEntityCollectionsRepository<StudentEntity, string> {
+    public selectId(entity: StudentEntity): string {
+        return `${entity.groupId}_${entity.batchId}`;
+    }
+}
+```
+
+- Removed `NgxsDataMutablePipe, NgxsDataUtilsModule`
+
 # 3.0.6 2020-06-25
 
 -   Fix: entry point '@ngxs/store/src/\*' contains deep imports into in lib

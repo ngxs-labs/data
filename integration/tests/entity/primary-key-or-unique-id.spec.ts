@@ -1,9 +1,9 @@
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
 import { Action, State } from '@ngxs/store';
-import { createEntityCollections } from '@ngxs-labs/data/utils';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { EntityDictionary, EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
+import { createEntityCollections } from '@angular-ru/common/entity';
 
 describe('[TEST]: Entity - primary key or unique id', () => {
     interface Lesson {

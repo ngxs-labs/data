@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { NgxsModule } from '@ngxs/store';
 
 import { CountSubState } from './count-sub.state';
@@ -15,7 +14,6 @@ import { CountState } from './count.state';
         CommonModule,
         FormsModule,
         NgxsModule.forFeature([CountState, CountSubState]),
-        NgxsDataUtilsModule,
         RouterModule.forChild([{ path: '', component: CountComponent }])
     ]
 })
