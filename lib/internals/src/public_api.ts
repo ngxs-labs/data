@@ -1,11 +1,8 @@
-export { deepClone } from './utils/common/deep-clone';
 export { getStoreOptions } from './utils/state-context/get-store-options';
 export { buildDefaultsGraph } from './utils/common/build-defaults-graph';
 export { actionNameCreator } from './utils/action/action-name-creator';
-export { $args } from './utils/common/args-parser';
 export { ensureStateMetadata } from './utils/state-context/ensure-state-metadata';
 export { ensureRepository } from './utils/repository/ensure-repository';
-export { ngxsDeepFreeze } from './utils/common/freeze';
 export { getRepository } from './utils/repository/get-repository';
 export { NgxsDataInjector } from './services/ngxs-data-injector.service';
 export { NgxsDataFactory } from './services/ngxs-data-factory.service';

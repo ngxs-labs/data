@@ -1,10 +1,10 @@
+import { deepClone } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
 import {
     buildDefaultsGraph,
     createContext,
     createRepositoryMetadata,
     createStateSelector,
-    deepClone,
     ensureStateMetadata
 } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
