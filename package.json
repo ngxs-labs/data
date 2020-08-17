@@ -22,9 +22,9 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "0.1000.5",
         "@angular-devkit/schematics-cli": "0.1000.5",
-        "@angular-ru/common": "13.55.0",
-        "@angular-ru/eslint-config": "13.55.0",
-        "@angular-ru/jest-utils": "13.55.0",
+        "@angular-ru/common": "13.55.1",
+        "@angular-ru/eslint-config": "13.55.1",
+        "@angular-ru/jest-utils": "13.55.1",
         "@angular-ru/prettier-config": "13.7.1",
         "@angular-ru/tsconfig": "13.35.0",
         "@angular/animations": "9.1.12",

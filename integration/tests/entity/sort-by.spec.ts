@@ -3,8 +3,7 @@ import { State } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
-import { EntitySortByOrder } from '@ngxs-labs/data/typings';
-import { Any } from '@angular-ru/common/typings';
+import { Any, SortOrderType } from '@angular-ru/common/typings';
 import { createEntityCollections } from '@angular-ru/common/entity';
 
 describe('Sort by entities', () => {
@@ -83,7 +82,7 @@ describe('Sort by entities', () => {
             people
                 .setComparator({
                     sortBy: 'age',
-                    sortByOrder: EntitySortByOrder.ASC
+                    sortByOrder: SortOrderType.ASC
                 })
                 .sort();
 
@@ -108,7 +107,7 @@ describe('Sort by entities', () => {
 
             people.sort({
                 sortBy: 'age',
-                sortByOrder: EntitySortByOrder.DESC
+                sortByOrder: SortOrderType.DESC
             });
 
             expect(people.getState()).toEqual({

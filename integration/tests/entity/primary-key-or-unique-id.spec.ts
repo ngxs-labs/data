@@ -1,9 +1,8 @@
-import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
+import { createEntityCollections, EntityDictionary, EntityIdType, EntityCollections } from '@angular-ru/common/entity';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
-import { Action, State } from '@ngxs/store';
+import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
 import { StateRepository } from '@ngxs-labs/data/decorators';
-import { EntityDictionary, EntityIdType, NgxsEntityCollections } from '@ngxs-labs/data/typings';
-import { createEntityCollections } from '@angular-ru/common/entity';
+import { Action, State } from '@ngxs/store';
 
 describe('[TEST]: Entity - primary key or unique id', () => {
     interface Lesson {
@@ -18,7 +17,7 @@ describe('[TEST]: Entity - primary key or unique id', () => {
             defaults: createEntityCollections()
         })
         class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
-            public set(val: NgxsEntityCollections<Lesson, string | number>): void {
+            public set(val: EntityCollections<Lesson, string | number>): void {
                 this.setEntitiesState(val);
             }
 

@@ -161,17 +161,17 @@
     ora "4.0.3"
     rxjs "6.5.4"
 
-"@angular-ru/common@13.55.0":
-  version "13.55.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-13.55.0.tgz#95b07089f5346c8b9f0e59bfd36b78f597f52633"
-  integrity sha512-OwJEw1rP32V9Vnpz2r9/jIMzCR5nvGK9xDumxBbD7bhY+fpuzngREJ/LQAeDN/xib46X18tlKg82qD376PJUbA==
+"@angular-ru/common@13.55.1":
+  version "13.55.1"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-13.55.1.tgz#70ae4a7094bfd6ad4986219d06a75dc2c4da42f5"
+  integrity sha512-5HNxdghTm+JfnUO+ZczqYWRvkkfWD/riU12BtvGXpiIEStn9Gbdp3npQLQIP717PaZBw/23BcNnsOIxRI7ftLw==
   dependencies:
     tslib "^1.10.0"
 
-"@angular-ru/eslint-config@13.55.0":
-  version "13.55.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-13.55.0.tgz#9559134a0cc43db442bd9ac9fdc6b9c0629241a2"
-  integrity sha512-fsQg2Sn7XxGm/eaTXwxVRSlnZFVJGwjnQlp42Gk33vxE2c0C4s6HSBFovC/kx1aGk8KwgBNUvq9+2ZkV/iqY3w==
+"@angular-ru/eslint-config@13.55.1":
+  version "13.55.1"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-13.55.1.tgz#9f40236707965cded32a62235288103b24660e41"
+  integrity sha512-SoBwc6pIU5oeJRFgULi03M9D/O6MhUrzz+3TtSONQikp04jQ0I6aQqgr5fqbsxCZru7QC90wGKE9Od8nThAK8A==
   dependencies:
     "@types/eslint" "7.2.0"
     "@typescript-eslint/eslint-plugin" "3.9.0"
@@ -190,10 +190,10 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@13.55.0":
-  version "13.55.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-13.55.0.tgz#44d2b7ca97397a6d29705fa6c45813d00f30ed6a"
-  integrity sha512-ATtr3fS27KuBEKMPkWIviVyzdyaoSAtJNGgS41iun0ycmVLOld6W8DMArGa8vNPTBaS2M8+4nhsDQz1xEBmZ0A==
+"@angular-ru/jest-utils@13.55.1":
+  version "13.55.1"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-13.55.1.tgz#c9a1c022d1b368984a4334ff0945a0be26f2eed6"
+  integrity sha512-kx9bDn3v2YBVpz9qsPGKWw9ohIiZhPLKEwhg7EXz/4PyVTXHi61U0xyHngwiE7LW78bLfpOvOiHqn0Whyzmp8Q==
   dependencies:
     "@types/jest" "26.0.10"
     jest "26.4.0"

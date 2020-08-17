@@ -15,6 +15,7 @@
                 "@ngxs-labs/data/decorators": "ngxs-labs-data-decorators",
                 "@ngxs-labs/data/tokens": "ngxs-labs-data-tokens",
                 "@angular-ru/common/utils": "angular-ru-common-utils",
+                "@angular-ru/common/typings": "angular-ru-common-typings",
                 "@angular-ru/common/object": "angular-ru-common-object"
             }
         }

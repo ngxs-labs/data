@@ -8,7 +8,7 @@
 import { Immutable, Mutable, Any } from '@angular-ru/common/typings';
 ```
 
-- Moved `createEntityCollections` to `@angular-ru/common/entity`:
+-   Moved `createEntityCollections` to `@angular-ru/common/entity`:
 
 ```ts
 import { createEntityCollections } from '@angular-ru/common/entity';
@@ -26,7 +26,7 @@ class StudentEntitiesState extends NgxsDataEntityCollectionsRepository<StudentEn
 }
 ```
 
-- Removed `NgxsDataMutablePipe, NgxsDataUtilsModule`
+-   Removed `NgxsDataMutablePipe, NgxsDataUtilsModule`
 
 # 3.0.6 2020-06-25
 
