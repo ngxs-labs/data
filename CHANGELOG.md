@@ -1,3 +1,7 @@
+# 4.1.0 2020-09-09
+
+-   Feature: support only Ivy
+
 # 4.0.0 2020-09-09
 
 -   Feature: feat: support Angular 10, TypeScript 4

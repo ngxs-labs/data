@@ -58,7 +58,3 @@ jobs:
                     GH_TOKEN: ${{ secrets.GH_DEPLOY }}
                 if: contains('refs/heads/master', github.ref)
                 run: yarn ng deploy
-
-            -   name: Deploy coverage
-                if: contains('refs/heads/master', github.ref)
-                run: yarn coverage
