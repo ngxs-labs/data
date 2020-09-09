@@ -1,6 +1,6 @@
+import { $args } from '@angular-ru/common/function';
 import { Any, Descriptor, PlainObjectOf } from '@angular-ru/common/typings';
 import {
-    $args,
     actionNameCreator,
     combineStream,
     getMethodArgsRegistry,

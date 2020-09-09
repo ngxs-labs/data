@@ -2,12 +2,12 @@
 import { NgxsModule, State } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Component, Injectable, Input } from '@angular/core';
+import { MutableTypePipe } from '@angular-ru/common/pipes';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
-import { NgxsDataMutablePipe } from '../../../../lib/utils/src/mutable/ngxs-data-mutable.pipe';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
 import { Immutable, Mutable } from '@angular-ru/common/typings';
@@ -196,7 +196,7 @@ describe('TEST', () => {
         const stream = new AsyncPipe(null!).transform(todos.state$);
         stream; // $ExpectType readonly string[] | null
 
-        const state = new NgxsDataMutablePipe().transform(stream);
+        const state = new MutableTypePipe().transform(stream);
         state; // $ExpectType string[]
     });
 
@@ -229,9 +229,7 @@ describe('TEST', () => {
         });
 
         // Immutable to Mutable
-        const state: ParentCountModel = new NgxsDataMutablePipe().transform(
-            new AsyncPipe(null!).transform(myState.state$)
-        );
+        const state: ParentCountModel = new MutableTypePipe().transform(new AsyncPipe(null!).transform(myState.state$));
 
         state; // $ExpectType ParentCountModel
         state.val++; // $ExpectType number
@@ -248,7 +246,7 @@ describe('TEST', () => {
         });
     });
 
-    it('use NgxsDataMutablePipe', () => {
+    it('use MutableTypePipe', () => {
         type B = { val: number };
 
         interface C {
@@ -259,7 +257,7 @@ describe('TEST', () => {
 
         d[0].b.val++; // $ExpectError
 
-        const mutable = new NgxsDataMutablePipe().transform(d);
+        const mutable = new MutableTypePipe().transform(d);
         mutable; // C[]
         mutable.reverse(); // C[]
         mutable[0].b.val++; // $ExpectType number

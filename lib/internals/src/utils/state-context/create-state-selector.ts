@@ -1,3 +1,4 @@
+import { deepFreeze } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
 import { isDevMode } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -6,7 +7,6 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { NgxsDataInjector } from '../../services/ngxs-data-injector.service';
-import { ngxsDeepFreeze } from '../common/freeze';
 import { getRepository } from '../repository/get-repository';
 
 // eslint-disable-next-line max-lines-per-function
@@ -31,7 +31,7 @@ export function createStateSelector(stateClass: DataStateClass): void {
                         }
 
                         this[selectorId] = NgxsDataInjector.store.select(stateClass as Any).pipe(
-                            map((state: Any): Any => (isDevMode() ? ngxsDeepFreeze(state) : state)),
+                            map((state: Any): Any => (isDevMode() ? deepFreeze(state) : state)),
                             shareReplay({ refCount: true, bufferSize: 1 })
                         );
                     }

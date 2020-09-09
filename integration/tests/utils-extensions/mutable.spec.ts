@@ -1,12 +1,11 @@
+import { MutableTypePipe, MutableTypeModule } from '@angular-ru/common/pipes';
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { NgxsModule, State } from '@ngxs/store';
 
-import { NgxsDataMutablePipe } from '@ngxs-labs/data/utils';
 import { Immutable } from '@angular-ru/common/typings';
 
 describe('Mutable', () => {
@@ -17,7 +16,7 @@ describe('Mutable', () => {
 
     it('Immutable<A> to A', () => {
         const a: Immutable<A> = { a: 1, b: 2 };
-        const mutableA = new NgxsDataMutablePipe().transform(a);
+        const mutableA = new MutableTypePipe().transform(a);
 
         mutableA.b++;
         expect(a).toEqual({ a: 1, b: 3 });
@@ -29,7 +28,7 @@ describe('Mutable', () => {
             { a: 2, b: 3 }
         ];
 
-        const mutableArr = new NgxsDataMutablePipe().transform(arr);
+        const mutableArr = new MutableTypePipe().transform(arr);
 
         mutableArr[0].a++;
         mutableArr[1].b++;
@@ -58,7 +57,7 @@ describe('Mutable', () => {
 
         TestBed.configureTestingModule({
             declarations: [AppComponent],
-            imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(), NgxsDataUtilsModule]
+            imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(), MutableTypeModule]
         }).compileComponents();
 
         const app = TestBed.createComponent(AppComponent);

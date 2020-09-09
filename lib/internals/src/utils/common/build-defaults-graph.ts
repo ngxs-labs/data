@@ -1,3 +1,4 @@
+import { deepClone, isSimpleObject } from '@angular-ru/common/object';
 import { Any, PlainObject } from '@angular-ru/common/typings';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass } from '@ngxs-labs/data/typings';
@@ -5,16 +6,15 @@ import { StoreOptions } from '@ngxs/store/src/symbols';
 
 import { InvalidChildrenException } from '../../exceptions/invalid-children.exception';
 import { getStoreOptions } from '../state-context/get-store-options';
-import { deepClone } from './deep-clone';
-import { isPlainObject } from './is-plain-object';
 
 export function buildDefaultsGraph(stateClasses: DataStateClass): Any {
     const options: StoreOptions<Any> = getStoreOptions(stateClasses);
-    const children: DataStateClass[] = options.children || [];
-    const currentDefaults: Any = deepClone(options.defaults);
+    const children: DataStateClass[] = options.children ?? [];
+    const prepared: Any = options.defaults === undefined ? {} : options.defaults;
+    const currentDefaults: Any = deepClone(prepared);
 
     if (children.length) {
-        if (isPlainObject(currentDefaults)) {
+        if (isSimpleObject(currentDefaults)) {
             return buildChildrenGraph(currentDefaults, children);
         } else {
             throw new InvalidChildrenException(currentDefaults);
@@ -35,5 +35,5 @@ function buildChildrenGraph(currentDefaults: Any, children: DataStateClass[]): A
         defaults[name] = buildDefaultsGraph(item);
 
         return defaults;
-    }, currentDefaults);
+    }, currentDefaults ?? {});
 }

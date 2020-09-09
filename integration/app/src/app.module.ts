@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NGXS_DATA_STORAGE_CONTAINER, NGXS_DATA_STORAGE_EXTENSION } from '@ngxs-labs/data/storage';
-import { NgxsDataUtilsModule } from '@ngxs-labs/data/utils';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule, NoopNgxsExecutionStrategy } from '@ngxs/store';
 
@@ -25,8 +24,7 @@ import { AppComponent } from './app.component';
             executionStrategy: NoopNgxsExecutionStrategy
         }),
         NgxsLoggerPluginModule.forRoot(),
-        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_EXTENSION, NGXS_DATA_STORAGE_CONTAINER]),
-        NgxsDataUtilsModule
+        NgxsDataPluginModule.forRoot([NGXS_DATA_STORAGE_EXTENSION, NGXS_DATA_STORAGE_CONTAINER])
     ],
     providers: [],
     bootstrap: [AppComponent]

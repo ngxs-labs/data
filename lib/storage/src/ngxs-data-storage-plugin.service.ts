@@ -1,7 +1,7 @@
 import { Any } from '@angular-ru/common/typings';
+import { isNotNil } from '@angular-ru/common/utils';
 import { isPlatformServer } from '@angular/common';
 import { Inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
-import { isNotNil } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     CheckExpiredInitOptions,
