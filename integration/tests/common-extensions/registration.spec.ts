@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { DataAction, StateRepository } from '@ngxs-labs/data/decorators';
@@ -35,6 +35,7 @@ describe('Check correct deep instance', () => {
         name: 'registration',
         defaults: new RegistrationStateModel()
     })
+    @Injectable()
     class RegistrationState extends NgxsImmutableDataRepository<IRegistrationStateModel> {
         @Select((state: Any) => state.registration)
         public address$!: Observable<IFormState>;

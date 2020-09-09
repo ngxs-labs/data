@@ -24,10 +24,12 @@ import { AbstractRepository } from '../common/abstract-repository';
 
 @Injectable()
 export abstract class AbstractNgxsDataEntityCollectionsRepository<
-    V,
-    K extends number | string = EntityIdType,
-    C = Record<string, Any>
-> extends AbstractRepository<EntityCollections<V, K, C>> implements EntityRepository<V, K, C> {
+        V,
+        K extends number | string = EntityIdType,
+        C = Record<string, Any>
+    >
+    extends AbstractRepository<EntityCollections<V, K, C>>
+    implements EntityRepository<V, K, C> {
     public primaryKey: string = PrimaryKey.ID;
     public comparator: EntityComparator<V> | null = null;
     private readonly context!: EntityContext<V, K, C>;

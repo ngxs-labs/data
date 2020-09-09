@@ -7,8 +7,8 @@ module.exports = createTsJestConfig({
     displayName: '@ngxs-labs/data',
     rootDir: path.resolve('.'),
     modulePathIgnorePatterns: ['<rootDir>/dist/'],
-    setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
     collectCoverageFrom: ['<rootDir>/lib/**/*.ts'],
     testMatch: ['<rootDir>/integration/tests/**/*.spec.ts'],
+    setupFilesAfterEnv: ['<rootDir>/integration/tests/setupJest.ts'],
     tsConfigRootPath: path.resolve('./tsconfig.json')
 });

@@ -1,4 +1,4 @@
-import { MutableTypePipe, MutableTypeModule } from '@angular-ru/common/pipes';
+import { MutableTypePipe, MutableTypePipeModule } from '@angular-ru/common/pipes';
 import { Component, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
@@ -57,7 +57,7 @@ describe('Mutable', () => {
 
         TestBed.configureTestingModule({
             declarations: [AppComponent],
-            imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(), MutableTypeModule]
+            imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot(), MutableTypePipeModule]
         }).compileComponents();
 
         const app = TestBed.createComponent(AppComponent);

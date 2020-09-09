@@ -62,10 +62,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: 'string', children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();
@@ -77,10 +79,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: [], children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();
@@ -92,10 +96,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: null, children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();

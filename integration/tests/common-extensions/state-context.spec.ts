@@ -75,6 +75,7 @@ describe('[TEST]: Utils', () => {
             name: 'e',
             defaults: []
         })
+        @Injectable()
         class E {}
 
         @State({
@@ -95,6 +96,7 @@ describe('[TEST]: Utils', () => {
                 defaults: [],
                 children: [E, F]
             })
+            @Injectable()
             class G {}
 
             buildDefaultsGraph(G);

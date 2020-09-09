@@ -8,7 +8,7 @@
     matSort
     matSortDisableClear
     (matSortChange)="sortData($event)"
-    [dataSource]="(articleEntities.state$ | async)?.ids"
+    [dataSource]="(articleEntities.state$ | async)?.ids || []"
 >
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>UID</th>
@@ -26,7 +26,7 @@
     </ng-container>
 
     <ng-container matColumnDef="edit">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef style="width: 70px;"></th>
+        <th mat-header-cell mat-sort-header *matHeaderCellDef style="width: 70px"></th>
         <td mat-cell *matCellDef="let id">
             <button mat-icon-button (click)="editById(id)"><mat-icon>edit</mat-icon></button>
             <button mat-icon-button (click)="deleteById(id)"><mat-icon>delete</mat-icon></button>

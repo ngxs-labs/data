@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 import { AbstractRepository } from '../common/abstract-repository';
 
 @Injectable()
-export abstract class AbstractNgxsDataRepository<T> extends AbstractRepository<T>
+export abstract class AbstractNgxsDataRepository<T>
+    extends AbstractRepository<T>
     implements DataStateContext<T>, DataRepository<T> {
     private readonly context!: DataStateContext<T>;
 

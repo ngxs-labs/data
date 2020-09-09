@@ -18,6 +18,7 @@ describe('[TEST]: Abstract ngxs data repository', () => {
         name: 'a',
         defaults: { value: 1 }
     })
+    @Injectable()
     class A extends NgxsDataRepository<Model> implements NgxsDataDoCheck, NgxsDataAfterReset {
         constructor() {
             super();

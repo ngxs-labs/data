@@ -1,6 +1,8 @@
-# To become 4.0.0
+# 4.0.0 2020-09-09
 
+-   Feature: feat: support Angular 10, TypeScript 4
 -   Feature: support `@ngxs/store@3.7.0`
+-   Fix: Proxy is a ES2015 class that is not compatible with IE11 with ES5 target
 
 ### ⚠ BREAKING CHANGES
 

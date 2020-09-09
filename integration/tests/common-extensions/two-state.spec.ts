@@ -19,12 +19,12 @@ describe('Correct behavior NGXS DATA with Count, Todo states', () => {
         }
     }
 
-    @Injectable()
     @StateRepository()
     @State({
         name: 'count',
         defaults: 0
     })
+    @Injectable()
     class CountState extends NgxsImmutableDataRepository<number> {
         constructor(private readonly api: ApiService) {
             super();
