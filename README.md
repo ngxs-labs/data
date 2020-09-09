@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
   <b>NGXS Persistence API (@ngxs-labs/data)</b> <br />
-  <b>🚀 See it in action on <a href="http://stackblitz.io/github/ngxs-labs/data">Stackblitz</a></b>
+  <b>🚀 See it in action on <a href="https://stackblitz.com/edit/ngxs-example-counter-app?file=src/app/count.state.ts">Stackblitz</a></b>
   <br />
 </p>
 
