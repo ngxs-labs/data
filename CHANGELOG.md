@@ -1,5 +1,6 @@
 # To become 4.0.0
 
+-   Feature: feat: support Angular 10, TypeScript 4
 -   Feature: support `@ngxs/store@3.7.0`
 
 ### ⚠ BREAKING CHANGES
