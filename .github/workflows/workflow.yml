@@ -1,0 +1,64 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: NGXS DATA CI
+
+on: [push]
+
+jobs:
+    build-and-deploy:
+        if: "!contains(github.event.head_commit.message , 'ci skip')"
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [14.x]
+
+        steps:
+            -   uses: actions/checkout@v2
+                with:
+                    fetch-depth: '0'
+
+            -   run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+            -   name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v1
+                with:
+                    node-version: ${{ matrix.node-version }}
+
+            -   uses: actions/cache@v2
+                with:
+                    path: '**/node_modules'
+                    key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+            -   name: Run install step
+                run: |
+                    yarn install --frozen-lockfile --non-interactive
+
+            -   name: Run building libraries step
+                run: |
+                    yarn build:lib
+                    yarn build:schematics
+
+            -   name: Run lint step
+                run: |
+                    yarn lint --cache
+
+            -   name: Run test step
+                run: |
+                    yarn test:ci
+                    yarn test:types
+
+            -   name: Run building integration apps step
+                run: yarn build:app
+
+            -   name: Deploy integration apps
+                env:
+                    GH_TOKEN: ${{ secrets.GH_DEPLOY }}
+                if: contains('refs/heads/master', github.ref)
+                run: yarn deploy
+
+            -   name: Deploy coverage
+                if: contains('refs/heads/master', github.ref)
+                run: yarn coverage
