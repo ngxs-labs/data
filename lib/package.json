@@ -1,6 +1,6 @@
 {
     "name": "@ngxs-labs/data",
-    "version": "4.1.0",
+    "version": "4.1.1",
     "license": "MIT",
     "schematics": "./schematics/collection.json",
     "scripts": {

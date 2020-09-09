@@ -64,7 +64,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(plugin.store === store).toEqual(true);
         });
 
-        xit('@Persistence should be add before decorator @State and @StateRepository', () => {
+        it('@Persistence should be add before decorator @State and @StateRepository', () => {
             let message: string | null = null;
 
             try {

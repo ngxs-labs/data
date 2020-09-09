@@ -1,3 +1,7 @@
+# 4.1.1 2020-09-09
+
+-   Fix: invalid expose arguments when inheritance
+
 # 4.1.0 2020-09-09
 
 -   Feature: support only Ivy
