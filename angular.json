@@ -62,7 +62,28 @@
                 },
                 "deploy": {
                     "builder": "angular-cli-ghpages:deploy",
-                    "options": {}
+                    "options": {
+                        "noSilent": true,
+                        "noBuild": true,
+                        "name": "splincode",
+                        "email": "splincodewd@yandex.ru",
+                        "repo": "https://github.com/ngxs-labs/data.git"
+                    }
+                }
+            }
+        },
+        "library": {
+            "root": "",
+            "prefix": "",
+            "sourceRoot": "",
+            "projectType": "library",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "lib/tsconfig.lib.json",
+                        "project": "lib/ng-package.json"
+                    }
                 }
             }
         }

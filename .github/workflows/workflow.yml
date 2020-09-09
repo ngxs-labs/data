@@ -43,11 +43,11 @@ jobs:
 
             -   name: Run lint step
                 run: |
-                    yarn lint --cache
+                    yarn lint
 
             -   name: Run test step
                 run: |
-                    yarn test:ci
+                    yarn test --coverage
                     yarn test:types
 
             -   name: Run building integration apps step
@@ -57,7 +57,7 @@ jobs:
                 env:
                     GH_TOKEN: ${{ secrets.GH_DEPLOY }}
                 if: contains('refs/heads/master', github.ref)
-                run: yarn deploy
+                run: yarn ng deploy
 
             -   name: Deploy coverage
                 if: contains('refs/heads/master', github.ref)
