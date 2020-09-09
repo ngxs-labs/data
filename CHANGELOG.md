@@ -1,5 +1,7 @@
 # To become 4.0.0
 
+-   Feature: support `@ngxs/store@3.7.0`
+
 ### ⚠ BREAKING CHANGES
 
 -   Moved `Immutable, Mutable, Any` interfaces to `@angular-ru/common/typings`:
