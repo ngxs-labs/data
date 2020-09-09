@@ -15,6 +15,7 @@ describe('Check correct deep instance', () => {
         name: 'childB_A_A',
         defaults: ['B_A_A_1', 'B_A_A_1']
     })
+    @Injectable()
     class MyChildBaa {}
 
     @State({
@@ -22,6 +23,7 @@ describe('Check correct deep instance', () => {
         defaults: { value: 'B_A_1' },
         children: [MyChildBaa]
     })
+    @Injectable()
     class MyChildBa {
         @Action({ type: 'MyChildBa_ACTION' })
         public myMutate(ctx: StateContext<Any>): void {
@@ -34,21 +36,23 @@ describe('Check correct deep instance', () => {
         defaults: { value: 'B_A' },
         children: [MyChildBa]
     })
+    @Injectable()
     class MyChildB {}
 
     @State({
         name: 'childA',
         defaults: { value: 'A_1' }
     })
+    @Injectable()
     class MyChildA {}
 
-    @Injectable()
     @StateRepository()
     @State({
         name: 'app',
         defaults: {},
         children: [MyChildA, MyChildB]
     })
+    @Injectable()
     class AppState extends NgxsImmutableDataRepository<Any> {
         public initial: Immutable<PlainObjectOf<Any>> = {};
 

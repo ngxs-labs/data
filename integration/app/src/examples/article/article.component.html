@@ -8,7 +8,7 @@
     matSort
     matSortDisableClear
     (matSortChange)="sortData($event)"
-    [dataSource]="(articleEntities.state$ | async)?.ids"
+    [dataSource]="(articleEntities.state$ | async)?.ids || []"
 >
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>UID</th>

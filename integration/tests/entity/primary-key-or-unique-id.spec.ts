@@ -3,6 +3,7 @@ import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositorie
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { Action, State } from '@ngxs/store';
+import { Injectable } from '@angular/core';
 
 describe('[TEST]: Entity - primary key or unique id', () => {
     interface Lesson {
@@ -16,6 +17,7 @@ describe('[TEST]: Entity - primary key or unique id', () => {
             name: 'lesson',
             defaults: createEntityCollections()
         })
+        @Injectable()
         class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
             public set(val: EntityCollections<Lesson, string | number>): void {
                 this.setEntitiesState(val);
@@ -73,6 +75,7 @@ describe('[TEST]: Entity - primary key or unique id', () => {
             name: 'lesson',
             defaults: createEntityCollections()
         })
+        @Injectable()
         class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
             public primaryKey: string = 'lessonId';
         }
@@ -104,6 +107,7 @@ describe('[TEST]: Entity - primary key or unique id', () => {
             name: 'lesson',
             defaults: createEntityCollections()
         })
+        @Injectable()
         class LessonEntitiesState extends NgxsDataEntityCollectionsRepository<Lesson> {
             public selectId(entity: Lesson): EntityIdType {
                 return entity.lessonId;
