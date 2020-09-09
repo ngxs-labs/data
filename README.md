@@ -8,8 +8,8 @@
 
 <p align="center">
 
-  <a href="https://travis-ci.org/ngxs-labs/data">
-    <img src="https://travis-ci.org/ngxs-labs/data.svg?branch=master" />
+  <a href="https://github.com/ngxs-labs/data/actions?query=workflow%3A%22NGXS+DATA+CI%22">
+    <img src="https://github.com/ngxs-labs/data/workflows/NGXS%20DATA%20CI/badge.svg" />
   </a>
   <a href="https://badge.fury.io/js/%40ngxs-labs%2Fdata">
     <img src="https://badge.fury.io/js/%40ngxs-labs%2Fdata.svg" />
