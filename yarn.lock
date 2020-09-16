@@ -181,12 +181,12 @@
     jest-preset-angular "8.3.1"
     ts-jest "26.3.0"
 
-"@angular-ru/prettier-config@14.27.0":
-  version "14.27.0"
-  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-14.27.0.tgz#4363bf9293e4800326d8bf895f7b84776fdce3fc"
-  integrity sha512-uj/d/K6FvetTCnB2NnSC823hrN3xZZE3YWyTrvGXCN/EmcboAXX/jLzwZ84rkwvsFApEH7uDPzg5HPfgT7opUw==
+"@angular-ru/prettier-config@14.40.0":
+  version "14.40.0"
+  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-14.40.0.tgz#bd3c3ffb789926b57cd92c8e620357304bbea741"
+  integrity sha512-Vbbm52yVu34z+cnHBGezuDH+auMxX0qeDpwCacNTTnthtrZYP9fPvBWg3/EEnd0AUFGoBizMb5VkkazRWExJMA==
   dependencies:
-    prettier "2.1.1"
+    prettier "2.1.2"
 
 "@angular-ru/tsconfig@14.27.0":
   version "14.27.0"
@@ -9568,10 +9568,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.1.1.tgz#d9485dd5e499daa6cb547023b87a6cf51bee37d6"
-  integrity sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
+prettier@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-2.1.2.tgz#3050700dae2e4c8b67c4c3f666cdb8af405e1ce5"
+  integrity sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
 
 pretty-format@26.x, pretty-format@^26.4.2:
   version "26.4.2"
