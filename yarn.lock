@@ -171,12 +171,12 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@14.34.0":
-  version "14.34.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.34.0.tgz#98ba3a80039fe4818fa747fa142a2d70859dc31f"
-  integrity sha512-HLZhgSqfGNCEUJSMRGeJITU5fIwrNtT9QvpJUoDV8tbc3wTeosqyJMJB3ZfZC5JtRiSDWTrc4VNuXXfDEMiQ4A==
+"@angular-ru/jest-utils@14.41.0":
+  version "14.41.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.41.0.tgz#9f26fdbdc52ab6d70df277a742bc2a8df91c7134"
+  integrity sha512-1N2dArqFiWwUfoG8wsZqmje2X/SDqPfO8bW6m0XJ/1vuI9AleVoN1LKdROdyFhKLQ2b/T6RrYEMWVgiwatKzCA==
   dependencies:
-    "@types/jest" "26.0.13"
+    "@types/jest" "26.0.14"
     jest "26.4.2"
     jest-preset-angular "8.3.1"
     ts-jest "26.3.0"
@@ -1720,7 +1720,15 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.0.13", "@types/jest@26.x":
+"@types/jest@26.0.14":
+  version "26.0.14"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.14.tgz#078695f8f65cb55c5a98450d65083b2b73e5a3f3"
+  integrity sha512-Hz5q8Vu0D288x3iWXePSn53W7hAjP0H7EQ6QvDO9c7t46mR0lNOLlfuwQ+JkVxuhygHzlzPX+0jKdA3ZgSh+Vg==
+  dependencies:
+    jest-diff "^25.2.1"
+    pretty-format "^25.2.1"
+
+"@types/jest@26.x":
   version "26.0.13"
   resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.13.tgz#5a7b9d5312f5dd521a38329c38ee9d3802a0b85e"
   integrity sha512-sCzjKow4z9LILc6DhBvn5AkIfmQzDZkgtVVKmGwVrs5tuid38ws281D4l+7x1kP487+FlKDh5kfMZ8WSPAdmdA==
@@ -10827,10 +10835,10 @@ sort-object-keys@^1.1.3:
   resolved "https://registry.npmjs.org/sort-object-keys/-/sort-object-keys-1.1.3.tgz#bff833fe85cab147b34742e45863453c1e190b45"
   integrity sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==
 
-sort-package-json@1.45.0:
-  version "1.45.0"
-  resolved "https://registry.npmjs.org/sort-package-json/-/sort-package-json-1.45.0.tgz#fb0fab72cab3121c16f49ff771db581b259c7136"
-  integrity sha512-3SeiNF62wHQELGGLrOePSiIawMd+IpRAHL5FqeMvIAYMBxVtpxhak+YzAuKcVQAFSZsjpPB6fw7tard8dq5jWw==
+sort-package-json@1.46.0:
+  version "1.46.0"
+  resolved "https://registry.npmjs.org/sort-package-json/-/sort-package-json-1.46.0.tgz#ea30a03d17c23762bfbf115fa54500459508c9ca"
+  integrity sha512-Fn5iiGKkATkEOQ0rol45dClfvNNW3r6PZ87mU4rbpz/M0Dxz+0D6oEU8nfpwUB5rd8u+WzsH2BQ/kRDwz+yVDQ==
   dependencies:
     detect-indent "^6.0.0"
     detect-newline "3.1.0"
