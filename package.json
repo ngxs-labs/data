@@ -49,7 +49,7 @@
         "ng-packagr": "10.1.0",
         "npx": "10.2.2",
         "rxjs": "6.6.3",
-        "sort-package-json": "1.44.0",
+        "sort-package-json": "1.45.0",
         "ts-node": "9.0.0",
         "tsickle": "0.39.1",
         "tslib": "2.0.1",
