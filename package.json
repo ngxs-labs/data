@@ -40,7 +40,7 @@
         "@ngxs/logger-plugin": "3.7.0",
         "@ngxs/store": "3.7.0",
         "@schematics/angular": "10.1.2",
-        "@types/node": "14.10.3",
+        "@types/node": "14.11.1",
         "angular-cli-ghpages": "0.6.2",
         "core-js": "3.6.5",
         "coveralls": "3.1.0",
