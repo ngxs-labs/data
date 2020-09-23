@@ -149,12 +149,12 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular-ru/eslint-config@14.42.0":
-  version "14.42.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.42.0.tgz#68813467b451b73037286b1450d0a326f5d34423"
-  integrity sha512-aMzuHnfjj0FlyCwPkCRxrBuGnXe4ZFh4HNSS7cv7V5JdtT5w3ACgDqBV5Cl4jQQrZoFhisCL+/iaGN2IzqDDFg==
+"@angular-ru/eslint-config@14.43.0":
+  version "14.43.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.43.0.tgz#2830293dca69694712c04d187b42969a7100cb93"
+  integrity sha512-X1NKi7HEbQN8svaRUTYkLk/WspBV+y2gtoTPdMbOD30UcpA59p2b7g7UrXPLyQDGpYIhliH8UKNbMEfGRchLdA==
   dependencies:
-    "@types/eslint" "7.2.2"
+    "@types/eslint" "7.2.3"
     "@typescript-eslint/eslint-plugin" "4.1.1"
     "@typescript-eslint/eslint-plugin-tslint" "4.1.1"
     "@typescript-eslint/parser" "4.1.1"
@@ -1660,10 +1660,10 @@
   resolved "https://registry.npmjs.org/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/eslint@7.2.2":
-  version "7.2.2"
-  resolved "https://registry.npmjs.org/@types/eslint/-/eslint-7.2.2.tgz#c88426b896efeb0b2732a92431ce8aa7ec0dee61"
-  integrity sha512-psWuwNXuKR2e6vMU5d2qH0Kqzrb2Zxwk+uBCF2LsyEph+Nex3lFIPMJXwxfGesdtJM2qtjKoCYsyh76K3x9wLg==
+"@types/eslint@7.2.3":
+  version "7.2.3"
+  resolved "https://registry.npmjs.org/@types/eslint/-/eslint-7.2.3.tgz#a3731b7584fe1a847a34e67ac57a556afd9b0c0e"
+  integrity sha512-SPBkpC+awgFfyAn4sjt0JBZ3vzACoSp2zhGBJkkrs09EzPqLbxkzaE8kJs3EsRRgkZwWk9zyXT/swvhnJYX8pQ==
   dependencies:
     "@types/estree" "*"
     "@types/json-schema" "*"
