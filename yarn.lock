@@ -149,10 +149,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular-ru/eslint-config@14.45.0":
-  version "14.45.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.45.0.tgz#615d976cd51f4055c85bc491d316c31a2ba9e377"
-  integrity sha512-itE+TE7f6PxaibrSxt4uMccEEz+BX21mJ/9yPb8ipP5An6EDs0pUrvgTYrYEOR3PPer90ROj0rV3FFU4lMN2Wg==
+"@angular-ru/eslint-config@14.47.0":
+  version "14.47.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.47.0.tgz#3bc3ca9ffaba42b8fa4d97da0bb4b305df6a4aac"
+  integrity sha512-pRq7i5s7oNbD7AEj5A8Z6tjuFe+MBmztelPbYVFVXpQoqvVIimS/GCwkyj/2P5IG3lEv2jR4emfiDnmKoROYKw==
   dependencies:
     "@types/eslint" "7.2.3"
     "@typescript-eslint/eslint-plugin" "4.2.0"
@@ -164,6 +164,7 @@
     eslint-config-import "0.13.0"
     eslint-import-resolver-typescript "2.3.0"
     eslint-plugin-import "2.22.0"
+    eslint-plugin-max-params-no-constructor "0.0.4"
     eslint-plugin-no-cyrillic-string "1.0.5"
     eslint-plugin-prettier "3.1.4"
     eslint-plugin-simple-import-sort "5.0.3"
@@ -4752,6 +4753,11 @@ eslint-plugin-import@2.22.0:
     read-pkg-up "^2.0.0"
     resolve "^1.17.0"
     tsconfig-paths "^3.9.0"
+
+eslint-plugin-max-params-no-constructor@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/eslint-plugin-max-params-no-constructor/-/eslint-plugin-max-params-no-constructor-0.0.4.tgz#87f4834c3fbac1d9e7471a635d4a441785a2d0e1"
+  integrity sha512-YNy2hKV+0Q3T4Ys4evByDvyruqzthK/PmduVkyE7x7B31oBSOfgEyhYoSt0iWZp7MN9gnpiBPJ5c0jXSEdIBVA==
 
 eslint-plugin-no-cyrillic-string@1.0.5:
   version "1.0.5"
