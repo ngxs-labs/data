@@ -142,10 +142,10 @@
     ora "5.0.0"
     rxjs "6.6.2"
 
-"@angular-ru/common@14.37.0":
-  version "14.37.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-14.37.0.tgz#31eb3c36a0f5dd1e8d620b03233c2d5bc7da4087"
-  integrity sha512-sv7TcSEL8iouDABOvpfJGYYXaFnlVsS1TR0SJ5kxv87WsjM2WiJiAtqeGzvXmQTG5RkFbYolLNd/dQkp28igpA==
+"@angular-ru/common@14.44.0":
+  version "14.44.0"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-14.44.0.tgz#0a9456895e12235b6ee76f5378272b885722e2c2"
+  integrity sha512-IZdp5jjsY2mWVhIOmNPFvectxhwzVpXwF9kwSECWXM8onsTAf8t3QsD00HcA0htbRnWOQjPxdc2dQZaMylbtRg==
   dependencies:
     tslib "^2.0.0"
 
