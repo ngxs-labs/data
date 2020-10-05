@@ -21,7 +21,7 @@
         "@angular-devkit/schematics-cli": "0.1001.4",
         "@angular-ru/common": "14.44.0",
         "@angular-ru/eslint-config": "14.52.0",
-        "@angular-ru/jest-utils": "14.51.0",
+        "@angular-ru/jest-utils": "14.53.0",
         "@angular-ru/prettier-config": "14.40.0",
         "@angular-ru/tsconfig": "14.27.0",
         "@angular/animations": "10.1.4",
