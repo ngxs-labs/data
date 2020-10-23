@@ -172,14 +172,14 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@14.68.0":
-  version "14.68.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.68.0.tgz#c227bbf4717823148cbefef26dbfcc0f4b243ae1"
-  integrity sha512-u0ucsxGRmfPYnGqzR7PUZ6RIGgVD2Bq4YlY/e8DRFn4A83X7KT2IQ24dO/0OGvZhbuzCv1kGmqQHeb3f4zeqjg==
+"@angular-ru/jest-utils@14.74.0":
+  version "14.74.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.74.0.tgz#982c784aafe661702825088368764c55fead037a"
+  integrity sha512-ld4Ry+VnvZ5wJs5Powqq4x21+ZI8rz9xD/OVmGwS5OlNdqOZvcIjlHI5yI3ZJx22L61xhEwotWEkNp87mC2qPA==
   dependencies:
     "@types/jest" "26.0.15"
     jest "26.6.0"
-    jest-preset-angular "8.3.1"
+    jest-preset-angular "8.3.2"
     ts-jest "26.4.1"
 
 "@angular-ru/prettier-config@14.40.0":
@@ -7003,10 +7003,10 @@ jest-pnp-resolver@^1.2.2:
   resolved "https://registry.npmjs.org/jest-pnp-resolver/-/jest-pnp-resolver-1.2.2.tgz#b704ac0ae028a89108a4d040b3f919dfddc8e33c"
   integrity sha512-olV41bKSMm8BdnuMsewT4jqlZ8+3TCARAXjZGT9jcoSnrfUnRCqnMoF9XEeoWjbzObpqF9dRhHQj0Xb9QdF6/w==
 
-jest-preset-angular@8.3.1:
-  version "8.3.1"
-  resolved "https://registry.npmjs.org/jest-preset-angular/-/jest-preset-angular-8.3.1.tgz#b8e4867639982a0989f4ef5ef0bad1c084070ef4"
-  integrity sha512-WhQm+0tXzikkvIF35XErV87DqYbieZI0R0MIGgn7VE/DDhdbXFDmYQxFZ7w4qcA0cGLLvSMTBbIsUtHeE/rFxQ==
+jest-preset-angular@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.npmjs.org/jest-preset-angular/-/jest-preset-angular-8.3.2.tgz#170e0a4635dcd4b2ad02a1a805268b15da5b5543"
+  integrity sha512-mdETK9E5tkCJPnPzB7NLXDB7CULbUEwcrA7eKU7WdR0u7ZIJqP0pvQxK5Cc70KBsOEaiwJK6LSGJm7aeqjSYYA==
   dependencies:
     pretty-format "26.x"
     ts-jest "26.x"
