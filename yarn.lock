@@ -172,15 +172,15 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@14.75.0":
-  version "14.75.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.75.0.tgz#1b2339404e2c5cd7dcba98e16523ce847c26d9b8"
-  integrity sha512-BsDsp0e/XuVngpEtVPkV5XIGItdNNTJdPDfAkQov+t4yaZzCCXJRrxfFBecdLg9DtnHOSgR9flENbF98yhd0FQ==
+"@angular-ru/jest-utils@14.77.0":
+  version "14.77.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.77.0.tgz#ab09043129e481eaa35d6f3e4a58cafddc88ca3c"
+  integrity sha512-2BeiZncZ1G3GaW7H/wiiKHUuIM83vuyvrBANMT0v12jTOMW73qWA7WeE9eFwK1m9sRVVeLNedjgSwlsTW0K9PA==
   dependencies:
     "@types/jest" "26.0.15"
     jest "26.6.1"
     jest-preset-angular "8.3.2"
-    ts-jest "26.4.1"
+    ts-jest "26.4.2"
 
 "@angular-ru/prettier-config@14.40.0":
   version "14.40.0"
@@ -1339,6 +1339,11 @@
     rimraf "^3.0.0"
     slash "^3.0.0"
     strip-ansi "^6.0.0"
+
+"@jest/create-cache-key-function@^26.5.0":
+  version "26.5.0"
+  resolved "https://registry.npmjs.org/@jest/create-cache-key-function/-/create-cache-key-function-26.5.0.tgz#1d07947adc51ea17766d9f0ccf5a8d6ea94c47dc"
+  integrity sha512-DJ+pEBUIqarrbv1W/C39f9YH0rJ4wsXZ/VC6JafJPlHW2HOucKceeaqTOQj9MEDQZjySxMLkOq5mfXZXNZcmWw==
 
 "@jest/environment@^26.6.1":
   version "26.6.1"
@@ -11902,11 +11907,12 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@26.4.1:
-  version "26.4.1"
-  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.4.1.tgz#08ec0d3fc2c3a39e4a46eae5610b69fafa6babd0"
-  integrity sha512-F4aFq01aS6mnAAa0DljNmKr/Kk9y4HVZ1m6/rtJ0ED56cuxINGq3Q9eVAh+z5vcYKe5qnTMvv90vE8vUMFxomg==
+ts-jest@26.4.2:
+  version "26.4.2"
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.4.2.tgz#00b6c970bee202ceef7c6e6e9805c4837b22dab8"
+  integrity sha512-0+MynTTzzbuy5rGjzsCKjxHJk5gY906c/FSaqQ3081+G7dp2Yygfa9hVlbrtNNcztffh1mC6Rs9jb/yHpcjsoQ==
   dependencies:
+    "@jest/create-cache-key-function" "^26.5.0"
     "@types/jest" "26.x"
     bs-logger "0.x"
     buffer-from "1.x"
