@@ -172,15 +172,15 @@
     tslint-eslint-rules "5.4.0"
     tslint-sonarts "1.9.0"
 
-"@angular-ru/jest-utils@14.77.0":
-  version "14.77.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.77.0.tgz#ab09043129e481eaa35d6f3e4a58cafddc88ca3c"
-  integrity sha512-2BeiZncZ1G3GaW7H/wiiKHUuIM83vuyvrBANMT0v12jTOMW73qWA7WeE9eFwK1m9sRVVeLNedjgSwlsTW0K9PA==
+"@angular-ru/jest-utils@14.87.0":
+  version "14.87.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-14.87.0.tgz#587741b48776c63bffaaafc484dbeecae636512e"
+  integrity sha512-YLkDVpF3VI3PGZt2ngpcTFUM5i2zMug+eSPJYiN+gDXUhrrS945Id2YH01/dWgIClFKr3YpMf43aldJqGBIHGw==
   dependencies:
     "@types/jest" "26.0.15"
     jest "26.6.1"
     jest-preset-angular "8.3.2"
-    ts-jest "26.4.2"
+    ts-jest "26.4.3"
 
 "@angular-ru/prettier-config@14.40.0":
   version "14.40.0"
@@ -11907,10 +11907,10 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@26.4.2:
-  version "26.4.2"
-  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.4.2.tgz#00b6c970bee202ceef7c6e6e9805c4837b22dab8"
-  integrity sha512-0+MynTTzzbuy5rGjzsCKjxHJk5gY906c/FSaqQ3081+G7dp2Yygfa9hVlbrtNNcztffh1mC6Rs9jb/yHpcjsoQ==
+ts-jest@26.4.3:
+  version "26.4.3"
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-26.4.3.tgz#d153a616033e7ec8544b97ddbe2638cbe38d53db"
+  integrity sha512-pFDkOKFGY+nL9v5pkhm+BIFpoAuno96ff7GMnIYr/3L6slFOS365SI0fGEVYx2RKGji5M2elxhWjDMPVcOCdSw==
   dependencies:
     "@jest/create-cache-key-function" "^26.5.0"
     "@types/jest" "26.x"
