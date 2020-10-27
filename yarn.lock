@@ -149,10 +149,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular-ru/eslint-config@14.85.0":
-  version "14.85.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.85.0.tgz#ba1d62fb36cda64138e209c35a577496fcc3a0a7"
-  integrity sha512-GcbqThzozr71LXukL/hQbx53f/Vdc/u4Or5apMZL6T16Cjw51QUFViGEvZb5JXxsFzxBZEh6nW4xD9MKNCyDDQ==
+"@angular-ru/eslint-config@14.89.0":
+  version "14.89.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-14.89.0.tgz#f85656e3df936777e54b2fa6bc58bdf1c14a4d4e"
+  integrity sha512-srouYcuHfAIXx/2cmKEpAb7WrZv0MW3LejtSbBw4NB8hVhCcmroQyJhL2P85ZBQM0zCwt1sCjf0y4v87ZExcdw==
   dependencies:
     "@types/eslint" "7.2.4"
     "@typescript-eslint/eslint-plugin" "4.6.0"
@@ -160,7 +160,7 @@
     "@typescript-eslint/parser" "4.6.0"
     codelyzer "6.0.1"
     es6-set "0.1.5"
-    eslint "7.12.0"
+    eslint "7.12.1"
     eslint-config-import "0.13.0"
     eslint-import-resolver-typescript "2.3.0"
     eslint-plugin-import "2.22.1"
@@ -1262,10 +1262,10 @@
     tar "^2.2.2"
     tar-stream "1.6.2"
 
-"@eslint/eslintrc@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.2.0.tgz#bc7e3c4304d4c8720968ccaee793087dfb5fe6b4"
-  integrity sha512-+cIGPCBdLCzqxdtwppswP+zTsH9BOIGzAeKfBIbtb4gW/giMlfMwP0HUSFfhzh20f9u8uZ8hOp62+4GPquTbwQ==
+"@eslint/eslintrc@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"
+  integrity sha512-XRUeBZ5zBWLYgSANMpThFddrZZkEbGHgUdt5UJjZfnlN9BGCiUBrf+nvbRupSjMvqzwnQN0qwCmOxITt1cfywA==
   dependencies:
     ajv "^6.12.4"
     debug "^4.1.1"
@@ -4860,13 +4860,13 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@7.12.0:
-  version "7.12.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-7.12.0.tgz#7b6a85f87a9adc239e979bb721cde5ce0dc27da6"
-  integrity sha512-n5pEU27DRxCSlOhJ2rO57GDLcNsxO0LPpAbpFdh7xmcDmjmlGUfoyrsB3I7yYdQXO5N3gkSTiDrPSPNFiiirXA==
+eslint@7.12.1:
+  version "7.12.1"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-7.12.1.tgz#bd9a81fa67a6cfd51656cdb88812ce49ccec5801"
+  integrity sha512-HlMTEdr/LicJfN08LB3nM1rRYliDXOmfoO4vj39xN6BLpFzF00hbwBoqHk8UcJ2M/3nlARZWy/mslvGEuZFvsg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    "@eslint/eslintrc" "^0.2.0"
+    "@eslint/eslintrc" "^0.2.1"
     ajv "^6.10.0"
     chalk "^4.0.0"
     cross-spawn "^7.0.2"
