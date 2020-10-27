@@ -19,7 +19,7 @@
         "@angular-devkit/build-angular": "0.1002.0",
         "@angular-devkit/build-ng-packagr": "0.1002.0",
         "@angular-devkit/schematics-cli": "0.1002.0",
-        "@angular-ru/common": "14.89.1",
+        "@angular-ru/common": "14.89.2",
         "@angular-ru/eslint-config": "14.89.0",
         "@angular-ru/jest-utils": "14.87.0",
         "@angular-ru/prettier-config": "14.40.0",
