@@ -59,6 +59,13 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
         return this.state$.pipe(map((value: EntityCollections<V, K, C>): EntityDictionary<K, V> => value.entities));
     }
 
+    @Computed()
+    public get entitiesArray$(): Observable<V[]> {
+        return this.state$.pipe(
+            map((value: EntityCollections<V, K, C>): V[] => value.ids.map(id => value.entities[id]))
+        );
+    }
+
     protected get ctx(): EntityContext<V, K, C> {
         return ensureDataStateContext<EntityCollections<V, K, C>, StateContext<EntityCollections<V, K, C>>>(
             this.context as StateContext<EntityCollections<V, K, C>>
