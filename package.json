@@ -47,7 +47,7 @@
     "hammerjs": "2.0.8",
     "ng-packagr": "11.2.4",
     "npx": "10.2.2",
-    "rxjs": "6.6.3",
+    "rxjs": "6.6.6",
     "sort-package-json": "1.46.1",
     "ts-node": "9.0.0",
     "tsickle": "0.39.1",
