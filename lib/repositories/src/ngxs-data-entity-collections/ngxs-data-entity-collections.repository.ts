@@ -50,6 +50,12 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
     }
 
     @Computed()
+    public get entitiesArray(): V[] {
+        const snapshot = this.snapshot;
+        return snapshot.ids.map(id => snapshot.entities[id]);
+    }
+
+    @Computed()
     public get ids$(): Observable<K[]> {
         return this.state$.pipe(map((value: EntityCollections<V, K, C>): K[] => value.ids));
     }
