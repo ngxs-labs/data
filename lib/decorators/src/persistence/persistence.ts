@@ -1,13 +1,12 @@
-import { Any } from '@angular-ru/common/typings';
-import { ensureStateMetadata, getRepository } from '@ngxs-labs/data/internals';
-import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
+import { ensureStateMetadata, getRepository, STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { DataStateClass, NgxsRepositoryMeta, ProviderOptions } from '@ngxs-labs/data/typings';
+import { DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { Any } from "@angular-ru/common/typings";
+import { ensureProviders, registerStorageProviders } from "@ngxs-labs/data/storage";
 
 export function Persistence(options?: ProviderOptions): Any {
-    // eslint-disable-next-line @typescript-eslint/ban-types,@typescript-eslint/tslint/config
-    return function <T extends DataStateClass>(stateClass: T) {
+    return (stateClass: DataStateClass): void => {
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
         const isUndecoratedClass: boolean = !stateMeta.name || !repositoryMeta;
@@ -16,12 +15,14 @@ export function Persistence(options?: ProviderOptions): Any {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_STATE);
         }
 
-        return class extends stateClass {
-            constructor(...args: Any[]) {
-                super(...args);
 
-                registerStorageProviders(ensureProviders(repositoryMeta, this as Any, options));
+        STORAGE_INIT_EVENT.events$.subscribe(() => {
+            if (!STORAGE_INIT_EVENT.firstInitialized) {
+                STORAGE_INIT_EVENT.firstInitialized = true;
             }
-        };
+
+            const providers: PersistenceProvider[] = ensureProviders(repositoryMeta, stateClass, options);
+            registerStorageProviders(providers);
+        });
     };
 }

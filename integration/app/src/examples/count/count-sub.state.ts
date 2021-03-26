@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { DataAction, Debounce, Named, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { PersistenceProvider } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
 
 import { CountModel } from './count.model';
 
-const options: PersistenceProvider[] = [{ path: 'count.countSub.val', existingEngine: sessionStorage }];
-
-@Persistence(options)
+@Persistence({
+    path: 'count.countSub.val',
+    existingEngine: sessionStorage
+})
 @StateRepository()
 @State<CountModel>({
     name: 'countSub',

@@ -26,3 +26,4 @@ export { ensureSnapshot } from './utils/repository/ensure-snapshot';
 export { globalSequenceId } from './utils/computed/global-sequence-id';
 export { itObservable } from './utils/computed/it-observable';
 export { getStateMetadata } from './utils/state-context/get-state-metadata';
+export { STORAGE_INIT_EVENT } from './storage/init-storage';

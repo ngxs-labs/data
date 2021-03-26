@@ -94,6 +94,11 @@ interface CommonPersistenceProvider {
     stateInstance?: StateClass;
 
     /**
+     * default: reference to state class
+     */
+    stateClassRef?: Type<StateClass>;
+
+    /**
      * function that accepts a state and expects the new state in return.
      * defaults: undefined
      */
@@ -208,7 +213,7 @@ export interface CreateStorageDefaultOptions {
     prefix: string;
     meta: NgxsRepositoryMeta;
     decodeType: StorageDecodeType;
-    stateInstance: StateClass;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullFromStorageOptions<T> {
@@ -250,7 +255,7 @@ export interface MergeOptions {
     option: PersistenceProvider;
     prefix: string;
     decodeType: StorageDecodeType;
-    stateInstance: StateClass;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullStorageMeta {

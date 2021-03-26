@@ -8,6 +8,7 @@ import { NGXS_DATA_STORAGE_PREFIX } from './tokens/storage-prefix';
 export { NgxsDataStoragePlugin } from './ngxs-data-storage-plugin.service';
 export { NgxsDataStorageContainer } from './ngxs-data-storage-container';
 export { registerStorageProviders } from './utils/register-storage-providers';
+export { ensurePath } from './utils/ensure-path';
 export { ensureProviders } from './utils/ensure-providers';
 export { isStorageEvent } from './utils/is-storage-event';
 export { storageUseFactory } from './tokens/storage-use-factory';
