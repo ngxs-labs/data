@@ -1,8 +1,8 @@
-import { createEntityCollections } from '@angular-ru/common/entity';
 import { Injectable } from '@angular/core';
+import { createEntityCollections } from '@angular-ru/common/entity';
+import { State } from '@ngxs/store';
 import { Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
-import { State } from '@ngxs/store';
 
 import { Article } from './article.interface';
 

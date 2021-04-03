@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 
-import { CountSubState } from './count-sub.state';
 import { CountComponent } from './count.component';
 import { CountState } from './count.state';
+import { CountSubState } from './count-sub.state';
 
 @NgModule({
     declarations: [CountComponent],

@@ -1,5 +1,5 @@
-import { Any, Descriptor } from '@angular-ru/common/typings';
 import { isDevMode } from '@angular/core';
+import { Any, Descriptor } from '@angular-ru/common/typings';
 import { checkExistNgZone, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 

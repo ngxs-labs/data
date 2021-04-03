@@ -1,7 +1,7 @@
 /* istanbul ignore next */
 import { Any } from '@angular-ru/common/typings';
-import { NGXS_DATA_META, NGXS_META_KEY } from '@ngxs-labs/data/tokens';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { NGXS_DATA_META, NGXS_META_KEY } from '@ngxs-labs/data/tokens';
 
 import { NgxsRepositoryMeta } from './repository';
 

@@ -1,5 +1,5 @@
-import { Any, PlainObject } from '@angular-ru/common/typings';
 import { Type } from '@angular/core';
+import { Any, PlainObject } from '@angular-ru/common/typings';
 import { ActionType, Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ interface CommonPersistenceProvider {
      * Path for slice
      * default: state.name
      */
-    path?: string;
+    path?: string | null;
 
     /**
      * Version for next migrate
@@ -186,6 +186,7 @@ export interface NgxsDataMigrateStorage<T = unknown, R = unknown> {
 }
 
 export interface NgxsDataAfterStorageEvent<T = Any> {
+    browserStorageEvents$: Subject<NgxsDataStorageEvent<T>>;
     ngxsDataAfterStorageEvent?(event: NgxsDataStorageEvent<T>): void;
 }
 

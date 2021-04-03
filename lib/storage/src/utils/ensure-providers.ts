@@ -1,5 +1,6 @@
-import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
+import { Type } from '@angular/core';
 import { StateClass } from '@ngxs/store/internals';
+import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
 
 import { NgxsDataStoragePlugin } from '../ngxs-data-storage-plugin.service';
 import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../tokens/storage-decode-type-token';
@@ -7,7 +8,6 @@ import { DEFAULT_KEY_PREFIX } from '../tokens/storage-prefix';
 import { NGXS_DATA_STORAGE_PREFIX_TOKEN } from '../tokens/storage-prefix-token';
 import { createDefault } from './create-default';
 import { mergeOptions } from './merge-options';
-import { Type } from "@angular/core";
 
 // eslint-disable-next-line max-lines-per-function
 export function ensureProviders(

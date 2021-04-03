@@ -1,5 +1,5 @@
-import { Any } from '@angular-ru/common/typings';
 import { Injector } from '@angular/core';
+import { Any } from '@angular-ru/common/typings';
 import {
     DataStorage,
     ExistingEngineProvider,

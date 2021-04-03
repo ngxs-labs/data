@@ -1,61 +1,61 @@
 export {
-    RepositoryActionOptions,
     ActionEvent,
     ActionName,
+    ArgName,
+    ArgNameMap,
     PayloadMap,
     PayloadName,
-    ArgName,
-    ArgNameMap
+    RepositoryActionOptions
 } from './common/actions-properties';
+export { ComputedCacheMap } from './common/computed-cache-map';
+export { ComputedOptions } from './common/computed-options';
+export { DataStateClass, StateArgumentDecorator, StateClassDecorator } from './common/data-state-class';
+export { DispatchedResult } from './common/dispatched-result';
+export { NgxsDataExtension } from './common/extension';
+export { MappedState } from './common/mapped-state';
+export { NgxsDataAfterReset, NgxsDataDoCheck } from './common/ngxs-data-lifecycle';
 export {
-    NgxsRepositoryMeta,
-    ImmutableStateValue,
-    NgxsDataOperation,
-    ImmutableStateContext,
+    DataRepository,
+    DataStateContext,
     ImmutableDataRepository,
     ImmutablePatchValue,
-    StateValue,
+    ImmutableStateContext,
+    ImmutableStateValue,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
     PatchValue,
-    DataRepository,
-    DataStateContext
+    StateValue
 } from './common/repository';
+export { EntityContext } from './entity/entity-context';
+export { EntityRepository } from './entity/entity-repository';
 export {
-    StorageMeta,
+    CheckExpiredInitOptions,
+    CreateStorageDefaultOptions,
     DataStorage,
-    StorageContainer,
-    PersistenceProvider,
-    ExistingStorageEngine,
-    ExistingEngineProvider,
-    UseClassEngineProvider,
     DataStoragePlugin,
+    ExistingEngineProvider,
+    ExistingStorageEngine,
     GlobalStorageOptionsHandler,
-    NgxsDataExpiredEvent,
-    NgxsDataStorageEvent,
+    MergeOptions,
+    MigrateFn,
     NgxsDataAfterExpired,
     NgxsDataAfterStorageEvent,
-    TtlListenerOptions,
-    TtLCreatorOptions,
-    TtlExpiredStrategy as TTL_EXPIRED_STRATEGY,
-    StorageDecodeType as STORAGE_DECODE_TYPE,
-    CreateStorageDefaultOptions,
+    NgxsDataExpiredEvent,
+    NgxsDataMigrateStorage,
+    NgxsDataStorageEvent,
+    PersistenceProvider,
+    ProviderOptions,
     PullFromStorageInfo,
     PullFromStorageOptions,
-    RehydrateInfo,
-    CheckExpiredInitOptions,
-    MergeOptions,
-    ProviderOptions,
-    NgxsDataMigrateStorage,
-    RehydrateInfoOptions,
-    MigrateFn,
     PullStorageMeta,
-    StorageData
+    RehydrateInfo,
+    RehydrateInfoOptions,
+    StorageDecodeType as STORAGE_DECODE_TYPE,
+    StorageContainer,
+    StorageData,
+    StorageMeta,
+    TtlExpiredStrategy as TTL_EXPIRED_STRATEGY,
+    TtLCreatorOptions,
+    TtlListenerOptions,
+    UseClassEngineProvider
 } from './storage/storage';
-export { MappedState } from './common/mapped-state';
-export { NgxsDataExtension } from './common/extension';
-export { DispatchedResult } from './common/dispatched-result';
-export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './common/data-state-class';
-export { ComputedOptions } from './common/computed-options';
-export { ComputedCacheMap } from './common/computed-cache-map';
-export { NgxsDataAfterReset, NgxsDataDoCheck } from './common/ngxs-data-lifecycle';
-export { EntityRepository } from './entity/entity-repository';
-export { EntityContext } from './entity/entity-context';

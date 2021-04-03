@@ -1,9 +1,8 @@
-import { createEntityCollections } from '@angular-ru/common/entity';
+import { createEntityCollections, EntityIdType } from '@angular-ru/common/entity';
 import { Injectable } from '@angular/core';
 import { Computed, DataAction, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataEntityCollectionsRepository, NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
-import { EntityIdType } from '@ngxs-labs/data/typings';
 import { State } from '@ngxs/store';
 
 describe('[TEST]: Entity', () => {
@@ -735,6 +734,5 @@ describe('[TEST]: Entity', () => {
                 ]);
             })
         );
-
     });
 });

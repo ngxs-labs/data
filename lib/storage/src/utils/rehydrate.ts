@@ -1,9 +1,11 @@
 import { Any } from '@angular-ru/common/typings';
-import { MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
 import { getValue, setValue } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
-import { ensurePath } from "./ensure-path";
+import { MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
 
+import { ensurePath } from './ensure-path';
+
+// eslint-disable-next-line max-lines-per-function
 export function rehydrate<T>(params: RehydrateInfoOptions<T>): RehydrateInfo {
     let states: PlainObject = params.states;
     const { provider, data, info }: RehydrateInfoOptions<T> = params;

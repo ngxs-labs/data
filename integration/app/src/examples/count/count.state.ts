@@ -1,13 +1,13 @@
-import { Immutable } from '@angular-ru/common/typings';
 import { Injectable } from '@angular/core';
+import { Immutable } from '@angular-ru/common/typings';
+import { State, StateToken } from '@ngxs/store';
 import { Computed, DataAction, Debounce, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { State, StateToken } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CountSubState } from './count-sub.state';
 import { CountModel, ParentCountModel } from './count.model';
+import { CountSubState } from './count-sub.state';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 

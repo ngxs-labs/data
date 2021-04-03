@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { NgxsDataAfterReset, NgxsDataDoCheck } from '@ngxs-labs/data/typings';
 import { ActionType, NgxsAfterBootstrap, NgxsOnChanges, NgxsOnInit, NgxsSimpleChange } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { NgxsDataAfterReset, NgxsDataDoCheck, NgxsDataStorageEvent } from '@ngxs-labs/data/typings';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export abstract class AbstractRepository<T> implements NgxsOnChanges, NgxsOnInit, NgxsAfterBootstrap {
+    public browserStorageEvents$: Subject<NgxsDataStorageEvent<T>> = new Subject();
     public readonly name!: string;
     public readonly initialState!: T;
     public readonly state$!: Observable<T>;

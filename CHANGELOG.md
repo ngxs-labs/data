@@ -1,7 +1,7 @@
 # 4.2.0 2021-03-26
 
-- Fix: support Angular 11.2+
-- Feat: add `entitiesArray`, `entitiesArray$` to `AbstractNgxsDataEntityCollectionsRepository`
+-   Fix: support Angular 11.2+
+-   Feat: add `entitiesArray`, `entitiesArray$` to `AbstractNgxsDataEntityCollectionsRepository`
 
 # 4.1.1 2020-09-09
 

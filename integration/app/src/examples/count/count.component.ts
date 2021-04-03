@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { CountSubState } from './count-sub.state';
 import { CountState } from './count.state';
+import { CountSubState } from './count-sub.state';
 
 @Component({
     selector: 'count',

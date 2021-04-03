@@ -1,9 +1,9 @@
+import { Any } from '@angular-ru/common/typings';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { ensureStateMetadata, getRepository, STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
+import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
-import { MetaDataModel } from '@ngxs/store/src/internal/internals';
-import { Any } from "@angular-ru/common/typings";
-import { ensureProviders, registerStorageProviders } from "@ngxs-labs/data/storage";
 
 export function Persistence(options?: ProviderOptions): Any {
     return (stateClass: DataStateClass): void => {
@@ -15,8 +15,7 @@ export function Persistence(options?: ProviderOptions): Any {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_STATE);
         }
 
-
-        STORAGE_INIT_EVENT.events$.subscribe(() => {
+        STORAGE_INIT_EVENT.events$.subscribe((): void => {
             if (!STORAGE_INIT_EVENT.firstInitialized) {
                 STORAGE_INIT_EVENT.firstInitialized = true;
             }

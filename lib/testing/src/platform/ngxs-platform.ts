@@ -1,9 +1,10 @@
-import { Any } from '@angular-ru/common/typings';
+/* eslint-disable no-redeclare */
 import { SchemaMetadata, Type } from '@angular/core';
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { getStateMetadata } from '@ngxs-labs/data/internals';
+import { Any } from '@angular-ru/common/typings';
 import { Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
+import { getStateMetadata } from '@ngxs-labs/data/internals';
 
 import { TestSpec } from './internal/types';
 import { NgxsDataTestingModule } from './ngxs-data-testing.module';

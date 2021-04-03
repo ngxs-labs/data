@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { State } from '@ngxs/store';
 import { DataAction, Debounce, Named, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { State } from '@ngxs/store';
 
 import { CountModel } from './count.model';
 

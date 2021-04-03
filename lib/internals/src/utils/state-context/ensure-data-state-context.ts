@@ -1,8 +1,8 @@
+import { isDevMode } from '@angular/core';
 import { deepFreeze } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
-import { isDevMode } from '@angular/core';
-import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { StateContext } from '@ngxs/store';
+import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 
 export function ensureDataStateContext<U, T extends StateContext<U>>(context: T | null): T {
     if (!context) {

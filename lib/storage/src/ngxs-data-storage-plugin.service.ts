@@ -1,7 +1,11 @@
+import { isPlatformServer } from '@angular/common';
+import { Inject, inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
+import { isGetter } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
 import { isNotNil } from '@angular-ru/common/utils';
-import { isPlatformServer } from '@angular/common';
-import { inject, Inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
+import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
+import { PlainObject } from '@ngxs/store/internals';
+import { STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     CheckExpiredInitOptions,
@@ -9,6 +13,7 @@ import {
     ExistingStorageEngine,
     GlobalStorageOptionsHandler,
     NgxsDataAfterStorageEvent,
+    NgxsDataStorageEvent,
     PersistenceProvider,
     PullFromStorageInfo,
     PullStorageMeta,
@@ -18,8 +23,6 @@ import {
     StorageMeta,
     TtlListenerOptions
 } from '@ngxs-labs/data/typings';
-import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
-import { PlainObject } from '@ngxs/store/internals';
 import { fromEvent, ReplaySubject, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -28,6 +31,7 @@ import { canBePullFromStorage } from './utils/can-be-pull-from-storage';
 import { createTtlInterval } from './utils/create-ttl-interval';
 import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
 import { ensureKey } from './utils/ensure-key';
+import { ensurePath } from './utils/ensure-path';
 import { ensureSerializeData } from './utils/ensure-serialize-data';
 import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
@@ -38,8 +42,6 @@ import { parseStorageMeta } from './utils/parse-storage-meta';
 import { rehydrate } from './utils/rehydrate';
 import { silentDeserializeWarning } from './utils/silent-deserialize-warning';
 import { silentSerializeWarning } from './utils/silent-serialize-warning';
-import { STORAGE_INIT_EVENT } from "@ngxs-labs/data/internals";
-import { ensurePath } from "./utils/ensure-path";
 
 @Injectable()
 export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
@@ -106,8 +108,12 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
         if (info.rehydrateIn && isStorageEvent(action)) {
             const instance: NgxsDataAfterStorageEvent = (provider.stateInstance as Any) as NgxsDataAfterStorageEvent;
+            const event: NgxsDataStorageEvent = { key, value, data, provider };
+
+            instance?.browserStorageEvents$.next(event);
+
             if (instance?.ngxsDataAfterStorageEvent) {
-                instance?.ngxsDataAfterStorageEvent?.({ key, value, data, provider });
+                instance?.ngxsDataAfterStorageEvent?.(event);
             }
         }
     }
@@ -115,10 +121,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     private static mutateProviderWithInjectStateInstance(provider: PersistenceProvider): void {
         if (!provider.stateInstance) {
             try {
-                provider.stateInstance = NgxsDataStoragePlugin.injector?.get(provider.stateClassRef, null) ?? inject(provider.stateClassRef!);
-            } catch (e) {
-                console.error(e);
-            }
+                provider.stateInstance =
+                    NgxsDataStoragePlugin.injector?.get(provider.stateClassRef, null) ??
+                    inject(provider.stateClassRef!);
+            } catch {}
         }
     }
 
@@ -132,7 +138,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     }
 
     private static canBeSyncStoreWithStorage(action: ActionType, init: boolean): boolean {
-        return (init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE);
+        return init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE;
     }
 
     public handle(states: PlainObject, action: ActionType, next: NgxsNextPluginFn): NgxsNextPluginFn {
@@ -141,11 +147,12 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         }
 
         const init: boolean = isInitAction(action);
-        states = this.pullStateFromStorage(states, { action, init });
 
         for (const [provider] of this.entries) {
             NgxsDataStoragePlugin.mutateProviderWithInjectStateInstance(provider);
         }
+
+        states = this.pullStateFromStorage(states, { action, init });
 
         return next(states, action).pipe(
             tap((nextState: PlainObject): void => this.pushStateToStorage(states, nextState, { action, init }))
@@ -179,8 +186,8 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
 
     public destroyOldTasks(): void {
         if (STORAGE_INIT_EVENT.firstInitialized) {
-             STORAGE_INIT_EVENT.events$.complete();
-             STORAGE_INIT_EVENT.events$ = new ReplaySubject<void>(1);
+            STORAGE_INIT_EVENT.events$.complete();
+            STORAGE_INIT_EVENT.events$ = new ReplaySubject<void>(1);
         }
 
         NgxsDataStoragePlugin.eventsSubscriptions?.unsubscribe();
@@ -220,6 +227,11 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
 
     private deserializeByProvider(states: PlainObject, action: ActionType, provider: PersistenceProvider): PlainObject {
         const key: string = ensureKey(provider);
+
+        if (!isGetter(provider, 'path')) {
+            provider.path = ensurePath(provider);
+        }
+
         const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
         const existValueByKeyInStorage: boolean = isNotNil(value);

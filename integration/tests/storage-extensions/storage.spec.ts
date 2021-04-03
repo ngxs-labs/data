@@ -174,7 +174,6 @@ describe('[TEST]: Storage plugin', () => {
                     }
                 ]);
 
-
                 expect(a.getState()).toEqual(0);
                 expect(store.snapshot()).toEqual({ a: 0 });
                 expect(JSON.parse(localStorage.getItem('@ngxs.store.a')!)).toEqual({
@@ -239,7 +238,6 @@ describe('[TEST]: Storage plugin', () => {
                 const b: B = TestBed.inject<B>(B);
 
                 const container: StorageContainer = TestBed.inject(NGXS_DATA_STORAGE_CONTAINER_TOKEN);
-                console.log(container)
                 expect(container.getProvidedKeys()).toEqual(['@ngxs.store.b']);
 
                 expect(Array.from(container.providers)).toEqual([
@@ -311,9 +309,9 @@ describe('[TEST]: Storage plugin', () => {
                     }
                 ]);
             });
-        })
+        });
 
-        xit('C stateClass', () => {
+        it('C stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem('@ngxs.store.c', 'invalid');
@@ -348,7 +346,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(stateC.getState()).toEqual('DEFAULT_VALUE');
         });
 
-        xit('C1 stateClass', () => {
+        it('C1 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem('@ngxs.store.c1', JSON.stringify(1));
@@ -383,7 +381,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(stateC1.getState()).toEqual('DEFAULT_VALUE');
         });
 
-        xit('C2 stateClass', () => {
+        it('C2 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem('@ngxs.store.c2', JSON.stringify({ hello: 'world' }));
@@ -412,7 +410,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(stateC2.getState()).toEqual('DEFAULT_VALUE');
         });
 
-        xit('C3 stateClass', () => {
+        it('C3 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem('@ngxs.store.c3', JSON.stringify({ lastChanged: '2020-01-01T12:00:00.000Z' }));
@@ -441,7 +439,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(stateC3.getState()).toEqual('DEFAULT_VALUE');
         });
 
-        xit('C4 stateClass', () => {
+        it('C4 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem(
@@ -473,7 +471,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(stateC4.getState()).toEqual('DEFAULT_VALUE');
         });
 
-        xit('C5 stateClass', () => {
+        it('C5 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem(
@@ -578,63 +576,58 @@ describe('[TEST]: Storage plugin', () => {
             expect(Array.from(plugin.keys.keys()).sort()).toEqual(['@ngxs.store.c7', '@ngxs.store.c8', 'customer.c9']);
             expect(Object.keys(localStorage).sort()).toEqual(['@ngxs.store.c7', '@ngxs.store.c8', 'customer.c9']);
 
-            console.log(Array.from(plugin.providers)[0]?.path!)
-
-
-            Array.from(plugin.providers).forEach((e) => {
-                console.log(e.path)
-            })
-
-            /*expect(Array.from(plugin.providers)).toEqual([
-                {
-                    path: 'c9',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: 'customer.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: false,
-                    skipMigrate: false,
-                    stateClassRef: expect.any(Function),
-                    stateInstance: expect.any(C9),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                },
-                {
-                    path: 'c8',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: '@ngxs.store.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: false,
-                    skipMigrate: false,
-                    stateClassRef: expect.any(Function),
-                    stateInstance: expect.any(C8),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                },
-                {
-                    path: 'c7',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: '@ngxs.store.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: true,
-                    skipMigrate: false,
-                    stateClassRef: expect.any(Function),
-                    stateInstance: expect.any(C7),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                }
-            ]);*/
+            expect(Array.from(plugin.providers)).toEqual(
+                expect.arrayContaining([
+                    {
+                        path: 'c9',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: 'customer.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: false,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C9),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
+                    },
+                    {
+                        path: 'c8',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: false,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C8),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
+                    },
+                    {
+                        path: 'c7',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: true,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C7),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
+                    }
+                ])
+            );
         });
 
         it('C10, C11, C12 stateClass', () => {
@@ -690,6 +683,7 @@ describe('[TEST]: Storage plugin', () => {
                 '@ngxs.store.c11',
                 '@ngxs.store.c12'
             ]);
+
             expect(Object.keys(localStorage).sort()).toEqual([
                 '@ngxs.store.c10',
                 '@ngxs.store.c11',
@@ -697,69 +691,74 @@ describe('[TEST]: Storage plugin', () => {
                 'customer.c12' // see above
             ]);
 
-            expect(Array.from(plugin.providers)).toEqual([
-                {
-                    path: 'c12',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: '@ngxs.store.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: false,
-                    skipMigrate: false,
-                    stateClassRef: expect.any(Function),
-                    stateInstance: expect.any(C12),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                },
-                {
-                    path: 'c11',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: '@ngxs.store.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: false,
-                    skipMigrate: false,
-                    stateInstance: expect.any(C11),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                },
-                {
-                    path: 'c10',
-                    existingEngine: expect.any(Storage),
-                    ttl: -1,
-                    version: 1,
-                    decode: 'none',
-                    prefixKey: '@ngxs.store.',
-                    fireInit: true,
-                    rehydrate: true,
-                    nullable: false,
-                    skipMigrate: false,
-                    stateClassRef: expect.any(Function),
-                    stateInstance: expect.any(C10),
-                    ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-                    ttlDelay: STORAGE_TTL_DELAY
-                }
-            ]);
-
-            expect(ensureStorage(localStorage)).toEqual([
-                ['@ngxs.store.c10', { lastChanged: expect.any(String), version: 1, data: '10' }],
-                ['@ngxs.store.c11', { lastChanged: expect.any(String), version: 1, data: '11' }],
-                ['customer.c12', { lastChanged: expect.any(String), version: 1, data: '12' }],
-                [
-                    '@ngxs.store.c12',
+            expect(Array.from(plugin.providers)).toEqual(
+                expect.arrayContaining([
                     {
-                        lastChanged: expect.any(String),
+                        path: 'c12',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
                         version: 1,
-                        data: 'DEFAULT_VALUE'
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: false,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C12),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
+                    },
+                    {
+                        path: 'c11',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: false,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C11),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
+                    },
+                    {
+                        path: 'c10',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        fireInit: true,
+                        rehydrate: true,
+                        nullable: false,
+                        skipMigrate: false,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(C10),
+                        ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
+                        ttlDelay: STORAGE_TTL_DELAY
                     }
-                ]
-            ]);
+                ])
+            );
+
+            expect(ensureStorage(localStorage)).toEqual(
+                expect.arrayContaining([
+                    ['@ngxs.store.c10', { lastChanged: expect.any(String), version: 1, data: '10' }],
+                    ['@ngxs.store.c11', { lastChanged: expect.any(String), version: 1, data: '11' }],
+                    ['customer.c12', { lastChanged: expect.any(String), version: 1, data: '12' }],
+                    [
+                        '@ngxs.store.c12',
+                        {
+                            lastChanged: expect.any(String),
+                            version: 1,
+                            data: 'DEFAULT_VALUE'
+                        }
+                    ]
+                ])
+            );
         });
 
         it('C13 stateClass', () => {
@@ -983,7 +982,7 @@ describe('[TEST]: Storage plugin', () => {
             expect(events).toEqual([]);
         });
 
-        xit('C17 stateClass', () => {
+        it('C17 stateClass', () => {
             spy = jest.spyOn(console, 'warn').mockImplementation();
 
             localStorage.setItem(
@@ -2094,6 +2093,9 @@ describe('[TEST]: Storage plugin', () => {
             });
 
             const state: CountState = TestBed.inject<CountState>(CountState);
+            const nativeEvents: NgxsDataStorageEvent[] = [];
+
+            state.browserStorageEvents$.subscribe((e) => nativeEvents.push(e));
 
             expect(state.getState()).toEqual(5);
 
@@ -2111,6 +2113,30 @@ describe('[TEST]: Storage plugin', () => {
             expect(state.getState()).toEqual(15);
 
             expect(state.events).toEqual([
+                {
+                    key: '@ngxs.store.count',
+                    value: expect.any(String),
+                    data: 15,
+                    provider: {
+                        path: 'count',
+                        existingEngine: expect.any(Storage),
+                        ttl: -1,
+                        version: 1,
+                        decode: 'none',
+                        prefixKey: '@ngxs.store.',
+                        nullable: false,
+                        fireInit: true,
+                        rehydrate: true,
+                        ttlDelay: 60000,
+                        ttlExpiredStrategy: 0,
+                        stateClassRef: expect.any(Function),
+                        stateInstance: expect.any(CountState),
+                        skipMigrate: false
+                    }
+                }
+            ]);
+
+            expect(nativeEvents).toEqual([
                 {
                     key: '@ngxs.store.count',
                     value: expect.any(String),

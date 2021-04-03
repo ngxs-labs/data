@@ -1,5 +1,6 @@
 import { $args } from '@angular-ru/common/function';
 import { Any, Descriptor, PlainObjectOf } from '@angular-ru/common/typings';
+import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     actionNameCreator,
     combineStream,
@@ -18,13 +19,12 @@ import {
     NgxsRepositoryMeta,
     RepositoryActionOptions
 } from '@ngxs-labs/data/typings';
-import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { isObservable, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { REPOSITORY_ACTION_OPTIONS } from './data-action.config';
 
-// eslint-disable-next-line max-lines-per-function,@typescript-eslint/tslint/config
+// eslint-disable-next-line max-lines-per-function
 export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_OPTIONS): MethodDecorator {
     // eslint-disable-next-line max-lines-per-function
     return (target: Any, name: string | symbol, descriptor: Descriptor): Descriptor => {
