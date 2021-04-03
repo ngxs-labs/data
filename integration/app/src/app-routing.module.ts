@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
                     loadChildren: () => import('./examples/article/article.module').then((m) => m.ArticleModule)
                 }
             ],
-            { useHash: true }
+            { useHash: true, relativeLinkResolution: 'legacy' }
         )
     ],
     exports: [RouterModule]
