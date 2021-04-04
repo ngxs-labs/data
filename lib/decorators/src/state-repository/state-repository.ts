@@ -1,5 +1,6 @@
 import { deepClone } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     buildDefaultsGraph,
     createContext,
@@ -9,7 +10,6 @@ import {
 } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
-import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 export function StateRepository(): StateClassDecorator {
     return (stateClass: DataStateClass): void => {

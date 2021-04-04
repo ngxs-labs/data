@@ -1,5 +1,6 @@
-import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
+import { Type } from '@angular/core';
 import { StateClass } from '@ngxs/store/internals';
+import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
 
 import { NgxsDataStoragePlugin } from '../ngxs-data-storage-plugin.service';
 import { NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN } from '../tokens/storage-decode-type-token';
@@ -11,7 +12,7 @@ import { mergeOptions } from './merge-options';
 // eslint-disable-next-line max-lines-per-function
 export function ensureProviders(
     meta: NgxsRepositoryMeta,
-    stateInstance: StateClass,
+    stateClassRef: Type<StateClass>,
     options?: ProviderOptions
 ): PersistenceProvider[] {
     let providers: PersistenceProvider[];
@@ -26,10 +27,10 @@ export function ensureProviders(
         const prepared: PersistenceProvider[] = Array.isArray(options) ? options : [options];
         providers = prepared.map(
             (option: PersistenceProvider): PersistenceProvider =>
-                mergeOptions({ option, prefix, decodeType, meta, stateInstance })
+                mergeOptions({ option, prefix, decodeType, meta, stateClassRef })
         );
     } else {
-        providers = createDefault({ meta, prefix, decodeType, stateInstance });
+        providers = createDefault({ meta, prefix, decodeType, stateClassRef });
     }
 
     return providers;

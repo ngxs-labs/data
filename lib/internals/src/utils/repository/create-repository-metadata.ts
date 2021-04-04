@@ -1,5 +1,5 @@
-import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 
 import { ensureRepository } from './ensure-repository';
 

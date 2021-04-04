@@ -56,4 +56,4 @@ jobs:
                 env:
                     GH_TOKEN: ${{ secrets.GH_DEPLOY }}
                 if: contains('refs/heads/master', github.ref)
-                run: yarn ng deploy
+                run: echo "skip deploy" # yarn ng deploy

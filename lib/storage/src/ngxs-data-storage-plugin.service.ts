@@ -1,7 +1,11 @@
+import { isPlatformServer } from '@angular/common';
+import { Inject, inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
+import { isGetter } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
 import { isNotNil } from '@angular-ru/common/utils';
-import { isPlatformServer } from '@angular/common';
-import { Inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
+import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
+import { PlainObject } from '@ngxs/store/internals';
+import { STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_STORAGE_EVENT_TYPE } from '@ngxs-labs/data/tokens';
 import {
     CheckExpiredInitOptions,
@@ -9,6 +13,7 @@ import {
     ExistingStorageEngine,
     GlobalStorageOptionsHandler,
     NgxsDataAfterStorageEvent,
+    NgxsDataStorageEvent,
     PersistenceProvider,
     PullFromStorageInfo,
     PullStorageMeta,
@@ -18,9 +23,7 @@ import {
     StorageMeta,
     TtlListenerOptions
 } from '@ngxs-labs/data/typings';
-import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
-import { PlainObject } from '@ngxs/store/internals';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, ReplaySubject, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { NGXS_DATA_STORAGE_CONTAINER_TOKEN } from './tokens/storage-container-token';
@@ -28,6 +31,7 @@ import { canBePullFromStorage } from './utils/can-be-pull-from-storage';
 import { createTtlInterval } from './utils/create-ttl-interval';
 import { deserializeByStorageMeta } from './utils/deserialize-by-storage-meta';
 import { ensureKey } from './utils/ensure-key';
+import { ensurePath } from './utils/ensure-path';
 import { ensureSerializeData } from './utils/ensure-serialize-data';
 import { existTtl } from './utils/exist-ttl';
 import { exposeEngine } from './utils/expose-engine';
@@ -47,6 +51,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
 
     constructor(@Inject(PLATFORM_ID) private readonly _platformId: string, @Self() injector: Injector) {
         NgxsDataStoragePlugin.injector = injector;
+        STORAGE_INIT_EVENT.events$.next();
         this.listenWindowEvents();
     }
 
@@ -103,9 +108,23 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
         if (info.rehydrateIn && isStorageEvent(action)) {
             const instance: NgxsDataAfterStorageEvent = (provider.stateInstance as Any) as NgxsDataAfterStorageEvent;
+            const event: NgxsDataStorageEvent = { key, value, data, provider };
+
+            instance?.browserStorageEvents$.next(event);
+
             if (instance?.ngxsDataAfterStorageEvent) {
-                instance?.ngxsDataAfterStorageEvent?.({ key, value, data, provider });
+                instance?.ngxsDataAfterStorageEvent?.(event);
             }
+        }
+    }
+
+    private static mutateProviderWithInjectStateInstance(provider: PersistenceProvider): void {
+        if (!provider.stateInstance) {
+            try {
+                provider.stateInstance =
+                    NgxsDataStoragePlugin.injector?.get(provider.stateClassRef, null) ??
+                    inject(provider.stateClassRef!);
+            } catch {}
         }
     }
 
@@ -118,12 +137,21 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         }
     }
 
+    private static canBeSyncStoreWithStorage(action: ActionType, init: boolean): boolean {
+        return init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE;
+    }
+
     public handle(states: PlainObject, action: ActionType, next: NgxsNextPluginFn): NgxsNextPluginFn {
         if (this.skipStorageInterceptions) {
             return next(states, action);
         }
 
         const init: boolean = isInitAction(action);
+
+        for (const [provider] of this.entries) {
+            NgxsDataStoragePlugin.mutateProviderWithInjectStateInstance(provider);
+        }
+
         states = this.pullStateFromStorage(states, { action, init });
 
         return next(states, action).pipe(
@@ -157,14 +185,19 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     }
 
     public destroyOldTasks(): void {
+        if (STORAGE_INIT_EVENT.firstInitialized) {
+            STORAGE_INIT_EVENT.events$.complete();
+            STORAGE_INIT_EVENT.events$ = new ReplaySubject<void>(1);
+        }
+
         NgxsDataStoragePlugin.eventsSubscriptions?.unsubscribe();
         NgxsDataStoragePlugin.ttlListeners = new WeakMap();
     }
 
     private pushStateToStorage(states: PlainObject, nextState: PlainObject, meta: PullStorageMeta): void {
         for (const [provider] of this.entries) {
-            const prevData: Any = getValue(states, provider.path!);
-            const newData: Any = getValue(nextState, provider.path!);
+            const prevData: Any = getValue(states, ensurePath(provider));
+            const newData: Any = getValue(nextState, ensurePath(provider));
             const canBeInitFire: boolean = provider.fireInit! && meta.init;
 
             if (prevData !== newData || canBeInitFire) {
@@ -183,7 +216,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     }
 
     private pullStateFromStorage(states: PlainObject, { action, init }: PullStorageMeta): PlainObject {
-        if (this.canBeSyncStoreWithStorage(action, init)) {
+        if (NgxsDataStoragePlugin.canBeSyncStoreWithStorage(action, init)) {
             for (const [provider] of this.entries) {
                 states = this.deserializeByProvider(states, action, provider);
             }
@@ -192,12 +225,13 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         return states;
     }
 
-    private canBeSyncStoreWithStorage(action: ActionType, init: boolean): boolean {
-        return this.size > 0 && (init || action.type === NGXS_DATA_STORAGE_EVENT_TYPE);
-    }
-
     private deserializeByProvider(states: PlainObject, action: ActionType, provider: PersistenceProvider): PlainObject {
         const key: string = ensureKey(provider);
+
+        if (!isGetter(provider, 'path')) {
+            provider.path = ensurePath(provider);
+        }
+
         const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
         const value: string | null = engine.getItem(key);
         const existValueByKeyInStorage: boolean = isNotNil(value);

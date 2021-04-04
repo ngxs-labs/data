@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { State } from '@ngxs/store';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
-import { State } from '@ngxs/store';
 
 @StateRepository()
 @State({

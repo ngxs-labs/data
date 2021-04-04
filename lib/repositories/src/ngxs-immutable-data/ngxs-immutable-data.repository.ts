@@ -1,5 +1,6 @@
-import { Any, Immutable } from '@angular-ru/common/typings';
 import { Injectable } from '@angular/core';
+import { Any, Immutable } from '@angular-ru/common/typings';
+import { ActionType } from '@ngxs/store';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import {
@@ -8,7 +9,6 @@ import {
     ImmutableStateContext,
     ImmutableStateValue
 } from '@ngxs-labs/data/typings';
-import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { AbstractRepository } from '../common/abstract-repository';

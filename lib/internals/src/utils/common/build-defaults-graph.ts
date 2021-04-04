@@ -1,8 +1,8 @@
 import { deepClone, isSimpleObject } from '@angular-ru/common/object';
 import { Any, PlainObject } from '@angular-ru/common/typings';
+import { StoreOptions } from '@ngxs/store/src/symbols';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass } from '@ngxs-labs/data/typings';
-import { StoreOptions } from '@ngxs/store/src/symbols';
 
 import { InvalidChildrenException } from '../../exceptions/invalid-children.exception';
 import { getStoreOptions } from '../state-context/get-store-options';

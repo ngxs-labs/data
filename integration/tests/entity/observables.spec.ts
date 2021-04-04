@@ -5,7 +5,6 @@ import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositorie
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
 import { Injectable } from '@angular/core';
 
-
 describe('[TEST]: Entity observables', () => {
     describe('entityArray$', () => {
         interface StudentEntity {
@@ -27,78 +26,78 @@ describe('[TEST]: Entity observables', () => {
                 const entityArrayEvents: StudentEntity[][] = [];
 
                 studentEntities.entitiesArray$.subscribe((entities) => {
-                    entityArrayEvents.push(entities)
+                    entityArrayEvents.push(entities);
                 });
 
                 studentEntities.setAll([
                     {
                         id: 1,
-                        name: 'Maxim',
+                        name: 'Maxim'
                     },
                     {
                         id: 2,
-                        name: 'Ivan',
+                        name: 'Ivan'
                     },
                     {
                         id: 3,
-                        name: 'Nikola',
+                        name: 'Nikola'
                     },
                     {
                         id: 4,
-                        name: 'Petr',
+                        name: 'Petr'
                     }
                 ]);
-                
+
                 studentEntities.reset();
 
                 studentEntities.addOne({
                     id: 1,
-                    name: 'Maxim',
+                    name: 'Maxim'
                 });
 
                 studentEntities.removeAll();
 
                 const entity: StudentEntity = {
                     id: 4,
-                    name: 'Mark',
+                    name: 'Mark'
                 };
 
                 studentEntities.upsertOne(entity);
 
                 studentEntities.removeByEntity(entity);
-                
+
                 expect(entityArrayEvents).toEqual([
                     [],
                     [
                         {
                             id: 1,
-                            name: 'Maxim',
+                            name: 'Maxim'
                         },
                         {
                             id: 2,
-                            name: 'Ivan',
+                            name: 'Ivan'
                         },
                         {
                             id: 3,
-                            name: 'Nikola',
+                            name: 'Nikola'
                         },
                         {
                             id: 4,
-                            name: 'Petr',
+                            name: 'Petr'
                         }
                     ],
                     [],
                     [
                         {
                             id: 1,
-                            name: 'Maxim',
+                            name: 'Maxim'
                         }
                     ],
                     [],
                     [
                         {
                             id: 4,
-                            name: 'Mark',
+                            name: 'Mark'
                         }
                     ],
                     []

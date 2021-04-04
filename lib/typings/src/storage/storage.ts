@@ -1,5 +1,5 @@
-import { Any, PlainObject } from '@angular-ru/common/typings';
 import { Type } from '@angular/core';
+import { Any, PlainObject } from '@angular-ru/common/typings';
 import { ActionType, Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ interface CommonPersistenceProvider {
      * Path for slice
      * default: state.name
      */
-    path?: string;
+    path?: string | null;
 
     /**
      * Version for next migrate
@@ -92,6 +92,11 @@ interface CommonPersistenceProvider {
      * default: current state instance
      */
     stateInstance?: StateClass;
+
+    /**
+     * default: reference to state class
+     */
+    stateClassRef?: Type<StateClass>;
 
     /**
      * function that accepts a state and expects the new state in return.
@@ -181,6 +186,7 @@ export interface NgxsDataMigrateStorage<T = unknown, R = unknown> {
 }
 
 export interface NgxsDataAfterStorageEvent<T = Any> {
+    browserStorageEvents$: Subject<NgxsDataStorageEvent<T>>;
     ngxsDataAfterStorageEvent?(event: NgxsDataStorageEvent<T>): void;
 }
 
@@ -208,7 +214,7 @@ export interface CreateStorageDefaultOptions {
     prefix: string;
     meta: NgxsRepositoryMeta;
     decodeType: StorageDecodeType;
-    stateInstance: StateClass;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullFromStorageOptions<T> {
@@ -250,7 +256,7 @@ export interface MergeOptions {
     option: PersistenceProvider;
     prefix: string;
     decodeType: StorageDecodeType;
-    stateInstance: StateClass;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullStorageMeta {

@@ -4,8 +4,8 @@
         "outDir": "../out-tsc/app",
         "types": [],
         "paths": {
-            "@ngxs-labs/data": ["./dist/ngxs-data/"],
-            "@ngxs-labs/data/*": ["./dist/ngxs-data/*"]
+            "@ngxs-labs/data": ["./lib/public_api.ts"],
+            "@ngxs-labs/data/*": ["./lib/*/src/public_api.ts"]
         }
     },
     "files": ["main.ts", "polyfills.ts"],

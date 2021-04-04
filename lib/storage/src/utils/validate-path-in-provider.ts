@@ -4,8 +4,8 @@ export function validatePathInProvider(meta: NgxsRepositoryMeta, provider: Persi
     if (!('path' in provider)) {
         provider = {
             ...provider,
-            get path(): string | undefined {
-                return meta.stateMeta && meta.stateMeta.path!;
+            get path(): string | null | undefined {
+                return meta?.stateMeta?.path;
             }
         };
     }

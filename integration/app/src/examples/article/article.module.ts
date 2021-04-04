@@ -10,8 +10,8 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 
-import { ArticleEntitiesState } from './article-entities.state';
 import { ArticleComponent } from './article.component';
+import { ArticleEntitiesState } from './article-entities.state';
 import { ArticleDialogComponent } from './dialog/article-dialog.component';
 
 @NgModule({

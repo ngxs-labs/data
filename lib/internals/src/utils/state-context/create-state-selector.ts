@@ -1,6 +1,6 @@
+import { isDevMode } from '@angular/core';
 import { deepFreeze } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
-import { isDevMode } from '@angular/core';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { NgxsDataInjector } from '../../services/ngxs-data-injector.service';
 import { getRepository } from '../repository/get-repository';
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function,sonarjs/cognitive-complexity
 export function createStateSelector(stateClass: DataStateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);
     const name: string | undefined | null = (repository.stateMeta && repository.stateMeta.name) || null;
