@@ -45,7 +45,7 @@ describe('TEST', () => {
             @DataAction()
             public increment(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel> | undefined; }
+                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel | undefined>; }
                     (state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 })
                 );
             }

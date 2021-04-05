@@ -47,7 +47,7 @@ describe('TEST', () => {
             @DataAction()
             public increment(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel> | undefined; }
+                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel | undefined>; }
                     (state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 })
                 );
             }
@@ -71,7 +71,7 @@ describe('TEST', () => {
             @DataAction()
             public incrementInvalidDeep(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: Immutable<ParentCountModel>) => { a: number; val: number; countSub?: Immutable<CountModel> | undefined; }
+                    // $ExpectType (state: Immutable<ParentCountModel>) => { a: number; val: number; countSub?: Immutable<CountModel | undefined>; }
                     (state) => ({ ...state, a: 1 })
                 );
             }
@@ -220,7 +220,7 @@ describe('TEST', () => {
         myState.state$; // $ExpectType Observable<Immutable<ParentCountModel>>
 
         myState.state$.subscribe((state) => {
-            const mutable = { ...state }; // $ExpectType { val: number; countSub?: Immutable<CountModel> | undefined; }
+            const mutable = { ...state }; // $ExpectType { val: number; countSub?: Immutable<CountModel | undefined>; }
             mutable.val++; // $ExpectType number
 
             // mutatate
