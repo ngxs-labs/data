@@ -9,6 +9,7 @@ import { NgxsAppMockComponent } from './ngxs-app-mock.component';
     entryComponents: [NgxsAppMockComponent]
 })
 export class NgxsAppMockModule {
+    // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
     public static ngDoBootstrap(app: ApplicationRef): void {
         app.bootstrap(NgxsAppMockComponent);
     }

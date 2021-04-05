@@ -275,17 +275,21 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
         }
     }
 
+    // eslint-disable-next-line max-lines-per-function
     protected updateEntitiesMany(updates: EntityUpdate<V, K>[]): void {
         const state: EntityCollections<V, K, C> = this.getState();
-        updates = updates.filter((update: EntityUpdate<V, K>): boolean => update.id in state.entities);
-        if (updates.length === 0) {
+        const newUpdates: EntityUpdate<V, K>[] = updates.filter(
+            (update: EntityUpdate<V, K>): boolean => update.id in state.entities
+        );
+
+        if (newUpdates.length === 0) {
             return;
         }
 
         const keys: KeysDictionary<K> = this.generateKeyMap(state);
         const entities: EntityDictionary<K, V> = { ...state.entities };
 
-        for (const update of updates) {
+        for (const update of newUpdates) {
             const updated: V = this.updateOrigin(entities, update);
             const newId: K = this.selectIdValue(updated);
 

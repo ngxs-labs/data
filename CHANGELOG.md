@@ -1,3 +1,7 @@
+# 5.0.0 2021-04-05
+
+-   Feat: refactor persistence decorator
+
 # 4.2.0 2021-03-26
 
 -   Fix: support Angular 11.2+

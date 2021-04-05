@@ -152,10 +152,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
             NgxsDataStoragePlugin.mutateProviderWithInjectStateInstance(provider);
         }
 
-        states = this.pullStateFromStorage(states, { action, init });
+        const newStates: PlainObject = this.pullStateFromStorage(states, { action, init });
 
-        return next(states, action).pipe(
-            tap((nextState: PlainObject): void => this.pushStateToStorage(states, nextState, { action, init }))
+        return next(newStates, action).pipe(
+            tap((nextState: PlainObject): void => this.pushStateToStorage(newStates, nextState, { action, init }))
         );
     }
 
@@ -216,16 +216,19 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     }
 
     private pullStateFromStorage(states: PlainObject, { action, init }: PullStorageMeta): PlainObject {
+        let newStates: PlainObject = states;
+
         if (NgxsDataStoragePlugin.canBeSyncStoreWithStorage(action, init)) {
             for (const [provider] of this.entries) {
-                states = this.deserializeByProvider(states, action, provider);
+                newStates = this.deserializeByProvider(newStates, action, provider);
             }
         }
 
-        return states;
+        return newStates;
     }
 
     private deserializeByProvider(states: PlainObject, action: ActionType, provider: PersistenceProvider): PlainObject {
+        let newState: PlainObject = states;
         const key: string = ensureKey(provider);
 
         if (!isGetter(provider, 'path')) {
@@ -237,10 +240,10 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const existValueByKeyInStorage: boolean = isNotNil(value);
 
         if (existValueByKeyInStorage) {
-            states = this.deserializeHandler(states, { key, engine, provider, value, action });
+            newState = this.deserializeHandler(newState, { key, engine, provider, value, action });
         }
 
-        return states;
+        return newState;
     }
 
     private deserializeHandler<T>(states: PlainObject, options: GlobalStorageOptionsHandler): PlainObject | never {
@@ -253,6 +256,8 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
             if (info.canBeOverrideFromStorage) {
                 const rehydrateInfo: RehydrateInfo = rehydrate({ states, provider, data, info });
                 this.keys.set(key);
+                // mutate parent states
+                // eslint-disable-next-line no-param-reassign
                 states = rehydrateInfo.states;
                 NgxsDataStoragePlugin.checkIsStorageEvent<T>(options, rehydrateInfo, data);
                 NgxsDataStoragePlugin.checkExpiredInit({ info, rehydrateInfo, options, map: this.ttlListeners });
