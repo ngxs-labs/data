@@ -192,10 +192,10 @@
   dependencies:
     eslint-scope "^5.1.0"
 
-"@angular-ru/common@15.184.0":
-  version "15.184.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.184.0.tgz#d50e3ea3bf002bfe05df241a7e6887c9efd65c45"
-  integrity sha512-xaStjuIpxxIOIwOkxvBL9vkzK1IES4EKI/3hFbv1rxlDkVY3l4uvqLLlQE9TxAuzP2jGYiURPbk8GS2cqwgDgg==
+"@angular-ru/common@15.186.0":
+  version "15.186.0"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.186.0.tgz#80da7ce83cabe076f8a14593cea51d96335afca5"
+  integrity sha512-F9R0vigmKZ1XFPO4qVeeNK1Hji/zuI6IVkssHfjOkz1McA/1P/mRwhTZq/ruxtls/QANDiUOTGLSgp/JkkXcpw==
   dependencies:
     tslib "^2.0.0"
 
