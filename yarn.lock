@@ -169,26 +169,26 @@
     ora "5.3.0"
     rxjs "6.6.3"
 
-"@angular-eslint/eslint-plugin-template@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-2.0.2.tgz#1d874e08c70f31c77218d8ff92b8ba55ccf0b5b6"
-  integrity sha512-STk9bTVSJwX8ctHFNx7G+HanbMfpeX5B3hmaUQ7qloM+JPihk+b7BmXT8BjOnXOT+yN8r3NHF9agekyAiYGRkg==
+"@angular-eslint/eslint-plugin-template@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-2.1.0.tgz#06b7f34d27d7b1bbb2c59623084e81fbba00ba6d"
+  integrity sha512-m4/kxF6s2FppANuW2i5R2A6fJp7CplMZI6+d9kWXgQ2jhJ5Yf+tcVODTlA2wnV4ebE/Tcz/FU7MTAeFJhHENXQ==
   dependencies:
     "@typescript-eslint/experimental-utils" "4.16.1"
     aria-query "^4.2.2"
     axobject-query "^2.2.0"
 
-"@angular-eslint/eslint-plugin@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@angular-eslint/eslint-plugin/-/eslint-plugin-2.0.2.tgz#58be0c864cb84c7ee024f2be6af04e90ba14c97f"
-  integrity sha512-/hJNXUjPEXwsmXeWneAW7X3Jg+JwsMavQ8eQ4UevcaKx4Ozthh09n6oyegqc82Y48Adcce7KyalGCKmWY19piA==
+"@angular-eslint/eslint-plugin@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@angular-eslint/eslint-plugin/-/eslint-plugin-2.1.0.tgz#4c8a40515ca6333404f3077c9b525443e5f07a6d"
+  integrity sha512-aykFAI0wve7vu4fj7L1CJ0iebe0YhMZz2o8aKOSwhTjXE+QwThqhwbx6WHEqAgZT9PcrazlATSEITCj2nrWfZA==
   dependencies:
     "@typescript-eslint/experimental-utils" "4.16.1"
 
-"@angular-eslint/template-parser@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@angular-eslint/template-parser/-/template-parser-2.0.2.tgz#ca1abafdbfd7a59679ff2b5e0ca1dc00aa617b81"
-  integrity sha512-oMXNAokWWnJF/Jp4fJwm5F/tv+9sShc5yio5cELHFCsn8l1wetTmHMe9xqbwS7aFosJ7BnGj6aSq3WpckWzXTg==
+"@angular-eslint/template-parser@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@angular-eslint/template-parser/-/template-parser-2.1.0.tgz#057faec7cfe50614cf31861ede4ff9882cc04631"
+  integrity sha512-bYYrTKpYMj9j7hCgnl5LDWt+NdqCvjeKSPd1aMmcRwCc9CzkjrJ2f148GPfPbsmS5yPvf5T7ydnKQ5G7lFT5gQ==
   dependencies:
     eslint-scope "^5.1.0"
 
@@ -199,14 +199,14 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular-ru/eslint-config@15.187.0":
-  version "15.187.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-15.187.0.tgz#cfd32eb87b54eae0f1300c2f92d18f069acc807a"
-  integrity sha512-U3WpJONvEtSgGqFWpOC67DRlGS21tlUo36GM5WRs4lSBMZAf1CIt2zN8lSpy77Mb4VgQeEd6xNBDpNsTz+/lqA==
+"@angular-ru/eslint-config@15.189.0":
+  version "15.189.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-15.189.0.tgz#16ce64730ef094c90e4ec7e016b01571880dee1b"
+  integrity sha512-kWx3fx53l/fSdnuEecJ/msuJFap6t92exDymvfaIFd2q5EuGd0aOH8XtgcrCps2pdt140N6EIRyfRuZt0Bv9wA==
   dependencies:
-    "@angular-eslint/eslint-plugin" "2.0.2"
-    "@angular-eslint/eslint-plugin-template" "2.0.2"
-    "@angular-eslint/template-parser" "2.0.2"
+    "@angular-eslint/eslint-plugin" "2.1.0"
+    "@angular-eslint/eslint-plugin-template" "2.1.0"
+    "@angular-eslint/template-parser" "2.1.0"
     "@types/eslint" "7.2.9"
     "@typescript-eslint/eslint-plugin" "4.21.0"
     "@typescript-eslint/parser" "4.21.0"
