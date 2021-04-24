@@ -37,6 +37,8 @@
         "@angular/platform-browser": "11.2.9",
         "@angular/platform-browser-dynamic": "11.2.9",
         "@angular/router": "11.2.9",
+        "@ngx-pwa/local-storage": "^11.1.0",
+        "@ngxs-labs/async-storage-plugin": "^0.1.1",
         "@ngxs/logger-plugin": "3.7.1",
         "@ngxs/store": "3.7.1",
         "@schematics/angular": "11.2.8",
