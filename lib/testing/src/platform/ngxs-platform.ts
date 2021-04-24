@@ -1,9 +1,10 @@
+/* eslint-disable no-redeclare */
 import { SchemaMetadata, Type } from '@angular/core';
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { getStateMetadata } from '@ngxs-labs/data/internals';
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 import { Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
+import { getStateMetadata } from '@ngxs-labs/data/internals';
 
 import { TestSpec } from './internal/types';
 import { NgxsDataTestingModule } from './ngxs-data-testing.module';
@@ -98,9 +99,9 @@ export function ngxsTestingPlatform(
 
             NgxsDataTestingModule.ngxsInitPlatform();
 
-            const store: Store = TestBed.get(Store);
+            const store: Store = TestBed.inject(Store);
             const injectedStates: StateClass[] =
-                states?.map((state: StateClass): StateClass => TestBed.get(state)) ?? [];
+                states?.map((state: StateClass): StateClass => TestBed.inject(state)) ?? [];
 
             return await fn.apply(this, [store, ...injectedStates]);
         } finally {

@@ -1,17 +1,16 @@
 import { Injectable, Type } from '@angular/core';
+import { Any, PlainObjectOf } from '@angular-ru/common/typings';
+import { StateContext } from '@ngxs/store';
+import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import {
     ActionEvent,
-    Any,
     DataStateClass,
     MappedState,
     NgxsDataOperation,
     NgxsRepositoryMeta,
-    PayloadName,
-    PlainObjectOf
+    PayloadName
 } from '@ngxs-labs/data/typings';
-import { StateContext } from '@ngxs/store';
-import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 
 import { dynamicActionByType } from '../utils/action/dynamic-action';
 import { MethodArgsRegistry } from '../utils/method-args-registry/method-args-registry';
@@ -71,8 +70,8 @@ export class NgxsDataFactory {
         const arrayArgs: Any[] = Array.from(args);
 
         for (let index: number = 0; index < arrayArgs.length; index++) {
-            if (registry?.getPayloadTypeByIndex(index)) {
-                const payloadName: PayloadName = registry?.getPayloadTypeByIndex(index)!;
+            const payloadName: PayloadName | null | undefined = registry?.getPayloadTypeByIndex(index);
+            if (payloadName) {
                 payload[payloadName] = arrayArgs[index];
             }
         }
@@ -82,8 +81,8 @@ export class NgxsDataFactory {
 
     public static createAction(operation: NgxsDataOperation, args: Any[], registry?: MethodArgsRegistry): ActionEvent {
         const payload: PlainObjectOf<Any> | null = NgxsDataFactory.createPayload(args, registry);
-        const DynamicActionEvent: Type<Any> = dynamicActionByType(operation.type);
-        return new DynamicActionEvent(payload) as ActionEvent;
+        const dynamicActionByTypeFactory: Type<Any> = dynamicActionByType(operation.type);
+        return new dynamicActionByTypeFactory(payload) as ActionEvent;
     }
 
     private static ensureMeta(stateMeta: MetaDataModel): MappedStore | null | undefined {

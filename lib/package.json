@@ -1,6 +1,6 @@
 {
     "name": "@ngxs-labs/data",
-    "version": "3.0.5",
+    "version": "5.0.0",
     "license": "MIT",
     "schematics": "./schematics/collection.json",
     "scripts": {
@@ -31,7 +31,8 @@
     },
     "homepage": "https://github.com/ngxs-labs/data#readme",
     "peerDependencies": {
-        "@ngxs/store": ">=3.6.2 <4.0.0",
+        "@angular-ru/common": ">=15.0.0",
+        "@ngxs/store": ">=3.6.2",
         "typescript": ">=3.7.0"
     }
 }

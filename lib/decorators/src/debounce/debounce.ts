@@ -1,7 +1,7 @@
 import { isDevMode } from '@angular/core';
+import { Any, Descriptor } from '@angular-ru/common/typings';
 import { checkExistNgZone, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, Descriptor } from '@ngxs-labs/data/typings';
 
 const DEFAULT_TIMEOUT: number = 300;
 

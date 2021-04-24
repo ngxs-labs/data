@@ -1,9 +1,8 @@
+import { createEntityCollections, EntityIdType } from '@angular-ru/common/entity';
 import { Injectable } from '@angular/core';
 import { Computed, DataAction, Payload, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataEntityCollectionsRepository, NgxsDataRepository } from '@ngxs-labs/data/repositories';
 import { ngxsTestingPlatform } from '@ngxs-labs/data/testing';
-import { EntityIdType } from '@ngxs-labs/data/typings';
-import { createEntityCollections } from '@ngxs-labs/data/utils';
 import { State } from '@ngxs/store';
 
 describe('[TEST]: Entity', () => {
@@ -689,6 +688,50 @@ describe('[TEST]: Entity', () => {
 
                 expect(store.snapshot()).toEqual({ article: { ids: [], entities: {} } });
                 expect(article.getState()).toEqual({ ids: [], entities: {} });
+            })
+        );
+
+        it(
+            '@article.entities',
+            ngxsTestingPlatform([ArticleEntitiesState], (store, article) => {
+                expect(store.snapshot()).toEqual({ article: { ids: [], entities: {} } });
+                expect(article.entities).toEqual({});
+
+                article.setAll([
+                    { id: 1, title: 'A_W', category: 'A_O' },
+                    { id: 2, title: 'B_W', category: 'B_O' },
+                    { id: 3, title: 'C_W', category: 'C_O' },
+                    { id: 4, title: 'D_W', category: 'D_O' }
+                ]);
+
+                expect(article.entities).toEqual({
+                    '1': { id: 1, title: 'A_W', category: 'A_O' },
+                    '2': { id: 2, title: 'B_W', category: 'B_O' },
+                    '3': { id: 3, title: 'C_W', category: 'C_O' },
+                    '4': { id: 4, title: 'D_W', category: 'D_O' }
+                });
+            })
+        );
+
+        it(
+            '@article.entitiesArray',
+            ngxsTestingPlatform([ArticleEntitiesState], (store, article) => {
+                expect(store.snapshot()).toEqual({ article: { ids: [], entities: {} } });
+                expect(article.entitiesArray).toEqual([]);
+
+                article.setAll([
+                    { id: 1, title: 'A_W', category: 'A_O' },
+                    { id: 2, title: 'B_W', category: 'B_O' },
+                    { id: 3, title: 'C_W', category: 'C_O' },
+                    { id: 4, title: 'D_W', category: 'D_O' }
+                ]);
+
+                expect(article.entitiesArray).toEqual([
+                    { id: 1, title: 'A_W', category: 'A_O' },
+                    { id: 2, title: 'B_W', category: 'B_O' },
+                    { id: 3, title: 'C_W', category: 'C_O' },
+                    { id: 4, title: 'D_W', category: 'D_O' }
+                ]);
             })
         );
     });

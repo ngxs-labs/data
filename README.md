@@ -2,23 +2,20 @@
   <img src="https://raw.githubusercontent.com/ngxs/store/master/docs/assets/logo.png">
   <br />
   <b>NGXS Persistence API (@ngxs-labs/data)</b> <br />
-  <b>🚀 See it in action on <a href="http://stackblitz.io/github/ngxs-labs/data">Stackblitz</a></b>
+  <b>🚀 See it in action on <a href="https://stackblitz.com/edit/ngxs-example-counter-app?file=src/app/count.state.ts">Stackblitz</a></b>
   <br />
 </p>
-  
+
 <p align="center">
-  
-  <a href="https://travis-ci.org/ngxs-labs/data">
-    <img src="https://travis-ci.org/ngxs-labs/data.svg?branch=master" />
+
+  <a href="https://github.com/ngxs-labs/data/actions?query=workflow%3A%22NGXS+DATA+CI%22">
+    <img src="https://github.com/ngxs-labs/data/workflows/NGXS%20DATA%20CI/badge.svg" />
   </a>
   <a href="https://badge.fury.io/js/%40ngxs-labs%2Fdata">
     <img src="https://badge.fury.io/js/%40ngxs-labs%2Fdata.svg" />
   </a>
   <a href="https://npm-stat.com/charts.html?package=%40ngxs-labs%2Fdata&from=2019-09-01">
-    <img src="https://img.shields.io/npm/dw/@ngxs-labs/data" />
-  </a>  
-  <a href="https://coveralls.io/github/ngxs-labs/data?branch=master">
-    <img src="https://coveralls.io/repos/github/ngxs-labs/data/badge.svg?branch=master" />
+    <img src="https://img.shields.io/npm/dm/@ngxs-labs/data" />
   </a>
 </p>
 

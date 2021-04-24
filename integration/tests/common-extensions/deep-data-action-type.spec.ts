@@ -42,7 +42,7 @@ describe('[TEST]: Deep data action type', () => {
             imports: [NgxsModule.forRoot([A, B, C]), NgxsDataPluginModule.forRoot()]
         });
 
-        const stateA: A = TestBed.get(A);
+        const stateA: A = TestBed.inject(A);
         expect(stateA.getState()).toEqual({
             prop: undefined,
             b: {
@@ -51,19 +51,19 @@ describe('[TEST]: Deep data action type', () => {
             }
         });
 
-        const stateB: B = TestBed.get(B);
+        const stateB: B = TestBed.inject(B);
         expect(stateB.getState()).toEqual({
             prop: undefined,
             c: { prop: undefined }
         });
 
-        const stateC: C = TestBed.get(C);
+        const stateC: C = TestBed.inject(C);
         expect(stateC.getState()).toEqual({
             prop: undefined
         });
 
         const actions: any[] = [];
-        const actions$: Actions = TestBed.get(Actions);
+        const actions$: Actions = TestBed.inject(Actions);
         actions$.pipe(take(6)).subscribe((action) => actions.push(action));
 
         stateA.setProp('A');

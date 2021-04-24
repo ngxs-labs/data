@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Any, Immutable } from '@ngxs-labs/data/typings';
 import { Action, NgxsModule, State, StateContext, Store } from '@ngxs/store';
 import { PlainObjectOf } from '@ngxs/store/internals';
+import { Any, Immutable } from '@angular-ru/common/typings';
 
 describe('Check correct deep instance', () => {
     let app: AppState;
@@ -15,6 +15,7 @@ describe('Check correct deep instance', () => {
         name: 'childB_A_A',
         defaults: ['B_A_A_1', 'B_A_A_1']
     })
+    @Injectable()
     class MyChildBaa {}
 
     @State({
@@ -22,6 +23,7 @@ describe('Check correct deep instance', () => {
         defaults: { value: 'B_A_1' },
         children: [MyChildBaa]
     })
+    @Injectable()
     class MyChildBa {
         @Action({ type: 'MyChildBa_ACTION' })
         public myMutate(ctx: StateContext<Any>): void {
@@ -34,21 +36,23 @@ describe('Check correct deep instance', () => {
         defaults: { value: 'B_A' },
         children: [MyChildBa]
     })
+    @Injectable()
     class MyChildB {}
 
     @State({
         name: 'childA',
         defaults: { value: 'A_1' }
     })
+    @Injectable()
     class MyChildA {}
 
-    @Injectable()
     @StateRepository()
     @State({
         name: 'app',
         defaults: {},
         children: [MyChildA, MyChildB]
     })
+    @Injectable()
     class AppState extends NgxsImmutableDataRepository<Any> {
         public initial: Immutable<PlainObjectOf<Any>> = {};
 
@@ -96,8 +100,8 @@ describe('Check correct deep instance', () => {
             ]
         }).compileComponents();
 
-        app = TestBed.get<AppState>(AppState);
-        store = TestBed.get<Store>(Store);
+        app = TestBed.inject<AppState>(AppState);
+        store = TestBed.inject<Store>(Store);
     });
 
     it('should be correct app state tree', () => {

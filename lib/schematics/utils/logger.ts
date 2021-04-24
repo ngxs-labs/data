@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 export class Logger {
     private static get now(): string | null {

@@ -54,7 +54,7 @@ describe('[TEST]: Debounce', () => {
             imports: [NgxsModule.forRoot([DebounceState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const state: DebounceState = TestBed.get<DebounceState>(DebounceState);
+        const state: DebounceState = TestBed.inject<DebounceState>(DebounceState);
 
         expect(state.getState()).toEqual(0);
 

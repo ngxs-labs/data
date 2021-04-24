@@ -1,3 +1,4 @@
+import { Fn } from '@angular-ru/common/typings';
 import { NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { TtLCreatorOptions } from '@ngxs-labs/data/typings';
 import { interval, Subscription } from 'rxjs';
@@ -8,7 +9,7 @@ export function createTtlInterval(options: TtLCreatorOptions): void {
     const { provider, map }: TtLCreatorOptions = options;
     map.get(provider)?.subscription.unsubscribe();
 
-    const watcher: Function = (): void => {
+    const watcher: Fn = (): void => {
         const startListen: string = new Date(Date.now()).toISOString();
 
         const subscription: Subscription = interval(provider.ttlDelay!).subscribe((): void =>

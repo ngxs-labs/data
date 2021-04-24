@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { ActionType, StateContext } from '@ngxs/store';
 import { Computed, DataAction, Payload } from '@ngxs-labs/data/decorators';
 import { ensureDataStateContext, ensureSnapshot } from '@ngxs-labs/data/internals';
 import { DataRepository, DataStateContext, PatchValue, StateValue } from '@ngxs-labs/data/typings';
-import { ActionType, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 import { AbstractRepository } from '../common/abstract-repository';
 
 @Injectable()
-export abstract class AbstractNgxsDataRepository<T> extends AbstractRepository<T>
+export abstract class AbstractNgxsDataRepository<T>
+    extends AbstractRepository<T>
     implements DataStateContext<T>, DataRepository<T> {
     private readonly context!: DataStateContext<T>;
 

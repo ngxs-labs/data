@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { DataAction, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 import { NgxsModule, Select, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
@@ -35,6 +35,7 @@ describe('Check correct deep instance', () => {
         name: 'registration',
         defaults: new RegistrationStateModel()
     })
+    @Injectable()
     class RegistrationState extends NgxsImmutableDataRepository<IRegistrationStateModel> {
         @Select((state: Any) => state.registration)
         public address$!: Observable<IFormState>;
@@ -68,7 +69,7 @@ describe('Check correct deep instance', () => {
 
         fixture = TestBed.createComponent(AppComponent);
         component = fixture.componentInstance;
-        store = TestBed.get(Store);
+        store = TestBed.inject(Store);
     });
 
     it('should be correct ngOnInit', () => {

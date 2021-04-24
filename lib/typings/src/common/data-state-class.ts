@@ -1,8 +1,8 @@
 /* istanbul ignore next */
-import { NGXS_DATA_META, NGXS_META_KEY } from '@ngxs-labs/data/tokens';
+import { Any } from '@angular-ru/common/typings';
 import { MetaDataModel, StateClassInternal } from '@ngxs/store/src/internal/internals';
+import { NGXS_DATA_META, NGXS_META_KEY } from '@ngxs-labs/data/tokens';
 
-import { Any } from './any';
 import { NgxsRepositoryMeta } from './repository';
 
 export interface DataStateClass<T = Any, U = Any> extends StateClassInternal<T, U> {

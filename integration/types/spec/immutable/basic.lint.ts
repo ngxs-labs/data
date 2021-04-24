@@ -2,15 +2,15 @@
 import { NgxsModule, State } from '@ngxs/store';
 import { TestBed } from '@angular/core/testing';
 import { Component, Injectable, Input } from '@angular/core';
+import { MutableTypePipe } from '@angular-ru/common/pipes';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 
 import { ParentCountModel } from '../../../app/src/examples/count/count.model';
 import { CountSubState } from '../../../app/src/examples/count/count-sub.state';
-import { NgxsDataMutablePipe } from '../../../../lib/utils/src/mutable/ngxs-data-mutable.pipe';
-import { Immutable, Mutable } from '@ngxs-labs/data/typings';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { DataAction, Debounce, StateRepository } from '@ngxs-labs/data/decorators';
+import { Immutable, Mutable } from '@angular-ru/common/typings';
 
 describe('TEST', () => {
     it('should be correct test for CountState', () => {
@@ -47,7 +47,7 @@ describe('TEST', () => {
             @DataAction()
             public increment(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel> | undefined; }
+                    // $ExpectType (state: Immutable<ParentCountModel>) => { val: number; countSub?: Immutable<CountModel | undefined>; }
                     (state: Immutable<ParentCountModel>) => ({ ...state, val: state.val + 1 })
                 );
             }
@@ -71,7 +71,7 @@ describe('TEST', () => {
             @DataAction()
             public incrementInvalidDeep(): void {
                 this.ctx.setState(
-                    // $ExpectType (state: Immutable<ParentCountModel>) => { a: number; val: number; countSub?: Immutable<CountModel> | undefined; }
+                    // $ExpectType (state: Immutable<ParentCountModel>) => { a: number; val: number; countSub?: Immutable<CountModel | undefined>; }
                     (state) => ({ ...state, a: 1 })
                 );
             }
@@ -90,7 +90,7 @@ describe('TEST', () => {
 
         NgxsModule.forRoot([CountState]);
 
-        const counter: CountState = TestBed.get<CountState>(CountState);
+        const counter: CountState = TestBed.inject<CountState>(CountState);
 
         // noinspection BadExpressionStatementJS
         counter.state$; // $ExpectType Observable<Immutable<ParentCountModel>>
@@ -191,12 +191,12 @@ describe('TEST', () => {
             imports: [NgxsModule.forRoot([TodosState])]
         });
 
-        const todos: TodosState = TestBed.get<TodosState>(TodosState);
+        const todos: TodosState = TestBed.inject<TodosState>(TodosState);
 
         const stream = new AsyncPipe(null!).transform(todos.state$);
         stream; // $ExpectType readonly string[] | null
 
-        const state = new NgxsDataMutablePipe().transform(stream);
+        const state = new MutableTypePipe().transform(stream);
         state; // $ExpectType string[]
     });
 
@@ -215,12 +215,12 @@ describe('TEST', () => {
         }
 
         NgxsModule.forRoot([MyState]);
-        const myState: MyState = TestBed.get<MyState>(MyState);
+        const myState: MyState = TestBed.inject<MyState>(MyState);
 
         myState.state$; // $ExpectType Observable<Immutable<ParentCountModel>>
 
         myState.state$.subscribe((state) => {
-            const mutable = { ...state }; // $ExpectType { val: number; countSub?: Immutable<CountModel> | undefined; }
+            const mutable = { ...state }; // $ExpectType { val: number; countSub?: Immutable<CountModel | undefined>; }
             mutable.val++; // $ExpectType number
 
             // mutatate
@@ -229,9 +229,7 @@ describe('TEST', () => {
         });
 
         // Immutable to Mutable
-        const state: ParentCountModel = new NgxsDataMutablePipe().transform(
-            new AsyncPipe(null!).transform(myState.state$)
-        );
+        const state: ParentCountModel = new MutableTypePipe().transform(new AsyncPipe(null!).transform(myState.state$));
 
         state; // $ExpectType ParentCountModel
         state.val++; // $ExpectType number
@@ -248,7 +246,7 @@ describe('TEST', () => {
         });
     });
 
-    it('use NgxsDataMutablePipe', () => {
+    it('use MutableTypePipe', () => {
         type B = { val: number };
 
         interface C {
@@ -259,7 +257,7 @@ describe('TEST', () => {
 
         d[0].b.val++; // $ExpectError
 
-        const mutable = new NgxsDataMutablePipe().transform(d);
+        const mutable = new MutableTypePipe().transform(d);
         mutable; // C[]
         mutable.reverse(); // C[]
         mutable[0].b.val++; // $ExpectType number

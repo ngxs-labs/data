@@ -1,78 +1,61 @@
 export {
-    RepositoryActionOptions,
     ActionEvent,
     ActionName,
+    ArgName,
+    ArgNameMap,
     PayloadMap,
     PayloadName,
-    ArgName,
-    ArgNameMap
+    RepositoryActionOptions
 } from './common/actions-properties';
-export { Immutable, Mutable } from './common/immutability';
-export {
-    NgxsRepositoryMeta,
-    ImmutableStateValue,
-    NgxsDataOperation,
-    ImmutableStateContext,
-    ImmutableDataRepository,
-    ImmutablePatchValue,
-    StateValue,
-    PatchValue,
-    DataRepository,
-    DataStateContext
-} from './common/repository';
-export {
-    StorageMeta,
-    DataStorage,
-    StorageContainer,
-    PersistenceProvider,
-    ExistingStorageEngine,
-    ExistingEngineProvider,
-    UseClassEngineProvider,
-    DataStoragePlugin,
-    GlobalStorageOptionsHandler,
-    NgxsDataExpiredEvent,
-    NgxsDataStorageEvent,
-    NgxsDataAfterExpired,
-    NgxsDataAfterStorageEvent,
-    TtlListenerOptions,
-    TtLCreatorOptions,
-    TTL_EXPIRED_STRATEGY,
-    STORAGE_DECODE_TYPE,
-    CreateStorageDefaultOptions,
-    PullFromStorageInfo,
-    PullFromStorageOptions,
-    RehydrateInfo,
-    CheckExpiredInitOptions,
-    MergeOptions,
-    ProviderOptions,
-    NgxsDataMigrateStorage,
-    RehydrateInfoOptions,
-    MigrateFn,
-    PullStorageMeta,
-    StorageData
-} from './storage/storage';
-export { Any } from './common/any';
-export { PlainObjectOf } from './common/plaing-object-of';
-export { ClassType } from './common/class';
-export { MappedState } from './common/mapped-state';
-export { NgxsDataExtension } from './common/extension';
-export { Descriptor } from './common/descriptor';
-export { DispatchedResult } from './common/dispatched-result';
-export { DataStateClass, StateClassDecorator, StateArgumentDecorator } from './common/data-state-class';
-export { ComputedOptions } from './common/computed-options';
 export { ComputedCacheMap } from './common/computed-cache-map';
+export { ComputedOptions } from './common/computed-options';
+export { DataStateClass, StateArgumentDecorator, StateClassDecorator } from './common/data-state-class';
+export { DispatchedResult } from './common/dispatched-result';
+export { NgxsDataExtension } from './common/extension';
+export { MappedState } from './common/mapped-state';
 export { NgxsDataAfterReset, NgxsDataDoCheck } from './common/ngxs-data-lifecycle';
 export {
-    EntityIdType,
-    EntityDictionary,
-    EmptyDictionary,
-    EntityPatchValue,
-    EntityStateValue,
-    KeysDictionary
-} from './entity/entity-types';
-export { NgxsEntityCollections } from './entity/ngxs-entity-collections';
-export { EntityRepository } from './entity/entity-repository';
+    DataRepository,
+    DataStateContext,
+    ImmutableDataRepository,
+    ImmutablePatchValue,
+    ImmutableStateContext,
+    ImmutableStateValue,
+    NgxsDataOperation,
+    NgxsRepositoryMeta,
+    PatchValue,
+    StateValue
+} from './common/repository';
 export { EntityContext } from './entity/entity-context';
-export { PRIMARY_KEY } from './entity/primary-key';
-export { EntityUpdate } from './entity/entity-update';
-export { EntitySortByOrder, EntityComparator, EntityCompareFn, EntitySortBy } from './entity/entity-sort-by';
+export { EntityRepository } from './entity/entity-repository';
+export {
+    CheckExpiredInitOptions,
+    CreateStorageDefaultOptions,
+    DataStorage,
+    DataStoragePlugin,
+    ExistingEngineProvider,
+    ExistingStorageEngine,
+    GlobalStorageOptionsHandler,
+    MergeOptions,
+    MigrateFn,
+    NgxsDataAfterExpired,
+    NgxsDataAfterStorageEvent,
+    NgxsDataExpiredEvent,
+    NgxsDataMigrateStorage,
+    NgxsDataStorageEvent,
+    PersistenceProvider,
+    ProviderOptions,
+    PullFromStorageInfo,
+    PullFromStorageOptions,
+    PullStorageMeta,
+    RehydrateInfo,
+    RehydrateInfoOptions,
+    StorageDecodeType as STORAGE_DECODE_TYPE,
+    StorageContainer,
+    StorageData,
+    StorageMeta,
+    TtlExpiredStrategy as TTL_EXPIRED_STRATEGY,
+    TtLCreatorOptions,
+    TtlListenerOptions,
+    UseClassEngineProvider
+} from './storage/storage';

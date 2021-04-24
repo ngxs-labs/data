@@ -423,7 +423,7 @@ class MyState {}
 #### Injectable Storage
 
 ```ts
-@Persistance({
+@Persistence({
     useClass: SecureStorageService
 })
 @StateRepository()

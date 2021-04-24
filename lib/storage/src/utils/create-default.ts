@@ -4,8 +4,7 @@ import { STORAGE_TTL_DELAY } from '../tokens/storage-ttl-delay';
 
 // eslint-disable-next-line max-lines-per-function
 export function createDefault(options: CreateStorageDefaultOptions): PersistenceProvider[] {
-    const { meta, decodeType, prefix, stateInstance }: CreateStorageDefaultOptions = options;
-
+    const { meta, decodeType, prefix, stateClassRef }: CreateStorageDefaultOptions = options;
     return [
         {
             get path(): string | null | undefined {
@@ -21,7 +20,7 @@ export function createDefault(options: CreateStorageDefaultOptions): Persistence
             rehydrate: true,
             ttlDelay: STORAGE_TTL_DELAY,
             ttlExpiredStrategy: TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-            stateInstance,
+            stateClassRef,
             skipMigrate: false
         }
     ] as PersistenceProvider[];

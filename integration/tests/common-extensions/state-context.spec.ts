@@ -1,4 +1,4 @@
-import { buildDefaultsGraph, ensureStateMetadata } from '@ngxs-labs/data/internals';
+import { buildDefaultsGraph, ensureStateMetadata, getStateMetadata } from '@ngxs-labs/data/internals';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { StateRepository } from '@ngxs-labs/data/decorators';
@@ -7,8 +7,7 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { Injectable } from '@angular/core';
 import { MetaDataModel, SharedSelectorOptions } from '@ngxs/store/src/internal/internals';
 import { isObservable } from 'rxjs';
-import { getStateMetadata } from '../../../lib/internals/src/utils/state-context/get-state-metadata';
-import { Any } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 
 describe('[TEST]: Utils', () => {
     it('build-defaults-graph', () => {
@@ -76,6 +75,7 @@ describe('[TEST]: Utils', () => {
             name: 'e',
             defaults: []
         })
+        @Injectable()
         class E {}
 
         @State({
@@ -96,6 +96,7 @@ describe('[TEST]: Utils', () => {
                 defaults: [],
                 children: [E, F]
             })
+            @Injectable()
             class G {}
 
             buildDefaultsGraph(G);
@@ -119,8 +120,8 @@ describe('[TEST]: Utils', () => {
             imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const state: MyState = TestBed.get(MyState);
-        const store: Store = TestBed.get(Store);
+        const state: MyState = TestBed.inject(MyState);
+        const store: Store = TestBed.inject(Store);
         expect(state.getState() === new MyState().getState());
 
         new MyState().setState('hello');
@@ -169,8 +170,8 @@ describe('[TEST]: Utils', () => {
             imports: [NgxsModule.forRoot([AppState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const state: AppState = TestBed.get(AppState);
-        const store: Store = TestBed.get(Store);
+        const state: AppState = TestBed.inject(AppState);
+        const store: Store = TestBed.inject(Store);
         const meta: MetaDataModel = getStateMetadata(AppState);
 
         expect(isObservable(state.state$)).toEqual(true);

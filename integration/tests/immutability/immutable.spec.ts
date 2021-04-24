@@ -19,8 +19,8 @@ describe('[TEST]: Freeze states', () => {
             imports: [NgxsModule.forRoot([MyState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: MyState = TestBed.get<MyState>(MyState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: MyState = TestBed.inject<MyState>(MyState);
 
         expect(store.snapshot()).toEqual({ myState: null });
         expect(state.getState()).toEqual(null);
@@ -44,8 +44,8 @@ describe('[TEST]: Freeze states', () => {
             imports: [NgxsModule.forRoot([MyArrState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: MyArrState = TestBed.get<MyArrState>(MyArrState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: MyArrState = TestBed.inject<MyArrState>(MyArrState);
 
         expect(store.snapshot()).toEqual({ myArrState: [{ a: 1 }, { b: 2 }] });
         expect(state.getState()).toEqual([{ a: 1 }, { b: 2 }]);
@@ -99,8 +99,8 @@ describe('[TEST]: Freeze states', () => {
             imports: [NgxsModule.forRoot([DateState]), NgxsDataPluginModule.forRoot()]
         });
 
-        const store: Store = TestBed.get<Store>(Store);
-        const state: DateState = TestBed.get<DateState>(DateState);
+        const store: Store = TestBed.inject<Store>(Store);
+        const state: DateState = TestBed.inject<DateState>(DateState);
 
         expect(store.snapshot()).toEqual({
             dateState: {

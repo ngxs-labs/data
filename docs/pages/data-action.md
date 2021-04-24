@@ -52,7 +52,7 @@ class AppComponent {
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public add(todo: string): void {
+    public add(@Payload('todo') todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
 }
@@ -109,7 +109,7 @@ Bad
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public add(todo: string): void {
+    public add(@Payload('todo') todo: string): void {
         // bad (action in action)
         this.setState((state) => state.concat(todo));
     }
@@ -127,7 +127,7 @@ Good
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public add(todo: string): void {
+    public add(@Payload('todo') todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
 }
@@ -146,13 +146,13 @@ Bad
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public add(todo: string): void {
+    public add(@Payload('todo') todo: string): void {
         // bad (action in action)
         this.concat(todo);
     }
 
     @DataAction()
-    private concat(todo: string): void {
+    private concat(@Payload('todo') todo: string): void {
         this.ctx.setState((state) => state.concat(todo));
     }
 }
@@ -169,7 +169,7 @@ Good
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public add(todo: string): void {
+    public add(@Payload('todo') todo: string): void {
         this.concat(todo);
     }
 
@@ -256,7 +256,7 @@ Therefore, the context should only be called inside the action.
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public addTodo(todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         // call context from under the action
         this.ctx.setState(todo);
     }
@@ -271,7 +271,7 @@ export class TodoState extends NgxsDataRepository<string[]> {
 })
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
-    public addTodo(todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         // call context inside another action
         this.setState(todo);
     }
@@ -390,7 +390,7 @@ export class PersonState extends NgxsDataRepository<PersonModel> {
 @Injectable()
 export class TodoState extends NgxsDataRepository<string[]> {
     @DataAction()
-    public addTodo(todo: string): void {
+    public addTodo(@Payload('todo') todo: string): void {
         if (todo) {
             this.ctx.setState((state: string[]) => state.concat(todo));
         }
@@ -402,7 +402,8 @@ By default, all arguments have no name when automatically creating an action.
 
 ![](https://habrastorage.org/webt/dh/p4/9d/dhp49dtfspp6mas7-0em2vlqcra.png)
 
-If during logging you want to see the payload, then you need to specify which action argument is this payload.
+If during logging you want to see the payload, then you need to specify which action argument is this payload, using the
+`@Payload()` decorator.
 
 ```ts
 @StateRepository()

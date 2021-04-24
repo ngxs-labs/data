@@ -44,11 +44,11 @@ describe('[TEST]: Reset', () => {
             imports: [NgxsModule.forRoot([A, B, C, D]), NgxsDataPluginModule.forRoot()]
         }).compileComponents();
 
-        store = TestBed.get<Store>(Store);
+        store = TestBed.inject<Store>(Store);
     });
 
     it('should be correct reset A state', () => {
-        const a: A = TestBed.get<A>(A);
+        const a: A = TestBed.inject<A>(A);
         expect(store.snapshot()).toEqual({ A: { C: { D: {} }, B: {} } });
         expect(a.getState()).toEqual({ C: { D: {} }, B: {} });
 
@@ -62,10 +62,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: 'string', children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();
@@ -77,10 +79,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: [], children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();
@@ -92,10 +96,12 @@ describe('[TEST]: Reset', () => {
 
         try {
             @State({ name: 'foo' })
+            @Injectable()
             class FooState {}
 
             @StateRepository()
             @State({ name: 'bar', defaults: null, children: [FooState] })
+            @Injectable()
             class BarState {}
 
             new BarState();

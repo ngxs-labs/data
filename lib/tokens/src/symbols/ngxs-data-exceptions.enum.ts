@@ -1,7 +1,7 @@
 /**
  * @privateApi
  */
-export enum NGXS_DATA_EXCEPTIONS {
+export const enum NgxsDataExceptions {
     NGXS_PERSISTENCE_STATE = '@Persistence should be add before decorator @State and @StateRepository',
     NGXS_DATA_STATE = '@StateRepository should be add before decorator @State',
     NGXS_DATA_STATE_NAME_NOT_FOUND = 'State name not provided in class',
@@ -10,8 +10,8 @@ export enum NGXS_DATA_EXCEPTIONS {
         '\n (use by default ngxsOnInit(ctx: StateContext), or ngxsAfterBootstrap(ctx: StateContext) !!!',
     NGXS_DATA_STATE_DECORATOR = 'You forgot add decorator @StateRepository or initialize state!' +
         '\nExample: NgxsModule.forRoot([ .. ]), or NgxsModule.forFeature([ .. ])',
-    NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @action',
-    NGXS_DATA_ACTION = '@action can only decorate a method implementation',
+    NGXS_DATA_STATIC_ACTION = 'Cannot support static methods with @DataAction()',
+    NGXS_DATA_ACTION = '@DataAction() can only decorate a method implementation',
     NGXS_DATA_ASYNC_ACTION_RETURN_TYPE = 'WARNING: If you use asynchronous actions' +
         ' `@Debounce() @DataAction()` the return result type should only void instead:',
     NGXS_PERSISTENCE_CONTAINER = 'You forgot provide NGXS_DATA_STORAGE_CONTAINER or NGXS_DATA_STORAGE_EXTENSION!!! Example: \n' +

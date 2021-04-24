@@ -1,14 +1,15 @@
+import { deepClone } from '@angular-ru/common/object';
+import { Any } from '@angular-ru/common/typings';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     buildDefaultsGraph,
     createContext,
     createRepositoryMetadata,
     createStateSelector,
-    deepClone,
     ensureStateMetadata
 } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
-import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, StateClassDecorator } from '@ngxs-labs/data/typings';
 
 export function StateRepository(): StateClassDecorator {
     return (stateClass: DataStateClass): void => {

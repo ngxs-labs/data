@@ -82,6 +82,10 @@ class ArticleEntitiesState extends NgxsDataEntityCollectionsRepository<Article> 
 | state.snapshot                                      | NgxsEntityCollections&lt;V, K&gt;                   | Memoized state value (getter)                                               |
 | state.reset()                                       | void                                                | Reset state with default state value                                        |
 | state.state\$                                       | Observable&lt;NgxsEntityCollections&lt;V, K&gt;&gt; | State data stream that you can subscribe to changes                         |
+| state.entities()                                    | EntityDictionary<K, V>                              | Entities dictionary                                                         |
+| state.entitiesArray()                               | V[]                                                 | Entities array                                                              |
+| state.entities$                                     | Observable<EntityDictionary<K, V>>                  | Observable of entities dictionary                                           |
+| state.entitiesArray$                                | Observable<V[]>                                     | Observable of entities array                                                |
 | dispatch(actions: ActionType &verbar; ActionType[]) | void                                                | Standard dispatch method                                                    |
 | state.addOne(entity: V)                             | void                                                | Add one entity to the collection                                            |
 | state.addMany(entities: V[])                        | void                                                | Add multiple entities to the collection                                     |

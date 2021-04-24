@@ -1,12 +1,12 @@
-import { ensureStateMetadata, getRepository } from '@ngxs-labs/data/internals';
+import { Any } from '@angular-ru/common/typings';
+import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { ensureStateMetadata, getRepository, STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
 import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Any, DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
-import { StateClass } from '@ngxs/store/internals';
-import { MetaDataModel } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, NgxsRepositoryMeta, PersistenceProvider, ProviderOptions } from '@ngxs-labs/data/typings';
 
 export function Persistence(options?: ProviderOptions): Any {
-    return (stateClass: DataStateClass): Any => {
+    return (stateClass: DataStateClass): void => {
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
         const repositoryMeta: NgxsRepositoryMeta = getRepository(stateClass);
         const isUndecoratedClass: boolean = !stateMeta.name || !repositoryMeta;
@@ -15,13 +15,13 @@ export function Persistence(options?: ProviderOptions): Any {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_PERSISTENCE_STATE);
         }
 
-        return new Proxy(stateClass, {
-            construct(clazz: DataStateClass, args: Any[]): StateClass {
-                const stateInstance: StateClass = Reflect.construct(clazz, args);
-                const providers: PersistenceProvider[] = ensureProviders(repositoryMeta, stateInstance, options);
-                registerStorageProviders(providers);
-                return stateInstance;
+        STORAGE_INIT_EVENT.events$.subscribe((): void => {
+            if (!STORAGE_INIT_EVENT.firstInitialized) {
+                STORAGE_INIT_EVENT.firstInitialized = true;
             }
+
+            const providers: PersistenceProvider[] = ensureProviders(repositoryMeta, stateClass, options);
+            registerStorageProviders(providers);
         });
     };
 }

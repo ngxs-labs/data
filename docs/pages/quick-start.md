@@ -21,7 +21,7 @@ export class AppModule {}
 
 ```ts
 import { NgxsDataRepository } from '@ngxs-labs/data/repositories';
-import { action, StateRepository } from '@ngxs-labs/data/decorators';
+import { Computed, DataAction, StateRepository } from '@ngxs-labs/data/decorators';
 import { State } from '@ngxs/store';
 // ..
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/typedef,@typescript-eslint/explicit-function-return-type */
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -12,31 +13,26 @@ import { RouterModule } from '@angular/router';
                 },
                 {
                     path: 'count',
-                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/count/count.module').then((m) => m.CountModule)
                 },
                 {
                     path: 'todo',
-                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/todo/todo.module').then((m) => m.TodoModule)
                 },
                 {
                     path: 'person',
-                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/person/person.module').then((m) => m.PersonModule)
                 },
                 {
                     path: 'amount',
-                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/amount/amount.module').then((m) => m.AmountModule)
                 },
                 {
                     path: 'article',
-                    // eslint-disable-next-line @typescript-eslint/tslint/config,@typescript-eslint/explicit-function-return-type
                     loadChildren: () => import('./examples/article/article.module').then((m) => m.ArticleModule)
                 }
             ],
-            { useHash: true }
+            { useHash: true, relativeLinkResolution: 'legacy' }
         )
     ],
     exports: [RouterModule]

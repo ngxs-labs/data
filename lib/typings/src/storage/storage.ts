@@ -1,9 +1,9 @@
 import { Type } from '@angular/core';
+import { Any, PlainObject } from '@angular-ru/common/typings';
 import { ActionType, Store } from '@ngxs/store';
-import { PlainObject, StateClass } from '@ngxs/store/internals';
+import { StateClass } from '@ngxs/store/internals';
 import { Subject, Subscription } from 'rxjs';
 
-import { Any } from '../common/any';
 import { NgxsRepositoryMeta } from '../common/repository';
 
 export interface DataStorage<T = string, U = string> {
@@ -16,12 +16,12 @@ export interface DataStorage<T = string, U = string> {
     clear(): void;
 }
 
-export const enum STORAGE_DECODE_TYPE {
+export const enum StorageDecodeType {
     BASE64 = 'base64',
     NONE = 'none'
 }
 
-export const enum TTL_EXPIRED_STRATEGY {
+export const enum TtlExpiredStrategy {
     REMOVE_KEY_AFTER_EXPIRED,
     SET_NULL_DATA_AFTER_EXPIRED,
     DO_NOTHING_AFTER_EXPIRED
@@ -32,7 +32,7 @@ interface CommonPersistenceProvider {
      * Path for slice
      * default: state.name
      */
-    path?: string;
+    path?: string | null;
 
     /**
      * Version for next migrate
@@ -56,13 +56,13 @@ interface CommonPersistenceProvider {
     /**
      *
      */
-    ttlExpiredStrategy?: TTL_EXPIRED_STRATEGY;
+    ttlExpiredStrategy?: TtlExpiredStrategy;
 
     /**
      * decode/encoded
      * default: STORAGE_DECODE_TYPE.NONE
      */
-    decode?: STORAGE_DECODE_TYPE;
+    decode?: StorageDecodeType;
 
     /**
      * prefix for key
@@ -92,6 +92,11 @@ interface CommonPersistenceProvider {
      * default: current state instance
      */
     stateInstance?: StateClass;
+
+    /**
+     * default: reference to state class
+     */
+    stateClassRef?: Type<StateClass>;
 
     /**
      * function that accepts a state and expects the new state in return.
@@ -181,6 +186,7 @@ export interface NgxsDataMigrateStorage<T = unknown, R = unknown> {
 }
 
 export interface NgxsDataAfterStorageEvent<T = Any> {
+    browserStorageEvents$: Subject<NgxsDataStorageEvent<T>>;
     ngxsDataAfterStorageEvent?(event: NgxsDataStorageEvent<T>): void;
 }
 
@@ -207,8 +213,8 @@ export interface TtLCreatorOptions {
 export interface CreateStorageDefaultOptions {
     prefix: string;
     meta: NgxsRepositoryMeta;
-    decodeType: STORAGE_DECODE_TYPE;
-    stateInstance: StateClass;
+    decodeType: StorageDecodeType;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullFromStorageOptions<T> {
@@ -249,8 +255,8 @@ export interface MergeOptions {
     meta: NgxsRepositoryMeta;
     option: PersistenceProvider;
     prefix: string;
-    decodeType: STORAGE_DECODE_TYPE;
-    stateInstance: StateClass;
+    decodeType: StorageDecodeType;
+    stateClassRef: Type<StateClass>;
 }
 
 export interface PullStorageMeta {

@@ -1,13 +1,12 @@
-import { isNotNil } from '@ngxs-labs/data/internals';
+import { isNotNil } from '@angular-ru/common/utils';
 import { MergeOptions, PersistenceProvider, TTL_EXPIRED_STRATEGY } from '@ngxs-labs/data/typings';
 
 import { STORAGE_TTL_DELAY } from '../tokens/storage-ttl-delay';
 import { validatePathInProvider } from './validate-path-in-provider';
 
 // eslint-disable-next-line complexity
-export function mergeOptions({ option, decodeType, prefix, meta, stateInstance }: MergeOptions): PersistenceProvider {
-    const provider: PersistenceProvider = {
-        ...option,
+export function mergeOptions({ option, decodeType, prefix, meta, stateClassRef }: MergeOptions): PersistenceProvider {
+    const provider: PersistenceProvider = Object.assign(option, {
         ttl: isNotNil(option.ttl) ? option.ttl : -1,
         version: isNotNil(option.version) ? option.version : 1,
         decode: isNotNil(option.decode) ? option.decode : decodeType,
@@ -19,9 +18,9 @@ export function mergeOptions({ option, decodeType, prefix, meta, stateInstance }
         ttlExpiredStrategy: isNotNil(option.ttlExpiredStrategy)
             ? option.ttlExpiredStrategy
             : TTL_EXPIRED_STRATEGY.REMOVE_KEY_AFTER_EXPIRED,
-        stateInstance: isNotNil(option.stateInstance) ? option.stateInstance : stateInstance,
+        stateClassRef: isNotNil(option.stateClassRef) ? option.stateClassRef : stateClassRef,
         skipMigrate: isNotNil(option.skipMigrate) ? option.skipMigrate : false
-    };
+    });
 
     return validatePathInProvider(meta, provider);
 }

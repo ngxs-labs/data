@@ -9,8 +9,8 @@ import { Component, Injectable } from '@angular/core';
 import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Immutable } from '@ngxs-labs/data/typings';
 import { DataAction, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
+import { Immutable } from '@angular-ru/common/typings';
 
 describe('NGXS Integration', () => {
     it('should be correct patch', () => {

@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { generateUid } from '../../utils/generate-uid';
-import { ArticleEntitiesState } from './article-entities.state';
 import { Article } from './article.interface';
+import { ArticleEntitiesState } from './article-entities.state';
 import { ArticleDialogComponent } from './dialog/article-dialog.component';
 
 @Component({

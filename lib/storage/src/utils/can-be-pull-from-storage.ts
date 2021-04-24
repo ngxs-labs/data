@@ -1,5 +1,6 @@
-import { isNotNil } from '@ngxs-labs/data/internals';
-import { Any, NgxsDataMigrateStorage, PullFromStorageInfo, PullFromStorageOptions } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
+import { isNotNil } from '@angular-ru/common/utils';
+import { NgxsDataMigrateStorage, PullFromStorageInfo, PullFromStorageOptions } from '@ngxs-labs/data/typings';
 
 import { existTtl } from './exist-ttl';
 import { isExpiredByTtl } from './is-expired';
@@ -26,6 +27,7 @@ function ensureInfoByTtl<T>(
     result: PullFromStorageInfo,
     options: PullFromStorageOptions<T>
 ): PullFromStorageInfo {
+    let newResult: PullFromStorageInfo = result;
     const { meta, provider }: PullFromStorageOptions<T> = options;
 
     if (canBeOverrideFromStorage && existTtl(provider)) {
@@ -34,14 +36,14 @@ function ensureInfoByTtl<T>(
 
         if (expiryExist) {
             if (isExpiredByTtl(expiry)) {
-                result = { canBeOverrideFromStorage: false, expired: true, expiry, versionMismatch: false };
+                newResult = { canBeOverrideFromStorage: false, expired: true, expiry, versionMismatch: false };
             } else {
-                result = { canBeOverrideFromStorage, expired: false, expiry, versionMismatch: false };
+                newResult = { canBeOverrideFromStorage, expired: false, expiry, versionMismatch: false };
             }
         }
     }
 
-    return result;
+    return newResult;
 }
 
 function ensureInfoByVersionMismatch<T>(
@@ -49,6 +51,7 @@ function ensureInfoByVersionMismatch<T>(
     result: PullFromStorageInfo,
     options: PullFromStorageOptions<T>
 ): PullFromStorageInfo {
+    let newResult: PullFromStorageInfo = result;
     const { meta, provider }: PullFromStorageOptions<T> = options;
 
     if (canBeOverrideFromStorage && meta.version !== provider.version) {
@@ -56,11 +59,11 @@ function ensureInfoByVersionMismatch<T>(
         const tryMigrate: boolean = !provider.skipMigrate && !!(instance?.ngxsDataStorageMigrate || provider.migrate);
 
         if (tryMigrate) {
-            result = { ...result, versionMismatch: true };
+            newResult = { ...result, versionMismatch: true };
         } else {
-            result = { ...result, canBeOverrideFromStorage: false, versionMismatch: true };
+            newResult = { ...result, canBeOverrideFromStorage: false, versionMismatch: true };
         }
     }
 
-    return result;
+    return newResult;
 }

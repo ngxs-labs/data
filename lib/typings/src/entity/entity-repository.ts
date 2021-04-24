@@ -1,17 +1,16 @@
+import { EntityCollections, EntityUpdate } from '@angular-ru/common/entity';
+import { Any } from '@angular-ru/common/typings';
 import { ActionType } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
-import { EntityUpdate } from './entity-update';
-import { NgxsEntityCollections } from './ngxs-entity-collections';
-
-export interface EntityRepository<V, K extends string | number, C = {}> {
+export interface EntityRepository<V, K extends string | number, C = Record<string, Any>> {
     name: string;
-    initialState: NgxsEntityCollections<V, K, C>;
-    state$: Observable<NgxsEntityCollections<V, K, C>>;
-    readonly snapshot: NgxsEntityCollections<V, K, C>;
+    initialState: EntityCollections<V, K, C>;
+    state$: Observable<EntityCollections<V, K, C>>;
+    readonly snapshot: EntityCollections<V, K, C>;
     primaryKey: string;
 
-    getState(): NgxsEntityCollections<V, K, C>;
+    getState(): EntityCollections<V, K, C>;
 
     dispatch(actions: ActionType | ActionType[]): Observable<void>;
 

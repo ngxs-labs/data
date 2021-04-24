@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Immutable } from '@angular-ru/common/typings';
+import { State } from '@ngxs/store';
 import { DataAction, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
-import { Immutable, NgxsDataAfterExpired, NgxsDataExpiredEvent, PersistenceProvider } from '@ngxs-labs/data/typings';
-import { State } from '@ngxs/store';
+import {
+    NgxsDataAfterExpired,
+    NgxsDataAfterStorageEvent,
+    NgxsDataExpiredEvent,
+    NgxsDataStorageEvent,
+    PersistenceProvider
+} from '@ngxs-labs/data/typings';
 import { Subject } from 'rxjs';
 
 @Persistence({
@@ -18,7 +25,9 @@ import { Subject } from 'rxjs';
     defaults: []
 })
 @Injectable()
-export class TodoState extends NgxsImmutableDataRepository<string[]> implements NgxsDataAfterExpired {
+export class TodoState
+    extends NgxsImmutableDataRepository<string[]>
+    implements NgxsDataAfterExpired, NgxsDataAfterStorageEvent {
     public expired$: Subject<NgxsDataExpiredEvent> = new Subject();
 
     constructor(private readonly snackBar: MatSnackBar) {
@@ -31,6 +40,11 @@ export class TodoState extends NgxsImmutableDataRepository<string[]> implements 
             verticalPosition: 'top',
             horizontalPosition: 'right'
         });
+    }
+
+    public ngxsDataAfterStorageEvent(event: NgxsDataStorageEvent): void {
+        // eslint-disable-next-line no-console
+        console.log('event', event);
     }
 
     @DataAction()

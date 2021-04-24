@@ -13,13 +13,14 @@ describe('[TEST]: CountState', () => {
 
     it('should be get correct snapshot from simple state', () => {
         @State({ name: 'count', defaults: 0 })
+        @Injectable()
         class CountState {}
 
         TestBed.configureTestingModule({
             imports: [NgxsModule.forRoot([CountState])]
         });
 
-        store = TestBed.get<Store>(Store);
+        store = TestBed.inject<Store>(Store);
 
         expect(store.snapshot()).toEqual({ count: 0 });
     });
@@ -44,20 +45,20 @@ describe('[TEST]: CountState', () => {
         });
 
         it('should be throw exception when not import NgxsDataModulePlugin', () => {
-            @Injectable()
             @StateRepository()
             @State({
                 name: 'count',
                 defaults: 0
             })
+            @Injectable()
             class CountState extends NgxsImmutableDataRepository<number> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([CountState])]
             });
 
-            store = TestBed.get<Store>(Store);
-            const count: CountState = TestBed.get<CountState>(CountState);
+            store = TestBed.inject<Store>(Store);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             expect(store.snapshot()).toEqual({ count: 0 });
 
@@ -69,18 +70,18 @@ describe('[TEST]: CountState', () => {
         });
 
         it('should be throw when forgot add @StateRepository', () => {
-            @Injectable()
             @State({
                 name: 'count',
                 defaults: 0
             })
+            @Injectable()
             class CountState extends NgxsImmutableDataRepository<number> {}
 
             TestBed.configureTestingModule({
                 imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot()]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.getState();
@@ -90,11 +91,11 @@ describe('[TEST]: CountState', () => {
         });
 
         it('should be throw when forgot add @StateRepository', () => {
-            @Injectable()
             @State({
                 name: 'count',
                 defaults: 0
             })
+            @Injectable()
             class CountState extends NgxsImmutableDataRepository<number> {}
 
             TestBed.configureTestingModule({
@@ -102,7 +103,7 @@ describe('[TEST]: CountState', () => {
                 providers: [CountState]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.getState();
@@ -119,11 +120,12 @@ describe('[TEST]: CountState', () => {
             }
         });
 
-        it('should be throw when use @action without context', () => {
+        it('should be throw when use @DataAction without context', () => {
             @State({
                 name: 'count',
                 defaults: 0
             })
+            @Injectable()
             class CountState {
                 @DataAction()
                 public incorrect(): void {}
@@ -133,7 +135,7 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState])]
             });
 
-            const count: CountState = TestBed.get<CountState>(CountState);
+            const count: CountState = TestBed.inject<CountState>(CountState);
 
             try {
                 count.incorrect();
@@ -142,13 +144,14 @@ describe('[TEST]: CountState', () => {
             }
         });
 
-        it('should be throw when use static with @action', () => {
+        it('should be throw when use static with @DataAction', () => {
             try {
                 @State({
                     name: 'count',
                     defaults: 0
                 })
                 @StateRepository()
+                @Injectable()
                 class CountState {
                     @DataAction()
                     public static incorrect(): void {}
@@ -165,12 +168,12 @@ describe('[TEST]: CountState', () => {
         let count: CountState;
         let actions$: Actions;
 
-        @Injectable()
         @StateRepository()
         @State({
             name: 'count',
             defaults: 0
         })
+        @Injectable()
         class CountState extends NgxsImmutableDataRepository<number> {
             public withoutAction(val: number): void {
                 this.ctx.setState(val);
@@ -187,9 +190,9 @@ describe('[TEST]: CountState', () => {
                 imports: [NgxsModule.forRoot([CountState]), NgxsDataPluginModule.forRoot()]
             });
 
-            count = TestBed.get<CountState>(CountState);
-            store = TestBed.get<Store>(Store);
-            actions$ = TestBed.get<Actions>(Actions);
+            count = TestBed.inject<CountState>(CountState);
+            store = TestBed.inject<Store>(Store);
+            actions$ = TestBed.inject<Actions>(Actions);
         });
 
         afterEach(() => {

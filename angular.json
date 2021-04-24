@@ -13,6 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "aot": true,
                         "outputPath": "dist/integration",
                         "index": "integration/app/index.html",
                         "main": "integration/app/main.ts",
@@ -24,6 +25,12 @@
                     },
                     "configurations": {
                         "production": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
                             "fileReplacements": [
                                 {
                                     "replace": "integration/app/environments/environment.ts",
@@ -33,7 +40,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
@@ -55,7 +61,28 @@
                 },
                 "deploy": {
                     "builder": "angular-cli-ghpages:deploy",
-                    "options": {}
+                    "options": {
+                        "noSilent": true,
+                        "noBuild": true,
+                        "name": "splincode",
+                        "email": "splincodewd@yandex.ru",
+                        "repo": "https://github.com/ngxs-labs/data.git"
+                    }
+                }
+            }
+        },
+        "library": {
+            "root": "",
+            "prefix": "",
+            "sourceRoot": "",
+            "projectType": "library",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "tsConfig": "lib/tsconfig.lib.json",
+                        "project": "lib/ng-package.json"
+                    }
                 }
             }
         }

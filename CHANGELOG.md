@@ -1,5 +1,57 @@
-# To become 3.1.0
+# 5.0.0 2021-04-05
 
+-   Feat: refactor persistence decorator
+
+# 4.2.0 2021-03-26
+
+-   Fix: support Angular 11.2+
+-   Feat: add `entitiesArray`, `entitiesArray$` to `AbstractNgxsDataEntityCollectionsRepository`
+
+# 4.1.1 2020-09-09
+
+-   Fix: invalid expose arguments when inheritance
+
+# 4.1.0 2020-09-09
+
+-   Feature: support only Ivy
+
+# 4.0.0 2020-09-09
+
+-   Feature: feat: support Angular 10, TypeScript 4
+-   Feature: support `@ngxs/store@3.7.0`
+-   Fix: Proxy is a ES2015 class that is not compatible with IE11 with ES5 target
+
+### ⚠ BREAKING CHANGES
+
+-   Moved `Immutable, Mutable, Any` interfaces to `@angular-ru/common/typings`:
+
+```ts
+import { Immutable, Mutable, Any } from '@angular-ru/common/typings';
+```
+
+-   Moved `createEntityCollections` to `@angular-ru/common/entity`:
+
+```ts
+import { createEntityCollections } from '@angular-ru/common/entity';
+
+@StateRepository()
+@State({
+    name: 'students',
+    defaults: createEntityCollections()
+})
+@Injectable()
+class StudentEntitiesState extends NgxsDataEntityCollectionsRepository<StudentEntity, string> {
+    public selectId(entity: StudentEntity): string {
+        return `${entity.groupId}_${entity.batchId}`;
+    }
+}
+```
+
+-   Removed `NgxsDataMutablePipe, NgxsDataUtilsModule`
+
+# 3.0.6 2020-06-25
+
+-   Fix: entry point '@ngxs/store/src/\*' contains deep imports into in lib
 -   Feature: support Angular Schematics `ng add @ngxs-labs/data`
 
 # 3.0.0 2020-05-05

@@ -4,10 +4,10 @@ import { NgxsDataPluginModule } from '@ngxs-labs/data';
 import { StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
-import { Immutable } from '@ngxs-labs/data/typings';
 import { NgxsModule, State, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Immutable } from '@angular-ru/common/typings';
 
 describe('Mutate', () => {
     let store: Store;
@@ -28,7 +28,7 @@ describe('Mutate', () => {
                 imports: [NgxsModule.forRoot([TodosState])]
             });
 
-            store = TestBed.get<Store>(Store);
+            store = TestBed.inject<Store>(Store);
         } catch (e) {
             message = e.message;
         }
@@ -50,9 +50,9 @@ describe('Mutate', () => {
             imports: [NgxsModule.forRoot([TodosState]), NgxsDataPluginModule.forRoot()]
         });
 
-        store = TestBed.get<Store>(Store);
+        store = TestBed.inject<Store>(Store);
 
-        const todo: TodosState = TestBed.get<TodosState>(TodosState);
+        const todo: TodosState = TestBed.inject<TodosState>(TodosState);
         expect(store.snapshot()).toEqual({ todos: [1, 2, 3] });
 
         let error: string | null = null;
@@ -90,8 +90,8 @@ describe('Mutate', () => {
             imports: [NgxsModule.forRoot([TodosState]), NgxsDataPluginModule.forRoot()]
         });
 
-        store = TestBed.get<Store>(Store);
-        const todo: TodosState = TestBed.get<TodosState>(TodosState);
+        store = TestBed.inject<Store>(Store);
+        const todo: TodosState = TestBed.inject<TodosState>(TodosState);
 
         todo.state$.subscribe((state) => {
             expect(Object.isFrozen(state)).toEqual(true);

@@ -1,6 +1,5 @@
+import { Any } from '@angular-ru/common/typings';
 import { Observable } from 'rxjs';
-
-import { Any } from './any';
 
 export interface ComputedOptions {
     sequenceId: number;

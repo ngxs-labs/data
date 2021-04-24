@@ -1,5 +1,6 @@
+import { Any, Descriptor } from '@angular-ru/common/typings';
 import { ensureComputedCache, globalSequenceId, itObservable, validateComputedMethod } from '@ngxs-labs/data/internals';
-import { Any, ComputedCacheMap, ComputedOptions, Descriptor } from '@ngxs-labs/data/typings';
+import { ComputedCacheMap, ComputedOptions } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
 
 // eslint-disable-next-line max-lines-per-function

@@ -1,6 +1,7 @@
-import { Any, DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
+import { Any } from '@angular-ru/common/typings';
 import { StateContext } from '@ngxs/store';
 import { MappedStore } from '@ngxs/store/src/internal/internals';
+import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 
 import { NgxsDataFactory } from '../../services/ngxs-data-factory.service';
 import { getRepository } from '../repository/get-repository';
