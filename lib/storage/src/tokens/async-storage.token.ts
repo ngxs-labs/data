@@ -7,4 +7,5 @@ export const NGXS_DATA_ASYNC_STORAGE_PLUGIN: NgxsDataExtension = {
 
     provide: NGXS_PLUGINS,
     useClass: NgxsAsyncStoragePlugin,
+    multi: true,
 };
