@@ -8,7 +8,9 @@
         "skipTemplateCodegen": false,
         "preserveWhitespaces": true,
         "skipMetadataEmit": false,
-        "disableTypeScriptVersionCheck": true
+        "disableTypeScriptVersionCheck": true,
+        "enableIvy": true,
+        "compilationMode": "partial"
     },
     "compilerOptions": {
         "baseUrl": "./",
