@@ -1,5 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { Any, PlainObjectOf } from '@angular-ru/common/typings';
+import { isNil, isNotNil } from '@angular-ru/common/utils';
 import { StateContext } from '@ngxs/store';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
@@ -30,12 +31,12 @@ export class NgxsDataFactory {
     }
 
     public static ensureMappedState(stateMeta: MetaDataModel | undefined): MappedState | never {
-        if (!NgxsDataInjector.factory || !stateMeta) {
+        if (isNil(NgxsDataInjector.factory) || isNil(stateMeta)) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_MODULE_EXCEPTION);
         }
 
         const cachedMeta: MappedStore | null =
-            (stateMeta.name ? NgxsDataFactory.statesCachedMeta.get(stateMeta.name) : null) || null;
+            (isNotNil(stateMeta.name) ? NgxsDataFactory.statesCachedMeta.get(stateMeta.name) : null) || null;
 
         if (!cachedMeta) {
             return NgxsDataFactory.ensureMeta(stateMeta);
@@ -46,9 +47,9 @@ export class NgxsDataFactory {
 
     public static getRepositoryByInstance(target: DataStateClass | Any): NgxsRepositoryMeta | never {
         const stateClass: DataStateClass = NgxsDataFactory.getStateClassByInstance(target);
-        const repository: NgxsRepositoryMeta | null = getRepository(stateClass) || null;
+        const repository: NgxsRepositoryMeta | null = getRepository(stateClass) ?? null;
 
-        if (!repository) {
+        if (isNil(repository)) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_DECORATOR);
         }
 
@@ -56,7 +57,7 @@ export class NgxsDataFactory {
     }
 
     public static getStateClassByInstance(target: DataStateClass | Any): DataStateClass {
-        return (target || {})['constructor'];
+        return (target ?? {})['constructor'];
     }
 
     public static clearMetaByInstance(target: DataStateClass | Any): void {
@@ -71,7 +72,7 @@ export class NgxsDataFactory {
 
         for (let index: number = 0; index < arrayArgs.length; index++) {
             const payloadName: PayloadName | null | undefined = registry?.getPayloadTypeByIndex(index);
-            if (payloadName) {
+            if (isNotNil(payloadName)) {
                 payload[payloadName] = arrayArgs[index];
             }
         }
@@ -86,13 +87,13 @@ export class NgxsDataFactory {
     }
 
     private static ensureMeta(stateMeta: MetaDataModel): MappedStore | null | undefined {
-        const meta: MappedState = stateMeta.name
+        const meta: MappedState = isNotNil(stateMeta.name)
             ? (NgxsDataInjector.factory.states as MappedStore[])?.find(
                   (state: MappedStore): boolean => state.name === stateMeta.name
               )
             : null;
 
-        if (meta && stateMeta.name) {
+        if (meta && isNotNil(stateMeta.name)) {
             NgxsDataFactory.statesCachedMeta.set(stateMeta.name, meta);
         }
 

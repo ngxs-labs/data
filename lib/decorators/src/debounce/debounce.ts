@@ -1,5 +1,6 @@
 import { isDevMode } from '@angular/core';
 import { Any, Descriptor } from '@angular-ru/common/typings';
+import { isNotNil } from '@angular-ru/common/utils';
 import { checkExistNgZone, NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 
@@ -18,7 +19,7 @@ export function Debounce(timeout: number = DEFAULT_TIMEOUT): MethodDecorator {
                 timeoutRef = window.setTimeout((): void => {
                     const result: Any = originalMethod.apply(this, args);
 
-                    if (result && isDevMode()) {
+                    if (isDevMode() && isNotNil(result)) {
                         console.warn(NGXS_DATA_EXCEPTIONS.NGXS_DATA_ASYNC_ACTION_RETURN_TYPE, result);
                     }
                 }, timeout);

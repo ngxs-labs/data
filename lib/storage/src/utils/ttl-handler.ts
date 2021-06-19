@@ -1,3 +1,4 @@
+import { isNotNil } from '@angular-ru/common/utils';
 import { TtLCreatorOptions } from '@ngxs-labs/data/typings';
 import { Subscription } from 'rxjs';
 
@@ -11,7 +12,7 @@ export function ttlHandler(start: string, options: TtLCreatorOptions, subscripti
     const key: string = ensureKey(provider);
     const value: string | null = engine.getItem(key);
 
-    if (value) {
+    if (isNotNil(value)) {
         if (isExpiredByTtl(expiry)) {
             const endListen: string = new Date(Date.now()).toISOString();
 

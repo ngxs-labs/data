@@ -1,3 +1,5 @@
+import { isNotNil } from '@angular-ru/common/utils';
+
 import { MethodArgsRegistry } from '../method-args-registry/method-args-registry';
 
 interface ActionNameCreatorOptions {
@@ -12,9 +14,9 @@ export function actionNameCreator(options: ActionNameCreatorOptions): string {
 
     let argsList: string = '';
     for (let index: number = 0; index < argumentsNames.length; index++) {
-        if (argumentRegistry?.getArgumentNameByIndex(index)) {
+        if (isNotNil(argumentRegistry?.getArgumentNameByIndex(index))) {
             argsList += argumentRegistry?.getArgumentNameByIndex(index);
-        } else if (argumentRegistry?.getPayloadTypeByIndex(index)) {
+        } else if (isNotNil(argumentRegistry?.getPayloadTypeByIndex(index))) {
             argsList += argumentRegistry?.getPayloadTypeByIndex(index);
         } else {
             argsList += `$arg${index}`;

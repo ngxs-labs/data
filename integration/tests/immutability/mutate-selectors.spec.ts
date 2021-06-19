@@ -111,7 +111,7 @@ describe('Mutate', () => {
         expect(error).toEqual("Cannot assign to read only property '0' of object '[object Array]'");
 
         try {
-            (todo.getState() as A[])[0].a++;
+            (todo.getState() as A[])[0]!.a++;
         } catch (e) {
             error = e.message;
         }

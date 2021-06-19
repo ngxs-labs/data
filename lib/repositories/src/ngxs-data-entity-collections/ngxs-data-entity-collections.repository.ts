@@ -29,7 +29,8 @@ export abstract class AbstractNgxsDataEntityCollectionsRepository<
         C = Record<string, Any>
     >
     extends AbstractRepository<EntityCollections<V, K, C>>
-    implements EntityRepository<V, K, C> {
+    implements EntityRepository<V, K, C>
+{
     public primaryKey: string = PrimaryKey.ID;
     public comparator: EntityComparator<V> | null = null;
     private readonly context!: EntityContext<V, K, C>;

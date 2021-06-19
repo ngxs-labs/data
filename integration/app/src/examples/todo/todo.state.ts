@@ -27,7 +27,8 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class TodoState
     extends NgxsImmutableDataRepository<string[]>
-    implements NgxsDataAfterExpired, NgxsDataAfterStorageEvent {
+    implements NgxsDataAfterExpired, NgxsDataAfterStorageEvent
+{
     public expired$: Subject<NgxsDataExpiredEvent> = new Subject();
 
     constructor(private readonly snackBar: MatSnackBar) {

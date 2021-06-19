@@ -1,4 +1,5 @@
 import { Any } from '@angular-ru/common/typings';
+import { isFalsy } from '@angular-ru/common/utils';
 import { getValue, setValue } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 import { MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
@@ -10,7 +11,7 @@ export function rehydrate<T>(params: RehydrateInfoOptions<T>): RehydrateInfo {
     let states: PlainObject = params.states;
     const { provider, data, info }: RehydrateInfoOptions<T> = params;
 
-    if (!provider.rehydrate) {
+    if (isFalsy(provider.rehydrate)) {
         return { states, rehydrateIn: false };
     }
 

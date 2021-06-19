@@ -1,5 +1,6 @@
 import { deepClone } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
+import { isNil } from '@angular-ru/common/utils';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     buildDefaultsGraph,
@@ -15,7 +16,7 @@ export function StateRepository(): StateClassDecorator {
     return (stateClass: DataStateClass): void => {
         const stateMeta: MetaDataModel = ensureStateMetadata(stateClass);
 
-        if (!stateMeta.name) {
+        if (isNil(stateMeta.name)) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE);
         }
 

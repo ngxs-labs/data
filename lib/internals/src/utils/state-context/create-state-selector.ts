@@ -1,6 +1,7 @@
 import { isDevMode } from '@angular/core';
 import { deepFreeze } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
+import { isNotNil } from '@angular-ru/common/utils';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ export function createStateSelector(stateClass: DataStateClass): void {
     const repository: NgxsRepositoryMeta = getRepository(stateClass);
     const name: string | undefined | null = (repository.stateMeta && repository.stateMeta.name) || null;
 
-    if (name) {
+    if (isNotNil(name)) {
         const selectorId: string = `__${name}__selector`;
 
         Object.defineProperties(stateClass.prototype, {
@@ -23,7 +24,7 @@ export function createStateSelector(stateClass: DataStateClass): void {
                 enumerable: true,
                 configurable: true,
                 get(): Observable<Any> {
-                    if (this[selectorId]) {
+                    if (isNotNil(this[selectorId])) {
                         return this[selectorId];
                     } else {
                         if (!NgxsDataInjector.store) {

@@ -1,5 +1,6 @@
 import { $args } from '@angular-ru/common/function';
 import { Any, Descriptor, PlainObjectOf } from '@angular-ru/common/typings';
+import { isTrue } from '@angular-ru/common/utils';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     actionNameCreator,
@@ -35,12 +36,12 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
 
         // eslint-disable-next-line max-lines-per-function
         descriptor.value = function (...args: Any[]): DispatchedResult {
-            const instance: ImmutableDataRepository<Any> = (this as Any) as ImmutableDataRepository<Any>;
+            const instance: ImmutableDataRepository<Any> = this as Any as ImmutableDataRepository<Any>;
 
             let result: DispatchedResult = null;
             const repository: NgxsRepositoryMeta = NgxsDataFactory.getRepositoryByInstance(instance);
             const operations: PlainObjectOf<NgxsDataOperation> = repository.operations!;
-            let operation: NgxsDataOperation = operations[key];
+            let operation: NgxsDataOperation | undefined = operations[key];
             const stateMeta: MetaDataModel = repository.stateMeta!;
             const registry: MethodArgsRegistry | undefined = getMethodArgsRegistry(originalMethod);
 
@@ -69,7 +70,7 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
 
             // Note: invoke only after store.dispatch(...)
             (stateInstance as Any)[operation.type] = (): Any => {
-                if (options.insideZone) {
+                if (isTrue(options.insideZone)) {
                     NgxsDataInjector.ngZone?.run((): void => {
                         result = originalMethod.apply(instance, args);
                     });

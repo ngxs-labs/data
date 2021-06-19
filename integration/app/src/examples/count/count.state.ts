@@ -6,8 +6,9 @@ import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CountModel, ParentCountModel } from './count.model';
+import { CountModel } from './count-model';
 import { CountSubState } from './count-sub.state';
+import { ParentCountModel } from './parent-count-model';
 
 const COUNT_TOKEN: StateToken<ParentCountModel> = new StateToken<ParentCountModel>('count');
 

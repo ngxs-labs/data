@@ -1,5 +1,6 @@
 import { deepClone, isSimpleObject } from '@angular-ru/common/object';
 import { Any, PlainObject } from '@angular-ru/common/typings';
+import { checkValueIsEmpty } from '@angular-ru/common/utils';
 import { StoreOptions } from '@ngxs/store/src/symbols';
 import { NGXS_DATA_EXCEPTIONS } from '@ngxs-labs/data/tokens';
 import { DataStateClass } from '@ngxs-labs/data/typings';
@@ -27,7 +28,7 @@ export function buildDefaultsGraph(stateClasses: DataStateClass): Any {
 function buildChildrenGraph(currentDefaults: Any, children: DataStateClass[]): Any {
     return children.reduce((defaults: PlainObject, item: DataStateClass): PlainObject => {
         const childrenOptions: StoreOptions<Any> = getStoreOptions(item);
-        if (!childrenOptions.name) {
+        if (checkValueIsEmpty(childrenOptions.name)) {
             throw new Error(NGXS_DATA_EXCEPTIONS.NGXS_DATA_STATE_NAME_NOT_FOUND);
         }
 

@@ -2,7 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { Inject, inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
 import { isGetter } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
-import { isNotNil } from '@angular-ru/common/utils';
+import { checkValueIsFilled, isNotNil } from '@angular-ru/common/utils';
 import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 import { STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
@@ -107,7 +107,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     ): void {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
         if (info.rehydrateIn && isStorageEvent(action)) {
-            const instance: NgxsDataAfterStorageEvent = (provider.stateInstance as Any) as NgxsDataAfterStorageEvent;
+            const instance: NgxsDataAfterStorageEvent = provider.stateInstance as Any as NgxsDataAfterStorageEvent;
             const event: NgxsDataStorageEvent = { key, value, data, provider };
 
             instance?.browserStorageEvents$.next(event);
@@ -291,7 +291,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
 
         NgxsDataStoragePlugin.eventsSubscriptions = fromEvent<StorageEvent>(window, 'storage').subscribe(
             (event: StorageEvent): void => {
-                const keyUsageInStore: boolean = !!event.key && this.keys.has(event.key);
+                const keyUsageInStore: boolean = checkValueIsFilled(event.key) && this.keys.has(event.key);
                 if (keyUsageInStore) {
                     this.store!.dispatch({ type: NGXS_DATA_STORAGE_EVENT_TYPE });
                 }

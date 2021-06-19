@@ -4,7 +4,7 @@ import { State } from '@ngxs/store';
 import { Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsDataEntityCollectionsRepository } from '@ngxs-labs/data/repositories';
 
-import { Article } from './article.interface';
+import { Article } from './article';
 
 @Persistence({
     existingEngine: localStorage

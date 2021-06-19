@@ -1,3 +1,4 @@
+import { isNil } from '@angular-ru/common/utils';
 import { DataStateClass, NgxsRepositoryMeta } from '@ngxs-labs/data/typings';
 
 import { defineDefaultRepositoryMeta } from './define-default-repository-meta';
@@ -10,7 +11,7 @@ import { getRepository } from './get-repository';
  */
 export function ensureRepository(target: DataStateClass): NgxsRepositoryMeta {
     const repository: NgxsRepositoryMeta | null = getRepository(target) ?? null;
-    const metaNotFound: boolean = !repository || repository?.stateClass !== target;
+    const metaNotFound: boolean = isNil(repository) || repository?.stateClass !== target;
 
     if (metaNotFound) {
         defineDefaultRepositoryMeta(target);

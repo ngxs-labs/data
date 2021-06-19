@@ -30,8 +30,8 @@ describe('Mutable', () => {
 
         const mutableArr = new MutableTypePipe().transform(arr);
 
-        mutableArr[0].a++;
-        mutableArr[1].b++;
+        mutableArr[0]!.a++;
+        mutableArr[1]!.b++;
 
         expect(mutableArr).toEqual([
             { a: 2, b: 2 },

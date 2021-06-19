@@ -54,7 +54,7 @@ describe('[TEST]: Freeze states', () => {
         let message: string | null = null;
 
         try {
-            snapshot[0].a!++;
+            snapshot[0]!.a!++;
         } catch (e) {
             message = e.message;
         }
@@ -63,7 +63,7 @@ describe('[TEST]: Freeze states', () => {
         expect(`Cannot assign to read only property 'a' of object '[object Object]'`).toEqual(message);
 
         try {
-            snapshot[0].b = 3;
+            snapshot[0]!.b = 3;
         } catch (e) {
             message = e.message;
         }
@@ -71,7 +71,7 @@ describe('[TEST]: Freeze states', () => {
         expect('Cannot add property b, object is not extensible').toEqual(message);
 
         try {
-            snapshot[1].b!++;
+            snapshot[1]!.b!++;
         } catch (e) {
             message = e.message;
         }

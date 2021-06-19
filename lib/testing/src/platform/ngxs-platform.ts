@@ -2,6 +2,7 @@
 import { SchemaMetadata, Type } from '@angular/core';
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { Any } from '@angular-ru/common/typings';
+import { isNil } from '@angular-ru/common/utils';
 import { Store } from '@ngxs/store';
 import { StateClass } from '@ngxs/store/internals';
 import { getStateMetadata } from '@ngxs-labs/data/internals';
@@ -84,7 +85,7 @@ export function ngxsTestingPlatform(
             }: TestModuleMetadata & { states?: StateClass[] } = ensure(params);
 
             states?.forEach((state: StateClass): void => {
-                if (!getStateMetadata(state)) {
+                if (isNil(getStateMetadata(state))) {
                     throw new Error(`${state.name} class must be decorated with @State() decorator`);
                 }
             });

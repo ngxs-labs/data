@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PersonModel } from './person.model';
+import { PersonModel } from './person-model';
 
 @Injectable()
 export class PersonService {

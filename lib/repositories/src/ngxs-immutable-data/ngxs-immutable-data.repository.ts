@@ -16,7 +16,8 @@ import { AbstractRepository } from '../common/abstract-repository';
 @Injectable()
 export abstract class AbstractNgxsImmutableDataRepository<T>
     extends AbstractRepository<Immutable<T>>
-    implements ImmutableStateContext<T>, ImmutableDataRepository<T> {
+    implements ImmutableStateContext<T>, ImmutableDataRepository<T>
+{
     private readonly context!: ImmutableStateContext<T>;
 
     @Computed()

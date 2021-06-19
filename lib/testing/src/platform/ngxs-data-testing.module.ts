@@ -30,6 +30,7 @@ export class NgxsDataTestingModule {
     public static ngxsInitPlatform(): void {
         destroyPlatform();
         createInternalNgxsRootElement();
+        // eslint-disable-next-line @angular-eslint/no-lifecycle-call
         NgxsAppMockModule.ngDoBootstrap(TestBed.inject(ApplicationRef));
     }
 }

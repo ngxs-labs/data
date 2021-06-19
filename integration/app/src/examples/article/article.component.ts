@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
+import { isNotNil } from '@angular-ru/common/utils';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { generateUid } from '../../utils/generate-uid';
-import { Article } from './article.interface';
+import { Article } from './article';
 import { ArticleEntitiesState } from './article-entities.state';
 import { ArticleDialogComponent } from './dialog/article-dialog.component';
 
@@ -46,6 +47,6 @@ export class ArticleComponent {
                 data: entity
             })
             .afterClosed()
-            .pipe(filter((article: Article): boolean => !!article));
+            .pipe(filter((article?: Article): article is Article => isNotNil(article)));
     }
 }

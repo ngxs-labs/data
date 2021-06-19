@@ -5,8 +5,8 @@ import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { PersonModel } from './person.model';
 import { PersonService } from './person.service';
+import { PersonModel } from './person-model';
 
 @StateRepository()
 @State<PersonModel>({

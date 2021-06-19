@@ -1,4 +1,5 @@
 import { Any, Descriptor } from '@angular-ru/common/typings';
+import { isTrue } from '@angular-ru/common/utils';
 import { ensureComputedCache, globalSequenceId, itObservable, validateComputedMethod } from '@ngxs-labs/data/internals';
 import { ComputedCacheMap, ComputedOptions } from '@ngxs-labs/data/typings';
 import { Observable } from 'rxjs';
@@ -13,8 +14,9 @@ export function Computed(): MethodDecorator {
         descriptor.get = function (...args: Any[]): Observable<Any> | Any {
             const cacheMap: ComputedCacheMap = ensureComputedCache(this);
             const cache: ComputedOptions | undefined = cacheMap?.get(originalMethod);
-            if (cache?.isObservable) {
-                return cache.value as Observable<Any>;
+
+            if (isTrue(cache?.isObservable)) {
+                return cache?.value as Observable<Any>;
             }
 
             const invalidCache: boolean = !cache || cache.sequenceId !== globalSequenceId();

@@ -47,7 +47,6 @@ jobs:
             -   name: Run test step
                 run: |
                     yarn test --coverage
-                    yarn test:types
 
             -   name: Run building integration apps step
                 run: yarn build:app
@@ -56,4 +55,4 @@ jobs:
                 env:
                     GH_TOKEN: ${{ secrets.GH_DEPLOY }}
                 if: contains('refs/heads/master', github.ref)
-                run: echo "skip deploy" # yarn ng deploy
+                run: yarn ng deploy

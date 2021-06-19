@@ -3,7 +3,7 @@ import { State } from '@ngxs/store';
 import { DataAction, Debounce, Named, Payload, Persistence, StateRepository } from '@ngxs-labs/data/decorators';
 import { NgxsImmutableDataRepository } from '@ngxs-labs/data/repositories';
 
-import { CountModel } from './count.model';
+import { CountModel } from './count-model';
 
 @Persistence({
     path: 'count.countSub.val',
