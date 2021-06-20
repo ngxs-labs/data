@@ -1,13 +1,13 @@
 {
-    "extends": "../../tsconfig.json",
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "../out-tsc/app",
+        "outDir": "./out-tsc/app",
         "types": [],
         "paths": {
             "@ngxs-labs/data": ["./lib/public_api.ts"],
             "@ngxs-labs/data/*": ["./lib/*/src/public_api.ts"]
         }
     },
-    "files": ["main.ts", "polyfills.ts"],
+    "files": ["integration/app/main.ts", "integration/app/polyfills.ts"],
     "include": ["integration/**/*.d.ts"]
 }

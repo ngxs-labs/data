@@ -1,3 +1,4 @@
+import { isTruthy } from '@angular-ru/common/utils';
 import { ArgName, ArgNameMap, PayloadMap, PayloadName } from '@ngxs-labs/data/typings';
 
 import { InvalidArgsNamesException } from '../../exceptions/invalid-args-names.exception';
@@ -27,7 +28,7 @@ export class MethodArgsRegistry {
     }
 
     private checkDuplicateName(name: ArgName, method: string): void | never {
-        if (this.argumentMap.has(name) || this.payloadMap.has(name)) {
+        if (isTruthy(this.argumentMap.has(name)) || isTruthy(this.payloadMap.has(name))) {
             throw new InvalidArgsNamesException(name, method);
         }
     }

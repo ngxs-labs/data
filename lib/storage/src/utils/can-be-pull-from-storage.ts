@@ -1,5 +1,5 @@
 import { Any } from '@angular-ru/common/typings';
-import { isFalsy, isNotNil } from '@angular-ru/common/utils';
+import { isFalsy, isNotNil, isTruthy } from '@angular-ru/common/utils';
 import { NgxsDataMigrateStorage, PullFromStorageInfo, PullFromStorageOptions } from '@ngxs-labs/data/typings';
 
 import { existTtl } from './exist-ttl';
@@ -57,7 +57,7 @@ function ensureInfoByVersionMismatch<T>(
     if (canBeOverrideFromStorage && meta.version !== provider.version) {
         const instance: NgxsDataMigrateStorage | undefined = provider.stateInstance as Any as NgxsDataMigrateStorage;
         const tryMigrate: boolean =
-            isFalsy(provider.skipMigrate) && !!(instance?.ngxsDataStorageMigrate || provider.migrate);
+            isFalsy(provider.skipMigrate) && (isTruthy(instance?.ngxsDataStorageMigrate) || isTruthy(provider.migrate));
 
         if (tryMigrate) {
             newResult = { ...result, versionMismatch: true };

@@ -1,0 +1,18 @@
+{
+    "extends": "@angular-ru/tsconfig",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "lib": ["es2018", "dom"],
+        "module": "commonjs",
+        "rootDir": "schematics",
+        "outDir": "dist/ngxs-data/schematics",
+        "target": "es6",
+        "types": ["node"],
+        "paths": {
+            "@ngxs-labs/data/tokens": ["dist/ngxs-data/tokens/public_api.d.ts"],
+            "@ngxs-labs/data/typings": ["dist/ngxs-data/typings/public_api.d.ts"]
+        }
+    },
+    "include": ["lib/schematics/**/*"],
+    "exclude": ["lib/schematics/*/files/**/*"]
+}

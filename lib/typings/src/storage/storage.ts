@@ -171,7 +171,7 @@ export interface GlobalStorageOptionsHandler {
 
 export interface NgxsDataExpiredEvent {
     key: string;
-    expiry: string;
+    expiry: string | null | undefined;
     timestamp: string;
 }
 
@@ -205,7 +205,7 @@ export interface TtlListenerOptions {
 
 export interface TtLCreatorOptions {
     provider: PersistenceProvider;
-    expiry: Date;
+    expiry: Date | undefined | null;
     map: WeakMap<PersistenceProvider, TtlListenerOptions>;
     engine: ExistingStorageEngine;
 }

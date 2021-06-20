@@ -17,7 +17,7 @@
                         "index": "integration/app/index.html",
                         "main": "integration/app/main.ts",
                         "polyfills": "integration/app/polyfills.ts",
-                        "tsConfig": "integration/app/tsconfig.app.json",
+                        "tsConfig": "./tsconfig.app.json",
                         "assets": ["integration/app/favicon.ico", "integration/app/assets", "integration/app/json"],
                         "styles": ["integration/app/styles.scss"],
                         "scripts": [],
@@ -84,7 +84,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "tsConfig": "lib/tsconfig.lib.json",
+                        "tsConfig": "tsconfig.lib.json",
                         "project": "lib/ng-package.json"
                     }
                 }

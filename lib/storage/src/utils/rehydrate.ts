@@ -1,5 +1,5 @@
 import { Any } from '@angular-ru/common/typings';
-import { isFalsy } from '@angular-ru/common/utils';
+import { isFalsy, isTruthy } from '@angular-ru/common/utils';
 import { getValue, setValue } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 import { MigrateFn, NgxsDataMigrateStorage, RehydrateInfo, RehydrateInfoOptions } from '@ngxs-labs/data/typings';
@@ -18,10 +18,10 @@ export function rehydrate<T>(params: RehydrateInfoOptions<T>): RehydrateInfo {
     const path: string = ensurePath(provider);
     const prevData: T = getValue(states, path);
 
-    if (info.versionMismatch) {
+    if (isTruthy(info.versionMismatch)) {
         const stateInstance: Any = provider.stateInstance as Any;
         const instance: NgxsDataMigrateStorage = stateInstance as NgxsDataMigrateStorage;
-        const migrateFn: MigrateFn = provider.migrate || instance.ngxsDataStorageMigrate?.bind(provider.stateInstance);
+        const migrateFn: MigrateFn = provider.migrate ?? instance.ngxsDataStorageMigrate?.bind(provider.stateInstance);
         const newMigrationData: PlainObject = migrateFn?.(prevData, data);
         states = setValue(states, path, newMigrationData);
         return { states, rehydrateIn: true };

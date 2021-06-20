@@ -1,10 +1,10 @@
 {
     "name": "@ngxs-labs/data",
-    "version": "6.0.0",
+    "version": "6.1.0",
     "license": "MIT",
     "schematics": "./schematics/collection.json",
     "scripts": {
-        "build": "tsc -p tsconfig.schematics.json",
+        "build": "tsc -p ../tsconfig.schematics.json",
         "build:watch": "npm run build -- --watch",
         "copy:schemas": "cp --parents ./schematics/*/schema.json ../dist/ngxs-data/ | true",
         "copy:files": "cp --parents -p ./schematics/*/files/** ../dist/ngxs-data/ | true",

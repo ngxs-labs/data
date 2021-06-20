@@ -1,3 +1,7 @@
+# 6.1.0 2021-06-20
+
+-   Feat: improved type checking
+
 # 6.0.0 2021-06-19
 
 -   Feat: support Angular 12

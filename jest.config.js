@@ -1,7 +1,7 @@
 const { createTsJestConfig } = require('@angular-ru/jest-utils');
 
 module.exports = createTsJestConfig({
-    tsConfig: './tsconfig.json',
+    tsConfig: './tsconfig.spec.json',
     isolatedModules: false,
     jestConfig: {
         rootDir: '.',

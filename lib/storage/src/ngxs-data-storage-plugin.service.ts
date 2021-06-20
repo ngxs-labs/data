@@ -2,7 +2,7 @@ import { isPlatformServer } from '@angular/common';
 import { Inject, inject, Injectable, Injector, PLATFORM_ID, Self } from '@angular/core';
 import { isGetter } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
-import { checkValueIsFilled, isNotNil } from '@angular-ru/common/utils';
+import { checkValueIsFilled, isFalsy, isNotNil, isTruthy } from '@angular-ru/common/utils';
 import { ActionType, getValue, NgxsNextPluginFn, NgxsPlugin, Store } from '@ngxs/store';
 import { PlainObject } from '@ngxs/store/internals';
 import { STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
@@ -106,20 +106,20 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         data: StorageData<T>
     ): void {
         const { action, provider, key, value }: GlobalStorageOptionsHandler = options;
-        if (info.rehydrateIn && isStorageEvent(action)) {
+        if (isTruthy(info.rehydrateIn) && isTruthy(isStorageEvent(action))) {
             const instance: NgxsDataAfterStorageEvent = provider.stateInstance as Any as NgxsDataAfterStorageEvent;
             const event: NgxsDataStorageEvent = { key, value, data, provider };
 
             instance?.browserStorageEvents$.next(event);
 
-            if (instance?.ngxsDataAfterStorageEvent) {
+            if (isTruthy(instance?.ngxsDataAfterStorageEvent)) {
                 instance?.ngxsDataAfterStorageEvent?.(event);
             }
         }
     }
 
     private static mutateProviderWithInjectStateInstance(provider: PersistenceProvider): void {
-        if (!provider.stateInstance) {
+        if (isFalsy(provider.stateInstance)) {
             try {
                 provider.stateInstance =
                     NgxsDataStoragePlugin.injector?.get(provider.stateClassRef, null) ??
@@ -132,7 +132,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         const { info, rehydrateInfo, options, map }: CheckExpiredInitOptions = params;
         const { provider, engine }: GlobalStorageOptionsHandler = options;
 
-        if (rehydrateInfo.rehydrateIn && info.expiry) {
+        if (isTruthy(rehydrateInfo.rehydrateIn) && isTruthy(info.expiry)) {
             createTtlInterval({ provider, expiry: info.expiry, map, engine });
         }
     }
@@ -166,7 +166,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
             data: ensureSerializeData(data, provider)
         };
 
-        if (existTtl(provider)) {
+        if (isTruthy(existTtl(provider))) {
             const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
             const expiry: Date = new Date(Date.now() + parseInt(provider.ttl as Any));
             createTtlInterval({ provider, expiry, map: this.ttlListeners, engine });
@@ -185,7 +185,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     }
 
     public destroyOldTasks(): void {
-        if (STORAGE_INIT_EVENT.firstInitialized) {
+        if (isTruthy(STORAGE_INIT_EVENT.firstInitialized)) {
             STORAGE_INIT_EVENT.events$.complete();
             STORAGE_INIT_EVENT.events$ = new ReplaySubject<void>(1);
         }
@@ -198,7 +198,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
         for (const [provider] of this.entries) {
             const prevData: Any = getValue(states, ensurePath(provider));
             const newData: Any = getValue(nextState, ensurePath(provider));
-            const canBeInitFire: boolean = provider.fireInit! && meta.init;
+            const canBeInitFire: boolean = isTruthy(provider.fireInit) && meta.init;
 
             if (prevData !== newData || canBeInitFire) {
                 const engine: ExistingStorageEngine = exposeEngine(provider, NgxsDataStoragePlugin.injector!);
@@ -253,7 +253,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
             const data: StorageData<T> = this.deserialize(meta, value, provider);
             const info: PullFromStorageInfo = canBePullFromStorage({ provider, meta, data });
 
-            if (info.canBeOverrideFromStorage) {
+            if (isTruthy(info.canBeOverrideFromStorage)) {
                 const rehydrateInfo: RehydrateInfo = rehydrate({ states, provider, data, info });
                 this.keys.set(key);
                 // mutate parent states
@@ -274,7 +274,7 @@ export class NgxsDataStoragePlugin implements NgxsPlugin, DataStoragePlugin {
     private removeKeyWhenPullInvalid(info: PullFromStorageInfo, options: GlobalStorageOptionsHandler): void {
         const { key, engine, provider }: GlobalStorageOptionsHandler = options;
 
-        if (info.expired) {
+        if (isTruthy(info.expired)) {
             firedStateWhenExpired(key, { provider, engine, map: this.ttlListeners, expiry: info.expiry! });
         }
 

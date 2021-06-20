@@ -1,5 +1,5 @@
 import { Any } from '@angular-ru/common/typings';
-import { isNil } from '@angular-ru/common/utils';
+import { isFalsy, isNil } from '@angular-ru/common/utils';
 import { MetaDataModel } from '@ngxs/store/src/internal/internals';
 import { ensureStateMetadata, getRepository, STORAGE_INIT_EVENT } from '@ngxs-labs/data/internals';
 import { ensureProviders, registerStorageProviders } from '@ngxs-labs/data/storage';
@@ -17,7 +17,7 @@ export function Persistence(options?: ProviderOptions): Any {
         }
 
         STORAGE_INIT_EVENT.events$.subscribe((): void => {
-            if (!STORAGE_INIT_EVENT.firstInitialized) {
+            if (isFalsy(STORAGE_INIT_EVENT.firstInitialized)) {
                 STORAGE_INIT_EVENT.firstInitialized = true;
             }
 

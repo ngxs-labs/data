@@ -1,0 +1,34 @@
+{
+    "extends": "@angular-ru/tsconfig",
+    "angularCompilerOptions": {
+        "strictTemplates": true,
+        "fullTemplateTypeCheck": true,
+        "annotateForClosureCompiler": true,
+        "strictInjectionParameters": true,
+        "skipTemplateCodegen": false,
+        "preserveWhitespaces": true,
+        "skipMetadataEmit": false,
+        "disableTypeScriptVersionCheck": true,
+        "enableIvy": true,
+        "compilationMode": "partial"
+    },
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "target": "es2015",
+        "lib": ["es2017", "dom"],
+        "module": "esnext",
+        "typeRoots": ["./node_modules/@types"],
+        "paths": {
+            "@ngxs-labs/data": ["./lib/public_api.ts"],
+            "@ngxs-labs/data/testing": ["./lib/testing/src/public_api.ts"],
+            "@ngxs-labs/data/typings": ["./lib/typings/src/public_api.ts"],
+            "@ngxs-labs/data/storage": ["./lib/storage/src/public_api.ts"],
+            "@ngxs-labs/data/internals": ["./lib/internals/src/public_api.ts"],
+            "@ngxs-labs/data/repositories": ["./lib/repositories/src/public_api.ts"],
+            "@ngxs-labs/data/decorators": ["./lib/decorators/src/public_api.ts"],
+            "@ngxs-labs/data/tokens": ["./lib/tokens/src/public_api.ts"]
+        }
+    },
+    "exclude": ["integration/types"]
+}

@@ -1,5 +1,6 @@
 import { isSimpleObject } from '@angular-ru/common/object';
 import { Any } from '@angular-ru/common/typings';
+import { checkValueIsEmpty } from '@angular-ru/common/utils';
 import { PersistenceProvider, STORAGE_DECODE_TYPE, StorageData, StorageMeta } from '@ngxs-labs/data/typings';
 
 import { InvalidDataValueException } from '../exceptions/invalid-data-value.exception';
@@ -37,5 +38,5 @@ function missingDataKey<T>(meta: StorageMeta<T>): boolean {
 }
 
 function missingLastChanged<T>(meta: StorageMeta<T>): boolean {
-    return !('lastChanged' in meta) || !meta.lastChanged;
+    return !('lastChanged' in meta) || checkValueIsEmpty(meta.lastChanged);
 }

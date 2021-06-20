@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { isNotNil } from '@angular-ru/common/utils';
 import { StateClass } from '@ngxs/store/internals';
 import { NgxsRepositoryMeta, PersistenceProvider, ProviderOptions, STORAGE_DECODE_TYPE } from '@ngxs-labs/data/typings';
 
@@ -23,7 +24,7 @@ export function ensureProviders(
         NgxsDataStoragePlugin.injector?.get(NGXS_DATA_STORAGE_DECODE_TYPE_TOKEN, STORAGE_DECODE_TYPE.NONE) ??
         STORAGE_DECODE_TYPE.NONE;
 
-    if (options) {
+    if (isNotNil(options)) {
         const prepared: PersistenceProvider[] = Array.isArray(options) ? options : [options];
         providers = prepared.map(
             (option: PersistenceProvider): PersistenceProvider =>

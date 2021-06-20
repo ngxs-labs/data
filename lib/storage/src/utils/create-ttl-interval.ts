@@ -1,4 +1,5 @@
 import { Fn } from '@angular-ru/common/typings';
+import { isNotNil } from '@angular-ru/common/utils';
 import { NgxsDataInjector } from '@ngxs-labs/data/internals';
 import { TtLCreatorOptions } from '@ngxs-labs/data/typings';
 import { interval, Subscription } from 'rxjs';
@@ -19,7 +20,7 @@ export function createTtlInterval(options: TtLCreatorOptions): void {
         map.set(provider, { subscription, startListen, endListen: null });
     };
 
-    if (NgxsDataInjector.ngZone) {
+    if (isNotNil(NgxsDataInjector.ngZone)) {
         NgxsDataInjector.ngZone?.runOutsideAngular((): void => watcher());
     } else {
         watcher();

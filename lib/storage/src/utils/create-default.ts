@@ -8,7 +8,7 @@ export function createDefault(options: CreateStorageDefaultOptions): Persistence
     return [
         {
             get path(): string | null | undefined {
-                return meta.stateMeta && meta.stateMeta.path;
+                return meta?.stateMeta?.path;
             },
             existingEngine: localStorage,
             ttl: -1,

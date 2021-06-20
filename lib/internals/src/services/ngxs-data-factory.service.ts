@@ -93,7 +93,7 @@ export class NgxsDataFactory {
               )
             : null;
 
-        if (meta && isNotNil(stateMeta.name)) {
+        if (isNotNil(meta) && isNotNil(stateMeta.name)) {
             NgxsDataFactory.statesCachedMeta.set(stateMeta.name, meta);
         }
 

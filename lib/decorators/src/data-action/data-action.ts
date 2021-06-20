@@ -1,6 +1,6 @@
 import { $args } from '@angular-ru/common/function';
 import { Any, Descriptor, PlainObjectOf } from '@angular-ru/common/typings';
-import { isTrue } from '@angular-ru/common/utils';
+import { isNil, isTrue } from '@angular-ru/common/utils';
 import { MappedStore, MetaDataModel } from '@ngxs/store/src/internal/internals';
 import {
     actionNameCreator,
@@ -45,7 +45,7 @@ export function DataAction(options: RepositoryActionOptions = REPOSITORY_ACTION_
             const stateMeta: MetaDataModel = repository.stateMeta!;
             const registry: MethodArgsRegistry | undefined = getMethodArgsRegistry(originalMethod);
 
-            if (!operation) {
+            if (isNil(operation)) {
                 // Note: late init operation when first invoke action method
                 const argumentsNames: string[] = $args(originalMethod);
                 const type: string = actionNameCreator({
