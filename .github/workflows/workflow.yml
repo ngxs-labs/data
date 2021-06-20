@@ -38,7 +38,6 @@ jobs:
             -   name: Run building libraries step
                 run: |
                     yarn build:lib
-                    yarn build:schematics
 
             -   name: Run lint step
                 run: |

@@ -1,16 +1,7 @@
 {
     "name": "@ngxs-labs/data",
-    "version": "6.1.0",
+    "version": "6.2.0",
     "license": "MIT",
-    "schematics": "./schematics/collection.json",
-    "scripts": {
-        "build": "tsc -p ../tsconfig.schematics.json",
-        "build:watch": "npm run build -- --watch",
-        "copy:schemas": "cp --parents ./schematics/*/schema.json ../dist/ngxs-data/ | true",
-        "copy:files": "cp --parents -p ./schematics/*/files/** ../dist/ngxs-data/ | true",
-        "copy:collection": "cp ./schematics/collection.json ../dist/ngxs-data/schematics/collection.json",
-        "postbuild": "npm run copy:schemas && npm run copy:files && npm run copy:collection"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ngxs-labs/data.git"
