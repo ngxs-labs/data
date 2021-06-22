@@ -177,10 +177,10 @@
     sort-package-json "1.50.0"
     ts-node "10.0.0"
 
-"@angular-ru/common@15.264.0":
-  version "15.264.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.264.0.tgz#683c3796863c74976f493aa92cd171fcb9e4d716"
-  integrity sha512-19GhsM8uqyYizzU/mhhlcnYGQ9BymfTxD57XlCP3QzHZ7v97BrUWc8U6SKeqnOrU9KiaqMJyaLU00PCYiIHWsA==
+"@angular-ru/common@15.267.0":
+  version "15.267.0"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.267.0.tgz#4d50533f3bbc68694fbb8177ef39abc5ec6ce6eb"
+  integrity sha512-V93UyD3ibMBdyX7SNkIqqjLvD09Xu1epsSV/3CGAMjLrnQtNNx+VfTvGyZefQ4A2/ap1YzJyxiaB5Pur+H2tUQ==
   dependencies:
     tslib "^2.0.0"
 
@@ -213,10 +213,10 @@
   resolved "https://registry.npmjs.org/@angular-ru/eslint-plugin/-/eslint-plugin-15.236.0.tgz#a9f428aae1ff2f18f81240f93b7232514a0c3f14"
   integrity sha512-ZGiKr5yIO4nLnTGpTZ1KlxeZcsh6k8myp1jXH+WFlLUSqOxocIvGhfJ0ZkkDtCDv3uFb7xGjtczNf7B5yaudmg==
 
-"@angular-ru/jest-utils@15.253.0":
-  version "15.253.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.253.0.tgz#92d7f9600643b36980761d7168e881746e559c9a"
-  integrity sha512-4iWKSry8xkN7Z92SJ7BOqSRvNytGRNpdNu4Wj3KUlHCFPNkBbkv87SYGwU9XkH8uspMg00VFb9OtaYsiMV9fJQ==
+"@angular-ru/jest-utils@15.267.0":
+  version "15.267.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.267.0.tgz#910bfe0e0ad6408042e753b2d6d17d56dadfd9ff"
+  integrity sha512-dbmDjKMGrkL+zLGZq8JtUyU4QhgkKbnixczwxeJMyWuVaTh4jZb+HIfOQZygYax98h0LCmN7uCHJLuDBpIrjPA==
   dependencies:
     "@types/jest" "26.0.23"
     jest "26.6.3"
