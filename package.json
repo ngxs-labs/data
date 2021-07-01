@@ -43,7 +43,7 @@
         "@ngxs/logger-plugin": "3.7.2",
         "@ngxs/store": "3.7.2",
         "@schematics/angular": "12.1.0",
-        "@types/node": "15.12.5",
+        "@types/node": "15.14.0",
         "angular-cli-ghpages": "1.0.0-rc.2",
         "core-js": "3.15.2",
         "coveralls": "3.1.1",
