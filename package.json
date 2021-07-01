@@ -22,7 +22,7 @@
         "@angular-devkit/build-angular": "12.1.0",
         "@angular-devkit/schematics-cli": "12.1.0",
         "@angular-ru/build-tools": "15.263.3",
-        "@angular-ru/common": "15.274.0",
+        "@angular-ru/common": "15.275.0",
         "@angular-ru/eslint-config": "15.263.4",
         "@angular-ru/jest-utils": "15.267.0",
         "@angular-ru/prettier-config": "15.263.1",
