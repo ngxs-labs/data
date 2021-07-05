@@ -158,10 +158,10 @@
   dependencies:
     eslint-scope "^5.1.0"
 
-"@angular-ru/build-tools@15.263.3":
-  version "15.263.3"
-  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.263.3.tgz#5e11baf04dc6973bb563384ba05f57fec240ca9b"
-  integrity sha512-/lhA+wqQ9yw0UxLukKcMuOPjwf9axBxxczEgImHYVb+6tOTegVvQUjjO9naQk07P1FG5u2l5b4D8GcnTS8ouCg==
+"@angular-ru/build-tools@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.301.0.tgz#2fb9748976012e2d4805cf27993f3ac1b5fac86f"
+  integrity sha512-9j51K53HUPSTZlQYz7PgJD6XdkPAKjRzIYi3XaBitlqEwh3UGsXk992D848drFiWcK/v7oIWfIdhV/xBCt12qg==
   dependencies:
     "@types/jasmine" "3.7.4"
     "@types/jasminewd2" "2.0.9"
@@ -179,22 +179,22 @@
     sort-package-json "1.50.0"
     ts-node "10.0.0"
 
-"@angular-ru/common@15.277.0":
-  version "15.277.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.277.0.tgz#154218dbb09e9e1fd532ee1093eb79bef370ccd9"
-  integrity sha512-rvd1Rab3hEOfwsX2smfTKxtkaBeVEmfSSclj7veYOd/FS7rZmeFz6nt6YAs3X1PlUuFAqIEkkmbvbc6aOKQt1A==
+"@angular-ru/common@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.301.0.tgz#d1381e07d24aab40e1999808f7d84f17b94930ca"
+  integrity sha512-IXAxesytYCjmMCah3HGq6oFUaLVbjWCkUpzVGWik38BvOaewkwy7EBMq0rA7UAS3+2fbxWexpjEBlbv6zcaO2g==
   dependencies:
     tslib "^2.0.0"
 
-"@angular-ru/eslint-config@15.276.0":
-  version "15.276.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-15.276.0.tgz#82b8c7905948ca46dafdfdb14d4660182302d929"
-  integrity sha512-EreVrQ73W/Xo5Xs1AsIjktYOuw2/FvK+9WEBZ1i/FY3G+LA0WtUvjquzXobRJ5QdqiY4HfUga+HotkVkZxConA==
+"@angular-ru/eslint-config@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-config/-/eslint-config-15.301.0.tgz#4cceaa35fb4ac72a7ff4a11c41c8e43f9b2445f8"
+  integrity sha512-8VsAMLzN1YTmkHX38ZI7vSiQjFqJpffPdb7uDF55KMg/VwSpll4B0WOBgwX66J//sxNON3xQUWrIozo2oWmMiw==
   dependencies:
     "@angular-eslint/eslint-plugin" "4.3.0"
     "@angular-eslint/eslint-plugin-template" "4.3.0"
     "@angular-eslint/template-parser" "4.3.0"
-    "@angular-ru/eslint-plugin" "^15.236.0"
+    "@angular-ru/eslint-plugin" "^15.301.0"
     "@types/eslint" "7.2.13"
     "@typescript-eslint/eslint-plugin" "4.27.0"
     "@typescript-eslint/parser" "4.27.0"
@@ -210,32 +210,32 @@
     eslint-plugin-simple-import-sort "7.0.0"
     eslint-plugin-sonarjs "0.7.0"
 
-"@angular-ru/eslint-plugin@^15.236.0":
-  version "15.236.0"
-  resolved "https://registry.npmjs.org/@angular-ru/eslint-plugin/-/eslint-plugin-15.236.0.tgz#a9f428aae1ff2f18f81240f93b7232514a0c3f14"
-  integrity sha512-ZGiKr5yIO4nLnTGpTZ1KlxeZcsh6k8myp1jXH+WFlLUSqOxocIvGhfJ0ZkkDtCDv3uFb7xGjtczNf7B5yaudmg==
+"@angular-ru/eslint-plugin@^15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/eslint-plugin/-/eslint-plugin-15.301.0.tgz#03ca255ed8c8c7c3e71e62576e97d2caa6b0cd76"
+  integrity sha512-iYq8QWpIsmX8K3XToupIfhCZGvnWoKau1V8pCc9nNyFeNHdIk5Vxq0462LjySDfKv8jDusGPXCc3QryIllIZtg==
 
-"@angular-ru/jest-utils@15.267.0":
-  version "15.267.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.267.0.tgz#910bfe0e0ad6408042e753b2d6d17d56dadfd9ff"
-  integrity sha512-dbmDjKMGrkL+zLGZq8JtUyU4QhgkKbnixczwxeJMyWuVaTh4jZb+HIfOQZygYax98h0LCmN7uCHJLuDBpIrjPA==
+"@angular-ru/jest-utils@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.301.0.tgz#699ad0d28735a3b1b922b30e8ce98fcb2c8952d1"
+  integrity sha512-Z6sOFPE2NHh+k4O3X2qVPjlLvMYAm3xppcXpOvogNDmKYib2aQu1YvLbzxTNRIv/NzOiQAJJTRA1hv40gLkyVg==
   dependencies:
     "@types/jest" "26.0.23"
     jest "26.6.3"
     jest-preset-angular "8.4.0"
     ts-jest "26.5.6"
 
-"@angular-ru/prettier-config@15.263.1":
-  version "15.263.1"
-  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-15.263.1.tgz#18e245e9a4b2b3372d0e2874b6e28964c8912a3c"
-  integrity sha512-KYedFaTiKLz3SgTsYkcYex/+TcZbZidaMUN9h+oS6QJQ0xZeFmPi4dSQ13ZryLnxpALPbmzOUdw5wK7dQjwAFw==
+"@angular-ru/prettier-config@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-15.301.0.tgz#c48268fd2b6ead2d90f51d77454f6f2d3f9deec2"
+  integrity sha512-q3EU4cjOSfJU8kr6nR4WdOM9/6PrNNIuTRrlbyMRK8RgCI1AFwm6ZiD+4vIwXyhJLMDf5nvOMw4Oh1CVcTGNEg==
   dependencies:
     prettier "2.3.1"
 
-"@angular-ru/tsconfig@15.276.1":
-  version "15.276.1"
-  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-15.276.1.tgz#1204da795d175dddd5eaa7b745f53604fdbe62d6"
-  integrity sha512-tnziyWPNhHMdVKGWKK172/G74ghCxR2MoRRg3ObFgrjUx2Gns/PJ/hc3N7DAOsZMpQfLyvGOHDOmBJD4h6LD1g==
+"@angular-ru/tsconfig@15.301.0":
+  version "15.301.0"
+  resolved "https://registry.npmjs.org/@angular-ru/tsconfig/-/tsconfig-15.301.0.tgz#040909823619a485016862f4700729bb0623d794"
+  integrity sha512-p8TenHEGnVCVsg7LAGbOXubWdjnP3RtHCP09FzzvK9lbrnWwH92k+xp+m3LiJbJQl5hDeke4sCYce1Bj4Oicgg==
 
 "@angular/animations@12.1.1":
   version "12.1.1"
