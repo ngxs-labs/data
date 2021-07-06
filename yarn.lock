@@ -158,12 +158,12 @@
   dependencies:
     eslint-scope "^5.1.0"
 
-"@angular-ru/build-tools@15.301.0":
-  version "15.301.0"
-  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.301.0.tgz#2fb9748976012e2d4805cf27993f3ac1b5fac86f"
-  integrity sha512-9j51K53HUPSTZlQYz7PgJD6XdkPAKjRzIYi3XaBitlqEwh3UGsXk992D848drFiWcK/v7oIWfIdhV/xBCt12qg==
+"@angular-ru/build-tools@15.301.1":
+  version "15.301.1"
+  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.301.1.tgz#a0a71018c45cf1dd6d1855388952fe16dd91edb6"
+  integrity sha512-rjq71eofZeZXAwSqOmntIyzNNgCMZ37R5kticSqJvUa49BChzHiFVkvfzhuDHnPUVElK50CSnbJfdHP+KSSOPw==
   dependencies:
-    "@types/jasmine" "3.7.4"
+    "@types/jasmine" "3.7.7"
     "@types/jasminewd2" "2.0.9"
     "@types/karma" "6.3.0"
     "@types/node" "15.12.4"
@@ -1838,15 +1838,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jasmine@*":
+"@types/jasmine@*", "@types/jasmine@3.7.7":
   version "3.7.7"
   resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.7.7.tgz#56718af036be3c9f86eca560a22e39440b2b0784"
   integrity sha512-yZzGe1d1T0y+imXDZ79F030nn8qbmiwpWKCZKvKN0KbTzwXAVYShUxkIxu1ba+vhIdabTGVGCfbtZC0oOam8TQ==
-
-"@types/jasmine@3.7.4":
-  version "3.7.4"
-  resolved "https://registry.npmjs.org/@types/jasmine/-/jasmine-3.7.4.tgz#99a49aa9a5f8dc86fc249ed13ed59552c6ce862d"
-  integrity sha512-L3FKeEwMm8e8hqGvt7cSesVmGtavpRyHV1FNDq+Pm5pS4x5eFmE70ZERXCSBWAiLQqXBcZRUrwV59FZLQl/GxQ==
 
 "@types/jasminewd2@2.0.9":
   version "2.0.9"
