@@ -179,10 +179,10 @@
     sort-package-json "1.50.0"
     ts-node "10.0.0"
 
-"@angular-ru/common@15.301.3":
-  version "15.301.3"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.301.3.tgz#6955e2b20ef2bb97e57cbab50fafa3953fdeb92c"
-  integrity sha512-r3qENccAsdubl/bkBUV/U/SzWu6vdoH//cvOcIL5w7xAwDWdK9LOlNXDXtBdtF+a0vRyI3BAO2Isar5SABTh7Q==
+"@angular-ru/common@15.302.1":
+  version "15.302.1"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.302.1.tgz#21538d18e58019f90985f6294ba786d86de8e180"
+  integrity sha512-5EelIz598Zjz8L0DiGy0wDrpa+IZlwUaaY2EHCcaKOxH50PSbBsn4KKGpG4MmNqh7UynrIkePolkNTQ8joUGhw==
   dependencies:
     tslib "^2.0.0"
 
@@ -8772,10 +8772,10 @@ ng-packagr@11.2.4:
     sync-rpc "^1.3.6"
     terser "^5.5.1"
 
-ng-packagr@12.1.0:
-  version "12.1.0"
-  resolved "https://registry.npmjs.org/ng-packagr/-/ng-packagr-12.1.0.tgz#b8fe8aa5f2c4ae4f0ffe32cfc7a1005807a41d72"
-  integrity sha512-1GrYYfOYHUXNsfuKrjALy6yywcMvOoBcF8genphqvEqJcT5B78mAjGFRxbtuhbxXMXDJUviMLiSfOOcs0Rj2yg==
+ng-packagr@12.1.1:
+  version "12.1.1"
+  resolved "https://registry.npmjs.org/ng-packagr/-/ng-packagr-12.1.1.tgz#7d071f7c8b00bc5c9901904d71a42174f5e3f572"
+  integrity sha512-V/3u4CgbiPSx4F4QDDK6BD+yxxU6VYiCECvDqLX+LJ749HldkYUMMUab6fwCQP4Z9PR5xFAsdi07uWny+Ptqtg==
   dependencies:
     "@rollup/plugin-commonjs" "^19.0.0"
     "@rollup/plugin-json" "^4.1.0"
