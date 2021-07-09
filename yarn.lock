@@ -158,10 +158,10 @@
   dependencies:
     eslint-scope "^5.1.0"
 
-"@angular-ru/build-tools@15.303.0":
-  version "15.303.0"
-  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.303.0.tgz#61bdfb30d530c2c72f41a5263280a797eb611c04"
-  integrity sha512-VnkiopfO41OJnhoct7cktaNPd8fGhVVE1yVaa1AL90hOeLp95s2Ix/T72i0IleLSOk9C1c6/eEjUGO3GCCswbA==
+"@angular-ru/build-tools@15.304.2":
+  version "15.304.2"
+  resolved "https://registry.npmjs.org/@angular-ru/build-tools/-/build-tools-15.304.2.tgz#7d6acca22c75ed80be4eb9dfa959fe538767c833"
+  integrity sha512-2QTSH3G5Ivj/kk4p9hApMhWmYVEI10/3rtGQVdo5P+1lh4gSaeGADVcSi2qwqLMaYUhy9PWXIck1KHvTQQys5g==
   dependencies:
     "@types/jasmine" "3.7.8"
     "@types/jasminewd2" "2.0.10"
@@ -169,7 +169,7 @@
     "@types/node" "15.12.4"
     cross-env "7.0.3"
     generate-changelog "1.8.0"
-    husky "6.0.0"
+    husky "7.0.1"
     inquirer-directory "2.2.0"
     lint-staged "11.0.0"
     ng-packagr "12.1.0"
@@ -215,22 +215,22 @@
   resolved "https://registry.npmjs.org/@angular-ru/eslint-plugin/-/eslint-plugin-15.301.0.tgz#03ca255ed8c8c7c3e71e62576e97d2caa6b0cd76"
   integrity sha512-iYq8QWpIsmX8K3XToupIfhCZGvnWoKau1V8pCc9nNyFeNHdIk5Vxq0462LjySDfKv8jDusGPXCc3QryIllIZtg==
 
-"@angular-ru/jest-utils@15.303.0":
-  version "15.303.0"
-  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.303.0.tgz#73bd1fcbc4fea897b449f449be3aa34f63e1463f"
-  integrity sha512-r9CZhwKrxQOMdYclQdFbdLP75duZul6mV2JDJBETXsLhLBj6ZftB/wFUZOaG9czvLihvyWU0K+/PQEHEBf7SBw==
+"@angular-ru/jest-utils@15.304.1":
+  version "15.304.1"
+  resolved "https://registry.npmjs.org/@angular-ru/jest-utils/-/jest-utils-15.304.1.tgz#1234a6e86a009edc931cae960572288ccbeeff46"
+  integrity sha512-hiJUtox62EkQen2Sn7B8l0dfpDQ7HqBOBSSfKjW44COPuyRV867WUHUKQnKiAT1c1crBjY6q2MkNlz6W9UbzxA==
   dependencies:
-    "@types/jest" "26.0.23"
+    "@types/jest" "26.0.24"
     jest "27.0.6"
     jest-preset-angular "9.0.4"
     ts-jest "27.0.3"
 
-"@angular-ru/prettier-config@15.303.0":
-  version "15.303.0"
-  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-15.303.0.tgz#2d1e41ac3518eb40abea761fdcb36181ac9e728e"
-  integrity sha512-XcZzVm0jQ9Ev3mw03mdtMISY53DFfux6UCyzKrHG4KzCUAs0sRiCgk+jioN9HKEeuDOk43uoTlpGHp/eCJGsqQ==
+"@angular-ru/prettier-config@15.304.1":
+  version "15.304.1"
+  resolved "https://registry.npmjs.org/@angular-ru/prettier-config/-/prettier-config-15.304.1.tgz#2124845325f724e08c1598b29f2b18cb96387f25"
+  integrity sha512-yymRO0P/4Mr/z4QnSroOagtQguy8L5eZZveTk2n77N2XNq6kvplcyvVCXUjx4b6M6wT6v/9HcuprFBm83tYcmQ==
   dependencies:
-    prettier "2.3.1"
+    prettier "2.3.2"
 
 "@angular-ru/tsconfig@15.303.0":
   version "15.303.0"
@@ -1874,10 +1874,10 @@
   dependencies:
     "@types/jasmine" "*"
 
-"@types/jest@26.0.23":
-  version "26.0.23"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.23.tgz#a1b7eab3c503b80451d019efb588ec63522ee4e7"
-  integrity sha512-ZHLmWMJ9jJ9PTiT58juykZpL7KjwJywFN3Rr2pTSkyQfydf/rk22yS7W8p5DaVUMQ2BQC7oYiU3FjbTM/mYrOA==
+"@types/jest@26.0.24":
+  version "26.0.24"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
+  integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -6191,10 +6191,10 @@ humanize-url@^1.0.0:
     normalize-url "^1.0.0"
     strip-url-auth "^1.0.0"
 
-husky@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/husky/-/husky-6.0.0.tgz#810f11869adf51604c32ea577edbc377d7f9319e"
-  integrity sha512-SQS2gDTB7tBN486QSoKPKQItZw97BMOd+Kdb6ghfpBc0yXyzrddI0oDV5MkDAbuB4X2mO3/nj60TRMcYxwzZeQ==
+husky@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.npmjs.org/husky/-/husky-7.0.1.tgz#579f4180b5da4520263e8713cc832942b48e1f1c"
+  integrity sha512-gceRaITVZ+cJH9sNHqx5tFwbzlLCVxtVZcusME8JYQ8Edy5mpGDOqD8QBCdMhpyo9a+JXddnujQ4rpY2Ff9SJA==
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
@@ -10268,10 +10268,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
-  integrity sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==
+prettier@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
 
 pretty-bytes@^5.3.0:
   version "5.6.0"
