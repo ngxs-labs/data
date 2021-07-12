@@ -21,7 +21,7 @@
     "devDependencies": {
         "@angular-devkit/build-angular": "12.1.1",
         "@angular-devkit/schematics-cli": "12.1.1",
-        "@angular-ru/build-tools": "15.304.4",
+        "@angular-ru/build-tools": "15.305.2",
         "@angular-ru/common": "15.303.0",
         "@angular-ru/eslint-config": "15.304.6",
         "@angular-ru/jest-utils": "15.304.1",
