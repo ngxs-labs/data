@@ -179,10 +179,10 @@
     sort-package-json "1.50.0"
     ts-node "10.1.0"
 
-"@angular-ru/common@15.305.0":
-  version "15.305.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.305.0.tgz#d4d7d3752a5eff0cb512e4916a08c1f80c8e0520"
-  integrity sha512-dwhxoh+lrZoV6ywK/vebHfxO/VysBpOtkWWHuapvj/3Hfgk0LVi2gPz1evF4/qd2Vcd4K1CTqtKMvstkwcHyHQ==
+"@angular-ru/common@15.305.1":
+  version "15.305.1"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.305.1.tgz#901c9fa956b0d1c00abd0f6998289e9facd0a9f0"
+  integrity sha512-HqO3TAF5JAO2eJfI75GIfbcSWU+CXP/wQfuza6bcQ7HIvTH0aGNo578J/9KXItZNJPBTahiyIuXmeJTVzp6QpQ==
   dependencies:
     tslib "^2.2.0"
 
