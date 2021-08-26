@@ -10,24 +10,24 @@
     "@jridgewell/resolve-uri" "1.0.0"
     sourcemap-codec "1.4.8"
 
-"@angular-devkit/architect@0.1202.2":
-  version "0.1202.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1202.2.tgz#212f07d3edb23cfeab0052fa62ba56b4a96be8e2"
-  integrity sha512-ylceL10SlftuhE4/rNzDeLLTm+e3Wt1PmMvBd4e+Q2bk1E+Ws/scGKpwfnYPzFaACn5kjg5qZoJOkHSprIfNlQ==
+"@angular-devkit/architect@0.1202.3":
+  version "0.1202.3"
+  resolved "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1202.3.tgz#4bc0a8dc7b1c39eb738c7276fb428454faae84ea"
+  integrity sha512-AwLdofKggAiv0hThYe0v3MWOl94XJdJlgq/MXnYU/Ma/IeJDLlRa9WJuajL9AB//x5G+uH06smD3E4Ni8mv2ag==
   dependencies:
-    "@angular-devkit/core" "12.2.2"
+    "@angular-devkit/core" "12.2.3"
     rxjs "6.6.7"
 
-"@angular-devkit/build-angular@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-12.2.2.tgz#0089b9a3a8a5a9d290140e7e6069c0839d8a77cc"
-  integrity sha512-/KBz8YlujmRZwWqk3fjV5S4IWKEfDE6Vhpr2uo1GC6KtdK7/tA9usvm3ZGAFMu3DXn3eJwe2StgUnegPg3gqxA==
+"@angular-devkit/build-angular@12.2.3":
+  version "12.2.3"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-12.2.3.tgz#52981758dd1f11c377ddbd1fa895929425db03e7"
+  integrity sha512-8qqUinwjt4Ud3MXTlME5Sw426Hgj1SFrnLP/iAbgYBFT2WBnGcOVlkxJaWmTj1cmds1H0ubi3gQGtNzPrVVcSw==
   dependencies:
     "@ampproject/remapping" "1.0.1"
-    "@angular-devkit/architect" "0.1202.2"
-    "@angular-devkit/build-optimizer" "0.1202.2"
-    "@angular-devkit/build-webpack" "0.1202.2"
-    "@angular-devkit/core" "12.2.2"
+    "@angular-devkit/architect" "0.1202.3"
+    "@angular-devkit/build-optimizer" "0.1202.3"
+    "@angular-devkit/build-webpack" "0.1202.3"
+    "@angular-devkit/core" "12.2.3"
     "@babel/core" "7.14.8"
     "@babel/generator" "7.14.8"
     "@babel/helper-annotate-as-pure" "7.14.5"
@@ -39,7 +39,7 @@
     "@babel/template" "7.14.5"
     "@discoveryjs/json-ext" "0.5.3"
     "@jsdevtools/coverage-istanbul-loader" "3.0.5"
-    "@ngtools/webpack" "12.2.2"
+    "@ngtools/webpack" "12.2.3"
     ansi-colors "4.1.1"
     babel-loader "8.2.2"
     browserslist "^4.9.1"
@@ -93,34 +93,22 @@
     webpack-merge "5.8.0"
     webpack-subresource-integrity "1.5.2"
 
-"@angular-devkit/build-optimizer@0.1202.2":
-  version "0.1202.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-optimizer/-/build-optimizer-0.1202.2.tgz#301c3410875f6b468c1a4b9be35e3b2825bf6a89"
-  integrity sha512-53CV0mmDV5lmRiuBgX4WuSUta6wzRyFUebZmMaLjSCjXXt6Ca0RaVcVWeojZ8aiuIcFQhn1+WLYL7WmFZ8ICrQ==
+"@angular-devkit/build-optimizer@0.1202.3":
+  version "0.1202.3"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-optimizer/-/build-optimizer-0.1202.3.tgz#e567abbd9810650c01b52ee65e76e98141777bc8"
+  integrity sha512-RdicnNqLzHZhGtDwopjOjc73gI08iYcoksn7x0LLZpOMXFZ9ypucE39m4ktOkKw+IK3IPyhCPa7OpCjiGhjWFg==
   dependencies:
     source-map "0.7.3"
     tslib "2.3.0"
     typescript "4.3.5"
 
-"@angular-devkit/build-webpack@0.1202.2":
-  version "0.1202.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/build-webpack/-/build-webpack-0.1202.2.tgz#669c8154b443c384460271b03b5551851f1d7f33"
-  integrity sha512-UeD2q16UKIFPkFBH2afA8qChSBvjfSEDtov3VjRujXn3l5SXB6OQEFdiI5ga4IgpRE4+kuCKwNWUsiZHQ0ucCw==
+"@angular-devkit/build-webpack@0.1202.3":
+  version "0.1202.3"
+  resolved "https://registry.npmjs.org/@angular-devkit/build-webpack/-/build-webpack-0.1202.3.tgz#d8bbf7b48a7a817a7bf8031e452bc2409028cab3"
+  integrity sha512-2AlDzGTMabFpSt8aBJF6FrBbwMMyRypr3NgFuoI9hLpjKuCF6uflAEGlcidqgn6HS4xWukSAmod7veVN+OqQMQ==
   dependencies:
-    "@angular-devkit/architect" "0.1202.2"
+    "@angular-devkit/architect" "0.1202.3"
     rxjs "6.6.7"
-
-"@angular-devkit/core@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/core/-/core-12.2.2.tgz#48e8f627abf54474b885c75ac8ae48dc076d62cb"
-  integrity sha512-iaPQc0M9FZWvE4MmxRFm5qFNBefvyN7H96pQIIPqT2yalSoiWv1HeQg/OS0WY61lvFPSHnR1n4DZsHCvLdZrFA==
-  dependencies:
-    ajv "8.6.2"
-    ajv-formats "2.1.0"
-    fast-json-stable-stringify "2.1.0"
-    magic-string "0.25.7"
-    rxjs "6.6.7"
-    source-map "0.7.3"
 
 "@angular-devkit/core@12.2.3":
   version "12.2.3"
@@ -134,26 +122,17 @@
     rxjs "6.6.7"
     source-map "0.7.3"
 
-"@angular-devkit/schematics-cli@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-12.2.2.tgz#e436fffa2118d0578b655f8ffdd907490827e7c9"
-  integrity sha512-FRe5d808ZMYxAQ45RDbxVz3EzIIZF/VFsZoOqRfcx7ZydI0oHrIvDSkX9XDz2mMF4QRrNTpy25UcB+HTzikJdQ==
+"@angular-devkit/schematics-cli@12.2.3":
+  version "12.2.3"
+  resolved "https://registry.npmjs.org/@angular-devkit/schematics-cli/-/schematics-cli-12.2.3.tgz#85b7c0850e95ef2816a91720fb988511996726c7"
+  integrity sha512-srIpFxihJLPH+tbIjGTzhgYy8HX1RuCIdYcjSqTeamOskd81z+IpZYlyzpmzOFOllNunGYOGnCM7/4xTQfBgmw==
   dependencies:
-    "@angular-devkit/core" "12.2.2"
-    "@angular-devkit/schematics" "12.2.2"
+    "@angular-devkit/core" "12.2.3"
+    "@angular-devkit/schematics" "12.2.3"
     ansi-colors "4.1.1"
     inquirer "8.1.2"
     minimist "1.2.5"
     symbol-observable "4.0.0"
-
-"@angular-devkit/schematics@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@angular-devkit/schematics/-/schematics-12.2.2.tgz#bfeaddcd161b9491fa30c1f018d0d835a27b8e9a"
-  integrity sha512-KHPxZCSCbVFjaIlBMaxnoA96FnU62HDk8TpWRSnQY2dIkvEUU7+9UmWVodISaQ+MIYur35bFHPJ19im0YkR0tg==
-  dependencies:
-    "@angular-devkit/core" "12.2.2"
-    ora "5.4.1"
-    rxjs "6.6.7"
 
 "@angular-devkit/schematics@12.2.3":
   version "12.2.3"
@@ -208,10 +187,10 @@
     sort-package-json "1.50.0"
     ts-node "10.1.0"
 
-"@angular-ru/common@15.310.0":
-  version "15.310.0"
-  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.310.0.tgz#88e104a0467e094dda9a044c7228fd0cf0c44e40"
-  integrity sha512-6o5uxpo0asdwBLMY/CqD93fJ5rOJHmd2a6FHcUtyDL88vs/NejvOttUf3TTmN9Y+0vpPTUoyrCSIa+gVqUcbaQ==
+"@angular-ru/common@15.311.0":
+  version "15.311.0"
+  resolved "https://registry.npmjs.org/@angular-ru/common/-/common-15.311.0.tgz#b1f5d5eb9cb2a5f52900784a76396e4cc51bc2be"
+  integrity sha512-pXLBmDQTQXItE0/p/HB4eH/++LTFXSKQRpDrbsbRNgiNmiv855X8+v6l3RtiPOVBGVHaRJCCG11ZawrFFiuiow==
   dependencies:
     tslib "^2.2.0"
 
@@ -282,15 +261,15 @@
   optionalDependencies:
     parse5 "^5.0.0"
 
-"@angular/cli@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@angular/cli/-/cli-12.2.2.tgz#8900cf22e946a9be667044ba13856e9b065f85a5"
-  integrity sha512-pk+UR8m0paDb1FaED6122JpN3ky+g4c/ccJx7vHZXnXa0/H76cXNoifxkZiGySjxyQyQxUCOuQwgc2cCaX8OPQ==
+"@angular/cli@12.2.3":
+  version "12.2.3"
+  resolved "https://registry.npmjs.org/@angular/cli/-/cli-12.2.3.tgz#08b3d64ac9c4c4a2355dadcfc46b90494ece455a"
+  integrity sha512-QBudMbLc+m/Z7GZTskeStk8PUAIPYVYRDq+9dQyKmill56t4MdmTU/m8eteVUXWpQFdRwhqIz6L9hlsfJXzP6A==
   dependencies:
-    "@angular-devkit/architect" "0.1202.2"
-    "@angular-devkit/core" "12.2.2"
-    "@angular-devkit/schematics" "12.2.2"
-    "@schematics/angular" "12.2.2"
+    "@angular-devkit/architect" "0.1202.3"
+    "@angular-devkit/core" "12.2.3"
+    "@angular-devkit/schematics" "12.2.3"
+    "@schematics/angular" "12.2.3"
     "@yarnpkg/lockfile" "1.1.0"
     ansi-colors "4.1.1"
     debug "4.3.2"
@@ -1750,10 +1729,10 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
-"@ngtools/webpack@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-12.2.2.tgz#485098f90b88fc28f5b788d69aaa3e9263e405e5"
-  integrity sha512-GmzdsYtnuTDVZlUmWteT752K54JohjeID/o03Tau/BlnBukzh2m817z57bZS1nkSD2cPD51lg9oeRbZTkkd9LA==
+"@ngtools/webpack@12.2.3":
+  version "12.2.3"
+  resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-12.2.3.tgz#5dd8095c3e517c8b3d1fcc5c132dcc93767fcd8e"
+  integrity sha512-Mx8QYCuOlgL0HdX0GDw5I3PLyW/TPJPSrk8VZLW2H5NR1wTHEw6PmqauAnuAMr7npAtOhV4tN9YyeTi8gy6+7A==
 
 "@ngxs/logger-plugin@3.7.2":
   version "3.7.2"
@@ -1896,15 +1875,6 @@
     "@types/estree" "0.0.39"
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
-
-"@schematics/angular@12.2.2":
-  version "12.2.2"
-  resolved "https://registry.npmjs.org/@schematics/angular/-/angular-12.2.2.tgz#3eaa470b1adf639fc17034969298777021930551"
-  integrity sha512-Nqw9rHOTUIzhCxAgj/J1S9C7YLhrsbLbEKJ8gVy6Aakj4jdJBJ9oqPCLnVpP+48k8hSyIZ6TA5X9eVmrUhDDWQ==
-  dependencies:
-    "@angular-devkit/core" "12.2.2"
-    "@angular-devkit/schematics" "12.2.2"
-    jsonc-parser "3.0.0"
 
 "@schematics/angular@12.2.3":
   version "12.2.3"
